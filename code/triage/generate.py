@@ -7,14 +7,16 @@ for a strictly grounded JSON response.
 
 from __future__ import annotations
 
+import json
 import re
 from html import escape
 from textwrap import dedent
 from typing import Any, Literal, Mapping, Sequence
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
+from tenacity import retry, stop_after_attempt, wait_exponential
 
-from .llm import ChatMessage, LLMClient, LLMResponseError
+from .llm import ChatMessage, LLMClient, LLMResponseError, LLMResult
 from .schema import ChunkRecord, RetrievedChunk, Ticket, TrapTag
 
 
@@ -155,15 +157,38 @@ def generate_response(
     ]
 
     llm = client or LLMClient()
-    result = llm.chat_json("openai", messages, temperature=0.0, max_tokens=700)
+    result = _call_generation_llm(llm, tuple(messages))
     try:
-        parsed = GroundedGenerationResult.model_validate(result.parsed_json)
+        parsed = GroundedGenerationResult.model_validate(_parse_generation_payload(result.content))
     except ValidationError as exc:
         raise LLMResponseError(f"Invalid grounded generation JSON: {result.content}") from exc
 
     _validate_citations(parsed, normalized_chunks)
     parsed = _drop_non_verbatim_quote(parsed, normalized_chunks)
     return parsed
+
+
+@retry(wait=wait_exponential(min=1, max=10), stop=stop_after_attempt(3), reraise=True)
+def _call_generation_llm(
+    llm: LLMClient,
+    messages: tuple[ChatMessage, ...],
+) -> LLMResult:
+    """Call OpenAI for generation with outer retry/backoff protection."""
+
+    return llm.chat("openai", messages, temperature=0.0, max_tokens=700, strict_json=False)
+
+
+def _parse_generation_payload(content: str) -> dict[str, Any]:
+    """Parse model JSON, falling back to regex extraction on malformed output."""
+
+    cleaned = _strip_markdown_fences(content)
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        try:
+            return json.loads(_extract_json_object(cleaned))
+        except json.JSONDecodeError:
+            return _regex_generation_fallback(cleaned)
 
 
 def _build_generation_system_prompt(
@@ -209,6 +234,93 @@ def _normalize_trap_tags(trap_tags: Sequence[TrapTag | str] | None) -> set[str]:
         else:
             normalized.add(str(tag).strip().upper())
     return normalized
+
+
+def _strip_markdown_fences(content: str) -> str:
+    text = (content or "").strip().lstrip("\ufeff")
+    match = re.fullmatch(r"```(?:json|JSON)?\s*(.*?)\s*```", text, flags=re.DOTALL)
+    if match:
+        return match.group(1).strip()
+    return text
+
+
+def _extract_json_object(content: str) -> str:
+    match = re.search(r"\{.*\}", content or "", flags=re.DOTALL)
+    if not match:
+        raise json.JSONDecodeError("no JSON object found", content or "", 0)
+    return match.group(0)
+
+
+def _regex_generation_fallback(content: str) -> dict[str, Any]:
+    """Emergency parser for badly malformed model output.
+
+    Some older pipeline notes mention extracting status/justification. Stage 5
+    generation does not emit those final CSV fields, but we still extract them
+    as emergency text sources if a malformed response happens to contain them.
+    """
+
+    status = _extract_json_string(content, "status")
+    justification = _extract_json_string(content, "justification")
+    response = (
+        _extract_json_string(content, "response")
+        or justification
+        or "I cannot answer this based on the provided documents."
+    )
+    request_type = _extract_json_string(content, "request_type") or "invalid"
+    if request_type not in {"product_issue", "feature_request", "bug", "invalid"}:
+        request_type = "invalid"
+    confidence = _extract_json_float(content, "confidence", default=0.0)
+    if status and status.casefold() == "replied" and request_type == "invalid":
+        request_type = "product_issue"
+
+    return {
+        "response": response,
+        "citations": _extract_json_string_list(content, "citations"),
+        "exact_quote": _extract_json_string(content, "exact_quote") or "",
+        "product_area": _extract_json_string(content, "product_area") or "general_support",
+        "request_type": request_type,
+        "confidence": min(1.0, max(0.0, confidence)),
+    }
+
+
+def _extract_json_string(content: str, key: str) -> str:
+    match = re.search(
+        rf'"{re.escape(key)}"\s*:\s*"((?:\\.|[^"\\])*)"',
+        content or "",
+        flags=re.DOTALL,
+    )
+    if not match:
+        return ""
+    try:
+        return json.loads(f'"{match.group(1)}"')
+    except json.JSONDecodeError:
+        return match.group(1).replace(r"\"", '"').strip()
+
+
+def _extract_json_string_list(content: str, key: str) -> list[str]:
+    match = re.search(
+        rf'"{re.escape(key)}"\s*:\s*\[(.*?)\]',
+        content or "",
+        flags=re.DOTALL,
+    )
+    if not match:
+        return []
+    raw_items = re.findall(r'"((?:\\.|[^"\\])*)"', match.group(1))
+    return [
+        item
+        for item in (_extract_json_string(f'{{"value": "{raw}"}}', "value") for raw in raw_items)
+        if item
+    ]
+
+
+def _extract_json_float(content: str, key: str, *, default: float) -> float:
+    match = re.search(rf'"{re.escape(key)}"\s*:\s*([0-9]+(?:\.[0-9]+)?)', content or "")
+    if not match:
+        return default
+    try:
+        return float(match.group(1))
+    except ValueError:
+        return default
 
 
 def _coerce_ticket(ticket: Ticket | Mapping[str, Any]) -> Ticket:
