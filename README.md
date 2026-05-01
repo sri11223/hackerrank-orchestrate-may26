@@ -92,6 +92,9 @@ The retriever builds two in-memory indexes once per run:
 
 - **BM25** for exact keyword, phrase, issuer, heading, and error-code matches.
 - **BGE small dense embeddings** for semantic matches when the user paraphrases.
+- **Cross-encoder rerank** for final query/document pair scoring with sigmoid
+  normalization, using a deterministic sigmoid fallback if the model cannot
+  load in a restricted environment.
 
 BM25 scores are normalized to `0..1`, dense cosine similarities are normalized
 from `-1..1` into `0..1`, and both rankings are combined with **reciprocal rank
@@ -117,6 +120,10 @@ Generation also returns `exact_quote`, a required Pydantic field. The code
 accepts the quote only when it is an exact substring of the retrieved chunks.
 The interactive CLI renders that quote as a source receipt in the final Rich
 panel.
+
+The LLM wrapper also uses a hash-keyed file cache under
+`data/processed/llm_cache` by default. Cache keys include provider, model,
+messages, temperature, token budget, and strict JSON mode.
 
 ## Confidence-Gated Escalation
 
@@ -192,5 +199,7 @@ Package the code zip:
 python package.py
 ```
 
-The package script creates `submission_code.zip` containing `code/` only. It
-excludes `data/`, `support_tickets/`, `traces/`, `.env`, and Python cache files.
+The package script creates `submission_code.zip` containing `code/` only,
+including the judge proof artifacts under `code/traces` and
+`code/support_tickets`. It excludes `data/`, `.env`, local caches, and compiled
+Python files.

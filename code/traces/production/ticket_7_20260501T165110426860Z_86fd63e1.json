@@ -1,0 +1,195 @@
+{
+  "created_at": "2026-05-01T16:51:10.426860Z",
+  "final_decision": {
+    "exact_quote": "Job listings feature has been removed following the deprecation of the Apply tab.",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.84; verifier=pass; product_area_snapped=HackerRank->screen",
+    "product_area": "screen",
+    "request_type": "product_issue",
+    "response": "The Apply tab has been removed following its deprecation, which is why you cannot see it.",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "HackerRank",
+    "Issue": "i can not able to see apply tab\n",
+    "Subject": "I need to practice, submissions not working"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 0.9,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "Job listings feature has been removed following the deprecation of the Apply tab.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.84; verifier=pass",
+        "product_area": "HackerRank",
+        "request_type": "product_issue",
+        "response": "The Apply tab has been removed following its deprecation, which is why you cannot see it.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "Job listings feature has been removed following the deprecation of the Apply tab.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.84; verifier=pass",
+        "product_area": "HackerRank",
+        "request_type": "product_issue",
+        "response": "The Apply tab has been removed following its deprecation, which is why you cannot see it.",
+        "status": "replied"
+      },
+      "threshold": 0.35,
+      "top_score": 0.8364738805970149,
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "hackerrank_00684_a14cd1b4e6"
+            ],
+            "confidence": 0.9,
+            "exact_quote": "Job listings feature has been removed following the deprecation of the Apply tab.",
+            "product_area": "HackerRank",
+            "request_type": "product_issue",
+            "response": "The Apply tab has been removed following its deprecation, which is why you cannot see it."
+          },
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 3296.529,
+            "verify": 1910.143
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "HackerRank",
+      "output_product_area": "screen"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 7,
+          "bm25_score": 0.8266475517252115,
+          "chunk_id": "hackerrank_00787_7243b1d3bf",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.6928781261304234,
+          "dense_rank": 20,
+          "dense_score": 0.8280623555183411,
+          "domain": "hackerrank",
+          "heading_path": "Practice Coding Challenges > Coding Challenges FAQs",
+          "normalized_score": 0.8364738805970149,
+          "rrf_score": 0.027425373134328357,
+          "url_or_file": "https://help.hackerrank.com/articles/1273631973-coding-challenges-faqs"
+        },
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "hackerrank_01243_a494013061",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.49656598806129276,
+          "dense_rank": 52,
+          "dense_score": 0.8223094344139099,
+          "domain": "hackerrank",
+          "heading_path": "Integrations > Applicant Tracking Systems > Teamtailor > Teamtailor - HackerRank Integration: User Guide > Sending a Test Invitation from the Teamtailor > Frequently Asked Questions > What type of license do I need in HackerRank to use the integration?",
+          "normalized_score": 0.7723214285714285,
+          "rrf_score": 0.02532201405152225,
+          "url_or_file": "https://support.hackerrank.com/articles/6599779249-teamtailor---hackerrank-integration%3A-user-guide"
+        },
+        {
+          "bm25_rank": 63,
+          "bm25_score": 0.5523549563501223,
+          "chunk_id": "hackerrank_01242_3e27c1600f",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.18220915557286932,
+          "dense_rank": 33,
+          "dense_score": 0.8244982659816742,
+          "domain": "hackerrank",
+          "heading_path": "Integrations > Applicant Tracking Systems > Teamtailor > Teamtailor - HackerRank Integration: User Guide > Sending a Test Invitation from the Teamtailor > Frequently Asked Questions > I am unable to invite candidates to take a HackerRank test what is the problem?",
+          "normalized_score": 0.5759244689221086,
+          "rrf_score": 0.01888276947285602,
+          "url_or_file": "https://support.hackerrank.com/articles/6599779249-teamtailor---hackerrank-integration%3A-user-guide"
+        },
+        {
+          "bm25_rank": 72,
+          "bm25_score": 0.5246772693631248,
+          "chunk_id": "hackerrank_02087_cd2b1f8c71",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.26938647721457176,
+          "dense_rank": 31,
+          "dense_score": 0.8253421783447266,
+          "domain": "hackerrank",
+          "heading_path": "Screen > Frequently Asked Questions > How can I Try a Question or a Test?",
+          "normalized_score": 0.5662254412254413,
+          "rrf_score": 0.018564768564768568,
+          "url_or_file": "https://support.hackerrank.com/articles/1202456939-how-to-try-a-question-or-a-test"
+        },
+        {
+          "bm25_rank": null,
+          "bm25_score": null,
+          "chunk_id": "hackerrank_00684_a14cd1b4e6",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.3661932272026306,
+          "dense_rank": 1,
+          "dense_score": 0.8460000455379486,
+          "domain": "hackerrank",
+          "heading_path": "Additional Resources > Notification > Where to find Home tab features",
+          "normalized_score": 0.5,
+          "rrf_score": 0.01639344262295082,
+          "url_or_file": "https://help.hackerrank.com/articles/4745765442-notification"
+        }
+      ],
+      "threshold": 0.35,
+      "top_score": 0.8364738805970149
+    },
+    "sanitize": {
+      "company": "HackerRank",
+      "issue": "i can not able to see apply tab",
+      "language": "en",
+      "subject": "I need to practice, submissions not working"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": true,
+      "has_exact_quote": true,
+      "quote_source": "model"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic default: legitimate support question likely answerable from docs.",
+      "tags": [
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 7,
+  "timings_ms": {
+    "confidence_gates": 0.008,
+    "generation": 5206.742,
+    "handler": 0.004,
+    "label_normalization": 0.04,
+    "retrieval": 86.389,
+    "sanitize": 3.722,
+    "semantic_cache": 45.106,
+    "semantic_cache_write": 0.059,
+    "source_receipt": 0.002,
+    "total": 5342.371,
+    "trap_classifier": 0.126
+  },
+  "trace_file": "code\\traces\\production\\ticket_7_20260501T165110426860Z_86fd63e1.json",
+  "trace_id": "7_20260501T165110426860Z_86fd63e1"
+}

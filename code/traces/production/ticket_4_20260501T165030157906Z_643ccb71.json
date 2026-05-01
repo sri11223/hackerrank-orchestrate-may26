@@ -1,0 +1,173 @@
+{
+  "created_at": "2026-05-01T16:50:30.157906Z",
+  "final_decision": {
+    "exact_quote": "",
+    "justification": "[PAYMENT_DISPUTE] Payment disputes require review and cannot be completed by the agent.; top_chunk=hackerrank_00814_0665960741; product_area_snapped=Subscriptions, Payments, and Billing->screen",
+    "product_area": "screen",
+    "request_type": "product_issue",
+    "response": "This looks like a refund, chargeback, duplicate charge, or transaction dispute. I cannot resolve or reverse payments directly, so I am escalating it to human support. Use the dispute-resolution guidance in the retrieved documentation for the next steps. Most relevant retrieved document: Subscriptions, Payments, and Billing > Mock interviews.",
+    "status": "escalated"
+  },
+  "input": {
+    "Company": "HackerRank",
+    "Issue": "My mock interviews stopped in between, please give me the refund asap",
+    "Subject": "Why are my mock interviews not working"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": null,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "",
+        "justification": "[PAYMENT_DISPUTE] Payment disputes require review and cannot be completed by the agent.; top_chunk=hackerrank_00814_0665960741",
+        "product_area": "Subscriptions, Payments, and Billing",
+        "request_type": "product_issue",
+        "response": "This looks like a refund, chargeback, duplicate charge, or transaction dispute. I cannot resolve or reverse payments directly, so I am escalating it to human support. Use the dispute-resolution guidance in the retrieved documentation for the next steps. Most relevant retrieved document: Subscriptions, Payments, and Billing > Mock interviews.",
+        "status": "escalated"
+      },
+      "output": {
+        "exact_quote": "",
+        "justification": "[PAYMENT_DISPUTE] Payment disputes require review and cannot be completed by the agent.; top_chunk=hackerrank_00814_0665960741",
+        "product_area": "Subscriptions, Payments, and Billing",
+        "request_type": "product_issue",
+        "response": "This looks like a refund, chargeback, duplicate charge, or transaction dispute. I cannot resolve or reverse payments directly, so I am escalating it to human support. Use the dispute-resolution guidance in the retrieved documentation for the next steps. Most relevant retrieved document: Subscriptions, Payments, and Billing > Mock interviews.",
+        "status": "escalated"
+      },
+      "threshold": 0.35,
+      "top_score": 0.9919354838709679,
+      "verifier_safe": null
+    },
+    "handler": {
+      "decision": {
+        "exact_quote": "",
+        "justification": "[PAYMENT_DISPUTE] Payment disputes require review and cannot be completed by the agent.; top_chunk=hackerrank_00814_0665960741",
+        "product_area": "Subscriptions, Payments, and Billing",
+        "request_type": "product_issue",
+        "response": "This looks like a refund, chargeback, duplicate charge, or transaction dispute. I cannot resolve or reverse payments directly, so I am escalating it to human support. Use the dispute-resolution guidance in the retrieved documentation for the next steps. Most relevant retrieved document: Subscriptions, Payments, and Billing > Mock interviews.",
+        "status": "escalated"
+      },
+      "mode": "deterministic"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Subscriptions, Payments, and Billing",
+      "output_product_area": "screen"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "hackerrank_00814_0665960741",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.6151432445156928,
+          "dense_rank": 2,
+          "dense_score": 0.8847455978393555,
+          "domain": "hackerrank",
+          "heading_path": "Subscriptions, Payments, and Billing > Mock interviews",
+          "normalized_score": 0.9919354838709679,
+          "rrf_score": 0.03252247488101534,
+          "url_or_file": "https://help.hackerrank.com/articles/9157064719-payments-and-billing-faqs"
+        },
+        {
+          "bm25_rank": 2,
+          "bm25_score": 0.9163311134669873,
+          "chunk_id": "hackerrank_00798_7abe213a16",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.492647588833994,
+          "dense_rank": 1,
+          "dense_score": 0.8898617923259735,
+          "domain": "hackerrank",
+          "heading_path": "Subscriptions, Payments, and Billing > Purchase Mock Interview Credits > Refund policy",
+          "normalized_score": 0.9919354838709679,
+          "rrf_score": 0.03252247488101534,
+          "url_or_file": "https://help.hackerrank.com/articles/3282259518-purchase-mock-interviews"
+        },
+        {
+          "bm25_rank": 4,
+          "bm25_score": 0.8757358293515525,
+          "chunk_id": "hackerrank_00747_784217d91d",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.3692829678751619,
+          "dense_rank": 17,
+          "dense_score": 0.84357550740242,
+          "domain": "hackerrank",
+          "heading_path": "Mock Interviews > Viewing previous attempts",
+          "normalized_score": 0.8726663961038961,
+          "rrf_score": 0.028612012987012988,
+          "url_or_file": "https://help.hackerrank.com/articles/5174727491-behavioural-mock-interview"
+        },
+        {
+          "bm25_rank": 6,
+          "bm25_score": 0.8696805008526957,
+          "chunk_id": "hackerrank_00783_1f680cf6a3",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.36749313749922585,
+          "dense_rank": 16,
+          "dense_score": 0.8439174890518188,
+          "domain": "hackerrank",
+          "heading_path": "Mock Interviews > Viewing previous attempts",
+          "normalized_score": 0.8634370015948962,
+          "rrf_score": 0.028309409888357256,
+          "url_or_file": "https://help.hackerrank.com/articles/8813699799-take-a-system-design-mock-interview"
+        },
+        {
+          "bm25_rank": 3,
+          "bm25_score": 0.8757358293515525,
+          "chunk_id": "hackerrank_00771_175e1d0db8",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.3692829678751619,
+          "dense_rank": 21,
+          "dense_score": 0.841589629650116,
+          "domain": "hackerrank",
+          "heading_path": "Mock Interviews > Viewing previous attempts",
+          "normalized_score": 0.8606701940035273,
+          "rrf_score": 0.02821869488536155,
+          "url_or_file": "https://help.hackerrank.com/articles/6795045456-coding-mock-interview"
+        }
+      ],
+      "threshold": 0.35,
+      "top_score": 0.9919354838709679
+    },
+    "sanitize": {
+      "company": "HackerRank",
+      "issue": "My mock interviews stopped in between, please give me the refund asap",
+      "language": "en",
+      "subject": "Why are my mock interviews not working"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": false,
+      "has_exact_quote": false,
+      "quote_source": "none"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic high-confidence trap rule matched ticket wording.",
+      "tags": [
+        "PAYMENT_DISPUTE",
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 4,
+  "timings_ms": {
+    "confidence_gates": 0.025,
+    "handler": 0.179,
+    "label_normalization": 0.609,
+    "retrieval": 122.342,
+    "sanitize": 10.06,
+    "semantic_cache": 68.161,
+    "semantic_cache_write": 0.119,
+    "source_receipt": 0.006,
+    "total": 202.044,
+    "trap_classifier": 0.336
+  },
+  "trace_file": "code\\traces\\production\\ticket_4_20260501T165030157906Z_643ccb71.json",
+  "trace_id": "4_20260501T165030157906Z_643ccb71"
+}

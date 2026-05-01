@@ -1,0 +1,176 @@
+{
+  "created_at": "2026-05-01T16:54:12.410182Z",
+  "final_decision": {
+    "exact_quote": "My identity has been stolen – what should I do?",
+    "justification": "[IDENTITY_FRAUD] Identity/fraud ticket matched documented emergency contact guidance.; top_chunk=visa_06135_34f406e4e3; product_area_snapped=Get support->general_support",
+    "product_area": "general_support",
+    "request_type": "product_issue",
+    "response": "This looks like a lost-card, stolen-card, or fraud-related identity issue. Use the emergency contact guidance from the retrieved Visa documentation. Relevant phone numbers found in the docs: +1 303 967 1090. I cannot block a card, open a dispute, or contact an issuer for you, but you should use the documented emergency contact path immediately. Most relevant retrieved document: Get support > FAQ > My identity has been stolen – what should I do?.",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "Visa",
+    "Issue": "My Visa card was stolen. Also, how do I write a Python script for a binary tree?",
+    "Request Type": "product_issue",
+    "Response": "",
+    "Status": "Open",
+    "Subject": "Stolen card plus unrelated coding ask"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": null,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "My identity has been stolen – what should I do?",
+        "justification": "[IDENTITY_FRAUD] Identity/fraud ticket matched documented emergency contact guidance.; top_chunk=visa_06135_34f406e4e3",
+        "product_area": "Get support",
+        "request_type": "product_issue",
+        "response": "This looks like a lost-card, stolen-card, or fraud-related identity issue. Use the emergency contact guidance from the retrieved Visa documentation. Relevant phone numbers found in the docs: +1 303 967 1090. I cannot block a card, open a dispute, or contact an issuer for you, but you should use the documented emergency contact path immediately. Most relevant retrieved document: Get support > FAQ > My identity has been stolen – what should I do?.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "My identity has been stolen – what should I do?",
+        "justification": "[IDENTITY_FRAUD] Identity/fraud ticket matched documented emergency contact guidance.; top_chunk=visa_06135_34f406e4e3",
+        "product_area": "Get support",
+        "request_type": "product_issue",
+        "response": "This looks like a lost-card, stolen-card, or fraud-related identity issue. Use the emergency contact guidance from the retrieved Visa documentation. Relevant phone numbers found in the docs: +1 303 967 1090. I cannot block a card, open a dispute, or contact an issuer for you, but you should use the documented emergency contact path immediately. Most relevant retrieved document: Get support > FAQ > My identity has been stolen – what should I do?.",
+        "status": "replied"
+      },
+      "threshold": 0.35,
+      "top_score": 0.9919354838709679,
+      "verifier_safe": null
+    },
+    "handler": {
+      "decision": {
+        "exact_quote": "My identity has been stolen – what should I do?",
+        "justification": "[IDENTITY_FRAUD] Identity/fraud ticket matched documented emergency contact guidance.; top_chunk=visa_06135_34f406e4e3",
+        "product_area": "Get support",
+        "request_type": "product_issue",
+        "response": "This looks like a lost-card, stolen-card, or fraud-related identity issue. Use the emergency contact guidance from the retrieved Visa documentation. Relevant phone numbers found in the docs: +1 303 967 1090. I cannot block a card, open a dispute, or contact an issuer for you, but you should use the documented emergency contact path immediately. Most relevant retrieved document: Get support > FAQ > My identity has been stolen – what should I do?.",
+        "status": "replied"
+      },
+      "mode": "deterministic"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Get support",
+      "output_product_area": "general_support"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "visa_06135_34f406e4e3",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.48106965896203124,
+          "dense_rank": 2,
+          "dense_score": 0.8711004853248596,
+          "domain": "visa",
+          "heading_path": "Get support > FAQ > My identity has been stolen – what should I do?",
+          "normalized_score": 0.9919354838709679,
+          "rrf_score": 0.03252247488101534,
+          "url_or_file": "https://www.visa.co.in/support.html"
+        },
+        {
+          "bm25_rank": 2,
+          "bm25_score": 0.9134918053082332,
+          "chunk_id": "visa_06131_e63b873fa7",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.37754066879814546,
+          "dense_rank": 1,
+          "dense_score": 0.8777598142623901,
+          "domain": "visa",
+          "heading_path": "Get support > FAQ > What should I do if my Visa card has been lost or stolen?",
+          "normalized_score": 0.9919354838709679,
+          "rrf_score": 0.03252247488101534,
+          "url_or_file": "https://www.visa.co.in/support.html"
+        },
+        {
+          "bm25_rank": 11,
+          "bm25_score": 0.4604415113602782,
+          "chunk_id": "visa_06167_515e34fe17",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.23037420326177577,
+          "dense_rank": 4,
+          "dense_score": 0.8468053340911865,
+          "domain": "visa",
+          "heading_path": "Support > Consumer > Discover the magic of travel with Laufey > Travel tips for every stage of your journey > Know the emergency numbers for lost or stolen cards",
+          "normalized_score": 0.9061399647887324,
+          "rrf_score": 0.029709507042253523,
+          "url_or_file": "https://www.visa.co.in/support/consumer/travel-support.html"
+        },
+        {
+          "bm25_rank": 16,
+          "bm25_score": 0.43122273881084616,
+          "chunk_id": "visa_06178_fb96e89ddf",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.2820243439329539,
+          "dense_rank": 5,
+          "dense_score": 0.8396357893943787,
+          "domain": "visa",
+          "heading_path": "Support > Consumer > Discover the magic of travel with Laufey > Lost your Visa card? Call +1 303 967 1090 from anywhere in the world.",
+          "normalized_score": 0.8705465587044534,
+          "rrf_score": 0.02854251012145749,
+          "url_or_file": "https://www.visa.co.in/support/consumer/travel-support.html"
+        },
+        {
+          "bm25_rank": 19,
+          "bm25_score": 0.39655591969547643,
+          "chunk_id": "visa_06165_5130b0b12e",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.29414226993638964,
+          "dense_rank": 3,
+          "dense_score": 0.8471342325210571,
+          "domain": "visa",
+          "heading_path": "Support > Consumer > Discover the magic of travel with Laufey > Travel tips for every stage of your journey > Make a copy of everything in your wallet",
+          "normalized_score": 0.8702029334940726,
+          "rrf_score": 0.028531243721117136,
+          "url_or_file": "https://www.visa.co.in/support/consumer/travel-support.html"
+        }
+      ],
+      "threshold": 0.35,
+      "top_score": 0.9919354838709679
+    },
+    "sanitize": {
+      "company": "Visa",
+      "issue": "My Visa card was stolen. Also, how do I write a Python script for a binary tree?",
+      "language": "en",
+      "subject": "Stolen card plus unrelated coding ask"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": true,
+      "has_exact_quote": true,
+      "quote_source": "model"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic high-confidence trap rule matched ticket wording.",
+      "tags": [
+        "IDENTITY_FRAUD",
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 2,
+  "timings_ms": {
+    "confidence_gates": 0.017,
+    "handler": 0.655,
+    "label_normalization": 0.257,
+    "retrieval": 107.732,
+    "sanitize": 10.698,
+    "semantic_cache": 95.985,
+    "semantic_cache_write": 0.139,
+    "source_receipt": 0.008,
+    "total": 216.336,
+    "trap_classifier": 0.571
+  },
+  "trace_file": "code\\traces\\crucible\\ticket_2_20260501T165412410182Z_9bf1de31.json",
+  "trace_id": "2_20260501T165412410182Z_9bf1de31"
+}

@@ -14,6 +14,7 @@ EXCLUDED_DIR_NAMES = {
     ".pytest_cache",
     ".mypy_cache",
     ".ruff_cache",
+    ".llm_cache",
     "data",
 }
 EXCLUDED_FILE_NAMES = {".env"}

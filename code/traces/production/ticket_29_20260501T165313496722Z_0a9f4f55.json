@@ -1,0 +1,195 @@
+{
+  "created_at": "2026-05-01T16:53:13.496722Z",
+  "final_decision": {
+    "exact_quote": "In general, a merchant is not permitted to establish a minimum or maximum amount for a Visa transaction.",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass; product_area_snapped=Visa->travel_support; exact_quote_source=deterministic_fallback",
+    "product_area": "travel_support",
+    "request_type": "product_issue",
+    "response": "In the USA and US territories, like the US Virgin Islands, a merchant may require a minimum transaction amount of US$10 for credit cards. This is an exception to the general rule that merchants cannot establish a minimum or maximum amount for Visa transactions.",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "Visa",
+    "Issue": "i am in US Virgin Islands and the merchant is saying i have to spend minimum 10$ on my VISA card, why so?",
+    "Subject": "Visa card minimum spend"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 0.9,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass",
+        "product_area": "Visa",
+        "request_type": "product_issue",
+        "response": "In the USA and US territories, like the US Virgin Islands, a merchant may require a minimum transaction amount of US$10 for credit cards. This is an exception to the general rule that merchants cannot establish a minimum or maximum amount for Visa transactions.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass",
+        "product_area": "Visa",
+        "request_type": "product_issue",
+        "response": "In the USA and US territories, like the US Virgin Islands, a merchant may require a minimum transaction amount of US$10 for credit cards. This is an exception to the general rule that merchants cannot establish a minimum or maximum amount for Visa transactions.",
+        "status": "replied"
+      },
+      "threshold": 0.35,
+      "top_score": 1.0,
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "visa_06145_bfb0bffdbb"
+            ],
+            "confidence": 0.9,
+            "exact_quote": "",
+            "product_area": "Visa",
+            "request_type": "product_issue",
+            "response": "In the USA and US territories, like the US Virgin Islands, a merchant may require a minimum transaction amount of US$10 for credit cards. This is an exception to the general rule that merchants cannot establish a minimum or maximum amount for Visa transactions."
+          },
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 4211.283,
+            "verify": 1903.918
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Visa",
+      "output_product_area": "travel_support"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "visa_06145_bfb0bffdbb",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.9048693723254155,
+          "dense_rank": 1,
+          "dense_score": 0.900311291217804,
+          "domain": "visa",
+          "heading_path": "Get support > FAQ > Can a merchant set a maximum or minimum limit for using my Visa card?",
+          "normalized_score": 1.0,
+          "rrf_score": 0.03278688524590164,
+          "url_or_file": "https://www.visa.co.in/support.html"
+        },
+        {
+          "bm25_rank": 2,
+          "bm25_score": 0.5414200956000574,
+          "chunk_id": "visa_06144_e050264cb1",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.2946155829403403,
+          "dense_rank": 2,
+          "dense_score": 0.8436287045478821,
+          "domain": "visa",
+          "heading_path": "Get support > FAQ > I have concerns about a place where I used my Visa card. What should I do?",
+          "normalized_score": 0.9838709677419354,
+          "rrf_score": 0.03225806451612903,
+          "url_or_file": "https://www.visa.co.in/support.html"
+        },
+        {
+          "bm25_rank": 5,
+          "bm25_score": 0.48021844311842216,
+          "chunk_id": "visa_06130_e69bd4a674",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.5467254460710091,
+          "dense_rank": 9,
+          "dense_score": 0.8244714736938477,
+          "domain": "visa",
+          "heading_path": "Get support > FAQ > Why was my card declined?",
+          "normalized_score": 0.9112597547380157,
+          "rrf_score": 0.029877369007803793,
+          "url_or_file": "https://www.visa.co.in/support.html"
+        },
+        {
+          "bm25_rank": 10,
+          "bm25_score": 0.33876196807411724,
+          "chunk_id": "visa_06129_dfecc78adc",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.3351947111663019,
+          "dense_rank": 5,
+          "dense_score": 0.8305952548980713,
+          "domain": "visa",
+          "heading_path": "Get support > FAQ > How do I dispute a charge?",
+          "normalized_score": 0.9049450549450548,
+          "rrf_score": 0.02967032967032967,
+          "url_or_file": "https://www.visa.co.in/support.html"
+        },
+        {
+          "bm25_rank": 24,
+          "bm25_score": 0.2633327017322234,
+          "chunk_id": "visa_06170_e0baaa4fce",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.33297000397288906,
+          "dense_rank": 3,
+          "dense_score": 0.8360960483551025,
+          "domain": "visa",
+          "heading_path": "Support > Consumer > Discover the magic of travel with Laufey > If you’re going to China > Use your Visa payment card for extra peace of mind",
+          "normalized_score": 0.8472222222222221,
+          "rrf_score": 0.027777777777777776,
+          "url_or_file": "https://www.visa.co.in/support/consumer/travel-support.html"
+        }
+      ],
+      "threshold": 0.35,
+      "top_score": 1.0
+    },
+    "sanitize": {
+      "company": "Visa",
+      "issue": "i am in US Virgin Islands and the merchant is saying i have to spend minimum 10$ on my VISA card, why so?",
+      "language": "en",
+      "subject": "Visa card minimum spend"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": false,
+      "has_exact_quote": true,
+      "quote_source": "deterministic_fallback"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic default: legitimate support question likely answerable from docs.",
+      "tags": [
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 29,
+  "timings_ms": {
+    "confidence_gates": 0.03,
+    "generation": 6115.367,
+    "handler": 0.004,
+    "label_normalization": 0.128,
+    "retrieval": 68.49,
+    "sanitize": 7.032,
+    "semantic_cache": 54.692,
+    "semantic_cache_write": 0.144,
+    "source_receipt": 1.326,
+    "total": 6247.807,
+    "trap_classifier": 0.127
+  },
+  "trace_file": "code\\traces\\production\\ticket_29_20260501T165313496722Z_0a9f4f55.json",
+  "trace_id": "29_20260501T165313496722Z_0a9f4f55"
+}

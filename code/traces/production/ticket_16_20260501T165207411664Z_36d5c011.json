@@ -1,0 +1,224 @@
+{
+  "created_at": "2026-05-01T16:52:07.411664Z",
+  "final_decision": {
+    "exact_quote": "Visit our Lost or Stolen card page – if the identity theft involves your Visa card – to learn how to cancel your card or get an emergency replacement card.",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass; product_area_snapped=Visa->travel_support",
+    "product_area": "travel_support",
+    "request_type": "product_issue",
+    "response": "If your identity has been stolen, you should visit the Lost or Stolen card page to learn how to cancel your card or get an emergency replacement card if the theft involves your Visa card.",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "Visa",
+    "Issue": "My identity has been stolen, wat should I do",
+    "Subject": "Identity Theft"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 0.9,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "Visit our Lost or Stolen card page – if the identity theft involves your Visa card – to learn how to cancel your card or get an emergency replacement card.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass",
+        "product_area": "Visa",
+        "request_type": "product_issue",
+        "response": "If your identity has been stolen, you should visit the Lost or Stolen card page to learn how to cancel your card or get an emergency replacement card if the theft involves your Visa card.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "Visit our Lost or Stolen card page – if the identity theft involves your Visa card – to learn how to cancel your card or get an emergency replacement card.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass",
+        "product_area": "Visa",
+        "request_type": "product_issue",
+        "response": "If your identity has been stolen, you should visit the Lost or Stolen card page to learn how to cancel your card or get an emergency replacement card if the theft involves your Visa card.",
+        "status": "replied"
+      },
+      "threshold": 0.35,
+      "top_score": 1.0,
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "visa_06135_34f406e4e3"
+            ],
+            "confidence": 1.0,
+            "exact_quote": "Visit our Lost or Stolen card page – if the identity theft involves your Visa card – to learn how to cancel your card or get an emergency replacement card.",
+            "product_area": "Visa",
+            "request_type": "product_issue",
+            "response": "Visit our Lost or Stolen card page – if the identity theft involves your Visa card – to learn how to cancel your card or get an emergency replacement card."
+          },
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 3893.666,
+            "verify": 2629.3
+          },
+          "verifier": {
+            "issues": [
+              "The draft response directly copies a quote from the source document without providing additional context or guidance, which may not fully address the user's issue regarding identity theft."
+            ],
+            "recommended_action": "rewrite",
+            "safe": false
+          }
+        },
+        {
+          "attempt": 2,
+          "critique": [
+            "The draft response directly copies a quote from the source document without providing additional context or guidance, which may not fully address the user's issue regarding identity theft."
+          ],
+          "generation": {
+            "citations": [
+              "visa_06135_34f406e4e3"
+            ],
+            "confidence": 0.9,
+            "exact_quote": "Visit our Lost or Stolen card page – if the identity theft involves your Visa card – to learn how to cancel your card or get an emergency replacement card.",
+            "product_area": "Visa",
+            "request_type": "product_issue",
+            "response": "If your identity has been stolen, you should visit the Lost or Stolen card page to learn how to cancel your card or get an emergency replacement card if the theft involves your Visa card."
+          },
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 4299.224,
+            "verify": 3046.645
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Visa",
+      "output_product_area": "travel_support"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "visa_06135_34f406e4e3",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.9690952959712843,
+          "dense_rank": 1,
+          "dense_score": 0.9184466004371643,
+          "domain": "visa",
+          "heading_path": "Get support > FAQ > My identity has been stolen – what should I do?",
+          "normalized_score": 1.0,
+          "rrf_score": 0.03278688524590164,
+          "url_or_file": "https://www.visa.co.in/support.html"
+        },
+        {
+          "bm25_rank": 2,
+          "bm25_score": 0.5211116290606169,
+          "chunk_id": "visa_06131_e63b873fa7",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.8842526814109777,
+          "dense_rank": 2,
+          "dense_score": 0.8603909015655518,
+          "domain": "visa",
+          "heading_path": "Get support > FAQ > What should I do if my Visa card has been lost or stolen?",
+          "normalized_score": 0.9838709677419354,
+          "rrf_score": 0.03225806451612903,
+          "url_or_file": "https://www.visa.co.in/support.html"
+        },
+        {
+          "bm25_rank": 8,
+          "bm25_score": 0.1785532845892999,
+          "chunk_id": "visa_06218_942f0e49fd",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.2517174000434781,
+          "dense_rank": 3,
+          "dense_score": 0.8442139029502869,
+          "domain": "visa",
+          "heading_path": "Support > Small Business > Suspect you’ve been compromised? > Has your data been compromised?",
+          "normalized_score": 0.9326563958916899,
+          "rrf_score": 0.03057889822595705,
+          "url_or_file": "https://www.visa.co.in/support/small-business/data-security.html"
+        },
+        {
+          "bm25_rank": 4,
+          "bm25_score": 0.32575419170427555,
+          "chunk_id": "visa_06138_d13823e9f3",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.6607563687658171,
+          "dense_rank": 14,
+          "dense_score": 0.8154569864273071,
+          "domain": "visa",
+          "heading_path": "Get support > FAQ > I’m travelling and my card has been damaged.",
+          "normalized_score": 0.8887246621621622,
+          "rrf_score": 0.029138513513513514,
+          "url_or_file": "https://www.visa.co.in/support.html"
+        },
+        {
+          "bm25_rank": 14,
+          "bm25_score": 0.10730488598969844,
+          "chunk_id": "visa_06185_f0e5c0120f",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.22986194363983403,
+          "dense_rank": 5,
+          "dense_score": 0.8329281806945801,
+          "domain": "visa",
+          "heading_path": "Support > Consumer > Visa Traveller's Cheques > Report a lost cheque",
+          "normalized_score": 0.8813929313929314,
+          "rrf_score": 0.0288981288981289,
+          "url_or_file": "https://www.visa.co.in/support/consumer/travelers-cheques.html"
+        }
+      ],
+      "threshold": 0.35,
+      "top_score": 1.0
+    },
+    "sanitize": {
+      "company": "Visa",
+      "issue": "My identity has been stolen, wat should I do",
+      "language": "en",
+      "subject": "Identity Theft"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": true,
+      "has_exact_quote": true,
+      "quote_source": "model"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic default: legitimate support question likely answerable from docs.",
+      "tags": [
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 16,
+  "timings_ms": {
+    "confidence_gates": 0.056,
+    "generation": 13869.405,
+    "handler": 0.007,
+    "label_normalization": 0.333,
+    "retrieval": 124.228,
+    "sanitize": 30.955,
+    "semantic_cache": 115.706,
+    "semantic_cache_write": 0.325,
+    "source_receipt": 0.008,
+    "total": 14141.987,
+    "trap_classifier": 0.291
+  },
+  "trace_file": "code\\traces\\production\\ticket_16_20260501T165207411664Z_36d5c011.json",
+  "trace_id": "16_20260501T165207411664Z_36d5c011"
+}

@@ -27,6 +27,7 @@ from .verify import VerificationResult, verify_response
 
 
 RETRIEVAL_CONFIDENCE_THRESHOLD = 0.35
+GENERATION_CONFIDENCE_THRESHOLD = 0.25
 DEFAULT_TRACES_DIR = REPO_ROOT / "traces"
 SAMPLE_LABELS_CSV = REPO_ROOT / "support_tickets" / "sample_support_tickets.csv"
 FALLBACK_PRODUCT_AREAS = (
@@ -103,6 +104,7 @@ def process_ticket(
 
     generation: GroundedGenerationResult | None = None
     verifier: VerificationResult | None = None
+    generation_confidence: float | None = None
     stage_started = time.perf_counter()
     handler_decision = dispatch_trap_handler(ticket, trap_result, chunks)
 
@@ -122,6 +124,7 @@ def process_ticket(
         )
         _record_stage(trace, "generation", stage_started, generation_trace)
         generation_tag = _generation_tag(trap_result)
+        generation_confidence = generation.confidence
 
         final_decision = TriageDecision(
             status="replied",
@@ -141,6 +144,7 @@ def process_ticket(
         decision=final_decision,
         top_score=top_score,
         verifier=verifier,
+        generation_confidence=generation_confidence,
     )
     _record_stage(trace, "confidence_gates", stage_started, {
         "input": pre_gate_decision.model_dump(),
@@ -148,6 +152,8 @@ def process_ticket(
         "top_score": top_score,
         "threshold": RETRIEVAL_CONFIDENCE_THRESHOLD,
         "verifier_safe": None if verifier is None else verifier.safe,
+        "generation_confidence": generation_confidence,
+        "generation_confidence_threshold": GENERATION_CONFIDENCE_THRESHOLD,
     })
 
     stage_started = time.perf_counter()
@@ -219,12 +225,15 @@ def _apply_confidence_gates(
     decision: TriageDecision,
     top_score: float,
     verifier: VerificationResult | None,
+    generation_confidence: float | None,
 ) -> TriageDecision:
     reasons: list[str] = []
     if top_score < RETRIEVAL_CONFIDENCE_THRESHOLD:
         reasons.append(f"retrieval_score={top_score:.2f}<0.35")
     if verifier is not None and not verifier.safe:
         reasons.append("verifier=fail")
+    if generation_confidence is not None and generation_confidence < GENERATION_CONFIDENCE_THRESHOLD:
+        reasons.append(f"generation_confidence={generation_confidence:.2f}<0.25")
 
     if not reasons:
         return decision
@@ -524,6 +533,8 @@ def _chunk_trace(chunk: RetrievedChunk) -> dict[str, Any]:
         "bm25_score": chunk.bm25_score,
         "dense_rank": chunk.dense_rank,
         "dense_score": chunk.dense_score,
+        "cross_encoder_rank": chunk.cross_encoder_rank,
+        "cross_encoder_score": chunk.cross_encoder_score,
     }
 
 

@@ -1,0 +1,173 @@
+{
+  "created_at": "2026-05-01T16:53:13.334956Z",
+  "final_decision": {
+    "exact_quote": "",
+    "justification": "[ADMIN_ACTION] Administrative changes depend on authenticated permissions.; top_chunk=claude_03641_b7207920f4; product_area_snapped=Claude for Education->general_support",
+    "product_area": "general_support",
+    "request_type": "product_issue",
+    "response": "This is an administrative or permissioned account-management request. Use the retrieved admin documentation if you have the required role; otherwise I am escalating because support needs to verify permissions before account changes.",
+    "status": "escalated"
+  },
+  "input": {
+    "Company": "Claude",
+    "Issue": "i am a professor in a college and wanted to setup a claude lti key for my students",
+    "Subject": "Claude for students"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": null,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "",
+        "justification": "[ADMIN_ACTION] Administrative changes depend on authenticated permissions.; top_chunk=claude_03641_b7207920f4",
+        "product_area": "Claude for Education",
+        "request_type": "product_issue",
+        "response": "This is an administrative or permissioned account-management request. Use the retrieved admin documentation if you have the required role; otherwise I am escalating because support needs to verify permissions before account changes.",
+        "status": "escalated"
+      },
+      "output": {
+        "exact_quote": "",
+        "justification": "[ADMIN_ACTION] Administrative changes depend on authenticated permissions.; top_chunk=claude_03641_b7207920f4",
+        "product_area": "Claude for Education",
+        "request_type": "product_issue",
+        "response": "This is an administrative or permissioned account-management request. Use the retrieved admin documentation if you have the required role; otherwise I am escalating because support needs to verify permissions before account changes.",
+        "status": "escalated"
+      },
+      "threshold": 0.35,
+      "top_score": 0.9838709677419354,
+      "verifier_safe": null
+    },
+    "handler": {
+      "decision": {
+        "exact_quote": "",
+        "justification": "[ADMIN_ACTION] Administrative changes depend on authenticated permissions.; top_chunk=claude_03641_b7207920f4",
+        "product_area": "Claude for Education",
+        "request_type": "product_issue",
+        "response": "This is an administrative or permissioned account-management request. Use the retrieved admin documentation if you have the required role; otherwise I am escalating because support needs to verify permissions before account changes.",
+        "status": "escalated"
+      },
+      "mode": "deterministic"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Claude for Education",
+      "output_product_area": "general_support"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 2,
+          "bm25_score": 0.892713840298237,
+          "chunk_id": "claude_03641_b7207920f4",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.6262822924523553,
+          "dense_rank": 2,
+          "dense_score": 0.9045612215995789,
+          "domain": "claude",
+          "heading_path": "Claude for Education > Set up the Claude LTI in Canvas by Instructure > Creating Claude LTI Developer Key in Canvas",
+          "normalized_score": 0.9838709677419354,
+          "rrf_score": 0.03225806451612903,
+          "url_or_file": "https://support.claude.com/en/articles/11725453-set-up-the-claude-lti-in-canvas-by-instructure"
+        },
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "claude_03627_d307901097",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.6916527519615889,
+          "dense_rank": 6,
+          "dense_score": 0.8839036524295807,
+          "domain": "claude",
+          "heading_path": "Claude for Education > FAQs on Using Claude for Education at Your University > What Can I Use Claude for as a Student?",
+          "normalized_score": 0.9621212121212123,
+          "rrf_score": 0.031544957774465976,
+          "url_or_file": "https://support.claude.com/en/articles/11139144-faqs-on-using-claude-for-education-at-your-university"
+        },
+        {
+          "bm25_rank": 4,
+          "bm25_score": 0.8467056787986466,
+          "chunk_id": "claude_03642_c2ddfbda0c",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.5560468932979736,
+          "dense_rank": 5,
+          "dense_score": 0.8926283717155457,
+          "domain": "claude",
+          "heading_path": "Claude for Education > Set up the Claude LTI in Canvas by Instructure > Installing Claude LTI as an App",
+          "normalized_score": 0.9457932692307692,
+          "rrf_score": 0.031009615384615385,
+          "url_or_file": "https://support.claude.com/en/articles/11725453-set-up-the-claude-lti-in-canvas-by-instructure"
+        },
+        {
+          "bm25_rank": 9,
+          "bm25_score": 0.7245932050245836,
+          "chunk_id": "claude_05317_4d4d291753",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.492647588833994,
+          "dense_rank": 4,
+          "dense_score": 0.8990206122398376,
+          "domain": "claude",
+          "heading_path": "Claude Help Center > Claude for Education",
+          "normalized_score": 0.9185914855072463,
+          "rrf_score": 0.030117753623188408,
+          "url_or_file": "index.md"
+        },
+        {
+          "bm25_rank": 5,
+          "bm25_score": 0.7858691375014951,
+          "chunk_id": "claude_03640_6ae0abab04",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.4794233926160762,
+          "dense_rank": 8,
+          "dense_score": 0.8815140128135681,
+          "domain": "claude",
+          "heading_path": "Claude for Education > Set up the Claude LTI in Canvas by Instructure",
+          "normalized_score": 0.9177601809954751,
+          "rrf_score": 0.030090497737556562,
+          "url_or_file": "https://support.claude.com/en/articles/11725453-set-up-the-claude-lti-in-canvas-by-instructure"
+        }
+      ],
+      "threshold": 0.35,
+      "top_score": 0.9838709677419354
+    },
+    "sanitize": {
+      "company": "Claude",
+      "issue": "i am a professor in a college and wanted to setup a claude lti key for my students",
+      "language": "en",
+      "subject": "Claude for students"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": false,
+      "has_exact_quote": false,
+      "quote_source": "none"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic high-confidence trap rule matched ticket wording.",
+      "tags": [
+        "ADMIN_ACTION",
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 28,
+  "timings_ms": {
+    "confidence_gates": 0.006,
+    "handler": 0.074,
+    "label_normalization": 0.206,
+    "retrieval": 94.838,
+    "sanitize": 11.111,
+    "semantic_cache": 53.52,
+    "semantic_cache_write": 0.043,
+    "source_receipt": 0.002,
+    "total": 160.109,
+    "trap_classifier": 0.175
+  },
+  "trace_file": "code\\traces\\production\\ticket_28_20260501T165313334956Z_771751e9.json",
+  "trace_id": "28_20260501T165313334956Z_771751e9"
+}

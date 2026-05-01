@@ -1,0 +1,193 @@
+{
+  "created_at": "2026-05-01T16:52:21.560783Z",
+  "final_decision": {
+    "exact_quote": "",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass; hard_override=generation_confidence=0.00<0.25; product_area_snapped=HackerRank->screen",
+    "product_area": "screen",
+    "request_type": "product_issue",
+    "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
+    "status": "escalated"
+  },
+  "input": {
+    "Company": "HackerRank",
+    "Issue": "Resume Builder is Down",
+    "Subject": "Help in creating resume"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 0.0,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass",
+        "product_area": "HackerRank",
+        "request_type": "product_issue",
+        "response": "I cannot answer your issue regarding the Resume Builder being down based on the provided documents.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass; hard_override=generation_confidence=0.00<0.25",
+        "product_area": "HackerRank",
+        "request_type": "product_issue",
+        "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
+        "status": "escalated"
+      },
+      "threshold": 0.35,
+      "top_score": 0.9841269841269842,
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [],
+            "confidence": 0.0,
+            "exact_quote": "",
+            "product_area": "HackerRank",
+            "request_type": "invalid",
+            "response": "I cannot answer your issue regarding the Resume Builder being down based on the provided documents."
+          },
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 3337.656,
+            "verify": 3176.111
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "HackerRank",
+      "output_product_area": "screen"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 3,
+          "bm25_score": 0.8788689401278659,
+          "chunk_id": "hackerrank_00691_b48c309e50",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.8777076923991645,
+          "dense_rank": 1,
+          "dense_score": 0.9057402610778809,
+          "domain": "hackerrank",
+          "heading_path": "Additional Resources > Job Search and Applications > Create a Resume with Resume Builder",
+          "normalized_score": 0.9841269841269842,
+          "rrf_score": 0.032266458495966696,
+          "url_or_file": "https://help.hackerrank.com/articles/9106957203-create-a-resume-with-resume-builder"
+        },
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "hackerrank_00692_6c8890318a",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.7608131695210789,
+          "dense_rank": 3,
+          "dense_score": 0.8927331566810608,
+          "domain": "hackerrank",
+          "heading_path": "Additional Resources > Job Search and Applications > Create a Resume with Resume Builder > Creating a resume with Resume Builder",
+          "normalized_score": 0.9841269841269842,
+          "rrf_score": 0.032266458495966696,
+          "url_or_file": "https://help.hackerrank.com/articles/9106957203-create-a-resume-with-resume-builder"
+        },
+        {
+          "bm25_rank": 2,
+          "bm25_score": 0.8903961609459827,
+          "chunk_id": "hackerrank_00694_49de11b42f",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.7342870653712599,
+          "dense_rank": 2,
+          "dense_score": 0.8948125839233398,
+          "domain": "hackerrank",
+          "heading_path": "Additional Resources > Job Search and Applications > Create a Resume with Resume Builder > Creating a resume with Resume Builder > Creating a resume from an existing file",
+          "normalized_score": 0.9838709677419354,
+          "rrf_score": 0.03225806451612903,
+          "url_or_file": "https://help.hackerrank.com/articles/9106957203-create-a-resume-with-resume-builder"
+        },
+        {
+          "bm25_rank": 4,
+          "bm25_score": 0.8490268580314455,
+          "chunk_id": "hackerrank_00693_f25681684d",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.7286592297016654,
+          "dense_rank": 4,
+          "dense_score": 0.8918835818767548,
+          "domain": "hackerrank",
+          "heading_path": "Additional Resources > Job Search and Applications > Create a Resume with Resume Builder > Creating a resume with Resume Builder > Creating a resume from scratch",
+          "normalized_score": 0.953125,
+          "rrf_score": 0.03125,
+          "url_or_file": "https://help.hackerrank.com/articles/9106957203-create-a-resume-with-resume-builder"
+        },
+        {
+          "bm25_rank": 5,
+          "bm25_score": 0.7811219241919145,
+          "chunk_id": "hackerrank_00228_2e480ea946",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.8676173183600082,
+          "dense_rank": 6,
+          "dense_score": 0.883477509021759,
+          "domain": "hackerrank",
+          "heading_path": "General Help > Release Notes > October 2024 Release Notes > HackerRank Community > Resume Builder",
+          "normalized_score": 0.9313519813519814,
+          "rrf_score": 0.030536130536130537,
+          "url_or_file": "https://support.hackerrank.com/articles/1189675016-october-2024-release-notes"
+        }
+      ],
+      "threshold": 0.35,
+      "top_score": 0.9841269841269842
+    },
+    "sanitize": {
+      "company": "HackerRank",
+      "issue": "Resume Builder is Down",
+      "language": "en",
+      "subject": "Help in creating resume"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": false,
+      "has_exact_quote": false,
+      "quote_source": "none"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic default: legitimate support question likely answerable from docs.",
+      "tags": [
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 17,
+  "timings_ms": {
+    "confidence_gates": 0.054,
+    "generation": 6513.846,
+    "handler": 0.006,
+    "label_normalization": 0.171,
+    "retrieval": 143.511,
+    "sanitize": 19.694,
+    "semantic_cache": 98.074,
+    "semantic_cache_write": 0.125,
+    "source_receipt": 0.004,
+    "total": 6776.07,
+    "trap_classifier": 0.184
+  },
+  "trace_file": "code\\traces\\production\\ticket_17_20260501T165221559778Z_1dc2720d.json",
+  "trace_id": "17_20260501T165221559778Z_1dc2720d"
+}

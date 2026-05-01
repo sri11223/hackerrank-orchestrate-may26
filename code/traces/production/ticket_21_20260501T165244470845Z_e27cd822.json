@@ -1,0 +1,196 @@
+{
+  "created_at": "2026-05-01T16:52:44.470845Z",
+  "final_decision": {
+    "exact_quote": "Blocking or removing websites from Claude web search",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass; product_area_snapped=Claude->privacy",
+    "product_area": "privacy",
+    "request_type": "product_issue",
+    "response": "To block the crawler from accessing your website, you can follow the guidelines provided in the documentation on blocking or removing websites from Claude web search.",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "Claude",
+    "Issue": "I want Claude to stop crawling by website",
+    "Subject": "Website Data crawl"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 0.75,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "Blocking or removing websites from Claude web search",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass",
+        "product_area": "Claude",
+        "request_type": "product_issue",
+        "response": "To block the crawler from accessing your website, you can follow the guidelines provided in the documentation on blocking or removing websites from Claude web search.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "Blocking or removing websites from Claude web search",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass",
+        "product_area": "Claude",
+        "request_type": "product_issue",
+        "response": "To block the crawler from accessing your website, you can follow the guidelines provided in the documentation on blocking or removing websites from Claude web search.",
+        "status": "replied"
+      },
+      "threshold": 0.35,
+      "top_score": 0.9684979838709676,
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "claude_05351_33056d30cc",
+              "claude_05598_31e72e939e"
+            ],
+            "confidence": 0.75,
+            "exact_quote": "Blocking or removing websites from Claude web search",
+            "product_area": "Claude",
+            "request_type": "product_issue",
+            "response": "To block the crawler from accessing your website, you can follow the guidelines provided in the documentation on blocking or removing websites from Claude web search."
+          },
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 3095.278,
+            "verify": 3248.579
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Claude",
+      "output_product_area": "privacy"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 4,
+          "bm25_score": 0.8070621091099883,
+          "chunk_id": "claude_05351_33056d30cc",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.40934671729911415,
+          "dense_rank": 2,
+          "dense_score": 0.8888314366340637,
+          "domain": "claude",
+          "heading_path": "Privacy and legal > Reporting, Blocking, and Removing Content from Claude > How to block or remove content > Blocking or removing websites from Claude web search",
+          "normalized_score": 0.9684979838709676,
+          "rrf_score": 0.031754032258064516,
+          "url_or_file": "https://support.claude.com/en/articles/10684638-reporting-blocking-and-removing-content-from-claude"
+        },
+        {
+          "bm25_rank": 3,
+          "bm25_score": 0.810747675726597,
+          "chunk_id": "claude_05598_31e72e939e",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.40934671729911415,
+          "dense_rank": 4,
+          "dense_score": 0.8853845596313477,
+          "domain": "claude",
+          "heading_path": "Safeguards > Reporting, Blocking, and Removing Content from Claude > How to block or remove content > Blocking or removing websites from Claude web search",
+          "normalized_score": 0.9606894841269841,
+          "rrf_score": 0.03149801587301587,
+          "url_or_file": "https://support.claude.com/en/articles/7996906-reporting-blocking-and-removing-content-from-claude"
+        },
+        {
+          "bm25_rank": 7,
+          "bm25_score": 0.7035604801283368,
+          "chunk_id": "claude_05368_76236f6ef1",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.7869933733064661,
+          "dense_rank": 7,
+          "dense_score": 0.878838062286377,
+          "domain": "claude",
+          "heading_path": "Privacy and legal > Can I use my Outputs to train an AI model? > Related Articles",
+          "normalized_score": 0.9104477611940298,
+          "rrf_score": 0.029850746268656716,
+          "url_or_file": "https://support.claude.com/en/articles/12326764-can-i-use-my-outputs-to-train-an-ai-model"
+        },
+        {
+          "bm25_rank": 14,
+          "bm25_score": 0.656638771113194,
+          "chunk_id": "claude_05352_0dbdaad99c",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.40511177204932575,
+          "dense_rank": 9,
+          "dense_score": 0.8735114932060242,
+          "domain": "claude",
+          "heading_path": "Privacy and legal > Reporting, Blocking, and Removing Content from Claude > How to block or remove content > Blocking or removing websites from Claude web search > Blocking or removing content from shared Claude content",
+          "normalized_score": 0.8541911476694086,
+          "rrf_score": 0.028006267136701922,
+          "url_or_file": "https://support.claude.com/en/articles/10684638-reporting-blocking-and-removing-content-from-claude"
+        },
+        {
+          "bm25_rank": 13,
+          "bm25_score": 0.6604536769682141,
+          "chunk_id": "claude_05599_94bac02123",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.40511177204932575,
+          "dense_rank": 13,
+          "dense_score": 0.8702476322650909,
+          "domain": "claude",
+          "heading_path": "Safeguards > Reporting, Blocking, and Removing Content from Claude > How to block or remove content > Blocking or removing websites from Claude web search > Blocking or removing content from shared Claude content",
+          "normalized_score": 0.8356164383561643,
+          "rrf_score": 0.0273972602739726,
+          "url_or_file": "https://support.claude.com/en/articles/7996906-reporting-blocking-and-removing-content-from-claude"
+        }
+      ],
+      "threshold": 0.35,
+      "top_score": 0.9684979838709676
+    },
+    "sanitize": {
+      "company": "Claude",
+      "issue": "I want Claude to stop crawling by website",
+      "language": "en",
+      "subject": "Website Data crawl"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": true,
+      "has_exact_quote": true,
+      "quote_source": "model"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic default: legitimate support question likely answerable from docs.",
+      "tags": [
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 21,
+  "timings_ms": {
+    "confidence_gates": 0.022,
+    "generation": 6343.944,
+    "handler": 0.004,
+    "label_normalization": 0.1,
+    "retrieval": 75.231,
+    "sanitize": 5.273,
+    "semantic_cache": 50.322,
+    "semantic_cache_write": 0.147,
+    "source_receipt": 0.004,
+    "total": 6475.547,
+    "trap_classifier": 0.205
+  },
+  "trace_file": "code\\traces\\production\\ticket_21_20260501T165244470845Z_e27cd822.json",
+  "trace_id": "21_20260501T165244470845Z_e27cd822"
+}

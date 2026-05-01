@@ -1,0 +1,195 @@
+{
+  "created_at": "2026-05-01T16:52:28.340447Z",
+  "final_decision": {
+    "exact_quote": "When you update your name, the change applies to all your certificates. After you update it, you cannot change it again.",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass; product_area_snapped=Certifications->screen; exact_quote_source=deterministic_fallback",
+    "product_area": "screen",
+    "request_type": "product_issue",
+    "response": "Yes. You can update the name on your certificate only once per account. When you update your name, the change applies to all your certificates. After you update it, you cannot change it again.",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "HackerRank",
+    "Issue": "Hello, I have completed an assessment, but my name is incorrect on the certificate. Can you please update it\n",
+    "Subject": "Certificate name update"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 0.9,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass",
+        "product_area": "Certifications",
+        "request_type": "product_issue",
+        "response": "Yes. You can update the name on your certificate only once per account. When you update your name, the change applies to all your certificates. After you update it, you cannot change it again.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass",
+        "product_area": "Certifications",
+        "request_type": "product_issue",
+        "response": "Yes. You can update the name on your certificate only once per account. When you update your name, the change applies to all your certificates. After you update it, you cannot change it again.",
+        "status": "replied"
+      },
+      "threshold": 0.35,
+      "top_score": 1.0,
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "hackerrank_00705_cca8fdc532"
+            ],
+            "confidence": 0.9,
+            "exact_quote": "",
+            "product_area": "Certifications",
+            "request_type": "product_issue",
+            "response": "Yes. You can update the name on your certificate only once per account. When you update your name, the change applies to all your certificates. After you update it, you cannot change it again."
+          },
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 4542.785,
+            "verify": 4880.628
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Certifications",
+      "output_product_area": "screen"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "hackerrank_00705_cca8fdc532",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.8211857704233925,
+          "dense_rank": 1,
+          "dense_score": 0.921734094619751,
+          "domain": "hackerrank",
+          "heading_path": "Certifications > Certifications FAQs",
+          "normalized_score": 1.0,
+          "rrf_score": 0.03278688524590164,
+          "url_or_file": "https://help.hackerrank.com/articles/8941367927-certifications-faqs"
+        },
+        {
+          "bm25_rank": 2,
+          "bm25_score": 0.6260418286712953,
+          "chunk_id": "hackerrank_01465_dd5d0fc532",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.3739320967592691,
+          "dense_rank": 3,
+          "dense_score": 0.84510338306427,
+          "domain": "hackerrank",
+          "heading_path": "Integrations > Single Sign-On (SSO) > Updating certificates",
+          "normalized_score": 0.9760624679979518,
+          "rrf_score": 0.03200204813108039,
+          "url_or_file": "https://support.hackerrank.com/articles/4264962721-getting-started-with-single-sign-on"
+        },
+        {
+          "bm25_rank": 11,
+          "bm25_score": 0.5394394757621271,
+          "chunk_id": "hackerrank_02096_6636346cf1",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.6201824211547424,
+          "dense_rank": 2,
+          "dense_score": 0.8472189903259277,
+          "domain": "hackerrank",
+          "heading_path": "Screen > Frequently Asked Questions > How to Rename a Test",
+          "normalized_score": 0.9215129486597001,
+          "rrf_score": 0.03021353930031804,
+          "url_or_file": "https://support.hackerrank.com/articles/2426927743-how-to-rename-a-test"
+        },
+        {
+          "bm25_rank": 10,
+          "bm25_score": 0.5407574030435628,
+          "chunk_id": "hackerrank_00706_b98c69da34",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.5320986517899183,
+          "dense_rank": 5,
+          "dense_score": 0.8323498964309692,
+          "domain": "hackerrank",
+          "heading_path": "Certifications > Certifications FAQs",
+          "normalized_score": 0.9049450549450548,
+          "rrf_score": 0.02967032967032967,
+          "url_or_file": "https://help.hackerrank.com/articles/8941367927-certifications-faqs"
+        },
+        {
+          "bm25_rank": 7,
+          "bm25_score": 0.5530128592148545,
+          "chunk_id": "hackerrank_02527_57914c902b",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.33458944125318596,
+          "dense_rank": 18,
+          "dense_score": 0.8210299611091614,
+          "domain": "hackerrank",
+          "heading_path": "Settings > Company Level Admin Settings > Update Company Name and Sender Name Prerequisite Updating the company name and sender name",
+          "normalized_score": 0.8462495216226559,
+          "rrf_score": 0.027745885954841176,
+          "url_or_file": "https://support.hackerrank.com/articles/1019487408-changing-the-company-name"
+        }
+      ],
+      "threshold": 0.35,
+      "top_score": 1.0
+    },
+    "sanitize": {
+      "company": "HackerRank",
+      "issue": "Hello, I have completed an assessment, but my name is incorrect on the certificate. Can you please update it",
+      "language": "en",
+      "subject": "Certificate name update"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": false,
+      "has_exact_quote": true,
+      "quote_source": "deterministic_fallback"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic default: legitimate support question likely answerable from docs.",
+      "tags": [
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 18,
+  "timings_ms": {
+    "confidence_gates": 0.017,
+    "generation": 9423.481,
+    "handler": 0.004,
+    "label_normalization": 0.104,
+    "retrieval": 135.792,
+    "sanitize": 17.756,
+    "semantic_cache": 71.284,
+    "semantic_cache_write": 0.118,
+    "source_receipt": 2.71,
+    "total": 9651.936,
+    "trap_classifier": 0.284
+  },
+  "trace_file": "code\\traces\\production\\ticket_18_20260501T165228339451Z_c252dfd3.json",
+  "trace_id": "18_20260501T165228339451Z_c252dfd3"
+}

@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import random
 import re
 import time
+from pathlib import Path
 from dataclasses import dataclass
 from typing import Any, Literal, Sequence
 
@@ -45,6 +47,7 @@ class LLMResult:
     output_tokens: int
     attempts: int
     parsed_json: Any | None = None
+    cache_hit: bool = False
 
 
 class TokenCounter:
@@ -156,6 +159,24 @@ class LLMClient:
     ) -> LLMResult:
         resolved_model = model or self._default_model(provider)
         input_tokens = self.count_tokens(messages, resolved_model)
+        cache_key = self._cache_key(
+            provider=provider,
+            model=resolved_model,
+            messages=messages,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            strict_json=strict_json,
+        )
+        cached = self._read_cache(
+            cache_key=cache_key,
+            provider=provider,
+            model=resolved_model,
+            input_tokens=input_tokens,
+            strict_json=strict_json,
+        )
+        if cached is not None:
+            return cached
+
         last_error: Exception | None = None
 
         for attempt in range(1, self.settings.max_retries + 1):
@@ -170,7 +191,7 @@ class LLMClient:
                 )
                 output_tokens = usage_out or TokenCounter(resolved_model).count_text(content)
                 parsed = StrictJSONParser.parse(content) if strict_json else None
-                return LLMResult(
+                result = LLMResult(
                     provider=provider,
                     model=resolved_model,
                     content=content,
@@ -179,6 +200,8 @@ class LLMClient:
                     attempts=attempt,
                     parsed_json=parsed,
                 )
+                self._write_cache(cache_key, result)
+                return result
             except LLMConfigurationError:
                 raise
             except StrictJSONError as exc:
@@ -195,6 +218,87 @@ class LLMClient:
         raise LLMResponseError(
             f"{provider} call failed after {self.settings.max_retries} attempts: {last_error}"
         ) from last_error
+
+    def _cache_key(
+        self,
+        *,
+        provider: Provider,
+        model: str,
+        messages: Sequence[ChatMessage],
+        temperature: float,
+        max_tokens: int,
+        strict_json: bool,
+    ) -> str:
+        payload = {
+            "provider": provider,
+            "model": model,
+            "messages": [message.as_dict() for message in messages],
+            "temperature": temperature,
+            "max_tokens": max_tokens,
+            "strict_json": strict_json,
+        }
+        serialized = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        return hashlib.sha256(serialized.encode("utf-8")).hexdigest()
+
+    def _cache_path(self, cache_key: str) -> Path:
+        return self.settings.llm_cache_dir / f"{cache_key}.json"
+
+    def _read_cache(
+        self,
+        *,
+        cache_key: str,
+        provider: Provider,
+        model: str,
+        input_tokens: int,
+        strict_json: bool,
+    ) -> LLMResult | None:
+        if not self.settings.llm_cache_enabled:
+            return None
+        path = self._cache_path(cache_key)
+        if not path.exists():
+            return None
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            content = str(payload["content"])
+            parsed = StrictJSONParser.parse(content) if strict_json else None
+            return LLMResult(
+                provider=provider,
+                model=model,
+                content=content,
+                input_tokens=int(payload.get("input_tokens") or input_tokens),
+                output_tokens=int(payload.get("output_tokens") or TokenCounter(model).count_text(content)),
+                attempts=0,
+                parsed_json=parsed,
+                cache_hit=True,
+            )
+        except Exception:
+            return None
+
+    def _write_cache(self, cache_key: str, result: LLMResult) -> None:
+        if not self.settings.llm_cache_enabled:
+            return
+        try:
+            cache_dir = self.settings.llm_cache_dir
+            cache_dir.mkdir(parents=True, exist_ok=True)
+            path = self._cache_path(cache_key)
+            temp_path = path.with_suffix(".tmp")
+            temp_path.write_text(
+                json.dumps(
+                    {
+                        "provider": result.provider,
+                        "model": result.model,
+                        "content": result.content,
+                        "input_tokens": result.input_tokens,
+                        "output_tokens": result.output_tokens,
+                    },
+                    ensure_ascii=False,
+                    sort_keys=True,
+                ),
+                encoding="utf-8",
+            )
+            temp_path.replace(path)
+        except OSError:
+            return
 
     def _default_model(self, provider: Provider) -> str:
         if provider == "openai":

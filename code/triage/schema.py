@@ -135,8 +135,10 @@ class RetrievedChunk(ChunkRecord):
     normalized_score: float = Field(ge=0.0, le=1.0)
     bm25_rank: int | None = Field(default=None, ge=1)
     dense_rank: int | None = Field(default=None, ge=1)
+    cross_encoder_rank: int | None = Field(default=None, ge=1)
     bm25_score: float | None = None
     dense_score: float | None = None
+    cross_encoder_score: float | None = Field(default=None, ge=0.0, le=1.0)
 
 
 Status = Literal["replied", "escalated"]

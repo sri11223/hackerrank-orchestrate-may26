@@ -1,0 +1,227 @@
+{
+  "created_at": "2026-05-01T16:51:51.398889Z",
+  "final_decision": {
+    "exact_quote": "",
+    "justification": "[ACTION_REQUEST] grounded generation; retrieval_score=0.90; verifier=fail; hard_override=verifier=fail; product_area_snapped=Interviews->screen",
+    "product_area": "screen",
+    "request_type": "product_issue",
+    "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
+    "status": "escalated"
+  },
+  "input": {
+    "Company": "HackerRank",
+    "Issue": "Hello! I am trying to remove an interviewer from the platform. I am not seeing this as an option when I select the three dots next to their name. \nCan you let me know how to do this?",
+    "Subject": "How to Remove a User"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 0.9,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "",
+        "justification": "[ACTION_REQUEST] grounded generation; retrieval_score=0.90; verifier=fail",
+        "product_area": "Interviews",
+        "request_type": "product_issue",
+        "response": "I cannot perform the action directly, but you can remove access for any user from an interview template by following these steps: 1. Go to Interviews > Templates. 2. Click the More options (⋮) menu next to the template and select Share. 3. In the Share Interview Template dialog box, select the user you want to remove. 4. Select Remove User from the drop-down menu. 5. Click Confirm in the confirmation dialog box.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "",
+        "justification": "[ACTION_REQUEST] grounded generation; retrieval_score=0.90; verifier=fail; hard_override=verifier=fail",
+        "product_area": "Interviews",
+        "request_type": "product_issue",
+        "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
+        "status": "escalated"
+      },
+      "threshold": 0.35,
+      "top_score": 0.8961038961038961,
+      "verifier_safe": false
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "hackerrank_01628_6742c861b4"
+            ],
+            "confidence": 0.9,
+            "exact_quote": "",
+            "product_area": "Interviews",
+            "request_type": "product_issue",
+            "response": "To remove access for an interviewer from an interview template, follow these steps: 1. Go to Interviews > Templates. 2. Click the More options (⋮) menu next to the template and select Share. 3. In the Share Interview Template dialog box, select the user or team you want to remove. 4. Select Remove User from the drop-down menu. 5. Click Confirm in the confirmation dialog box."
+          },
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 33.908,
+            "verify": 24.057
+          },
+          "verifier": {
+            "issues": [
+              "The draft response provides instructions for removing access from an interview template, not specifically for removing an interviewer from the platform, which is what the user requested."
+            ],
+            "recommended_action": "rewrite",
+            "safe": false
+          }
+        },
+        {
+          "attempt": 2,
+          "critique": [
+            "The draft response provides instructions for removing access from an interview template, not specifically for removing an interviewer from the platform, which is what the user requested."
+          ],
+          "generation": {
+            "citations": [
+              "hackerrank_01628_6742c861b4"
+            ],
+            "confidence": 0.9,
+            "exact_quote": "",
+            "product_area": "Interviews",
+            "request_type": "product_issue",
+            "response": "I cannot perform the action directly, but you can remove access for any user from an interview template by following these steps: 1. Go to Interviews > Templates. 2. Click the More options (⋮) menu next to the template and select Share. 3. In the Share Interview Template dialog box, select the user you want to remove. 4. Select Remove User from the drop-down menu. 5. Click Confirm in the confirmation dialog box."
+          },
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 41.516,
+            "verify": 23.385
+          },
+          "verifier": {
+            "issues": [
+              "The draft response provides instructions for removing a user from an interview template, but the user is asking about removing an interviewer, which is not supported by the provided documents."
+            ],
+            "recommended_action": "rewrite",
+            "safe": false
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Interviews",
+      "output_product_area": "screen"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 17,
+          "bm25_score": 0.7724018250074647,
+          "chunk_id": "hackerrank_01628_6742c861b4",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.5028698664430903,
+          "dense_rank": 1,
+          "dense_score": 0.8956478834152222,
+          "domain": "hackerrank",
+          "heading_path": "Interviews > Manage Interviews > Removing user access from an interview template",
+          "normalized_score": 0.8961038961038961,
+          "rrf_score": 0.02938045560996381,
+          "url_or_file": "https://support.hackerrank.com/articles/2837093779-standardizing-interviews-using-templates"
+        },
+        {
+          "bm25_rank": 13,
+          "bm25_score": 0.8187436709810578,
+          "chunk_id": "hackerrank_01866_e1c0a76929",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.5505344166600895,
+          "dense_rank": 12,
+          "dense_score": 0.8486390709877014,
+          "domain": "hackerrank",
+          "heading_path": "Library > Manage Question > Removing access from a question",
+          "normalized_score": 0.8414193302891932,
+          "rrf_score": 0.02758751902587519,
+          "url_or_file": "https://support.hackerrank.com/articles/6697457900-share-a-question"
+        },
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "hackerrank_01389_1b73baca3c",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.620912013126667,
+          "dense_rank": 50,
+          "dense_score": 0.8320481181144714,
+          "domain": "hackerrank",
+          "heading_path": "Integrations > Scheduling > HackerRank Interview and Google Calendar Integration > FAQs > I am unable to see Interviewer details within the Interview generated on HackerRank.",
+          "normalized_score": 0.7772727272727272,
+          "rrf_score": 0.02548435171385991,
+          "url_or_file": "https://support.hackerrank.com/articles/1262999130-hackerrank-interview-and-google-calendar-integration"
+        },
+        {
+          "bm25_rank": 48,
+          "bm25_score": 0.6908869582175896,
+          "chunk_id": "hackerrank_01708_4d991955f6",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.5694494462878846,
+          "dense_rank": 14,
+          "dense_score": 0.8459427952766418,
+          "domain": "hackerrank",
+          "heading_path": "Interviews > Manage Interviews > Join as an Interviewer",
+          "normalized_score": 0.6945695695695695,
+          "rrf_score": 0.022772772772772773,
+          "url_or_file": "https://support.hackerrank.com/articles/8404005945-creating-an-interview"
+        },
+        {
+          "bm25_rank": 4,
+          "bm25_score": 0.9375649603719847,
+          "chunk_id": "hackerrank_01390_f4f2a74770",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.47036990289565894,
+          "dense_rank": 85,
+          "dense_score": 0.8257640898227692,
+          "domain": "hackerrank",
+          "heading_path": "Integrations > Scheduling > HackerRank Interview and Google Calendar Integration > FAQs > I am unable to see candidate details within the Interview generated on HackerRank.",
+          "normalized_score": 0.6869073275862069,
+          "rrf_score": 0.02252155172413793,
+          "url_or_file": "https://support.hackerrank.com/articles/1262999130-hackerrank-interview-and-google-calendar-integration"
+        }
+      ],
+      "threshold": 0.35,
+      "top_score": 0.8961038961038961
+    },
+    "sanitize": {
+      "company": "HackerRank",
+      "issue": "Hello! I am trying to remove an interviewer from the platform. I am not seeing this as an option when I select the three dots next to their name. \nCan you let me know how to do this?",
+      "language": "en",
+      "subject": "How to Remove a User"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": false,
+      "has_exact_quote": false,
+      "quote_source": "none"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic high-confidence trap rule matched ticket wording.",
+      "tags": [
+        "ACTION_REQUEST",
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 13,
+  "timings_ms": {
+    "confidence_gates": 0.083,
+    "generation": 123.248,
+    "handler": 0.004,
+    "label_normalization": 0.31,
+    "retrieval": 175.606,
+    "sanitize": 11.101,
+    "semantic_cache": 84.003,
+    "semantic_cache_write": 0.101,
+    "source_receipt": 0.004,
+    "total": 395.192,
+    "trap_classifier": 0.314
+  },
+  "trace_file": "code\\traces\\production\\ticket_13_20260501T165151398889Z_b4f14a3e.json",
+  "trace_id": "13_20260501T165151398889Z_b4f14a3e"
+}

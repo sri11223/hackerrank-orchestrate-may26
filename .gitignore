@@ -31,5 +31,6 @@ data/index/
 data/embeddings/
 data/processed/embeddings_*.json
 data/processed/embeddings_*.npy
+data/processed/llm_cache/
 *.sqlite
 *.db

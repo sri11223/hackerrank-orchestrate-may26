@@ -20,6 +20,7 @@ DEFAULT_INPUT_CSV = SUPPORT_TICKETS_DIR / "support_tickets.csv"
 DEFAULT_OUTPUT_CSV = SUPPORT_TICKETS_DIR / "output.csv"
 LOG_PATH = Path.home() / "hackerrank_orchestrate" / "log.txt"
 DENSE_RETRIEVAL_MODEL = "BAAI/bge-small-en-v1.5"
+CROSS_ENCODER_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 RRF_K = 60
 DENSE_MAX_SEQ_LENGTH = 128
 
@@ -38,6 +39,11 @@ class Settings:
     groq_model: str
     dense_retrieval_model: str
     dense_max_seq_length: int
+    cross_encoder_enabled: bool
+    cross_encoder_model: str
+    cross_encoder_top_n: int
+    llm_cache_enabled: bool
+    llm_cache_dir: Path
     request_timeout_seconds: float
     max_retries: int
     retry_base_delay_seconds: float
@@ -72,6 +78,18 @@ def _env_int(name: str, default: int) -> int:
         raise ValueError(f"{name} must be an integer, got {raw!r}") from exc
 
 
+def _env_bool(name: str, default: bool) -> bool:
+    raw = os.getenv(name)
+    if raw is None or raw.strip() == "":
+        return default
+    normalized = raw.strip().casefold()
+    if normalized in {"1", "true", "yes", "y", "on"}:
+        return True
+    if normalized in {"0", "false", "no", "n", "off"}:
+        return False
+    raise ValueError(f"{name} must be a boolean, got {raw!r}")
+
+
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:
     """Load settings from environment and optional .env files."""
@@ -86,6 +104,11 @@ def get_settings() -> Settings:
         groq_model=os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile"),
         dense_retrieval_model=os.getenv("DENSE_RETRIEVAL_MODEL", DENSE_RETRIEVAL_MODEL),
         dense_max_seq_length=_env_int("DENSE_MAX_SEQ_LENGTH", DENSE_MAX_SEQ_LENGTH),
+        cross_encoder_enabled=_env_bool("CROSS_ENCODER_ENABLED", True),
+        cross_encoder_model=os.getenv("CROSS_ENCODER_MODEL", CROSS_ENCODER_MODEL),
+        cross_encoder_top_n=_env_int("CROSS_ENCODER_TOP_N", 20),
+        llm_cache_enabled=_env_bool("LLM_CACHE_ENABLED", True),
+        llm_cache_dir=Path(os.getenv("LLM_CACHE_DIR", str(PROCESSED_DATA_DIR / "llm_cache"))),
         request_timeout_seconds=_env_float("LLM_REQUEST_TIMEOUT_SECONDS", 60.0),
         max_retries=_env_int("LLM_MAX_RETRIES", 4),
         retry_base_delay_seconds=_env_float("LLM_RETRY_BASE_DELAY_SECONDS", 0.75),

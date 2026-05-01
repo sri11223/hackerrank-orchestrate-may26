@@ -10,29 +10,29 @@ Generated on: May 1, 2026
 - Production trace sidecars: `29`
 - Crucible tickets: `10`
 - Crucible trace sidecars: `10`
-- Replied production tickets with exact quotes: `23 / 23`
+- Replied production tickets with exact quotes: `16 / 16`
 - Prompt-injection joke failures: `0 / 3`
 - Self-healing events: `3`
-- Self-healing events ending in `replied`: `2`
+- Self-healing events ending in `replied`: `1`
 - Auditable traces with complete timing blocks: `39 / 39`
-- Package size: `0.147 MB`
+- Package size: see `code/docs/scorecard.json`
 - Forbidden package files: `0`
 
 ## 13 Pillars Summary
 
-1. Local corpus only.
-2. Unicode sanitation and language detection.
-3. Fixed trap taxonomy before retrieval.
-4. Deterministic bypass for high-risk traps.
-5. Domain-aware retrieval.
-6. BM25 exact-match retrieval.
-7. Singleton BGE dense retrieval.
-8. Normalized RRF fusion.
-9. XML isolation for untrusted user text.
-10. Strict Pydantic schemas.
-11. Verbatim source receipts.
-12. Actor-critic self-healing.
-13. Full JSON trace auditability.
+1. Trap taxonomy as architecture.
+2. Three-signal escalation gate.
+3. Adversarial verifier with safety-critical filters.
+4. Cost-routed dual-provider LLM.
+5. Hybrid retrieval with BM25, dense embeddings, and RRF.
+6. Cross-encoder rerank with sigmoid scoring.
+7. Citation enforcement and validation.
+8. Canonical product-area mapping.
+9. Multilingual handling without translation.
+10. File-based hash-keyed LLM cache.
+11. Per-stage timing instrumentation.
+12. Decision trace JSON sidecars.
+13. Interactive Claude-Code-style REPL.
 
 ## Integrity Result
 

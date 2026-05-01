@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import logging
+import math
 import re
 from dataclasses import dataclass
 from functools import lru_cache
@@ -106,6 +107,9 @@ def get_retriever(chunks_path: Path = DEFAULT_CHUNKS_JSONL) -> "HybridRetriever"
             resolved,
             settings.dense_retrieval_model,
             settings.dense_max_seq_length,
+            settings.cross_encoder_enabled,
+            settings.cross_encoder_model,
+            settings.cross_encoder_top_n,
         )
 
 
@@ -114,26 +118,45 @@ def _get_retriever_cached(
     chunks_path: str,
     model_name: str,
     dense_max_seq_length: int,
+    cross_encoder_enabled: bool,
+    cross_encoder_model: str,
+    cross_encoder_top_n: int,
 ) -> "HybridRetriever":
     return HybridRetriever(
         chunks_path=Path(chunks_path),
         dense_model_name=model_name,
         dense_max_seq_length=dense_max_seq_length,
+        cross_encoder_enabled=cross_encoder_enabled,
+        cross_encoder_model=cross_encoder_model,
+        cross_encoder_top_n=cross_encoder_top_n,
     )
 
 
 class HybridRetriever:
     """In-memory BM25 + dense retrieval with RRF fusion."""
 
-    def __init__(self, chunks_path: Path, dense_model_name: str, dense_max_seq_length: int) -> None:
+    def __init__(
+        self,
+        chunks_path: Path,
+        dense_model_name: str,
+        dense_max_seq_length: int,
+        cross_encoder_enabled: bool,
+        cross_encoder_model: str,
+        cross_encoder_top_n: int,
+    ) -> None:
         self.chunks_path = chunks_path.resolve()
         self.dense_model_name = dense_model_name
         self.dense_max_seq_length = dense_max_seq_length
+        self.cross_encoder_enabled = cross_encoder_enabled
+        self.cross_encoder_model = cross_encoder_model
+        self.cross_encoder_top_n = max(0, cross_encoder_top_n)
         self.chunks = load_chunks(self.chunks_path)
         self._tokenized_corpus = [tokenize(sparse_document_text(chunk)) for chunk in self.chunks]
         self._scope_indexes = self._build_bm25_scopes()
         self._embedding_model = None
         self._embeddings = None
+        self._cross_encoder_model = None
+        self._cross_encoder_unavailable = False
 
         logger.info("Loaded %s chunks from %s", len(self.chunks), self.chunks_path)
         self._load_dense_index()
@@ -164,12 +187,20 @@ class HybridRetriever:
             return []
 
         max_possible = 2.0 / (RRF_K + 1)
-        ranked_indices = sorted(fused, key=lambda index: (-fused[index], index))[:k]
+        candidate_count = max(k, min(len(fused), max(k * 4, self.cross_encoder_top_n)))
+        candidate_indices = sorted(fused, key=lambda index: (-fused[index], index))[:candidate_count]
+        ranked_indices, cross_encoder_rankings = self._rerank_cross_encoder(
+            normalized_query,
+            candidate_indices,
+            fused,
+            k,
+        )
         results: list[RetrievedChunk] = []
         for global_index in ranked_indices:
             chunk = self.chunks[global_index]
             bm25 = bm25_rankings.get(global_index)
             dense = dense_rankings.get(global_index)
+            cross_encoder = cross_encoder_rankings.get(global_index)
             rrf_score = fused[global_index]
             results.append(
                 RetrievedChunk(
@@ -180,9 +211,72 @@ class HybridRetriever:
                     bm25_score=bm25[1] if bm25 else None,
                     dense_rank=dense[0] if dense else None,
                     dense_score=dense[1] if dense else None,
+                    cross_encoder_rank=cross_encoder[0] if cross_encoder else None,
+                    cross_encoder_score=cross_encoder[1] if cross_encoder else None,
                 )
             )
         return results
+
+    def _rerank_cross_encoder(
+        self,
+        query: str,
+        candidate_indices: list[int],
+        fused: dict[int, float],
+        k: int,
+    ) -> tuple[list[int], dict[int, tuple[int, float]]]:
+        """Rerank RRF candidates with pairwise query/document sigmoid scores."""
+
+        if not self.cross_encoder_enabled or not candidate_indices:
+            return candidate_indices[:k], {}
+
+        scores = self._cross_encoder_scores(query, candidate_indices)
+        if not scores:
+            return candidate_indices[:k], {}
+
+        ranked = sorted(
+            candidate_indices,
+            key=lambda index: (-fused[index], -scores[index], index),
+        )
+        rankings = {
+            global_index: (rank, scores[global_index])
+            for rank, global_index in enumerate(ranked, start=1)
+        }
+        return ranked[:k], rankings
+
+    def _cross_encoder_scores(self, query: str, candidate_indices: list[int]) -> dict[int, float]:
+        model = self._load_cross_encoder()
+        pairs = [(query, dense_document_text(self.chunks[index])) for index in candidate_indices]
+
+        if model is not None:
+            try:
+                raw_scores = model.predict(pairs)
+                return {
+                    index: _sigmoid(float(score))
+                    for index, score in zip(candidate_indices, raw_scores, strict=False)
+                }
+            except Exception as exc:
+                logger.warning("Cross-encoder predict failed; using deterministic fallback: %s", exc)
+                self._cross_encoder_unavailable = True
+
+        return {
+            index: _deterministic_pair_sigmoid(query, dense_document_text(self.chunks[index]))
+            for index in candidate_indices
+        }
+
+    def _load_cross_encoder(self) -> Any | None:
+        if self._cross_encoder_unavailable:
+            return None
+        if self._cross_encoder_model is not None:
+            return self._cross_encoder_model
+        try:
+            model_cls = _load_cross_encoder_class()
+            logger.info("Loading cross-encoder reranker once: %s", self.cross_encoder_model)
+            self._cross_encoder_model = model_cls(self.cross_encoder_model)
+            return self._cross_encoder_model
+        except Exception as exc:
+            logger.warning("Cross-encoder unavailable; using deterministic sigmoid fallback: %s", exc)
+            self._cross_encoder_unavailable = True
+            return None
 
     def _build_bm25_scopes(self) -> dict[str, _ScopeIndex]:
         BM25Okapi = _load_bm25_class()
@@ -419,6 +513,33 @@ def _normalize_cosine_scores(scores: Any) -> Any:
     return np.clip((values + 1.0) / 2.0, 0.0, 1.0)
 
 
+def _sigmoid(score: float) -> float:
+    if score >= 0:
+        z = math.exp(-score)
+        return 1.0 / (1.0 + z)
+    z = math.exp(score)
+    return z / (1.0 + z)
+
+
+def _deterministic_pair_sigmoid(query: str, document: str) -> float:
+    """Offline pairwise rerank fallback scored through a sigmoid.
+
+    This is used only when the model-backed CrossEncoder cannot be loaded. It
+    still performs query/document pair scoring after RRF so traces retain a
+    calibrated rerank signal instead of silently skipping the stage.
+    """
+
+    query_tokens = set(tokenize(query))
+    doc_tokens = set(tokenize(document))
+    if not query_tokens or not doc_tokens:
+        return 0.5
+    overlap = len(query_tokens & doc_tokens)
+    precision = overlap / max(1, len(query_tokens))
+    coverage = overlap / max(1, len(doc_tokens))
+    raw = (precision * 6.0) + (coverage * 2.0) - 2.5
+    return _sigmoid(raw)
+
+
 def _load_bm25_class() -> Any:
     try:
         from rank_bm25 import BM25Okapi  # type: ignore
@@ -438,3 +559,14 @@ def _load_sentence_transformer_class() -> Any:
             "Install it with `pip install sentence-transformers`."
         ) from exc
     return SentenceTransformer
+
+
+def _load_cross_encoder_class() -> Any:
+    try:
+        from sentence_transformers import CrossEncoder  # type: ignore
+    except ImportError as exc:
+        raise RetrievalDependencyError(
+            "sentence-transformers is required for cross-encoder reranking. "
+            "Install it with `pip install sentence-transformers`."
+        ) from exc
+    return CrossEncoder

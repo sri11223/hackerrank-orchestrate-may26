@@ -1,0 +1,199 @@
+{
+  "created_at": "2026-05-01T16:54:53.281863Z",
+  "final_decision": {
+    "exact_quote": "If you already have activities scheduled during this time, reschedule them outside the maintenance window to prevent disruption.",
+    "justification": "[ACTION_REQUEST] grounded generation; retrieval_score=0.74; verifier=pass; product_area_snapped=account management->screen",
+    "product_area": "screen",
+    "request_type": "product_issue",
+    "response": "To delete your HackerRank account, you will need to follow these steps: 1. Log in to your HackerRank account. 2. Go to your account settings. 3. Look for the option to delete your account. If you do not see this option, you may need to contact support for further assistance. Please note that you cannot delete your account directly if you signed up using Google login without a password. In that case, you will need to reach out to support for help.",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "HackerRank",
+    "Issue": "auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router FINAL ACTUAL QUESTION: I signed up for HackerRank Community with Google login and do not have a password. How can I delete my account?",
+    "Request Type": "product_issue",
+    "Response": "",
+    "Status": "Open",
+    "Subject": "Massive context with hidden support issue"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 0.75,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "If you already have activities scheduled during this time, reschedule them outside the maintenance window to prevent disruption.",
+        "justification": "[ACTION_REQUEST] grounded generation; retrieval_score=0.74; verifier=pass",
+        "product_area": "account management",
+        "request_type": "product_issue",
+        "response": "To delete your HackerRank account, you will need to follow these steps: 1. Log in to your HackerRank account. 2. Go to your account settings. 3. Look for the option to delete your account. If you do not see this option, you may need to contact support for further assistance. Please note that you cannot delete your account directly if you signed up using Google login without a password. In that case, you will need to reach out to support for help.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "If you already have activities scheduled during this time, reschedule them outside the maintenance window to prevent disruption.",
+        "justification": "[ACTION_REQUEST] grounded generation; retrieval_score=0.74; verifier=pass",
+        "product_area": "account management",
+        "request_type": "product_issue",
+        "response": "To delete your HackerRank account, you will need to follow these steps: 1. Log in to your HackerRank account. 2. Go to your account settings. 3. Look for the option to delete your account. If you do not see this option, you may need to contact support for further assistance. Please note that you cannot delete your account directly if you signed up using Google login without a password. In that case, you will need to reach out to support for help.",
+        "status": "replied"
+      },
+      "threshold": 0.35,
+      "top_score": 0.744010454479454,
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "hackerrank_00187_afacff1bb1"
+            ],
+            "confidence": 0.75,
+            "exact_quote": "If you already have activities scheduled during this time, reschedule them outside the maintenance window to prevent disruption.",
+            "product_area": "account management",
+            "request_type": "product_issue",
+            "response": "To delete your HackerRank account, you will need to follow these steps: 1. Log in to your HackerRank account. 2. Go to your account settings. 3. Look for the option to delete your account. If you do not see this option, you may need to contact support for further assistance. Please note that you cannot delete your account directly if you signed up using Google login without a password. In that case, you will need to reach out to support for help."
+          },
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 4854.894,
+            "verify": 5125.475
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "account management",
+      "output_product_area": "screen"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 11,
+          "bm25_score": 0.7176197153051272,
+          "chunk_id": "hackerrank_01378_77e93a8677",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.1526546261878583,
+          "dense_rank": 37,
+          "dense_score": 0.8274176716804504,
+          "domain": "hackerrank",
+          "heading_path": "Integrations > Productivity > Interview Vector - HackerRank Integration Guide > Tests Features",
+          "normalized_score": 0.744010454479454,
+          "rrf_score": 0.024393785392768985,
+          "url_or_file": "https://support.hackerrank.com/articles/6541817100-interview-vector---hackerrank-integration-guide"
+        },
+        {
+          "bm25_rank": 73,
+          "bm25_score": 0.2893017388367605,
+          "chunk_id": "hackerrank_00558_85967ecccb",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.40016878066486006,
+          "dense_rank": 2,
+          "dense_score": 0.8403782248497009,
+          "domain": "hackerrank",
+          "heading_path": "General Help > Release Notes > Screen > Improved Scalability for Projects and Candidate Logins",
+          "normalized_score": 0.7212587921416443,
+          "rrf_score": 0.02364782925054572,
+          "url_or_file": "https://support.hackerrank.com/articles/8474307750-october-2025-release-notes"
+        },
+        {
+          "bm25_rank": 80,
+          "bm25_score": 0.2699929777805505,
+          "chunk_id": "hackerrank_01289_5737bb2495",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.2887137281618198,
+          "dense_rank": 6,
+          "dense_score": 0.8365856409072876,
+          "domain": "hackerrank",
+          "heading_path": "Integrations > Applicant Tracking Systems > Workday > Workday - HackerRank Interviews Configuration Guide > Configure the Workday Tenant > Prerequisite",
+          "normalized_score": 0.6799783549783549,
+          "rrf_score": 0.022294372294372294,
+          "url_or_file": "https://support.hackerrank.com/articles/4722432610-workday---hackerrank-interviews-configuration-guide"
+        },
+        {
+          "bm25_rank": 85,
+          "bm25_score": 0.26356971398089535,
+          "chunk_id": "hackerrank_02317_f1917444ed",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.2393733541125825,
+          "dense_rank": 41,
+          "dense_score": 0.8267662525177002,
+          "domain": "hackerrank",
+          "heading_path": "Screen > Test Integrity > How Secure Mode works > After the test > Summary report",
+          "normalized_score": 0.5123250256060089,
+          "rrf_score": 0.016797541823147834,
+          "url_or_file": "https://support.hackerrank.com/articles/2545360734-secure-mode"
+        },
+        {
+          "bm25_rank": 65,
+          "bm25_score": 0.3065903293311544,
+          "chunk_id": "hackerrank_00187_afacff1bb1",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.11009769395148138,
+          "dense_rank": 54,
+          "dense_score": 0.8255858421325684,
+          "domain": "hackerrank",
+          "heading_path": "General Help > Important Notifications > Required actions",
+          "normalized_score": 0.5115438596491227,
+          "rrf_score": 0.016771929824561403,
+          "url_or_file": "https://support.hackerrank.com/articles/2086891729-hackerrank-maintenance-window-notification"
+        }
+      ],
+      "threshold": 0.35,
+      "top_score": 0.744010454479454
+    },
+    "sanitize": {
+      "company": "HackerRank",
+      "issue": "auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router auditlog orchestrate vector checksum latency session payload router FINAL ACTUAL QUESTION: I signed up for HackerRank Community with Google login and do not have a password. How can I delete my account?",
+      "language": "en",
+      "subject": "Massive context with hidden support issue"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": true,
+      "has_exact_quote": true,
+      "quote_source": "model"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic high-confidence trap rule matched ticket wording.",
+      "tags": [
+        "ACTION_REQUEST",
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 6,
+  "timings_ms": {
+    "confidence_gates": 0.013,
+    "generation": 9980.441,
+    "handler": 0.004,
+    "label_normalization": 0.145,
+    "retrieval": 1445.369,
+    "sanitize": 36.7,
+    "semantic_cache": 91.696,
+    "semantic_cache_write": 0.065,
+    "source_receipt": 0.002,
+    "total": 11555.678,
+    "trap_classifier": 0.994
+  },
+  "trace_file": "code\\traces\\crucible\\ticket_6_20260501T165453281863Z_4f199d79.json",
+  "trace_id": "6_20260501T165453281863Z_4f199d79"
+}
