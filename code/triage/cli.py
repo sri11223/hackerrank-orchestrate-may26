@@ -6,6 +6,10 @@ from pathlib import Path
 from typing import Optional
 
 import typer
+from rich.console import Console
+from rich.panel import Panel
+from rich.prompt import Prompt
+from rich.text import Text
 
 from .config import DATA_DIR, DEFAULT_INPUT_CSV, DEFAULT_OUTPUT_CSV, LOG_PATH, get_settings
 from .ingest import DEFAULT_OUTPUT_PATH, ingest_corpus
@@ -18,6 +22,7 @@ app = typer.Typer(
     add_completion=False,
     help="Support triage agent for HackerRank, Claude, and Visa tickets.",
 )
+console = Console()
 
 
 def _provider(value: str) -> Provider:
@@ -135,6 +140,132 @@ def search(
         )
         typer.echo(f"   {result.heading_path}")
         typer.echo(f"   {result.text[:220].replace(chr(10), ' ')}")
+
+
+def draw_banner() -> None:
+    """Render the interactive terminal banner."""
+
+    logo = Text()
+    logo.append(
+        r"""
+   ____            __              __        __
+  / __ \__________/ /_  ___  _____/ /_____ _/ /____
+ / / / / ___/ ___/ __ \/ _ \/ ___/ __/ __ `/ __/ _ \
+/ /_/ / /  / /__/ / / /  __(__  ) /_/ /_/ / /_/  __/
+\____/_/   \___/_/ /_/\___/____/\__/\__,_/\__/\___/
+
+    ___                    __
+   /   | ____ ____  ____  / /_
+  / /| |/ __ `/ _ \/ __ \/ __/
+ / ___ / /_/ /  __/ / / / /_
+/_/  |_\__, /\___/_/ /_/\__/
+      /____/
+""",
+        style="bold bright_cyan",
+    )
+    subtitle = Text(
+        "Deterministic support triage | traps -> retrieval -> generation -> verification",
+        style="bold bright_green",
+        justify="center",
+    )
+    panel_text = Text.assemble(logo, "\n", subtitle)
+    console.print(
+        Panel(
+            panel_text,
+            border_style="bright_green",
+            title="[bold bright_cyan]HackerRank Orchestrate[/]",
+            subtitle="[bright_black]type exit or quit to leave[/]",
+            padding=(1, 2),
+        )
+    )
+
+
+@app.command()
+def interactive(
+    traces_dir: Optional[Path] = typer.Option(
+        DEFAULT_TRACES_DIR,
+        "--traces",
+        help="Decision trace output dir for interactive tickets.",
+    ),
+) -> None:
+    """Launch a Rich-powered support-ticket REPL."""
+
+    draw_banner()
+    console.print("[bright_black]Paste a support issue and press Enter.[/]")
+    ticket_id = 1
+
+    try:
+        while True:
+            try:
+                issue = _ticket_input().strip()
+            except EOFError:
+                console.print("\n[bright_black]Input closed. Goodbye.[/]")
+                break
+
+            if not issue:
+                continue
+            if issue.casefold() in {"exit", "quit"}:
+                console.print("[bright_black]Session closed. Goodbye.[/]")
+                break
+
+            # Slash-command parser placeholder: /mode, /domain, /help, etc.
+            if issue.startswith("/"):
+                console.print(
+                    Panel(
+                        "Slash commands are reserved for the next phase.",
+                        border_style="yellow",
+                        title="[bold yellow]Command Parser[/]",
+                    )
+                )
+                continue
+
+            try:
+                decision = process_ticket(
+                    {"issue": issue, "subject": "", "company": None},
+                    ticket_id=f"interactive_{ticket_id}",
+                    traces_dir=traces_dir,
+                )
+            except Exception as exc:
+                console.print(
+                    Panel(
+                        f"{type(exc).__name__}: {exc}",
+                        title="[bold red]Processing Error[/]",
+                        border_style="red",
+                    )
+                )
+                ticket_id += 1
+                continue
+
+            status_style = "bold red" if decision.status == "escalated" else "bold bright_green"
+            border_style = "red" if decision.status == "escalated" else "bright_green"
+            body = Text()
+            body.append("Status: ", style="bold")
+            body.append(decision.status, style=status_style)
+            body.append("\nProduct Area: ", style="bold")
+            body.append(decision.product_area)
+            body.append("\nRequest Type: ", style="bold")
+            body.append(decision.request_type)
+            body.append("\n\nResponse\n", style="bold bright_cyan")
+            body.append(decision.response)
+            body.append("\n\nJustification\n", style="bold bright_cyan")
+            body.append(decision.justification, style="bright_black")
+            console.print(
+                Panel(
+                    body,
+                    title="[bold]Triage Result[/]",
+                    border_style=border_style,
+                    padding=(1, 2),
+                )
+            )
+            ticket_id += 1
+    except KeyboardInterrupt:
+        console.print("\n[bright_black]Interrupted. Goodbye.[/]")
+
+
+def _ticket_input() -> str:
+    """Read one ticket line with a stable Rich prompt across Rich versions."""
+
+    return console.input("[bold bright_cyan]Ticket > [/]")
 
 
 @app.command()
