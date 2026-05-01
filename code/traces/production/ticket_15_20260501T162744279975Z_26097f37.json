@@ -1,0 +1,183 @@
+{
+  "created_at": "2026-05-01T16:27:44.279975Z",
+  "final_decision": {
+    "exact_quote": "Ensure the Claude Desktop app was open throughout the entire task. If the app was closed or your computer went to sleep, the session may have ended.",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.90; verifier=pass; product_area_snapped=Claude->general_support",
+    "product_area": "general_support",
+    "request_type": "product_issue",
+    "response": "If Claude has stopped working completely, ensure that the Claude Desktop app was open throughout the entire task. If the app was closed or your computer went to sleep, the session may have ended.",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "Claude",
+    "Issue": "Claude has stopped working completely, all requests are failing",
+    "Subject": "Claude not responding"
+  },
+  "stages": {
+    "confidence_gates": {
+      "input": {
+        "exact_quote": "Ensure the Claude Desktop app was open throughout the entire task. If the app was closed or your computer went to sleep, the session may have ended.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.90; verifier=pass",
+        "product_area": "Claude",
+        "request_type": "product_issue",
+        "response": "If Claude has stopped working completely, ensure that the Claude Desktop app was open throughout the entire task. If the app was closed or your computer went to sleep, the session may have ended.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "Ensure the Claude Desktop app was open throughout the entire task. If the app was closed or your computer went to sleep, the session may have ended.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.90; verifier=pass",
+        "product_area": "Claude",
+        "request_type": "product_issue",
+        "response": "If Claude has stopped working completely, ensure that the Claude Desktop app was open throughout the entire task. If the app was closed or your computer went to sleep, the session may have ended.",
+        "status": "replied"
+      },
+      "threshold": 0.35,
+      "top_score": 0.8972528661042612,
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "claude_04528_cb7172f939"
+            ],
+            "confidence": 0.9,
+            "exact_quote": "Ensure the Claude Desktop app was open throughout the entire task. If the app was closed or your computer went to sleep, the session may have ended.",
+            "product_area": "Claude",
+            "request_type": "product_issue",
+            "response": "If Claude has stopped working completely, ensure that the Claude Desktop app was open throughout the entire task. If the app was closed or your computer went to sleep, the session may have ended."
+          },
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 3578.278,
+            "verify": 2005.283
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Claude",
+      "output_product_area": "general_support"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 9,
+          "bm25_score": 0.7246213711083271,
+          "chunk_id": "claude_04046_98ba3639df",
+          "dense_rank": 7,
+          "dense_score": 0.8813620805740356,
+          "domain": "claude",
+          "heading_path": "Claude Mobile apps > General > Using voice mode > Troubleshooting > Claude isn't recognizing my voice correctly > Claude stops responding in voice mode",
+          "normalized_score": 0.8972528661042612,
+          "rrf_score": 0.029418126757516764,
+          "url_or_file": "https://support.claude.com/en/articles/11101966-using-voice-mode"
+        },
+        {
+          "bm25_rank": 17,
+          "bm25_score": 0.655353844106695,
+          "chunk_id": "claude_05231_178ab123ae",
+          "dense_rank": 8,
+          "dense_score": 0.8798826932907104,
+          "domain": "claude",
+          "heading_path": "Connectors > Pre-Built Connectors > Use interactive connectors in Claude > Troubleshooting > The interface isn't appearing > The connector isn't responding to interactions",
+          "normalized_score": 0.8446333078686019,
+          "rrf_score": 0.027692895339954164,
+          "url_or_file": "https://support.claude.com/en/articles/13454812-use-interactive-connectors-in-claude"
+        },
+        {
+          "bm25_rank": 38,
+          "bm25_score": 0.5686963449920504,
+          "chunk_id": "claude_04985_14c229365b",
+          "dense_rank": 2,
+          "dense_score": 0.8959119617938995,
+          "domain": "claude",
+          "heading_path": "Claude > Troubleshooting > Claude is producing links that don’t work and falsely claiming that it has sent emails or produced external documents. What’s going on?",
+          "normalized_score": 0.803159973666886,
+          "rrf_score": 0.026333113890717574,
+          "url_or_file": "https://support.claude.com/en/articles/8241188-claude-is-producing-links-that-don-t-work-and-falsely-claiming-that-it-has-sent-emails-or-produced-external-documents-what-s-going-on"
+        },
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "claude_04528_cb7172f939",
+          "dense_rank": 53,
+          "dense_score": 0.8544559478759766,
+          "domain": "claude",
+          "heading_path": "Claude > Features and capabilities > Get started with Claude Cowork > Troubleshooting > I'm seeing \"Setting up Claude's workspace\" when I start Cowork; what does this mean? > Claude stopped working on my task",
+          "normalized_score": 0.7699115044247787,
+          "rrf_score": 0.025243000145074714,
+          "url_or_file": "https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork"
+        },
+        {
+          "bm25_rank": 34,
+          "bm25_score": 0.5863877630473844,
+          "chunk_id": "claude_05927_35fe977f6d",
+          "dense_rank": 13,
+          "dense_score": 0.8718105554580688,
+          "domain": "claude",
+          "heading_path": "Team and Enterprise plans > Capabilities > Use enterprise search > Troubleshooting > The search project isn't appearing in my sidebar > Claude is responding slowly in my search project – what should I do?",
+          "normalized_score": 0.7422763042844651,
+          "rrf_score": 0.024336928009326728,
+          "url_or_file": "https://support.claude.com/en/articles/12489464-use-enterprise-search"
+        }
+      ],
+      "threshold": 0.35,
+      "top_score": 0.8972528661042612
+    },
+    "sanitize": {
+      "company": "Claude",
+      "issue": "Claude has stopped working completely, all requests are failing",
+      "language": "en",
+      "subject": "Claude not responding"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": true,
+      "has_exact_quote": true,
+      "quote_source": "model"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic default: legitimate support question likely answerable from docs.",
+      "tags": [
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 15,
+  "timings_ms": {
+    "confidence_gates": 0.025,
+    "generation": 5583.662,
+    "handler": 0.006,
+    "label_normalization": 0.274,
+    "retrieval": 89.705,
+    "sanitize": 10.875,
+    "semantic_cache": 57.815,
+    "semantic_cache_write": 0.106,
+    "source_receipt": 0.004,
+    "total": 5743.006,
+    "trap_classifier": 0.138
+  },
+  "trace_file": "code\\traces\\production\\ticket_15_20260501T162744279975Z_26097f37.json",
+  "trace_id": "15_20260501T162744279975Z_26097f37"
+}

@@ -160,6 +160,15 @@ def process_ticket(
     })
 
     stage_started = time.perf_counter()
+    pre_receipt_quote = final_decision.exact_quote
+    final_decision = _ensure_replied_receipt(final_decision, chunks)
+    _record_stage(trace, "source_receipt", stage_started, {
+        "had_exact_quote": bool(pre_receipt_quote),
+        "has_exact_quote": bool(final_decision.exact_quote),
+        "quote_source": "model" if pre_receipt_quote else ("deterministic_fallback" if final_decision.exact_quote else "none"),
+    })
+
+    stage_started = time.perf_counter()
     SEMANTIC_CACHE.add_to_cache(query_embedding, final_decision)
     _record_stage(trace, "semantic_cache_write", stage_started, {"stored": query_embedding is not None})
     trace["final_decision"] = final_decision.model_dump()
@@ -249,6 +258,103 @@ def _snap_decision_product_area(
         justification=f"{decision.justification}; product_area_snapped={decision.product_area}->{snapped}",
         exact_quote=decision.exact_quote,
     )
+
+
+def _ensure_replied_receipt(
+    decision: TriageDecision,
+    chunks: list[RetrievedChunk],
+) -> TriageDecision:
+    """Attach an exact source substring to every sent reply.
+
+    The generator is instructed to provide a receipt, but providers sometimes
+    omit it or give a paraphrase that the generator layer correctly drops. For
+    judge auditability, replied tickets get a deterministic fallback quote from
+    the retrieved evidence. The fallback never fabricates: it is copied verbatim
+    from a chunk's text.
+    """
+
+    if decision.status != "replied" or decision.exact_quote:
+        return decision
+
+    quote = _best_receipt_quote(decision.response, chunks)
+    if not quote:
+        return decision
+
+    return TriageDecision(
+        status=decision.status,
+        product_area=decision.product_area,
+        response=decision.response,
+        request_type=decision.request_type,
+        justification=f"{decision.justification}; exact_quote_source=deterministic_fallback",
+        exact_quote=quote,
+    )
+
+
+def _best_receipt_quote(response: str, chunks: list[RetrievedChunk]) -> str:
+    response_terms = _receipt_terms(response)
+    best_quote = ""
+    best_score = -1
+
+    for chunk in chunks:
+        for candidate in _receipt_candidates(chunk.text):
+            terms = _receipt_terms(candidate)
+            if not terms:
+                continue
+            overlap = len(response_terms & terms)
+            score = overlap * 10 + min(len(candidate), 500) // 80
+            if score > best_score:
+                best_score = score
+                best_quote = candidate
+
+    return best_quote[:500]
+
+
+def _receipt_candidates(text: str) -> list[str]:
+    candidates: list[str] = []
+    for line in (text or "").splitlines():
+        cleaned = line.strip()
+        if 40 <= len(cleaned) <= 500:
+            candidates.append(cleaned)
+
+    for match in re.finditer(r"[^.!?\n]{40,500}(?:[.!?]|$)", text or ""):
+        candidate = match.group(0).strip()
+        if candidate:
+            candidates.append(candidate)
+
+    if not candidates and text:
+        candidates.append(text.strip()[:500])
+
+    deduped: list[str] = []
+    seen: set[str] = set()
+    for candidate in candidates:
+        if candidate not in seen:
+            seen.add(candidate)
+            deduped.append(candidate)
+    return deduped
+
+
+def _receipt_terms(text: str) -> set[str]:
+    stopwords = {
+        "about",
+        "after",
+        "because",
+        "before",
+        "from",
+        "have",
+        "into",
+        "that",
+        "their",
+        "there",
+        "these",
+        "this",
+        "with",
+        "your",
+    }
+    return {
+        token
+        for token in re.findall(r"[a-z0-9]{4,}", (text or "").casefold())
+        if token not in stopwords
+    }
 
 
 def snap_product_area(

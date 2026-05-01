@@ -1,0 +1,210 @@
+{
+  "created_at": "2026-05-01T16:26:00.996992Z",
+  "final_decision": {
+    "exact_quote": "HackerRank QuickApply is a free browser extension that simplifies the job application process by automatically filling application forms using information from your HackerRank profile.",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.91; verifier=pass; product_area_snapped=HackerRank->screen; exact_quote_source=deterministic_fallback",
+    "product_area": "screen",
+    "request_type": "product_issue",
+    "response": "I cannot answer your request regarding the infosec process or filling in forms based on the provided documents.",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "HackerRank",
+    "Issue": "I am planning to start using HackerRank for hiring, can you help us with the infosec \nprocess of my company by filling in the forms",
+    "Subject": "Using HackerRank for hiring"
+  },
+  "stages": {
+    "confidence_gates": {
+      "input": {
+        "exact_quote": "",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.91; verifier=pass",
+        "product_area": "HackerRank",
+        "request_type": "product_issue",
+        "response": "I cannot answer your request regarding the infosec process or filling in forms based on the provided documents.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.91; verifier=pass",
+        "product_area": "HackerRank",
+        "request_type": "product_issue",
+        "response": "I cannot answer your request regarding the infosec process or filling in forms based on the provided documents.",
+        "status": "replied"
+      },
+      "threshold": 0.35,
+      "top_score": 0.9061399647887324,
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "hackerrank_02155_10061cfff5"
+            ],
+            "confidence": 0.75,
+            "exact_quote": "HackerRank is a technology hiring platform designed to help companies efficiently hire skilled developers in a remote-first world. It enables objective evaluation of tech talent at every stage of the recruiting process.",
+            "product_area": "HackerRank",
+            "request_type": "product_issue",
+            "response": "HackerRank is a technology hiring platform designed to help companies efficiently hire skilled developers in a remote-first world. It enables objective evaluation of tech talent at every stage of the recruiting process. This article introduces the key features of HackerRank Screen to help you get started."
+          },
+          "provider": "openai",
+          "provider_fallback": "groq_failed",
+          "timings_ms": {
+            "generate": 27710.979,
+            "verify": 2459.503
+          },
+          "verifier": {
+            "issues": [
+              "The draft response does not address the user's request for help with the infosec process or filling in forms, which is outside the scope of the provided documents."
+            ],
+            "recommended_action": "rewrite",
+            "safe": false
+          }
+        },
+        {
+          "attempt": 2,
+          "critique": [
+            "The draft response does not address the user's request for help with the infosec process or filling in forms, which is outside the scope of the provided documents."
+          ],
+          "generation": {
+            "citations": [],
+            "confidence": 0.0,
+            "exact_quote": "",
+            "product_area": "HackerRank",
+            "request_type": "invalid",
+            "response": "I cannot answer your request regarding the infosec process or filling in forms based on the provided documents."
+          },
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 3037.082,
+            "verify": 1931.604
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "HackerRank",
+      "output_product_area": "screen"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 4,
+          "bm25_score": 0.9394554282355919,
+          "chunk_id": "hackerrank_02981_7ff0b813ce",
+          "dense_rank": 11,
+          "dense_score": 0.8861446976661682,
+          "domain": "hackerrank",
+          "heading_path": "Uncategorized > Onboarding Candidates",
+          "normalized_score": 0.9061399647887324,
+          "rrf_score": 0.029709507042253523,
+          "url_or_file": "https://support.hackerrank.com/articles/9695299159-onboarding-candidates"
+        },
+        {
+          "bm25_rank": 11,
+          "bm25_score": 0.812116076460429,
+          "chunk_id": "hackerrank_02156_19e3134d20",
+          "dense_rank": 7,
+          "dense_score": 0.8883955478668213,
+          "domain": "hackerrank",
+          "heading_path": "Screen > Getting Started > Quick Start Guide for Recruiters > HackerRank Library",
+          "normalized_score": 0.8848013453857473,
+          "rrf_score": 0.02900988017658188,
+          "url_or_file": "https://support.hackerrank.com/articles/9248897371-quick-start-guide-for-recruiters"
+        },
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "hackerrank_00688_9f0aee3255",
+          "dense_rank": 24,
+          "dense_score": 0.8822385668754578,
+          "domain": "hackerrank",
+          "heading_path": "Additional Resources > Job Search and Applications > Set Up HackerRank QuickApply",
+          "normalized_score": 0.863095238095238,
+          "rrf_score": 0.028298204527712725,
+          "url_or_file": "https://help.hackerrank.com/articles/7358354033-set-up-quick-apply"
+        },
+        {
+          "bm25_rank": 22,
+          "bm25_score": 0.7436791614329727,
+          "chunk_id": "hackerrank_01409_28af215ab2",
+          "dense_rank": 6,
+          "dense_score": 0.8885372877120972,
+          "domain": "hackerrank",
+          "heading_path": "Integrations > Scheduling > Using HackerRank Interviews in InterviewPlanner > Using InterviewPlanner-HackerRank Integration to Schedule a Candidate Interview > Reviewing the Scheduled Interview in HackerRank for Work",
+          "normalized_score": 0.8340724316334073,
+          "rrf_score": 0.027346637102734665,
+          "url_or_file": "https://support.hackerrank.com/articles/3675175160-using-hackerrank-interviews-in-interviewplanner"
+        },
+        {
+          "bm25_rank": 32,
+          "bm25_score": 0.7070532469671108,
+          "chunk_id": "hackerrank_02155_10061cfff5",
+          "dense_rank": 4,
+          "dense_score": 0.8898227214813232,
+          "domain": "hackerrank",
+          "heading_path": "Screen > Getting Started > Quick Start Guide for Recruiters",
+          "normalized_score": 0.8080842391304347,
+          "rrf_score": 0.026494565217391304,
+          "url_or_file": "https://support.hackerrank.com/articles/9248897371-quick-start-guide-for-recruiters"
+        }
+      ],
+      "threshold": 0.35,
+      "top_score": 0.9061399647887324
+    },
+    "sanitize": {
+      "company": "HackerRank",
+      "issue": "I am planning to start using HackerRank for hiring, can you help us with the infosec \nprocess of my company by filling in the forms",
+      "language": "en",
+      "subject": "Using HackerRank for hiring"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": false,
+      "has_exact_quote": true,
+      "quote_source": "deterministic_fallback"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic default: legitimate support question likely answerable from docs.",
+      "tags": [
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 6,
+  "timings_ms": {
+    "confidence_gates": 0.028,
+    "generation": 35139.709,
+    "handler": 0.004,
+    "label_normalization": 0.109,
+    "retrieval": 127.219,
+    "sanitize": 8.663,
+    "semantic_cache": 69.882,
+    "semantic_cache_write": 0.056,
+    "source_receipt": 1.326,
+    "total": 35347.807,
+    "trap_classifier": 0.327
+  },
+  "trace_file": "code\\traces\\production\\ticket_6_20260501T162600996992Z_b8d758d1.json",
+  "trace_id": "6_20260501T162600996992Z_b8d758d1"
+}

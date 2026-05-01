@@ -15,8 +15,6 @@ EXCLUDED_DIR_NAMES = {
     ".mypy_cache",
     ".ruff_cache",
     "data",
-    "support_tickets",
-    "traces",
 }
 EXCLUDED_FILE_NAMES = {".env"}
 EXCLUDED_SUFFIXES = {".pyc", ".pyo", ".pyd"}

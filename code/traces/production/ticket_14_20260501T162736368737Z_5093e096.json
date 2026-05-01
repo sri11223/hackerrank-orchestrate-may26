@@ -1,0 +1,184 @@
+{
+  "created_at": "2026-05-01T16:27:36.368737Z",
+  "final_decision": {
+    "exact_quote": "The Pause Subscription feature allows individual self-serve plan subscribers to temporarily pause their HackerRank subscription instead of canceling it. This feature enables you to resume your subscription whenever needed, ensuring flexibility and uninterrupted access when required.",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass; product_area_snapped=Subscription Management->conversation_management",
+    "product_area": "conversation_management",
+    "request_type": "product_issue",
+    "response": "To pause your HackerRank subscription, you need to follow specific steps. First, access your Subscription Settings by clicking on the profile icon and selecting Settings. Then, navigate to the Billing section and click the Cancel Plan button to initiate the pause. You can select a pause duration between 1 to 12 months and confirm the pause. Ensure you meet the prerequisites, such as having an active subscription that started at least 30 days ago.",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "HackerRank",
+    "Issue": "Hi, please pause our subscription. We have stopped all hiring efforts for now.\n",
+    "Subject": "Subscription pause"
+  },
+  "stages": {
+    "confidence_gates": {
+      "input": {
+        "exact_quote": "The Pause Subscription feature allows individual self-serve plan subscribers to temporarily pause their HackerRank subscription instead of canceling it. This feature enables you to resume your subscription whenever needed, ensuring flexibility and uninterrupted access when required.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass",
+        "product_area": "Subscription Management",
+        "request_type": "product_issue",
+        "response": "To pause your HackerRank subscription, you need to follow specific steps. First, access your Subscription Settings by clicking on the profile icon and selecting Settings. Then, navigate to the Billing section and click the Cancel Plan button to initiate the pause. You can select a pause duration between 1 to 12 months and confirm the pause. Ensure you meet the prerequisites, such as having an active subscription that started at least 30 days ago.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "The Pause Subscription feature allows individual self-serve plan subscribers to temporarily pause their HackerRank subscription instead of canceling it. This feature enables you to resume your subscription whenever needed, ensuring flexibility and uninterrupted access when required.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass",
+        "product_area": "Subscription Management",
+        "request_type": "product_issue",
+        "response": "To pause your HackerRank subscription, you need to follow specific steps. First, access your Subscription Settings by clicking on the profile icon and selecting Settings. Then, navigate to the Billing section and click the Cancel Plan button to initiate the pause. You can select a pause duration between 1 to 12 months and confirm the pause. Ensure you meet the prerequisites, such as having an active subscription that started at least 30 days ago.",
+        "status": "replied"
+      },
+      "threshold": 0.35,
+      "top_score": 0.9919354838709679,
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "hackerrank_02790_e4268ebaa1",
+              "hackerrank_02789_8bc1cea232"
+            ],
+            "confidence": 0.85,
+            "exact_quote": "The Pause Subscription feature allows individual self-serve plan subscribers to temporarily pause their HackerRank subscription instead of canceling it. This feature enables you to resume your subscription whenever needed, ensuring flexibility and uninterrupted access when required.",
+            "product_area": "Subscription Management",
+            "request_type": "product_issue",
+            "response": "To pause your HackerRank subscription, you need to follow specific steps. First, access your Subscription Settings by clicking on the profile icon and selecting Settings. Then, navigate to the Billing section and click the Cancel Plan button to initiate the pause. You can select a pause duration between 1 to 12 months and confirm the pause. Ensure you meet the prerequisites, such as having an active subscription that started at least 30 days ago."
+          },
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 4764.465,
+            "verify": 2998.102
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Subscription Management",
+      "output_product_area": "conversation_management"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 2,
+          "bm25_score": 0.7984170380099128,
+          "chunk_id": "hackerrank_02788_da6bdc1099",
+          "dense_rank": 1,
+          "dense_score": 0.8725761771202087,
+          "domain": "hackerrank",
+          "heading_path": "Settings > User Account Settings and Preferences > Pause Subscription",
+          "normalized_score": 0.9919354838709679,
+          "rrf_score": 0.03252247488101534,
+          "url_or_file": "https://support.hackerrank.com/articles/5157311476-pause-subscription"
+        },
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "hackerrank_02790_e4268ebaa1",
+          "dense_rank": 4,
+          "dense_score": 0.8456189930438995,
+          "domain": "hackerrank",
+          "heading_path": "Settings > User Account Settings and Preferences > Pause Subscription > Prerequisites > How to Pause Your Subscription",
+          "normalized_score": 0.9765625000000001,
+          "rrf_score": 0.032018442622950824,
+          "url_or_file": "https://support.hackerrank.com/articles/5157311476-pause-subscription"
+        },
+        {
+          "bm25_rank": 3,
+          "bm25_score": 0.7905434526449121,
+          "chunk_id": "hackerrank_02789_8bc1cea232",
+          "dense_rank": 2,
+          "dense_score": 0.8515849709510803,
+          "domain": "hackerrank",
+          "heading_path": "Settings > User Account Settings and Preferences > Pause Subscription > Prerequisites",
+          "normalized_score": 0.9760624679979518,
+          "rrf_score": 0.03200204813108039,
+          "url_or_file": "https://support.hackerrank.com/articles/5157311476-pause-subscription"
+        },
+        {
+          "bm25_rank": 4,
+          "bm25_score": 0.7852243579068364,
+          "chunk_id": "hackerrank_02792_e018835003",
+          "dense_rank": 6,
+          "dense_score": 0.8243392109870911,
+          "domain": "hackerrank",
+          "heading_path": "Settings > User Account Settings and Preferences > Pause Subscription > Prerequisites > Extending the Pause Period",
+          "normalized_score": 0.938683712121212,
+          "rrf_score": 0.030776515151515152,
+          "url_or_file": "https://support.hackerrank.com/articles/5157311476-pause-subscription"
+        },
+        {
+          "bm25_rank": 11,
+          "bm25_score": 0.506514440894855,
+          "chunk_id": "hackerrank_02791_5d74ddea79",
+          "dense_rank": 3,
+          "dense_score": 0.8460124731063843,
+          "domain": "hackerrank",
+          "heading_path": "Settings > User Account Settings and Preferences > Pause Subscription > Prerequisites > Resuming Your Subscription",
+          "normalized_score": 0.9137044489157166,
+          "rrf_score": 0.029957522915269395,
+          "url_or_file": "https://support.hackerrank.com/articles/5157311476-pause-subscription"
+        }
+      ],
+      "threshold": 0.35,
+      "top_score": 0.9919354838709679
+    },
+    "sanitize": {
+      "company": "HackerRank",
+      "issue": "Hi, please pause our subscription. We have stopped all hiring efforts for now.",
+      "language": "en",
+      "subject": "Subscription pause"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": true,
+      "has_exact_quote": true,
+      "quote_source": "model"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic default: legitimate support question likely answerable from docs.",
+      "tags": [
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 14,
+  "timings_ms": {
+    "confidence_gates": 0.023,
+    "generation": 7762.624,
+    "handler": 0.003,
+    "label_normalization": 0.572,
+    "retrieval": 85.446,
+    "sanitize": 10.405,
+    "semantic_cache": 49.267,
+    "semantic_cache_write": 0.054,
+    "source_receipt": 0.002,
+    "total": 7908.855,
+    "trap_classifier": 0.167
+  },
+  "trace_file": "code\\traces\\production\\ticket_14_20260501T162736368737Z_5093e096.json",
+  "trace_id": "14_20260501T162736368737Z_5093e096"
+}

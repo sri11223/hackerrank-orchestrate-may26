@@ -1,0 +1,183 @@
+{
+  "created_at": "2026-05-01T16:25:52.847461Z",
+  "final_decision": {
+    "exact_quote": "If you accidentally make a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request.",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass; product_area_snapped=Payments and Billing->screen",
+    "product_area": "screen",
+    "request_type": "bug",
+    "response": "If you accidentally made a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request.",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "HackerRank",
+    "Issue": "I had an issue with my payment with order ID: cs_live_abcdefgh. Can you help me?\n",
+    "Subject": "Give me my money"
+  },
+  "stages": {
+    "confidence_gates": {
+      "input": {
+        "exact_quote": "If you accidentally make a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass",
+        "product_area": "Payments and Billing",
+        "request_type": "bug",
+        "response": "If you accidentally made a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "If you accidentally make a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass",
+        "product_area": "Payments and Billing",
+        "request_type": "bug",
+        "response": "If you accidentally made a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request.",
+        "status": "replied"
+      },
+      "threshold": 0.35,
+      "top_score": 0.9919354838709679,
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "hackerrank_00798_7abe213a16"
+            ],
+            "confidence": 0.8,
+            "exact_quote": "If you accidentally make a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request.",
+            "product_area": "Payments and Billing",
+            "request_type": "bug",
+            "response": "If you accidentally made a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request."
+          },
+          "provider": "groq",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 2190.404,
+            "verify": 5809.494
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Payments and Billing",
+      "output_product_area": "screen"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "hackerrank_00814_0665960741",
+          "dense_rank": 2,
+          "dense_score": 0.829628050327301,
+          "domain": "hackerrank",
+          "heading_path": "Subscriptions, Payments, and Billing > Mock interviews",
+          "normalized_score": 0.9919354838709679,
+          "rrf_score": 0.03252247488101534,
+          "url_or_file": "https://help.hackerrank.com/articles/9157064719-payments-and-billing-faqs"
+        },
+        {
+          "bm25_rank": 45,
+          "bm25_score": 0.35985036232085427,
+          "chunk_id": "hackerrank_00798_7abe213a16",
+          "dense_rank": 1,
+          "dense_score": 0.8413910567760468,
+          "domain": "hackerrank",
+          "heading_path": "Subscriptions, Payments, and Billing > Purchase Mock Interview Credits > Refund policy",
+          "normalized_score": 0.7904761904761904,
+          "rrf_score": 0.025917252146760345,
+          "url_or_file": "https://help.hackerrank.com/articles/3282259518-purchase-mock-interviews"
+        },
+        {
+          "bm25_rank": 28,
+          "bm25_score": 0.44846790442266504,
+          "chunk_id": "hackerrank_00801_2da273fbef",
+          "dense_rank": 11,
+          "dense_score": 0.8050425052642822,
+          "domain": "hackerrank",
+          "heading_path": "Subscriptions, Payments, and Billing > Upgrading subscription plan",
+          "normalized_score": 0.7761683738796414,
+          "rrf_score": 0.025448143405889884,
+          "url_or_file": "https://help.hackerrank.com/articles/4312449655-upgrade-subscription-plan"
+        },
+        {
+          "bm25_rank": 51,
+          "bm25_score": 0.34459142965740874,
+          "chunk_id": "hackerrank_00813_65b1570c9b",
+          "dense_rank": 5,
+          "dense_score": 0.8110218048095703,
+          "domain": "hackerrank",
+          "heading_path": "Subscriptions, Payments, and Billing > Subscriptions, Payments, and Billing FAQs Mock interviews Subscription plans",
+          "normalized_score": 0.744005544005544,
+          "rrf_score": 0.024393624393624393,
+          "url_or_file": "https://help.hackerrank.com/articles/9157064719-payments-and-billing-faqs"
+        },
+        {
+          "bm25_rank": 25,
+          "bm25_score": 0.4645383787099656,
+          "chunk_id": "hackerrank_00665_27a0bc0bfb",
+          "dense_rank": 24,
+          "dense_score": 0.7912788987159729,
+          "domain": "hackerrank",
+          "heading_path": "Account Settings > Profile and Preferences > Update personal details",
+          "normalized_score": 0.7219187675070028,
+          "rrf_score": 0.023669467787114845,
+          "url_or_file": "https://help.hackerrank.com/articles/4472358331-profile-and-preferences-faqs"
+        }
+      ],
+      "threshold": 0.35,
+      "top_score": 0.9919354838709679
+    },
+    "sanitize": {
+      "company": "HackerRank",
+      "issue": "I had an issue with my payment with order ID: cs_live_abcdefgh. Can you help me?",
+      "language": "en",
+      "subject": "Give me my money"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": true,
+      "has_exact_quote": true,
+      "quote_source": "model"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic default: legitimate support question likely answerable from docs.",
+      "tags": [
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 5,
+  "timings_ms": {
+    "confidence_gates": 0.017,
+    "generation": 8000.015,
+    "handler": 0.005,
+    "label_normalization": 0.315,
+    "retrieval": 89.108,
+    "sanitize": 6.655,
+    "semantic_cache": 48.95,
+    "semantic_cache_write": 0.092,
+    "source_receipt": 0.004,
+    "total": 8145.633,
+    "trap_classifier": 0.183
+  },
+  "trace_file": "code\\traces\\production\\ticket_5_20260501T162552847461Z_161735f9.json",
+  "trace_id": "5_20260501T162552847461Z_161735f9"
+}
