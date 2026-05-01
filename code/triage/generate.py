@@ -7,6 +7,7 @@ for a strictly grounded JSON response.
 
 from __future__ import annotations
 
+import re
 from html import escape
 from textwrap import dedent
 from typing import Any, Literal, Mapping, Sequence
@@ -44,10 +45,10 @@ class GroundedGenerationResult(BaseModel):
     @field_validator("response")
     @classmethod
     def _compact_required_text(cls, value: str) -> str:
-        compact = " ".join(value.split())
-        if not compact:
+        cleaned = _preserve_line_breaks(value)
+        if not cleaned:
             raise ValueError("field must not be blank")
-        return compact
+        return cleaned
 
     @field_validator("citations")
     @classmethod
@@ -253,3 +254,11 @@ def _validate_citations(result: GroundedGenerationResult, chunks: Sequence[Chunk
         raise LLMResponseError(
             "Grounded generation cited chunks that were not supplied: " + ", ".join(unknown)
         )
+
+
+def _preserve_line_breaks(value: str) -> str:
+    text = str(value or "").replace("\r\n", "\n").replace("\r", "\n")
+    lines = [re.sub(r"[ \t]+", " ", line).rstrip() for line in text.split("\n")]
+    cleaned = "\n".join(lines)
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
+    return cleaned.strip()

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from enum import Enum
 from typing import Any, Literal
 
@@ -159,10 +160,26 @@ class TriageDecision(BaseModel):
         compact = " ".join(str(value or "").split())
         return compact or "general_support"
 
-    @field_validator("response", "justification")
+    @field_validator("response")
     @classmethod
-    def _compact_output_text(cls, value: str) -> str:
+    def _preserve_response_markdown(cls, value: str) -> str:
+        cleaned = _preserve_line_breaks(value)
+        if not cleaned:
+            raise ValueError("output field must not be blank")
+        return cleaned
+
+    @field_validator("justification")
+    @classmethod
+    def _compact_justification(cls, value: str) -> str:
         compact = " ".join(value.split())
         if not compact:
             raise ValueError("output field must not be blank")
         return compact
+
+
+def _preserve_line_breaks(value: str) -> str:
+    text = str(value or "").replace("\r\n", "\n").replace("\r", "\n")
+    lines = [re.sub(r"[ \t]+", " ", line).rstrip() for line in text.split("\n")]
+    cleaned = "\n".join(lines)
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
+    return cleaned.strip()

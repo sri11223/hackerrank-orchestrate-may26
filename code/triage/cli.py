@@ -7,7 +7,8 @@ from pathlib import Path
 from typing import Optional
 
 import typer
-from rich.console import Console
+from rich.console import Console, Group
+from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich.table import Table
@@ -18,6 +19,7 @@ from .ingest import DEFAULT_OUTPUT_PATH, ingest_corpus
 from .llm import ChatMessage, LLMClient, LLMConfigurationError, LLMResponseError, Provider
 from .orchestrator import DEFAULT_TRACES_DIR, error_decision, process_ticket
 from .retrieval import RetrievalDependencyError, retrieve
+from .schema import TriageDecision
 
 
 app = typer.Typer(
@@ -189,6 +191,7 @@ def draw_banner() -> None:
             padding=(1, 2),
         )
     )
+    _print_home_commands()
 
 
 @app.command()
@@ -227,11 +230,15 @@ def interactive(
                 continue
 
             try:
-                decision = process_ticket(
-                    {"issue": issue, "subject": "", "company": current_company},
-                    ticket_id=f"interactive_{ticket_id}",
-                    traces_dir=traces_dir,
-                )
+                with console.status(
+                    "[bold cyan]Analyzing intent and retrieving hybrid vectors...",
+                    spinner="dots",
+                ):
+                    decision = process_ticket(
+                        {"issue": issue, "subject": "", "company": current_company},
+                        ticket_id=f"interactive_{ticket_id}",
+                        traces_dir=traces_dir,
+                    )
             except Exception as exc:
                 console.print(
                     Panel(
@@ -243,27 +250,7 @@ def interactive(
                 ticket_id += 1
                 continue
 
-            status_style = "bold red" if decision.status == "escalated" else "bold bright_green"
-            border_style = "red" if decision.status == "escalated" else "bright_green"
-            body = Text()
-            body.append("Status: ", style="bold")
-            body.append(decision.status, style=status_style)
-            body.append("\nProduct Area: ", style="bold")
-            body.append(decision.product_area)
-            body.append("\nRequest Type: ", style="bold")
-            body.append(decision.request_type)
-            body.append("\n\nResponse\n", style="bold bright_cyan")
-            body.append(decision.response)
-            body.append("\n\nJustification\n", style="bold bright_cyan")
-            body.append(decision.justification, style="bright_black")
-            console.print(
-                Panel(
-                    body,
-                    title="[bold]Triage Result[/]",
-                    border_style=border_style,
-                    padding=(1, 2),
-                )
-            )
+            console.print(_decision_panel(decision))
             ticket_id += 1
     except KeyboardInterrupt:
         console.print("\n[bright_black]Interrupted. Goodbye.[/]")
@@ -348,6 +335,49 @@ def _print_help_table() -> None:
     table.add_row("/exit", "Leave the interactive session.", "/exit")
     table.add_row("/quit", "Leave the interactive session.", "/quit")
     console.print(table)
+
+
+def _print_home_commands() -> None:
+    command_text = Text()
+    command_text.append("Commands: ", style="bold bright_green")
+    command_text.append("/help", style="bold bright_cyan")
+    command_text.append("  ")
+    command_text.append("/clear", style="bold bright_cyan")
+    command_text.append("  ")
+    command_text.append("/mode Visa|HackerRank|Claude|auto", style="bold bright_cyan")
+    command_text.append("  ")
+    command_text.append("/quit", style="bold bright_cyan")
+    console.print(
+        Panel(
+            command_text,
+            border_style="bright_black",
+            padding=(0, 2),
+        )
+    )
+
+
+def _decision_panel(decision: TriageDecision) -> Panel:
+    status_style = "bold red" if decision.status == "escalated" else "bold bright_green"
+    border_style = "red" if decision.status == "escalated" else "bright_green"
+
+    metadata = Table.grid(padding=(0, 1), expand=True)
+    metadata.add_column(justify="right", style="bold white", no_wrap=True)
+    metadata.add_column(ratio=1)
+    metadata.add_row("Status:", Text(decision.status.upper(), style=status_style))
+    metadata.add_row("Product Area:", Text(decision.product_area, style="cyan"))
+    metadata.add_row("Request Type:", Text(decision.request_type, style="yellow"))
+    metadata.add_row("Justification:", Text(decision.justification, style="bright_black"))
+
+    return Panel(
+        Group(
+            metadata,
+            Text("-" * 72, style=border_style),
+            Markdown(decision.response),
+        ),
+        title="[bold bright_cyan]ORCHESTRATE DECISION[/]",
+        border_style=border_style,
+        padding=(1, 2),
+    )
 
 
 @app.command()
