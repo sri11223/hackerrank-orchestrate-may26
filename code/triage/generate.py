@@ -32,6 +32,12 @@ class GroundedGenerationResult(BaseModel):
 
     response: str = Field(min_length=1)
     citations: list[str] = Field(default_factory=list)
+    exact_quote: str = Field(
+        description=(
+            "A verbatim, exact substring from the source chunks that directly proves your "
+            "response. If you cannot answer, leave empty."
+        )
+    )
     product_area: str = Field(default="general_support")
     request_type: RequestType
     confidence: float = Field(ge=0.0, le=1.0)
@@ -62,6 +68,11 @@ class GroundedGenerationResult(BaseModel):
                 deduped.append(citation)
         return deduped
 
+    @field_validator("exact_quote")
+    @classmethod
+    def _strip_exact_quote(cls, value: str) -> str:
+        return str(value or "").strip()
+
 
 GENERATION_SYSTEM_PROMPT = dedent(
     """
@@ -82,9 +93,12 @@ GENERATION_SYSTEM_PROMPT = dedent(
       explain what the documents say.
     - Every factual claim in response must be supported by one or more chunk ids
       listed in citations.
+    - CRITICAL: You must extract an exact, word-for-word quote from the provided
+      chunks that justifies your answer. Do not paraphrase the quote. Put it in
+      the exact_quote field.
     - citations must contain only chunk ids that appear in <docs>.
     - If the best response is "cannot answer based on the docs", use an empty
-      citations list and confidence <= 0.25.
+      citations list, exact_quote="", and confidence <= 0.25.
     - Keep response plain text. Do not include markdown tables, code fences, raw
       JSON, or internal reasoning.
 
@@ -98,6 +112,7 @@ GENERATION_SYSTEM_PROMPT = dedent(
     {
       "response": "string",
       "citations": ["chunk_id"],
+      "exact_quote": "verbatim source substring or empty string",
       "product_area": "string",
       "request_type": "product_issue|feature_request|bug|invalid",
       "confidence": 0.0
@@ -128,6 +143,7 @@ def generate_response(
         return GroundedGenerationResult(
             response="I cannot answer this based on the provided documents.",
             citations=[],
+            exact_quote="",
             product_area="unknown",
             request_type="invalid",
             confidence=0.0,
@@ -146,6 +162,7 @@ def generate_response(
         raise LLMResponseError(f"Invalid grounded generation JSON: {result.content}") from exc
 
     _validate_citations(parsed, normalized_chunks)
+    parsed = _drop_non_verbatim_quote(parsed, normalized_chunks)
     return parsed
 
 
@@ -267,6 +284,17 @@ def _validate_citations(result: GroundedGenerationResult, chunks: Sequence[Chunk
         raise LLMResponseError(
             "Grounded generation cited chunks that were not supplied: " + ", ".join(unknown)
         )
+
+
+def _drop_non_verbatim_quote(
+    result: GroundedGenerationResult,
+    chunks: Sequence[ChunkRecord],
+) -> GroundedGenerationResult:
+    if not result.exact_quote:
+        return result
+    if any(result.exact_quote in chunk.text for chunk in chunks):
+        return result
+    return result.model_copy(update={"exact_quote": ""})
 
 
 def _preserve_line_breaks(value: str) -> str:

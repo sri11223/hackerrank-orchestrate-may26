@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import sys
 from pathlib import Path
 from typing import Optional
 
@@ -26,6 +27,9 @@ app = typer.Typer(
     add_completion=False,
     help="Support triage agent for HackerRank, Claude, and Visa tickets.",
 )
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 console = Console()
 COMPANY_MODES = {
     "auto": None,
@@ -372,12 +376,19 @@ def _decision_panel(decision: TriageDecision) -> Panel:
         Group(
             metadata,
             Text("-" * 72, style=border_style),
-            Markdown(decision.response),
+            Markdown(_response_with_receipt(decision)),
         ),
         title="[bold bright_cyan]ORCHESTRATE DECISION[/]",
         border_style=border_style,
         padding=(1, 2),
     )
+
+
+def _response_with_receipt(decision: TriageDecision) -> str:
+    exact_quote = " ".join(decision.exact_quote.split())
+    if not exact_quote:
+        return decision.response
+    return f'{decision.response}\n\n> **Source Receipt:** *"{exact_quote}"*'
 
 
 @app.command()

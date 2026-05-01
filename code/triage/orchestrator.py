@@ -111,6 +111,7 @@ def process_ticket(
                 f"[{generation_tag.value}] grounded generation; retrieval_score={top_score:.2f}; "
                 f"verifier={'pass' if verifier.safe else 'fail'}"
             ),
+            exact_quote=generation.exact_quote,
         )
 
     final_decision = _apply_confidence_gates(
@@ -181,6 +182,7 @@ def _apply_confidence_gates(
         ),
         request_type=decision.request_type,
         justification=f"{decision.justification}; hard_override={'|'.join(reasons)}",
+        exact_quote=decision.exact_quote,
     )
 
 
@@ -198,6 +200,7 @@ def _snap_decision_product_area(
         response=decision.response,
         request_type=decision.request_type,
         justification=f"{decision.justification}; product_area_snapped={decision.product_area}->{snapped}",
+        exact_quote=decision.exact_quote,
     )
 
 

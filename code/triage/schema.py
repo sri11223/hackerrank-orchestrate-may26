@@ -153,6 +153,13 @@ class TriageDecision(BaseModel):
     status: Status
     request_type: RequestType
     justification: str = Field(min_length=1)
+    exact_quote: str = Field(
+        default="",
+        description=(
+            "A verbatim, exact substring from the source chunks that directly proves your "
+            "response. If you cannot answer, leave empty."
+        ),
+    )
 
     @field_validator("product_area", mode="before")
     @classmethod
@@ -175,6 +182,11 @@ class TriageDecision(BaseModel):
         if not compact:
             raise ValueError("output field must not be blank")
         return compact
+
+    @field_validator("exact_quote")
+    @classmethod
+    def _strip_exact_quote(cls, value: str) -> str:
+        return str(value or "").strip()
 
 
 def _preserve_line_breaks(value: str) -> str:
