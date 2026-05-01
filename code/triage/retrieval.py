@@ -11,7 +11,7 @@ from pathlib import Path
 from threading import Lock
 from typing import Any
 
-from .config import DEFAULT_CHUNKS_JSONL, RRF_K, get_settings
+from .config import DEFAULT_CHUNKS_JSONL, PROCESSED_DATA_DIR, RRF_K, get_settings
 from .schema import ChunkRecord, RetrievedChunk
 
 
@@ -92,21 +92,35 @@ def get_retriever(chunks_path: Path = DEFAULT_CHUNKS_JSONL) -> "HybridRetriever"
     """
 
     resolved = str(chunks_path.resolve())
+    settings = get_settings()
     with _SINGLETON_LOCK:
-        return _get_retriever_cached(resolved, get_settings().dense_retrieval_model)
+        return _get_retriever_cached(
+            resolved,
+            settings.dense_retrieval_model,
+            settings.dense_max_seq_length,
+        )
 
 
 @lru_cache(maxsize=2)
-def _get_retriever_cached(chunks_path: str, model_name: str) -> "HybridRetriever":
-    return HybridRetriever(chunks_path=Path(chunks_path), dense_model_name=model_name)
+def _get_retriever_cached(
+    chunks_path: str,
+    model_name: str,
+    dense_max_seq_length: int,
+) -> "HybridRetriever":
+    return HybridRetriever(
+        chunks_path=Path(chunks_path),
+        dense_model_name=model_name,
+        dense_max_seq_length=dense_max_seq_length,
+    )
 
 
 class HybridRetriever:
     """In-memory BM25 + dense retrieval with RRF fusion."""
 
-    def __init__(self, chunks_path: Path, dense_model_name: str) -> None:
+    def __init__(self, chunks_path: Path, dense_model_name: str, dense_max_seq_length: int) -> None:
         self.chunks_path = chunks_path.resolve()
         self.dense_model_name = dense_model_name
+        self.dense_max_seq_length = dense_max_seq_length
         self.chunks = load_chunks(self.chunks_path)
         self._tokenized_corpus = [tokenize(chunk.text) for chunk in self.chunks]
         self._scope_indexes = self._build_bm25_scopes()
@@ -179,14 +193,29 @@ class HybridRetriever:
         model_cls = _load_sentence_transformer_class()
         logger.info("Loading dense retrieval model once: %s", self.dense_model_name)
         self._embedding_model = model_cls(self.dense_model_name)
-        logger.info("Encoding %s corpus chunks with %s", len(self.chunks), self.dense_model_name)
+        if self.dense_max_seq_length > 0:
+            self._embedding_model.max_seq_length = self.dense_max_seq_length
+
+        cached = self._load_embedding_cache()
+        if cached is not None:
+            self._embeddings = cached
+            logger.info("Loaded dense embeddings from cache for %s chunks", len(self.chunks))
+            return
+
+        logger.info(
+            "Encoding %s corpus chunks with %s (max_seq_length=%s)",
+            len(self.chunks),
+            self.dense_model_name,
+            getattr(self._embedding_model, "max_seq_length", "unknown"),
+        )
         self._embeddings = self._embedding_model.encode(
-            [chunk.text for chunk in self.chunks],
-            batch_size=64,
+            [dense_document_text(chunk) for chunk in self.chunks],
+            batch_size=128,
             convert_to_numpy=True,
             normalize_embeddings=True,
-            show_progress_bar=False,
+            show_progress_bar=True,
         )
+        self._save_embedding_cache(self._embeddings)
 
     def _scope_for_domain(self, domain: str | None) -> _ScopeIndex:
         normalized = normalize_domain(domain)
@@ -251,11 +280,60 @@ class HybridRetriever:
             for rank, position in enumerate(ordered_positions, start=1)
         }
 
+    def _cache_paths(self) -> tuple[Path, Path]:
+        safe_model = re.sub(r"[^a-zA-Z0-9._-]+", "_", self.dense_model_name).strip("_")
+        suffix = f"{safe_model}_seq{self.dense_max_seq_length}"
+        return (
+            PROCESSED_DATA_DIR / f"embeddings_{suffix}.npy",
+            PROCESSED_DATA_DIR / f"embeddings_{suffix}.json",
+        )
+
+    def _load_embedding_cache(self) -> Any | None:
+        import numpy as np
+
+        embeddings_path, metadata_path = self._cache_paths()
+        if not embeddings_path.exists() or not metadata_path.exists():
+            return None
+
+        try:
+            metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            return None
+
+        expected_ids = [chunk.chunk_id for chunk in self.chunks]
+        if (
+            metadata.get("model_name") != self.dense_model_name
+            or metadata.get("dense_max_seq_length") != self.dense_max_seq_length
+            or metadata.get("chunk_ids") != expected_ids
+        ):
+            return None
+
+        return np.load(embeddings_path)
+
+    def _save_embedding_cache(self, embeddings: Any) -> None:
+        import numpy as np
+
+        embeddings_path, metadata_path = self._cache_paths()
+        embeddings_path.parent.mkdir(parents=True, exist_ok=True)
+        np.save(embeddings_path, embeddings)
+        metadata = {
+            "model_name": self.dense_model_name,
+            "dense_max_seq_length": self.dense_max_seq_length,
+            "chunk_ids": [chunk.chunk_id for chunk in self.chunks],
+        }
+        metadata_path.write_text(json.dumps(metadata, ensure_ascii=False), encoding="utf-8")
+
 
 def tokenize(text: str) -> list[str]:
     """Tokenize for BM25 while preserving useful support artifacts."""
 
     return [match.group(0).casefold() for match in _TOKEN_RE.finditer(text or "")]
+
+
+def dense_document_text(chunk: ChunkRecord) -> str:
+    """Text passed to the embedding model."""
+
+    return f"{chunk.heading_path}\n{chunk.text}".strip()
 
 
 def normalize_domain(domain: str | None) -> str | None:

@@ -21,6 +21,7 @@ DEFAULT_OUTPUT_CSV = SUPPORT_TICKETS_DIR / "output.csv"
 LOG_PATH = Path.home() / "hackerrank_orchestrate" / "log.txt"
 DENSE_RETRIEVAL_MODEL = "BAAI/bge-small-en-v1.5"
 RRF_K = 60
+DENSE_MAX_SEQ_LENGTH = 128
 
 
 @dataclass(frozen=True)
@@ -36,6 +37,7 @@ class Settings:
     openai_model: str
     groq_model: str
     dense_retrieval_model: str
+    dense_max_seq_length: int
     request_timeout_seconds: float
     max_retries: int
     retry_base_delay_seconds: float
@@ -83,6 +85,7 @@ def get_settings() -> Settings:
         openai_model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
         groq_model=os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile"),
         dense_retrieval_model=os.getenv("DENSE_RETRIEVAL_MODEL", DENSE_RETRIEVAL_MODEL),
+        dense_max_seq_length=_env_int("DENSE_MAX_SEQ_LENGTH", DENSE_MAX_SEQ_LENGTH),
         request_timeout_seconds=_env_float("LLM_REQUEST_TIMEOUT_SECONDS", 60.0),
         max_retries=_env_int("LLM_MAX_RETRIES", 4),
         retry_base_delay_seconds=_env_float("LLM_RETRY_BASE_DELAY_SECONDS", 0.75),
