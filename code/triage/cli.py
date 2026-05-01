@@ -12,6 +12,7 @@ from rich.console import Console, Group
 from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.prompt import Prompt
+from rich.progress import BarColumn, Progress, SpinnerColumn, TaskProgressColumn, TextColumn
 from rich.table import Table
 from rich.text import Text
 
@@ -416,27 +417,52 @@ def run(
         raise typer.Exit(1) from exc
 
     output_rows: list[dict[str, str]] = []
-    for index, row in frame.iterrows():
-        row_id = index + 1
-        row_dict = row.to_dict()
-        try:
-            decision = process_ticket(row_dict, ticket_id=row_id, traces_dir=traces_dir)
-        except Exception as exc:
-            typer.echo(f"ticket {row_id}: escalated after processing error: {exc}", err=True)
-            decision = error_decision(row_dict, exc, ticket_id=row_id, traces_dir=traces_dir)
-
-        output_rows.append(
-            {
-                "issue": _row_value(row_dict, "issue"),
-                "subject": _row_value(row_dict, "subject"),
-                "company": _row_value(row_dict, "company"),
-                "response": decision.response,
-                "product_area": decision.product_area,
-                "status": decision.status,
-                "request_type": decision.request_type,
-                "justification": decision.justification,
-            }
+    replied_count = 0
+    escalated_count = 0
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        BarColumn(),
+        TaskProgressColumn(),
+        console=console,
+    ) as progress:
+        task_id = progress.add_task(
+            _batch_progress_description(replied_count, escalated_count),
+            total=len(frame),
         )
+        for index, row in frame.iterrows():
+            row_id = index + 1
+            row_dict = row.to_dict()
+            try:
+                decision = process_ticket(row_dict, ticket_id=row_id, traces_dir=traces_dir)
+            except Exception as exc:
+                progress.console.print(
+                    f"[bold red]ticket {row_id}: escalated after processing error:[/] {exc}"
+                )
+                decision = error_decision(row_dict, exc, ticket_id=row_id, traces_dir=traces_dir)
+
+            if decision.status == "replied":
+                replied_count += 1
+            else:
+                escalated_count += 1
+
+            output_rows.append(
+                {
+                    "issue": _row_value(row_dict, "issue"),
+                    "subject": _row_value(row_dict, "subject"),
+                    "company": _row_value(row_dict, "company"),
+                    "response": decision.response,
+                    "product_area": decision.product_area,
+                    "status": decision.status,
+                    "request_type": decision.request_type,
+                    "justification": decision.justification,
+                }
+            )
+            progress.update(
+                task_id,
+                advance=1,
+                description=_batch_progress_description(replied_count, escalated_count),
+            )
 
     output_csv.parent.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(
@@ -455,6 +481,10 @@ def run(
     typer.echo(f"wrote {len(output_rows)} rows to {output_csv}")
     if traces_dir is not None:
         typer.echo(f"wrote traces to {traces_dir}")
+
+
+def _batch_progress_description(replied_count: int, escalated_count: int) -> str:
+    return f"Processing Tickets | Replied: {replied_count} | Escalated: {escalated_count}"
 
 
 def _row_value(row: dict[str, object], key: str) -> str:
