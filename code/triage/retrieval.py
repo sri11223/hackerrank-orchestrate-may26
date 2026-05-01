@@ -1,0 +1,290 @@
+"""Stage 4 hybrid retrieval: BM25 + dense BGE + reciprocal-rank fusion."""
+
+from __future__ import annotations
+
+import json
+import logging
+import re
+from dataclasses import dataclass
+from functools import lru_cache
+from pathlib import Path
+from threading import Lock
+from typing import Any
+
+from .config import DEFAULT_CHUNKS_JSONL, RRF_K, get_settings
+from .schema import ChunkRecord, RetrievedChunk
+
+
+logger = logging.getLogger(__name__)
+
+_TOKEN_RE = re.compile(r"[a-z0-9][a-z0-9_./:%+\-']*", re.IGNORECASE)
+_DOMAIN_ALIASES = {
+    "hackerrank": "hackerrank",
+    "hacker rank": "hackerrank",
+    "claude": "claude",
+    "anthropic": "claude",
+    "visa": "visa",
+}
+_SINGLETON_LOCK = Lock()
+
+
+class RetrievalDependencyError(RuntimeError):
+    """Raised when a required retrieval dependency is missing."""
+
+
+@dataclass(frozen=True)
+class _ScopeIndex:
+    """BM25 index plus global chunk ids for one search scope."""
+
+    name: str
+    indices: tuple[int, ...]
+    bm25: Any
+
+
+def load_chunks(chunks_path: Path = DEFAULT_CHUNKS_JSONL) -> list[ChunkRecord]:
+    """Load and validate the ingestion JSONL file."""
+
+    resolved = chunks_path.resolve()
+    if not resolved.exists():
+        raise FileNotFoundError(
+            f"Chunk file does not exist: {resolved}. Run `python -m triage.cli ingest` first."
+        )
+
+    chunks: list[ChunkRecord] = []
+    with resolved.open("r", encoding="utf-8") as handle:
+        for line_number, line in enumerate(handle, start=1):
+            stripped = line.strip()
+            if not stripped:
+                continue
+            try:
+                chunks.append(ChunkRecord.model_validate(json.loads(stripped)))
+            except Exception as exc:
+                raise ValueError(f"Invalid chunk JSONL at {resolved}:{line_number}") from exc
+
+    if not chunks:
+        raise ValueError(f"Chunk file is empty: {resolved}")
+    return chunks
+
+
+def retrieve(
+    query: str,
+    domain: str | None = None,
+    k: int = 5,
+    *,
+    chunks_path: Path = DEFAULT_CHUNKS_JSONL,
+) -> list[RetrievedChunk]:
+    """Retrieve top chunks using the process-wide singleton retriever.
+
+    Empty queries return an empty list without initializing the dense model.
+    """
+
+    if not query or not query.strip() or k <= 0:
+        return []
+    return get_retriever(chunks_path).retrieve(query=query, domain=domain, k=k)
+
+
+def get_retriever(chunks_path: Path = DEFAULT_CHUNKS_JSONL) -> "HybridRetriever":
+    """Return the singleton retriever for a chunk file.
+
+    The lock prevents two concurrent ticket workers from loading the BGE model
+    twice. The cached object holds BM25 indexes, BGE model, and dense embeddings
+    in memory for the whole run.
+    """
+
+    resolved = str(chunks_path.resolve())
+    with _SINGLETON_LOCK:
+        return _get_retriever_cached(resolved, get_settings().dense_retrieval_model)
+
+
+@lru_cache(maxsize=2)
+def _get_retriever_cached(chunks_path: str, model_name: str) -> "HybridRetriever":
+    return HybridRetriever(chunks_path=Path(chunks_path), dense_model_name=model_name)
+
+
+class HybridRetriever:
+    """In-memory BM25 + dense retrieval with RRF fusion."""
+
+    def __init__(self, chunks_path: Path, dense_model_name: str) -> None:
+        self.chunks_path = chunks_path.resolve()
+        self.dense_model_name = dense_model_name
+        self.chunks = load_chunks(self.chunks_path)
+        self._tokenized_corpus = [tokenize(chunk.text) for chunk in self.chunks]
+        self._scope_indexes = self._build_bm25_scopes()
+        self._embedding_model = None
+        self._embeddings = None
+
+        logger.info("Loaded %s chunks from %s", len(self.chunks), self.chunks_path)
+        self._load_dense_index()
+
+    @property
+    def domains(self) -> tuple[str, ...]:
+        return tuple(sorted({chunk.domain for chunk in self.chunks}))
+
+    def retrieve(self, query: str, domain: str | None = None, k: int = 5) -> list[RetrievedChunk]:
+        """Run BM25 and BGE retrieval, then combine using RRF."""
+
+        normalized_query = " ".join((query or "").split())
+        if not normalized_query or k <= 0:
+            return []
+
+        scope = self._scope_for_domain(domain)
+        pool_size = max(k * 20, 100)
+        bm25_rankings = self._rank_bm25(normalized_query, scope, pool_size)
+        dense_rankings = self._rank_dense(normalized_query, scope, pool_size)
+
+        fused: dict[int, float] = {}
+        for global_index, (rank, _score) in bm25_rankings.items():
+            fused[global_index] = fused.get(global_index, 0.0) + (1.0 / (RRF_K + rank))
+        for global_index, (rank, _score) in dense_rankings.items():
+            fused[global_index] = fused.get(global_index, 0.0) + (1.0 / (RRF_K + rank))
+
+        if not fused:
+            return []
+
+        max_possible = 2.0 / (RRF_K + 1)
+        ranked_indices = sorted(fused, key=lambda index: (-fused[index], index))[:k]
+        results: list[RetrievedChunk] = []
+        for global_index in ranked_indices:
+            chunk = self.chunks[global_index]
+            bm25 = bm25_rankings.get(global_index)
+            dense = dense_rankings.get(global_index)
+            rrf_score = fused[global_index]
+            results.append(
+                RetrievedChunk(
+                    **chunk.model_dump(),
+                    rrf_score=rrf_score,
+                    normalized_score=min(1.0, rrf_score / max_possible),
+                    bm25_rank=bm25[0] if bm25 else None,
+                    bm25_score=bm25[1] if bm25 else None,
+                    dense_rank=dense[0] if dense else None,
+                    dense_score=dense[1] if dense else None,
+                )
+            )
+        return results
+
+    def _build_bm25_scopes(self) -> dict[str, _ScopeIndex]:
+        BM25Okapi = _load_bm25_class()
+        domains: dict[str, list[int]] = {"all": list(range(len(self.chunks)))}
+        for index, chunk in enumerate(self.chunks):
+            domains.setdefault(chunk.domain.casefold(), []).append(index)
+
+        scopes: dict[str, _ScopeIndex] = {}
+        for name, indices in domains.items():
+            tokenized = [self._tokenized_corpus[index] for index in indices]
+            scopes[name] = _ScopeIndex(name=name, indices=tuple(indices), bm25=BM25Okapi(tokenized))
+            logger.info("Built BM25 scope '%s' over %s chunks", name, len(indices))
+        return scopes
+
+    def _load_dense_index(self) -> None:
+        model_cls = _load_sentence_transformer_class()
+        logger.info("Loading dense retrieval model once: %s", self.dense_model_name)
+        self._embedding_model = model_cls(self.dense_model_name)
+        logger.info("Encoding %s corpus chunks with %s", len(self.chunks), self.dense_model_name)
+        self._embeddings = self._embedding_model.encode(
+            [chunk.text for chunk in self.chunks],
+            batch_size=64,
+            convert_to_numpy=True,
+            normalize_embeddings=True,
+            show_progress_bar=False,
+        )
+
+    def _scope_for_domain(self, domain: str | None) -> _ScopeIndex:
+        normalized = normalize_domain(domain)
+        if normalized and normalized in self._scope_indexes:
+            return self._scope_indexes[normalized]
+        return self._scope_indexes["all"]
+
+    def _rank_bm25(
+        self,
+        query: str,
+        scope: _ScopeIndex,
+        pool_size: int,
+    ) -> dict[int, tuple[int, float]]:
+        tokens = tokenize(query)
+        if not tokens:
+            return {}
+
+        import numpy as np
+
+        scores = np.asarray(scope.bm25.get_scores(tokens), dtype=float)
+        if scores.size == 0:
+            return {}
+
+        ordered_positions = np.argsort(scores)[::-1]
+        rankings: dict[int, tuple[int, float]] = {}
+        rank = 1
+        for position in ordered_positions:
+            score = float(scores[position])
+            if score <= 0.0:
+                break
+            rankings[scope.indices[int(position)]] = (rank, score)
+            rank += 1
+            if len(rankings) >= pool_size:
+                break
+        return rankings
+
+    def _rank_dense(
+        self,
+        query: str,
+        scope: _ScopeIndex,
+        pool_size: int,
+    ) -> dict[int, tuple[int, float]]:
+        if self._embedding_model is None or self._embeddings is None:
+            raise RuntimeError("Dense index was not initialized")
+
+        import numpy as np
+
+        query_embedding = self._embedding_model.encode(
+            ["Represent this sentence for searching relevant passages: " + query],
+            convert_to_numpy=True,
+            normalize_embeddings=True,
+            show_progress_bar=False,
+        )[0]
+        scope_indices = np.asarray(scope.indices, dtype=int)
+        if scope_indices.size == 0:
+            return {}
+
+        scores = self._embeddings[scope_indices] @ query_embedding
+        ordered_positions = np.argsort(scores)[::-1][:pool_size]
+        return {
+            scope.indices[int(position)]: (rank, float(scores[position]))
+            for rank, position in enumerate(ordered_positions, start=1)
+        }
+
+
+def tokenize(text: str) -> list[str]:
+    """Tokenize for BM25 while preserving useful support artifacts."""
+
+    return [match.group(0).casefold() for match in _TOKEN_RE.finditer(text or "")]
+
+
+def normalize_domain(domain: str | None) -> str | None:
+    """Map stated company/domain text to a corpus domain, if known."""
+
+    if domain is None:
+        return None
+    normalized = " ".join(str(domain).strip().casefold().split())
+    if normalized in {"", "none", "null", "unknown", "n/a"}:
+        return None
+    return _DOMAIN_ALIASES.get(normalized)
+
+
+def _load_bm25_class() -> Any:
+    try:
+        from rank_bm25 import BM25Okapi  # type: ignore
+    except ImportError as exc:
+        raise RetrievalDependencyError(
+            "rank_bm25 is required for sparse retrieval. Install it with `pip install rank-bm25`."
+        ) from exc
+    return BM25Okapi
+
+
+def _load_sentence_transformer_class() -> Any:
+    try:
+        from sentence_transformers import SentenceTransformer  # type: ignore
+    except ImportError as exc:
+        raise RetrievalDependencyError(
+            "sentence-transformers is required for dense retrieval. "
+            "Install it with `pip install sentence-transformers`."
+        ) from exc
+    return SentenceTransformer
