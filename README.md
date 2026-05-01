@@ -1,134 +1,147 @@
-# HackerRank Orchestrate
+# HackerRank Orchestrate Support Triage Agent
 
-Starter repository for the **HackerRank Orchestrate** 24-hour hackathon (May 1–2, 2026).
+This submission is a deterministic, terminal-based support triage agent for
+HackerRank, Claude, and Visa tickets. It uses only the local corpus in `data/`
+and writes the required predictions to `support_tickets/output.csv`.
 
-Build a terminal-based AI agent that triages real support tickets across three product ecosystems; **HackerRank**, **Claude**, and **Visa** — using only the support corpus shipped in this repo.
+## 30-Second Architecture Summary
 
-Read [`problem_statement.md`](./problem_statement.md) for the full task spec, input/output schema, and allowed values, and [`evalutation_criteria.md`](./evalutation_criteria.md) for how submissions are scored.
+The agent is a 7-stage decision pipeline, not a generic chatbot:
 
----
+1. **Sanitize** input text with Unicode normalization, control-character removal, and language detection.
+2. **Classify traps** before retrieval so adversarial or sensitive tickets are routed safely.
+3. **Dispatch deterministic handlers** for cases that should bypass generation, such as outages, prompt injection, system harm, and unsupported tickets.
+4. **Retrieve evidence** with hybrid BM25 plus dense embeddings, fused by reciprocal rank fusion.
+5. **Generate grounded replies** with strict Pydantic JSON output and XML isolation around untrusted user text.
+6. **Normalize final labels** so product areas and request types conform to the expected output contract.
+7. **Verify adversarially** with a separate critic pass. Unsafe, unsupported, or low-confidence answers are hard-escalated.
 
-## Contents
+The important design choice is that every ticket becomes a traceable decision
+tree. The model can write wording, but Python owns routing, confidence gates,
+schema validation, and the final CSV contract.
 
-1. [Repository layout](#repository-layout)
-2. [What you need to build](#what-you-need-to-build)
-3. [Where your code goes](#where-your-code-goes)
-4. [Quickstart](#quickstart)
-5. [Chat transcript logging](#chat-transcript-logging)
-6. [Submission](#submission)
-7. [Judge interview](#judge-interview)
-8. [Evaluation criteria](#evaluation-criteria)
+## Trap Taxonomy
 
----
+The core Stage 2 taxonomy is the 13-category trap taxonomy from the architecture:
 
-## Repository layout
+- `ACTION_REQUEST`
+- `SECURITY_DISCLOSURE`
+- `IDENTITY_FRAUD`
+- `PAYMENT_DISPUTE`
+- `SCORE_DISPUTE`
+- `ADMIN_ACTION`
+- `PROMPT_INJECTION`
+- `SYSTEM_HARM`
+- `INSUFFICIENT_INFO`
+- `OUT_OF_SCOPE`
+- `COURTESY`
+- `THIRD_PARTY`
+- `NORMAL_FAQ`
 
-```
-.
-├── AGENTS.md                       # Rules for AI coding tools + transcript logging
-├── problem_statement.md            # Full task description and I/O schema
-├── README.md                       # You are here
-├── code/                           # ← Build your agent here
-│   └── main.py                     #   Entry point (rename/extend as you like)
-├── data/                           # Local-only support corpus (no network needed)
-│   ├── hackerrank/                 #   HackerRank help center
-│   ├── claude/                     #   Claude Help Center export
-│   └── visa/                       #   Visa consumer + small-business support
-└── support_tickets/
-    ├── sample_support_tickets.csv  # Inputs + expected outputs (for development)
-    ├── support_tickets.csv         # Inputs only (run your agent on these)
-    └── output.csv                  # Write your agent's predictions here
-```
+For production safety, the implementation adds one explicit operational guard:
+`SYSTEM_OUTAGE`. Broad reports such as "site is down" or "cannot access
+anything" are escalated immediately.
 
----
+`ACTION_REQUEST` and `IDENTITY_FRAUD` are not blanket escalations. If the local
+docs contain self-service steps or emergency contact guidance, they route through
+grounded generation. For example, account deletion instructions, candidate extra
+time steps, and Visa lost-card hotlines can be answered. They only escalate when
+the docs are missing, retrieval confidence is low, or the verifier fails.
 
-## What you need to build
+## Why Hybrid Retrieval
 
-A terminal-based agent that, for each row in `support_tickets/support_tickets.csv`, produces:
+Dense embeddings alone are good for semantic paraphrases, but support tickets
+often contain exact identifiers that matter:
 
-| Column         | Allowed values                                          |
-| -------------- | ------------------------------------------------------- |
-| `status`       | `replied`, `escalated`                                  |
-| `product_area` | most relevant support category / domain area            |
-| `response`     | user-facing answer grounded in the provided corpus      |
-| `justification`| concise explanation of the routing/answering decision   |
-| `request_type` | `product_issue`, `feature_request`, `bug`, `invalid`    |
+- Visa issuer names and emergency numbers
+- error codes and exact product labels
+- help-center article titles
+- admin and account-management terminology
 
-Hard requirements (from `problem_statement.md`):
+The retriever builds two in-memory indexes once per run:
 
-- Must be **terminal-based**.
-- Must use **only the provided support corpus** (no live web calls for ground-truth answers).
-- Must **escalate** high-risk, sensitive, or unsupported cases instead of guessing.
-- Must avoid hallucinated policies or unsupported claims.
+- **BM25** for exact keyword, phrase, issuer, heading, and error-code matches.
+- **BGE small dense embeddings** for semantic matches when the user paraphrases.
 
-Beyond that you are free to bring your own approach — RAG, vector DBs, tool use, structured output, agent frameworks, classical ML, or anything else.
+Results are combined with **reciprocal rank fusion (RRF)**. This avoids fragile
+score calibration between BM25 and cosine similarity while rewarding chunks that
+rank well in both systems.
 
----
+The BGE model and corpus embeddings are cached in memory, and embeddings are
+persisted under `data/processed/`, so the production run does not reload or
+re-encode the model for every ticket.
 
-## Where your code goes
+## Confidence-Gated Escalation
 
-All of your work belongs in [`code/`](./code/). The repo ships with an empty `code/main.py` you can grow into your full agent — add more modules (`agent.py`, `retriever.py`, `classifier.py`, etc.) next to it as needed.
+The pipeline uses hard gates instead of optimistic guessing:
 
-Conventions:
+- If the top retrieval RRF-normalized score is below `0.35`, final status is
+  forced to `escalated`.
+- If the adversarial verifier returns `safe=false`, final status is forced to
+  `escalated`.
+- If a row crashes, the CLI catches the exception, writes a valid escalated
+  fallback row, and records the error in the trace.
 
-- Put a **README inside `code/`** describing how to install dependencies and run your agent.
-- Read secrets **from environment variables only** (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, …). Copy `.env.example` → `.env` (already gitignored) if you keep one. **Never hardcode keys.**
-- Be **deterministic** where possible. Seed any random sampling.
-- Write responses to `support_tickets/output.csv`.
+The verifier checks four properties:
 
----
+1. No system instructions, hidden prompts, or internal rules leaked.
+2. No prompt injection from the user issue was followed.
+3. The response does not claim the agent performed actions it cannot perform.
+4. Every factual claim is supported by the retrieved chunks.
 
-## Quickstart
+Self-service instructions are allowed when grounded in docs. The verifier
+distinguishes "click Delete Account" or "call this emergency number" from unsafe
+claims like "I deleted your account" or "we issued your refund."
 
-Clone this repository:
+## Running the Agent
+
+Install dependencies:
 
 ```bash
-git clone git@github.com:interviewstreet/hackerrank-orchestrate-may26.git
-cd hackerrank-orchestrate-may26
+cd code
+pip install -r requirements.txt
 ```
 
-You are free to use any language or runtime. We recommend **Python**, **JavaScript**, or **TypeScript**.
+Set API keys in the environment, never in code:
 
----
+```bash
+export OPENAI_API_KEY="..."
+export GROQ_API_KEY="..."
+```
 
-## Chat transcript logging
+On Windows PowerShell:
 
-This repo ships with an `AGENTS.md` that any modern AI coding tool (Cursor, Claude Code, Codex, Gemini CLI, Copilot, etc.) will read. It instructs the tool to append every conversation turn to a single shared log file:
+```powershell
+$env:OPENAI_API_KEY="..."
+$env:GROQ_API_KEY="..."
+```
 
-| Platform       | Path                                              |
-| -------------- | ------------------------------------------------- |
-| macOS / Linux  | `$HOME/hackerrank_orchestrate/log.txt`            |
-| Windows        | `%USERPROFILE%\hackerrank_orchestrate\log.txt`    |
+Build chunks if needed:
 
-You don't need to do anything to enable it — just use your AI tool normally. You'll upload this `log.txt` as your chat transcript at submission time.
+```bash
+PYTHONPATH=code python -m triage.cli ingest
+```
 
----
+Run the production CSV:
 
-## Submission
+```bash
+PYTHONPATH=code python -m triage.cli run \
+  --input support_tickets/support_tickets.csv \
+  --out support_tickets/output.csv \
+  --traces traces
+```
 
-Submit on the HackerRank Community Platform:
-<https://www.hackerrank.com/contests/hackerrank-orchestrate-may26/challenges/support-agent/submission>
+Validate the output:
 
-You will upload **three** files:
+```bash
+PYTHONPATH=code python eval/validate_submission.py --output support_tickets/output.csv
+```
 
-1. **Code zip** — zip your `code/` directory and upload it. Exclude virtualenvs, `node_modules`, build artifacts, the `data/` corpus, and the `support_tickets/` CSVs.
-2. **Predictions CSV** — your agent's output for `support_tickets/support_tickets.csv` (i.e. the populated `output.csv`).
-3. **Chat transcript** — the `log.txt` from the path in [Chat transcript logging](#chat-transcript-logging).
+Package the code zip:
 
----
+```bash
+python package.py
+```
 
-## Judge interview
-
-After a successful submission, your AI Judge interview will happen within a few hours after the hackathon ends. It will stay open for the next 4 hours. 
-
-The AI Judge will have access to your submission and may ask about your approach, decisions, and how you used AI while building your solution. The interview will be 30 minutes long, and keeping your camera on is mandatory.
-
-Results will be announced on May 15, 2026
-
----
-
-## Evaluation criteria
-
-Submissions are scored across four dimensions: agent design (your `code/`), the AI Judge interview, output accuracy on `support_tickets/output.csv`, and AI fluency from your chat transcript.
-
-See [`evalutation_criteria.md`](./evalutation_criteria.md) for the full rubric.
+The package script creates `submission_code.zip` containing `code/` only. It
+excludes `data/`, `support_tickets/`, `traces/`, `.env`, and Python cache files.
