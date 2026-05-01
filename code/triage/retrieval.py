@@ -192,7 +192,14 @@ class HybridRetriever:
     def _load_dense_index(self) -> None:
         model_cls = _load_sentence_transformer_class()
         logger.info("Loading dense retrieval model once: %s", self.dense_model_name)
-        self._embedding_model = model_cls(self.dense_model_name)
+        try:
+            self._embedding_model = model_cls(self.dense_model_name)
+        except Exception as exc:
+            raise RetrievalDependencyError(
+                f"Could not load dense retrieval model {self.dense_model_name!r}. "
+                "Set DENSE_RETRIEVAL_MODEL to a locally available SentenceTransformer model "
+                "or ensure the model can be downloaded."
+            ) from exc
         if self.dense_max_seq_length > 0:
             self._embedding_model.max_seq_length = self.dense_max_seq_length
 
@@ -208,13 +215,16 @@ class HybridRetriever:
             self.dense_model_name,
             getattr(self._embedding_model, "max_seq_length", "unknown"),
         )
-        self._embeddings = self._embedding_model.encode(
-            [dense_document_text(chunk) for chunk in self.chunks],
-            batch_size=128,
-            convert_to_numpy=True,
-            normalize_embeddings=True,
-            show_progress_bar=True,
-        )
+        try:
+            self._embeddings = self._embedding_model.encode(
+                [dense_document_text(chunk) for chunk in self.chunks],
+                batch_size=128,
+                convert_to_numpy=True,
+                normalize_embeddings=True,
+                show_progress_bar=True,
+            )
+        except Exception as exc:
+            raise RetrievalDependencyError("Could not encode corpus chunks for dense retrieval.") from exc
         self._save_embedding_cache(self._embeddings)
 
     def _scope_for_domain(self, domain: str | None) -> _ScopeIndex:

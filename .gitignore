@@ -29,5 +29,7 @@ Thumbs.db
 # local data / caches the participant may create
 data/index/
 data/embeddings/
+data/processed/embeddings_*.json
+data/processed/embeddings_*.npy
 *.sqlite
 *.db

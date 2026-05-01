@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
@@ -134,3 +134,27 @@ class RetrievedChunk(ChunkRecord):
     dense_rank: int | None = Field(default=None, ge=1)
     bm25_score: float | None = None
     dense_score: float | None = None
+
+
+Status = Literal["replied", "escalated"]
+RequestType = Literal["product_issue", "feature_request", "bug", "invalid"]
+
+
+class TriageDecision(BaseModel):
+    """Final row written to output.csv."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    response: str = Field(min_length=1)
+    product_area: str = Field(min_length=1)
+    status: Status
+    request_type: RequestType
+    justification: str = Field(min_length=1)
+
+    @field_validator("response", "product_area", "justification")
+    @classmethod
+    def _compact_output_text(cls, value: str) -> str:
+        compact = " ".join(value.split())
+        if not compact:
+            raise ValueError("output field must not be blank")
+        return compact

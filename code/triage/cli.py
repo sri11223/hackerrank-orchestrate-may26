@@ -10,6 +10,7 @@ import typer
 from .config import DATA_DIR, DEFAULT_INPUT_CSV, DEFAULT_OUTPUT_CSV, LOG_PATH, get_settings
 from .ingest import DEFAULT_OUTPUT_PATH, ingest_corpus
 from .llm import ChatMessage, LLMClient, LLMConfigurationError, LLMResponseError, Provider
+from .orchestrator import DEFAULT_TRACES_DIR, error_decision, process_ticket
 from .retrieval import RetrievalDependencyError, retrieve
 
 
@@ -140,14 +141,73 @@ def search(
 def run(
     input_csv: Path = typer.Option(DEFAULT_INPUT_CSV, "--input", "-i", help="Input ticket CSV."),
     output_csv: Path = typer.Option(DEFAULT_OUTPUT_CSV, "--out", "-o", help="Output prediction CSV."),
-    traces_dir: Optional[Path] = typer.Option(None, "--traces", help="Optional trace output dir."),
+    traces_dir: Optional[Path] = typer.Option(
+        DEFAULT_TRACES_DIR,
+        "--traces",
+        help="Decision trace output dir. Pass an empty path only if traces are not needed.",
+    ),
 ) -> None:
-    """Placeholder for end-to-end triage run."""
+    """Run the full triage pipeline over a ticket CSV."""
 
-    typer.echo(
-        "run placeholder: "
-        f"input_csv={input_csv} output_csv={output_csv} traces_dir={traces_dir}"
-    )
+    try:
+        import pandas as pd
+    except ImportError as exc:
+        typer.echo("run failed: pandas is required. Install it with `pip install pandas`.", err=True)
+        raise typer.Exit(1) from exc
+
+    try:
+        frame = pd.read_csv(input_csv, keep_default_na=False)
+    except Exception as exc:
+        typer.echo(f"run failed: could not read input CSV {input_csv}: {exc}", err=True)
+        raise typer.Exit(1) from exc
+
+    output_rows: list[dict[str, str]] = []
+    for index, row in frame.iterrows():
+        row_id = index + 1
+        row_dict = row.to_dict()
+        try:
+            decision = process_ticket(row_dict, ticket_id=row_id, traces_dir=traces_dir)
+        except Exception as exc:
+            typer.echo(f"ticket {row_id}: escalated after processing error: {exc}", err=True)
+            decision = error_decision(row_dict, exc, ticket_id=row_id, traces_dir=traces_dir)
+
+        output_rows.append(
+            {
+                "issue": _row_value(row_dict, "issue"),
+                "subject": _row_value(row_dict, "subject"),
+                "company": _row_value(row_dict, "company"),
+                "response": decision.response,
+                "product_area": decision.product_area,
+                "status": decision.status,
+                "request_type": decision.request_type,
+                "justification": decision.justification,
+            }
+        )
+
+    output_csv.parent.mkdir(parents=True, exist_ok=True)
+    pd.DataFrame(
+        output_rows,
+        columns=[
+            "issue",
+            "subject",
+            "company",
+            "response",
+            "product_area",
+            "status",
+            "request_type",
+            "justification",
+        ],
+    ).to_csv(output_csv, index=False)
+    typer.echo(f"wrote {len(output_rows)} rows to {output_csv}")
+    if traces_dir is not None:
+        typer.echo(f"wrote traces to {traces_dir}")
+
+
+def _row_value(row: dict[str, object], key: str) -> str:
+    for row_key, value in row.items():
+        if str(row_key).strip().casefold() == key:
+            return "" if value is None else str(value)
+    return ""
 
 
 if __name__ == "__main__":
