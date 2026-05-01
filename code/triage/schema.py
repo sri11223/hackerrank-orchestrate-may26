@@ -146,12 +146,18 @@ class TriageDecision(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     response: str = Field(min_length=1)
-    product_area: str = Field(min_length=1)
+    product_area: str = Field(default="general_support")
     status: Status
     request_type: RequestType
     justification: str = Field(min_length=1)
 
-    @field_validator("response", "product_area", "justification")
+    @field_validator("product_area", mode="before")
+    @classmethod
+    def _default_product_area(cls, value: object) -> str:
+        compact = " ".join(str(value or "").split())
+        return compact or "general_support"
+
+    @field_validator("response", "justification")
     @classmethod
     def _compact_output_text(cls, value: str) -> str:
         compact = " ".join(value.split())

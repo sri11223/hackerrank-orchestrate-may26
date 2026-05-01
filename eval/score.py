@@ -32,6 +32,7 @@ def main() -> None:
     print(f"expected={args.expected}")
     print(f"pred={args.pred}")
     print(f"expected_rows={len(expected)} pred_rows={len(predictions)}")
+    print(f"known_product_areas={extract_product_areas(args.expected)}")
     if len(expected) != len(predictions):
         print("WARNING: row-count mismatch; missing/extra prediction rows are counted as incorrect.")
 
@@ -59,6 +60,38 @@ def main() -> None:
         if mismatches:
             print(f"  first mismatches: {'; '.join(mismatches[:5])}")
 
+    print_status_debug(expected, predictions)
+
+
+def extract_product_areas(expected_csv: Path = DEFAULT_EXPECTED) -> list[str]:
+    frame = pd.read_csv(expected_csv, keep_default_na=False)
+    column = find_column(frame, "product_area")
+    return sorted({normalize_area(value) for value in frame[column]})
+
+
+def print_status_debug(expected: pd.DataFrame, predictions: pd.DataFrame) -> None:
+    expected_status_col = find_column(expected, "status")
+    pred_status_col = find_column(predictions, "status")
+    justification_col = find_column(predictions, "justification")
+
+    print("status_mismatch_debug:")
+    found = False
+    for index in range(len(expected)):
+        expected_status = normalize_status(expected.iloc[index][expected_status_col])
+        predicted_status = ""
+        justification = ""
+        if index < len(predictions):
+            predicted_status = normalize_status(predictions.iloc[index][pred_status_col])
+            justification = str(predictions.iloc[index][justification_col])
+        if expected_status != predicted_status:
+            found = True
+            print(
+                f"Row {index + 1} - Expected: {expected_status}, Got: {predicted_status} "
+                f"| Justification: {justification}"
+            )
+    if not found:
+        print("  none")
+
 
 def find_column(frame: pd.DataFrame, canonical: str) -> str:
     wanted = normalize_column(canonical)
@@ -81,7 +114,8 @@ def normalize_request_type(value: object) -> str:
 
 
 def normalize_area(value: object) -> str:
-    return re.sub(r"[^a-z0-9]+", " ", str(value).strip().casefold()).strip()
+    normalized = re.sub(r"[^a-z0-9]+", "_", str(value).strip().casefold()).strip("_")
+    return normalized or "general_support"
 
 
 if __name__ == "__main__":

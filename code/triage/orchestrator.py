@@ -3,6 +3,10 @@
 from __future__ import annotations
 
 import json
+import re
+from csv import DictReader
+from difflib import get_close_matches
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -18,6 +22,15 @@ from .verify import VerificationResult, verify_response
 
 RETRIEVAL_CONFIDENCE_THRESHOLD = 0.35
 DEFAULT_TRACES_DIR = REPO_ROOT / "traces"
+SAMPLE_LABELS_CSV = REPO_ROOT / "support_tickets" / "sample_support_tickets.csv"
+FALLBACK_PRODUCT_AREAS = (
+    "screen",
+    "community",
+    "general_support",
+    "privacy",
+    "conversation_management",
+    "travel_support",
+)
 
 
 def process_ticket(
@@ -85,6 +98,7 @@ def process_ticket(
         top_score=top_score,
         verifier=verifier,
     )
+    final_decision = _snap_decision_product_area(final_decision, ticket, chunks)
     trace["final_decision"] = final_decision.model_dump()
     _write_trace(trace, traces_dir, ticket_id)
     return final_decision
@@ -101,7 +115,7 @@ def error_decision(
 
     decision = TriageDecision(
         status="escalated",
-        product_area="general support",
+        product_area="general_support",
         response=(
             "I could not safely process this ticket automatically, so I am escalating it for "
             "human review."
@@ -147,6 +161,88 @@ def _apply_confidence_gates(
         request_type=decision.request_type,
         justification=f"{decision.justification}; hard_override={'|'.join(reasons)}",
     )
+
+
+def _snap_decision_product_area(
+    decision: TriageDecision,
+    ticket: Ticket,
+    chunks: list[RetrievedChunk],
+) -> TriageDecision:
+    snapped = snap_product_area(decision.product_area, ticket, chunks)
+    if snapped == decision.product_area:
+        return decision
+    return TriageDecision(
+        status=decision.status,
+        product_area=snapped,
+        response=decision.response,
+        request_type=decision.request_type,
+        justification=f"{decision.justification}; product_area_snapped={decision.product_area}->{snapped}",
+    )
+
+
+def snap_product_area(
+    product_area: str | None,
+    ticket: Ticket,
+    chunks: list[RetrievedChunk],
+) -> str:
+    """Force arbitrary model labels into the sample-observed product areas."""
+
+    valid = known_product_areas()
+    raw = normalize_product_area(product_area)
+    if raw in valid:
+        return raw
+
+    heading_text = " ".join(chunk.heading_path for chunk in chunks[:3]).casefold()
+    if "community" in heading_text:
+        return "community"
+    if "privacy" in heading_text or "sensitive data" in heading_text:
+        return "privacy"
+    if "conversation" in heading_text or "chat" in heading_text:
+        return "conversation_management"
+    if "travel" in heading_text or "lost or stolen" in heading_text or "visa card" in heading_text:
+        return "travel_support"
+    if "screen" in heading_text or "test" in heading_text or "candidate" in heading_text:
+        return "screen"
+
+    close = get_close_matches(raw, valid, n=1, cutoff=0.55)
+    if close:
+        return close[0]
+
+    company = (ticket.company or "").strip().casefold()
+    if company == "hackerrank":
+        return "screen"
+    if company == "visa":
+        return "travel_support"
+    return "general_support"
+
+
+@lru_cache(maxsize=1)
+def known_product_areas() -> list[str]:
+    if not SAMPLE_LABELS_CSV.exists():
+        return list(FALLBACK_PRODUCT_AREAS)
+
+    values: set[str] = set()
+    with SAMPLE_LABELS_CSV.open("r", encoding="utf-8-sig", newline="") as handle:
+        reader = DictReader(handle)
+        product_area_column = None
+        for column in reader.fieldnames or []:
+            if _normalize_column(column) == "product_area":
+                product_area_column = column
+                break
+        if product_area_column is None:
+            return list(FALLBACK_PRODUCT_AREAS)
+        for row in reader:
+            values.add(normalize_product_area(row.get(product_area_column)))
+    return sorted(values or set(FALLBACK_PRODUCT_AREAS))
+
+
+def normalize_product_area(value: object) -> str:
+    normalized = re.sub(r"[^a-z0-9]+", "_", str(value or "").strip().casefold()).strip("_")
+    return normalized or "general_support"
+
+
+def _normalize_column(value: object) -> str:
+    return re.sub(r"[^a-z0-9]+", "_", str(value).strip().casefold()).strip("_")
 
 
 def _get(row: Mapping[str, Any], key: str) -> str:

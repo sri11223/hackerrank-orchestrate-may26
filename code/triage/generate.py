@@ -31,11 +31,17 @@ class GroundedGenerationResult(BaseModel):
 
     response: str = Field(min_length=1)
     citations: list[str] = Field(default_factory=list)
-    product_area: str = Field(min_length=1)
+    product_area: str = Field(default="general_support")
     request_type: RequestType
     confidence: float = Field(ge=0.0, le=1.0)
 
-    @field_validator("response", "product_area")
+    @field_validator("product_area", mode="before")
+    @classmethod
+    def _default_product_area(cls, value: object) -> str:
+        compact = " ".join(str(value or "").split())
+        return compact or "general_support"
+
+    @field_validator("response")
     @classmethod
     def _compact_required_text(cls, value: str) -> str:
         compact = " ".join(value.split())
