@@ -16,7 +16,14 @@ from rich.progress import BarColumn, Progress, SpinnerColumn, TaskProgressColumn
 from rich.table import Table
 from rich.text import Text
 
-from .config import DATA_DIR, DEFAULT_INPUT_CSV, DEFAULT_OUTPUT_CSV, LOG_PATH, get_settings
+from .config import (
+    DATA_DIR,
+    DEFAULT_INPUT_CSV,
+    DEFAULT_OUTPUT_CSV,
+    LOG_PATH,
+    SUPPORT_TICKETS_DIR,
+    get_settings,
+)
 from .ingest import DEFAULT_OUTPUT_PATH, ingest_corpus
 from .llm import ChatMessage, LLMClient, LLMConfigurationError, LLMResponseError, Provider
 from .orchestrator import DEFAULT_TRACES_DIR, error_decision, process_ticket
@@ -403,6 +410,42 @@ def run(
     ),
 ) -> None:
     """Run the full triage pipeline over a ticket CSV."""
+
+    _run_batch_csv(input_csv=input_csv, output_csv=output_csv, traces_dir=traces_dir)
+
+
+@app.command()
+def crucible(
+    input_csv: Path = typer.Option(
+        SUPPORT_TICKETS_DIR / "crucible_tickets.csv",
+        "--input",
+        "-i",
+        help="Adversarial crucible input CSV.",
+    ),
+    output_csv: Path = typer.Option(
+        SUPPORT_TICKETS_DIR / "crucible_output.csv",
+        "--out",
+        "-o",
+        help="Adversarial crucible output CSV.",
+    ),
+    traces_dir: Optional[Path] = typer.Option(
+        DEFAULT_TRACES_DIR / "crucible",
+        "--traces",
+        help="Decision trace output dir for crucible runs.",
+    ),
+) -> None:
+    """Run the adversarial crucible dataset through the full batch pipeline."""
+
+    _run_batch_csv(input_csv=input_csv, output_csv=output_csv, traces_dir=traces_dir)
+
+
+def _run_batch_csv(
+    *,
+    input_csv: Path,
+    output_csv: Path,
+    traces_dir: Optional[Path],
+) -> None:
+    """Run the full triage pipeline over a ticket CSV with Rich progress."""
 
     try:
         import pandas as pd
