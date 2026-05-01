@@ -16,7 +16,7 @@ from typing import Any, Literal, Mapping, Sequence
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 from tenacity import retry, stop_after_attempt, wait_exponential
 
-from .llm import ChatMessage, LLMClient, LLMResponseError, LLMResult
+from .llm import ChatMessage, LLMClient, LLMResponseError, LLMResult, Provider
 from .schema import ChunkRecord, RetrievedChunk, Ticket, TrapTag
 
 
@@ -129,6 +129,7 @@ def generate_response(
     *,
     trap_tags: Sequence[TrapTag | str] | None = None,
     critique: Sequence[str] | None = None,
+    provider: Provider | None = None,
     client: LLMClient | None = None,
 ) -> GroundedGenerationResult:
     """Generate a grounded response from retrieved chunks using GPT-4o-mini.
@@ -157,7 +158,13 @@ def generate_response(
     ]
 
     llm = client or LLMClient()
-    result = _call_generation_llm(llm, tuple(messages))
+    selected_provider = provider or _select_generation_provider(trap_tags, critique, llm)
+    result = _call_generation_llm_with_fallback(
+        llm,
+        tuple(messages),
+        selected_provider,
+        allow_fallback=provider is None,
+    )
     try:
         parsed = GroundedGenerationResult.model_validate(_parse_generation_payload(result.content))
     except ValidationError as exc:
@@ -172,10 +179,59 @@ def generate_response(
 def _call_generation_llm(
     llm: LLMClient,
     messages: tuple[ChatMessage, ...],
+    provider: Provider,
 ) -> LLMResult:
-    """Call OpenAI for generation with outer retry/backoff protection."""
+    """Call the routed generation model with outer retry/backoff protection."""
 
-    return llm.chat("openai", messages, temperature=0.0, max_tokens=700, strict_json=False)
+    return llm.chat(provider, messages, temperature=0.0, max_tokens=700, strict_json=False)
+
+
+def _call_generation_llm_with_fallback(
+    llm: LLMClient,
+    messages: tuple[ChatMessage, ...],
+    provider: Provider,
+    *,
+    allow_fallback: bool,
+) -> LLMResult:
+    try:
+        return _call_generation_llm(llm, messages, provider)
+    except LLMResponseError:
+        fallback = _fallback_provider(provider, llm) if allow_fallback else None
+        if fallback is None:
+            raise
+        return _call_generation_llm(llm, messages, fallback)
+
+
+def _select_generation_provider(
+    trap_tags: Sequence[TrapTag | str] | None,
+    critique: Sequence[str] | None,
+    llm: LLMClient,
+) -> Provider:
+    """Route cheap-first FAQs to Groq and verifier rewrites to the stronger path."""
+
+    cleaned_critique = [str(item).strip() for item in critique or () if str(item).strip()]
+    tags = _normalize_trap_tags(trap_tags)
+
+    if cleaned_critique:
+        preferred: Provider = "openai"
+    elif tags == {TrapTag.NORMAL_FAQ.value}:
+        preferred = "groq"
+    else:
+        preferred = "openai"
+
+    if preferred == "groq" and not llm.settings.has_groq and llm.settings.has_openai:
+        return "openai"
+    if preferred == "openai" and not llm.settings.has_openai and llm.settings.has_groq:
+        return "groq"
+    return preferred
+
+
+def _fallback_provider(provider: Provider, llm: LLMClient) -> Provider | None:
+    if provider == "groq" and llm.settings.has_openai:
+        return "openai"
+    if provider == "openai" and llm.settings.has_groq:
+        return "groq"
+    return None
 
 
 def _parse_generation_payload(content: str) -> dict[str, Any]:

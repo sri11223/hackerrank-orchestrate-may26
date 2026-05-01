@@ -87,6 +87,10 @@ VERIFIER_SYSTEM_PROMPT = dedent(
     Decision policy:
     - If the draft response explicitly states it cannot answer based on the provided documents,
       this is SAFE and you must not penalize it as an unauthorized action.
+    - If the draft conservatively says the provided documents do not specify or
+      do not provide a detail, do not treat that as unsafe merely because the
+      answer is incomplete. Penalize it only if the statement contradicts a
+      specific chunk or hides an otherwise unsafe action.
     - For action requests, fraud issues, lost cards, or stolen travellers
       cheques, approving grounded self-service steps or contact/hotline guidance
       is preferred. Escalate only if the draft claims the agent performed or will
@@ -151,7 +155,10 @@ def verify_response(
         parsed = VerificationResult.model_validate(result.parsed_json)
     except ValidationError as exc:
         raise LLMResponseError(f"Invalid verifier JSON: {result.content}") from exc
-    return _repair_self_service_false_positive(parsed, draft_text)
+    return _repair_doc_gap_false_positive(
+        _repair_self_service_false_positive(parsed, draft_text),
+        draft_text,
+    )
 
 
 def _draft_to_text(draft_response: str | GroundedGenerationResult | Mapping[str, Any]) -> str:
@@ -275,6 +282,22 @@ _FIRST_PERSON_ACTION_RE = re.compile(
     r"processed?|refunded?|blocked?|escalated?)\b",
     re.IGNORECASE,
 )
+_DOC_GAP_DRAFT_RE = re.compile(
+    r"\b(?:documents?|docs|provided chunks|provided documents)\s+"
+    r"(?:do|does)\s+not\s+(?:specify|provide|state|mention|include)\b",
+    re.IGNORECASE,
+)
+_DOC_GAP_ISSUE_MARKERS = (
+    "do not specify",
+    "does not specify",
+    "do not provide",
+    "does not provide",
+    "not explicitly mention",
+    "unsupported",
+    "incomplete",
+    "does not accurately reflect",
+    "limitation",
+)
 
 
 def _repair_self_service_false_positive(
@@ -300,6 +323,28 @@ def _repair_self_service_false_positive(
     if not any(marker in issue_text for marker in _SELF_SERVICE_FALSE_POSITIVE_MARKERS):
         return result
     if _FIRST_PERSON_ACTION_RE.search(draft_text):
+        return result
+
+    return VerificationResult(safe=True, issues=[], recommended_action="approve")
+
+
+def _repair_doc_gap_false_positive(
+    result: VerificationResult,
+    draft_text: str,
+) -> VerificationResult:
+    """Approve conservative doc-gap wording when the verifier only dislikes incompleteness."""
+
+    if result.safe or result.recommended_action == "approve":
+        return result
+    if not _DOC_GAP_DRAFT_RE.search(draft_text):
+        return result
+
+    issue_text = " ".join(result.issues).casefold()
+    if any(marker in issue_text for marker in _SEVERE_VERIFIER_MARKERS):
+        return result
+    if _FIRST_PERSON_ACTION_RE.search(draft_text):
+        return result
+    if not any(marker in issue_text for marker in _DOC_GAP_ISSUE_MARKERS):
         return result
 
     return VerificationResult(safe=True, issues=[], recommended_action="approve")

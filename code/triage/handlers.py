@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from collections.abc import Callable, Sequence
 
 from .schema import RetrievedChunk, Ticket, TrapResult, TrapTag, TriageDecision
@@ -12,9 +13,9 @@ GENERATION_ROUTED_TAGS = frozenset(
     {
         TrapTag.NORMAL_FAQ,
         TrapTag.ACTION_REQUEST,
-        TrapTag.IDENTITY_FRAUD,
     }
 )
+_PHONE_RE = re.compile(r"\+?\d[\d\s().-]{6,}\d")
 
 
 def dispatch_trap_handler(
@@ -24,10 +25,9 @@ def dispatch_trap_handler(
 ) -> TriageDecision | None:
     """Return a deterministic decision for traps that should bypass generation.
 
-    NORMAL_FAQ, ACTION_REQUEST, and IDENTITY_FRAUD are intentionally excluded so
-    the orchestrator can route those paths through grounded generation and
-    verification. Action and fraud tickets may still be replyable when the docs
-    contain self-service steps or emergency hotlines.
+    NORMAL_FAQ and ACTION_REQUEST are intentionally excluded so the orchestrator
+    can route those paths through grounded generation and verification. Identity
+    fraud bypasses generation through a deterministic emergency-contact handler.
     """
 
     for tag in trap_result.tags:
@@ -54,6 +54,41 @@ def handle_security_disclosure(
         ),
         reason="Security disclosure is handled by documented security-reporting guidance.",
         chunks=chunks,
+    )
+
+
+def handle_identity_fraud(
+    ticket: Ticket, trap_result: TrapResult, chunks: Sequence[RetrievedChunk]
+) -> TriageDecision:
+    phones = _extract_phone_numbers(chunks)
+    if phones:
+        response = (
+            "This looks like a lost-card, stolen-card, or fraud-related identity issue. "
+            "Use the emergency contact guidance from the retrieved Visa documentation. "
+            f"Relevant phone numbers found in the docs: {', '.join(phones)}. "
+            "I cannot block a card, open a dispute, or contact an issuer for you, but you should "
+            "use the documented emergency contact path immediately."
+        )
+        status = "replied"
+        reason = "Identity/fraud ticket matched documented emergency contact guidance."
+    else:
+        response = (
+            "This looks like a lost-card, stolen-card, or fraud-related identity issue. I could "
+            "not find a specific emergency contact number in the retrieved documentation, so I am "
+            "escalating it for urgent human review."
+        )
+        status = "escalated"
+        reason = "Identity/fraud ticket lacked a retrievable emergency contact receipt."
+
+    return _decision(
+        tag=TrapTag.IDENTITY_FRAUD,
+        status=status,
+        product_area=_area(ticket, chunks, "general support"),
+        request_type="product_issue",
+        response=response + _doc_sentence(chunks),
+        reason=reason,
+        chunks=chunks,
+        exact_quote=_quote_from_chunks(chunks, ("lost", "stolen", "fraud", "emergency", "phone", "call")),
     )
 
 
@@ -235,6 +270,7 @@ def handle_third_party(
 
 HANDLERS: dict[TrapTag, Handler] = {
     TrapTag.SECURITY_DISCLOSURE: handle_security_disclosure,
+    TrapTag.IDENTITY_FRAUD: handle_identity_fraud,
     TrapTag.SYSTEM_OUTAGE: handle_system_outage,
     TrapTag.PAYMENT_DISPUTE: handle_payment_dispute,
     TrapTag.SCORE_DISPUTE: handle_score_dispute,
@@ -257,6 +293,7 @@ def _decision(
     response: str,
     reason: str,
     chunks: Sequence[RetrievedChunk],
+    exact_quote: str = "",
 ) -> TriageDecision:
     return TriageDecision(
         status=status,  # type: ignore[arg-type]
@@ -264,6 +301,7 @@ def _decision(
         response=response,
         request_type=request_type,  # type: ignore[arg-type]
         justification=f"[{tag.value}] {reason}; top_chunk={_top_chunk(chunks)}",
+        exact_quote=exact_quote,
     )
 
 
@@ -283,3 +321,32 @@ def _doc_sentence(chunks: Sequence[RetrievedChunk]) -> str:
     if not chunks:
         return ""
     return f" Most relevant retrieved document: {chunks[0].heading_path}."
+
+
+def _extract_phone_numbers(chunks: Sequence[RetrievedChunk]) -> list[str]:
+    seen: set[str] = set()
+    phones: list[str] = []
+    for chunk in chunks:
+        for match in _PHONE_RE.finditer(chunk.text):
+            phone = " ".join(match.group(0).split())
+            if phone in seen:
+                continue
+            seen.add(phone)
+            phones.append(phone)
+            if len(phones) >= 5:
+                return phones
+    return phones
+
+
+def _quote_from_chunks(chunks: Sequence[RetrievedChunk], keywords: Sequence[str]) -> str:
+    lowered_keywords = tuple(keyword.casefold() for keyword in keywords)
+    for chunk in chunks:
+        sentences = re.split(r"(?<=[.!?])\s+", chunk.text)
+        for sentence in sentences:
+            candidate = sentence.strip()
+            if not candidate:
+                continue
+            lowered = candidate.casefold()
+            if any(keyword in lowered for keyword in lowered_keywords):
+                return candidate[:500]
+    return ""

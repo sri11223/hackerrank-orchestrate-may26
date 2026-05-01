@@ -143,7 +143,7 @@ class HybridRetriever:
         return tuple(sorted({chunk.domain for chunk in self.chunks}))
 
     def retrieve(self, query: str, domain: str | None = None, k: int = 5) -> list[RetrievedChunk]:
-        """Run BM25 and BGE retrieval, then combine using RRF."""
+        """Run BM25 and BGE retrieval, then combine normalized rankings using RRF."""
 
         normalized_query = " ".join((query or "").split())
         if not normalized_query or k <= 0:
@@ -253,17 +253,18 @@ class HybridRetriever:
 
         import numpy as np
 
-        scores = np.asarray(scope.bm25.get_scores(tokens), dtype=float)
-        if scores.size == 0:
+        raw_scores = np.asarray(scope.bm25.get_scores(tokens), dtype=float)
+        if raw_scores.size == 0:
             return {}
+        scores = _normalize_nonnegative_scores(raw_scores)
 
         ordered_positions = np.argsort(scores)[::-1]
         rankings: dict[int, tuple[int, float]] = {}
         rank = 1
         for position in ordered_positions:
-            score = float(scores[position])
-            if score <= 0.0:
+            if float(raw_scores[position]) <= 0.0:
                 break
+            score = float(scores[position])
             rankings[scope.indices[int(position)]] = (rank, score)
             rank += 1
             if len(rankings) >= pool_size:
@@ -288,7 +289,8 @@ class HybridRetriever:
         if scope_indices.size == 0:
             return {}
 
-        scores = self._embeddings[scope_indices] @ query_embedding
+        raw_scores = self._embeddings[scope_indices] @ query_embedding
+        scores = _normalize_cosine_scores(raw_scores)
         ordered_positions = np.argsort(scores)[::-1][:pool_size]
         return {
             scope.indices[int(position)]: (rank, float(scores[position]))
@@ -394,6 +396,27 @@ def normalize_domain(domain: str | None) -> str | None:
     if normalized in {"", "none", "null", "unknown", "n/a"}:
         return None
     return _DOMAIN_ALIASES.get(normalized)
+
+
+def _normalize_nonnegative_scores(scores: Any) -> Any:
+    """Normalize BM25-style nonnegative scores to 0..1 before fusion metadata."""
+
+    import numpy as np
+
+    clipped = np.maximum(np.asarray(scores, dtype=float), 0.0)
+    max_score = float(np.max(clipped)) if clipped.size else 0.0
+    if max_score <= 0.0:
+        return clipped
+    return clipped / max_score
+
+
+def _normalize_cosine_scores(scores: Any) -> Any:
+    """Normalize cosine similarities from -1..1 into 0..1 before ranking fusion."""
+
+    import numpy as np
+
+    values = np.asarray(scores, dtype=float)
+    return np.clip((values + 1.0) / 2.0, 0.0, 1.0)
 
 
 def _load_bm25_class() -> Any:

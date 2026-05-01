@@ -252,6 +252,12 @@ def interactive(
                         traces_dir=traces_dir,
                     )
             except Exception as exc:
+                decision = error_decision(
+                    {"issue": issue, "subject": "", "company": current_company},
+                    exc,
+                    ticket_id=f"interactive_{ticket_id}",
+                    traces_dir=traces_dir,
+                )
                 console.print(
                     Panel(
                         f"{type(exc).__name__}: {exc}",
@@ -259,6 +265,7 @@ def interactive(
                         border_style="red",
                     )
                 )
+                console.print(_decision_panel(decision))
                 ticket_id += 1
                 continue
 
