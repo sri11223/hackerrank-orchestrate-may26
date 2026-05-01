@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Optional
 
@@ -9,6 +10,7 @@ import typer
 from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt
+from rich.table import Table
 from rich.text import Text
 
 from .config import DATA_DIR, DEFAULT_INPUT_CSV, DEFAULT_OUTPUT_CSV, LOG_PATH, get_settings
@@ -23,6 +25,15 @@ app = typer.Typer(
     help="Support triage agent for HackerRank, Claude, and Visa tickets.",
 )
 console = Console()
+COMPANY_MODES = {
+    "auto": None,
+    "none": None,
+    "hackerrank": "HackerRank",
+    "hacker rank": "HackerRank",
+    "claude": "Claude",
+    "anthropic": "Claude",
+    "visa": "Visa",
+}
 
 
 def _provider(value: str) -> Provider:
@@ -193,11 +204,12 @@ def interactive(
     draw_banner()
     console.print("[bright_black]Paste a support issue and press Enter.[/]")
     ticket_id = 1
+    current_company: str | None = None
 
     try:
         while True:
             try:
-                issue = _ticket_input().strip()
+                issue = _ticket_input(current_company).strip()
             except EOFError:
                 console.print("\n[bright_black]Input closed. Goodbye.[/]")
                 break
@@ -208,20 +220,15 @@ def interactive(
                 console.print("[bright_black]Session closed. Goodbye.[/]")
                 break
 
-            # Slash-command parser placeholder: /mode, /domain, /help, etc.
             if issue.startswith("/"):
-                console.print(
-                    Panel(
-                        "Slash commands are reserved for the next phase.",
-                        border_style="yellow",
-                        title="[bold yellow]Command Parser[/]",
-                    )
-                )
+                should_continue, current_company = _handle_repl_command(issue, current_company)
+                if not should_continue:
+                    break
                 continue
 
             try:
                 decision = process_ticket(
-                    {"issue": issue, "subject": "", "company": None},
+                    {"issue": issue, "subject": "", "company": current_company},
                     ticket_id=f"interactive_{ticket_id}",
                     traces_dir=traces_dir,
                 )
@@ -262,10 +269,85 @@ def interactive(
         console.print("\n[bright_black]Interrupted. Goodbye.[/]")
 
 
-def _ticket_input() -> str:
+def _ticket_input(current_company: str | None) -> str:
     """Read one ticket line with a stable Rich prompt across Rich versions."""
 
-    return console.input("[bold bright_cyan]Ticket > [/]")
+    return console.input(_shell_prompt(current_company))
+
+
+def _shell_prompt(current_company: str | None) -> Text:
+    mode = current_company or "Auto"
+    mode_style = "bold bright_green" if current_company else "bold yellow"
+    prompt = Text()
+    prompt.append("[", style="bright_black")
+    prompt.append("Orchestrate", style="bold bright_cyan")
+    prompt.append(": ", style="bright_black")
+    prompt.append(mode, style=mode_style)
+    prompt.append("] > ", style="bright_black")
+    return prompt
+
+
+def _handle_repl_command(raw_command: str, current_company: str | None) -> tuple[bool, str | None]:
+    """Handle slash commands and return ``(continue_loop, updated_company)``."""
+
+    command_line = raw_command.strip()
+    command, _, argument = command_line.partition(" ")
+    command = command.casefold()
+    argument = argument.strip()
+
+    if command in {"/exit", "/quit"}:
+        console.print("[bright_black]Session closed. Goodbye.[/]")
+        return False, current_company
+
+    if command == "/help":
+        _print_help_table()
+        return True, current_company
+
+    if command == "/clear":
+        os.system("cls" if os.name == "nt" else "clear")
+        draw_banner()
+        return True, current_company
+
+    if command == "/mode":
+        if not argument:
+            console.print("[bold red]Usage:[/] /mode auto|Visa|HackerRank|Claude")
+            return True, current_company
+
+        normalized = " ".join(argument.casefold().split())
+        if normalized not in COMPANY_MODES:
+            console.print("[bold red]Unknown company.[/] Type [bold]/help[/] for options.")
+            return True, current_company
+
+        updated_company = COMPANY_MODES[normalized]
+        label = updated_company or "Auto"
+        console.print(f"[bold bright_green]Mode switched to {label}[/]")
+        return True, updated_company
+
+    console.print("[bold red]Unknown command. Type /help for options.[/]")
+    return True, current_company
+
+
+def _print_help_table() -> None:
+    table = Table(
+        title="Orchestrate Agent Commands",
+        title_style="bold bright_cyan",
+        border_style="bright_green",
+        header_style="bold bright_green",
+        show_lines=True,
+    )
+    table.add_column("Command", style="bold bright_cyan", no_wrap=True)
+    table.add_column("Description", style="white")
+    table.add_column("Example", style="bright_black")
+    table.add_row("/help", "Show this command menu.", "/help")
+    table.add_row("/clear", "Clear the terminal and redraw the banner.", "/clear")
+    table.add_row(
+        "/mode <company>",
+        "Force retrieval/generation domain, or return to automatic domain resolution.",
+        "/mode Visa  |  /mode auto",
+    )
+    table.add_row("/exit", "Leave the interactive session.", "/exit")
+    table.add_row("/quit", "Leave the interactive session.", "/quit")
+    console.print(table)
 
 
 @app.command()
