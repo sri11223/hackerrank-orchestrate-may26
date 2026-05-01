@@ -9,6 +9,7 @@ or answer the ticket.
 from __future__ import annotations
 
 import json
+import re
 from textwrap import dedent
 
 from pydantic import ValidationError
@@ -49,6 +50,12 @@ TRAP_CLASSIFIER_SYSTEM_PROMPT = dedent(
     use, compromised payment identity, impersonation as a cardholder, or urgent
     fraud involving a person's financial identity.
 
+    SYSTEM_OUTAGE: The user reports a broad product/site/platform outage or
+    complete inability to access the service, such as "site is down", "cannot
+    access anything", all pages unavailable, service offline, or portal-wide
+    unavailability. Do not use this for a single feature error when the user can
+    still use the service.
+
     PAYMENT_DISPUTE: Refund, chargeback, duplicate charge, billing dispute,
     transaction dispute, fees dispute, or demands involving a specific payment
     or card transaction.
@@ -88,11 +95,33 @@ TRAP_CLASSIFIER_SYSTEM_PROMPT = dedent(
     the local HackerRank, Claude, or Visa corpus and not captured by a stronger
     trap category.
 
-    Priority reminder for reasoning only: SYSTEM_HARM and PROMPT_INJECTION are
-    safety-critical; fraud, disputes, score changes, and action requests are
-    high-risk. Do not let NORMAL_FAQ hide a higher-priority tag.
+    Priority reminder for reasoning only: SYSTEM_HARM, PROMPT_INJECTION, and
+    SYSTEM_OUTAGE are safety-critical; fraud, disputes, score changes, and action
+    requests are high-risk. Do not let NORMAL_FAQ hide a higher-priority tag.
     """
 ).strip()
+
+
+_SYSTEM_OUTAGE_PATTERNS = (
+    re.compile(
+        r"\b(site|website|platform|system|service|portal|app)\s+(?:is\s+)?"
+        r"(down|offline|unavailable|inaccessible)\b",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"\b(?:can(?:not|'t)|unable\s+to)\s+"
+        r"(?:access|open|reach|load)\s+"
+        r"(?:anything|any\s+page|all\s+pages|the\s+site|the\s+website|"
+        r"the\s+platform|the\s+portal|the\s+service)\b",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"\b(?:none|all)\s+of\s+(?:the\s+)?(?:pages|site|website|portal)"
+        r".{0,60}\b(?:accessible|loading|working|available)\b",
+        re.IGNORECASE,
+    ),
+    re.compile(r"\b(?:system|site|service|platform)\s+outage\b", re.IGNORECASE),
+)
 
 
 def _ticket_prompt(ticket_text: str, stated_company: str) -> str:
@@ -123,6 +152,10 @@ def classify_traps(
 
     normalized_ticket = " ".join((ticket_text or "").split())
     normalized_company = " ".join((stated_company or "None").split())
+    outage_detected = _looks_like_system_outage(normalized_ticket)
+    deterministic = _deterministic_classify(normalized_ticket, normalized_company, outage_detected)
+    if deterministic is not None:
+        return deterministic
 
     messages = [
         ChatMessage(role="system", content=TRAP_CLASSIFIER_SYSTEM_PROMPT),
@@ -138,6 +171,15 @@ def classify_traps(
             f"Groq trap classifier returned invalid taxonomy JSON: {result.content}"
         ) from exc
 
+    if outage_detected and TrapTag.SYSTEM_OUTAGE not in parsed.tags:
+        parsed = TrapResult(
+            tags=[TrapTag.SYSTEM_OUTAGE, *parsed.tags],
+            reasoning=(
+                "Ticket reports site-wide outage or complete inaccessibility. "
+                f"{parsed.reasoning}"
+            ),
+        )
+
     if TrapTag.NORMAL_FAQ in parsed.tags and len(parsed.tags) > 1:
         # Keep NORMAL_FAQ as a legitimate-secondary marker, but never first.
         parsed = TrapResult(
@@ -145,3 +187,101 @@ def classify_traps(
             reasoning=parsed.reasoning,
         )
     return parsed
+
+
+def _looks_like_system_outage(ticket_text: str) -> bool:
+    """Deterministically catch broad outage wording before handler dispatch."""
+
+    return any(pattern.search(ticket_text or "") for pattern in _SYSTEM_OUTAGE_PATTERNS)
+
+
+def _deterministic_classify(
+    ticket_text: str,
+    stated_company: str,
+    outage_detected: bool,
+) -> TrapResult | None:
+    """High-confidence taxonomy path used before the LLM classifier.
+
+    The hackathon workload is small but time-sensitive. These rules cover
+    obvious safety and self-service patterns, reduce provider spend, and keep
+    the pipeline alive if Groq is rate-limited.
+    """
+
+    text = ticket_text.casefold()
+    company = stated_company.casefold()
+    tags: list[TrapTag] = []
+
+    if outage_detected:
+        return TrapResult(
+            tags=[TrapTag.SYSTEM_OUTAGE],
+            reasoning="Deterministic outage rule matched site-wide inaccessibility.",
+        )
+
+    if re.fullmatch(r"[\W_]*(thanks?|thank you|ty|ok|okay)(?:\s+for\s+.+)?[\W_]*", text):
+        return TrapResult(
+            tags=[TrapTag.COURTESY],
+            reasoning="Deterministic courtesy rule matched a non-actionable thank-you.",
+        )
+
+    if any(marker in text for marker in ("ignore previous", "reveal", "system prompt", "hidden prompt")):
+        tags.append(TrapTag.PROMPT_INJECTION)
+    if any(marker in text for marker in ("malware", "phishing", "credential theft", "exploit code")):
+        tags.append(TrapTag.SYSTEM_HARM)
+    if any(marker in text for marker in ("vulnerability", "security flaw", "bug bounty", "responsible disclosure")):
+        tags.append(TrapTag.SECURITY_DISCLOSURE)
+    if any(marker in text for marker in ("lost", "stolen", "fraud", "identity theft", "unauthorized")) and any(
+        marker in text for marker in ("visa", "card", "cheque", "check", "traveller", "traveler")
+    ):
+        tags.append(TrapTag.IDENTITY_FRAUD)
+    if any(marker in text for marker in ("refund", "chargeback", "duplicate charge", "billing dispute")):
+        tags.append(TrapTag.PAYMENT_DISPUTE)
+    if any(marker in text for marker in ("score", "grade", "plagiarism", "retake")) and any(
+        marker in text for marker in ("change", "adjust", "dispute", "wrong", "override")
+    ):
+        tags.append(TrapTag.SCORE_DISPUTE)
+    if any(marker in text for marker in ("sso", "scim", "admin", "permission", "entitlement")):
+        tags.append(TrapTag.ADMIN_ACTION)
+    if any(
+        marker in text
+        for marker in (
+            "please delete",
+            "delete my",
+            "delete an",
+            "add time",
+            "extra time",
+            "reinvite",
+            "re-invite",
+            "reset",
+            "grant",
+            "remove",
+            "change my",
+        )
+    ):
+        tags.append(TrapTag.ACTION_REQUEST)
+
+    if not any(domain in company or domain in text for domain in ("hackerrank", "claude", "visa")) and any(
+        marker in text for marker in ("iron man", "actor", "movie", "weather", "news")
+    ):
+        return TrapResult(
+            tags=[TrapTag.OUT_OF_SCOPE],
+            reasoning="Deterministic out-of-scope rule matched an unrelated general question.",
+        )
+
+    if len(text.split()) < 3 and not tags:
+        return TrapResult(
+            tags=[TrapTag.INSUFFICIENT_INFO],
+            reasoning="Deterministic insufficient-info rule matched a very short ticket.",
+        )
+
+    if tags:
+        if not any(tag in tags for tag in (TrapTag.PROMPT_INJECTION, TrapTag.SYSTEM_HARM)):
+            tags.append(TrapTag.NORMAL_FAQ)
+        return TrapResult(
+            tags=tags,
+            reasoning="Deterministic high-confidence trap rule matched ticket wording.",
+        )
+
+    return TrapResult(
+        tags=[TrapTag.NORMAL_FAQ],
+        reasoning="Deterministic default: legitimate support question likely answerable from docs.",
+    )

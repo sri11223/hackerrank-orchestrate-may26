@@ -19,6 +19,7 @@ class TrapTag(str, Enum):
     ACTION_REQUEST = "ACTION_REQUEST"
     SECURITY_DISCLOSURE = "SECURITY_DISCLOSURE"
     IDENTITY_FRAUD = "IDENTITY_FRAUD"
+    SYSTEM_OUTAGE = "SYSTEM_OUTAGE"
     PAYMENT_DISPUTE = "PAYMENT_DISPUTE"
     SCORE_DISPUTE = "SCORE_DISPUTE"
     ADMIN_ACTION = "ADMIN_ACTION"
@@ -34,6 +35,7 @@ class TrapTag(str, Enum):
 TRAP_PRIORITY: tuple[TrapTag, ...] = (
     TrapTag.SYSTEM_HARM,
     TrapTag.PROMPT_INJECTION,
+    TrapTag.SYSTEM_OUTAGE,
     TrapTag.IDENTITY_FRAUD,
     TrapTag.ACTION_REQUEST,
     TrapTag.PAYMENT_DISPUTE,
@@ -56,7 +58,7 @@ class TrapResult(BaseModel):
     tags: list[TrapTag] = Field(
         ...,
         min_length=1,
-        description="One or more tags from the fixed 13-category trap taxonomy.",
+        description="One or more tags from the fixed trap taxonomy.",
     )
     reasoning: str = Field(
         ...,

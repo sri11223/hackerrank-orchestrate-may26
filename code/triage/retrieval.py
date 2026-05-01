@@ -122,7 +122,7 @@ class HybridRetriever:
         self.dense_model_name = dense_model_name
         self.dense_max_seq_length = dense_max_seq_length
         self.chunks = load_chunks(self.chunks_path)
-        self._tokenized_corpus = [tokenize(chunk.text) for chunk in self.chunks]
+        self._tokenized_corpus = [tokenize(sparse_document_text(chunk)) for chunk in self.chunks]
         self._scope_indexes = self._build_bm25_scopes()
         self._embedding_model = None
         self._embeddings = None
@@ -337,11 +337,30 @@ class HybridRetriever:
 def tokenize(text: str) -> list[str]:
     """Tokenize for BM25 while preserving useful support artifacts."""
 
-    return [match.group(0).casefold() for match in _TOKEN_RE.finditer(text or "")]
+    tokens: list[str] = []
+    for match in _TOKEN_RE.finditer(text or ""):
+        token = match.group(0).casefold()
+        tokens.append(token)
+        if len(token) > 4 and token.endswith("'s"):
+            tokens.append(token[:-2])
+        elif len(token) > 4 and token.endswith("s"):
+            tokens.append(token[:-1])
+    return tokens
 
 
 def dense_document_text(chunk: ChunkRecord) -> str:
     """Text passed to the embedding model."""
+
+    return f"{chunk.heading_path}\n{chunk.text}".strip()
+
+
+def sparse_document_text(chunk: ChunkRecord) -> str:
+    """Text passed to BM25.
+
+    Headings carry product names, issuer names, and exact support article titles
+    that are often absent from the body text. Including them makes exact-match
+    retrieval much stronger for error codes, named issuers, and support actions.
+    """
 
     return f"{chunk.heading_path}\n{chunk.text}".strip()
 

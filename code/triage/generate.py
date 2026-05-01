@@ -14,7 +14,7 @@ from typing import Any, Literal, Mapping, Sequence
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 
 from .llm import ChatMessage, LLMClient, LLMResponseError
-from .schema import ChunkRecord, RetrievedChunk, Ticket
+from .schema import ChunkRecord, RetrievedChunk, Ticket, TrapTag
 
 
 RequestType = Literal["product_issue", "feature_request", "bug", "invalid"]
@@ -109,6 +109,7 @@ def generate_response(
     ticket: Ticket | Mapping[str, Any],
     chunks: Sequence[ChunkRecord | RetrievedChunk | Mapping[str, Any]],
     *,
+    trap_tags: Sequence[TrapTag | str] | None = None,
     client: LLMClient | None = None,
 ) -> GroundedGenerationResult:
     """Generate a grounded response from retrieved chunks using GPT-4o-mini.
@@ -131,7 +132,7 @@ def generate_response(
         )
 
     messages = [
-        ChatMessage(role="system", content=GENERATION_SYSTEM_PROMPT),
+        ChatMessage(role="system", content=_build_generation_system_prompt(trap_tags)),
         ChatMessage(role="user", content=_build_grounded_prompt(normalized_ticket, normalized_chunks)),
     ]
 
@@ -144,6 +145,39 @@ def generate_response(
 
     _validate_citations(parsed, normalized_chunks)
     return parsed
+
+
+def _build_generation_system_prompt(trap_tags: Sequence[TrapTag | str] | None) -> str:
+    tags = _normalize_trap_tags(trap_tags)
+    specialized_rules: list[str] = []
+
+    if TrapTag.IDENTITY_FRAUD.value in tags:
+        specialized_rules.append(
+            "CRITICAL: The user has a lost card or fraud issue. You MUST extract and provide "
+            "the emergency phone numbers or hotlines from the chunks. Do not escalate, give "
+            "them the contact info."
+        )
+
+    if TrapTag.ACTION_REQUEST.value in tags:
+        specialized_rules.append(
+            "CRITICAL: The user is asking us to perform an action. Tell them we cannot perform "
+            "it directly, BUT you MUST provide the step-by-step self-service instructions from "
+            "the chunks so they can do it themselves."
+        )
+
+    if not specialized_rules:
+        return GENERATION_SYSTEM_PROMPT
+    return "\n\n".join([GENERATION_SYSTEM_PROMPT, *specialized_rules])
+
+
+def _normalize_trap_tags(trap_tags: Sequence[TrapTag | str] | None) -> set[str]:
+    normalized: set[str] = set()
+    for tag in trap_tags or ():
+        if isinstance(tag, TrapTag):
+            normalized.add(tag.value)
+        else:
+            normalized.add(str(tag).strip().upper())
+    return normalized
 
 
 def _coerce_ticket(ticket: Ticket | Mapping[str, Any]) -> Ticket:
