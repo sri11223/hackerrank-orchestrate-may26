@@ -80,15 +80,38 @@ class StrictJSONParser:
     """Parse JSON only when the response is exactly a JSON object or array."""
 
     _json_like = re.compile(r"^\s*(\{.*\}|\[.*\])\s*$", re.DOTALL)
+    _fenced_json = re.compile(r"^\s*```(?:json|JSON)?\s*(.*?)\s*```\s*$", re.DOTALL)
 
     @classmethod
     def parse(cls, text: str) -> Any:
-        if not cls._json_like.match(text):
+        cleaned = cls.clean(text)
+        if not cls._json_like.match(cleaned):
             raise StrictJSONError("LLM response was not a standalone JSON object or array")
         try:
-            return json.loads(text)
+            return json.loads(cleaned)
         except json.JSONDecodeError as exc:
             raise StrictJSONError(f"Invalid JSON from LLM: {exc}") from exc
+
+    @classmethod
+    def clean(cls, text: str) -> str:
+        """Strip common markdown JSON fences before strict parsing."""
+
+        cleaned = (text or "").strip().lstrip("\ufeff")
+        match = cls._fenced_json.match(cleaned)
+        if match:
+            return match.group(1).strip()
+
+        # Some providers occasionally emit uppercase/language-tagged fences with
+        # stray whitespace after the closing marker. Keep this conservative:
+        # remove only a leading fence line and a final closing fence.
+        lines = cleaned.splitlines()
+        if len(lines) >= 3 and re.match(r"^\s*```(?:[A-Za-z0-9_-]+)?\s*$", lines[0]):
+            closing_index = len(lines) - 1
+            while closing_index > 0 and not lines[closing_index].strip():
+                closing_index -= 1
+            if lines[closing_index].strip() == "```":
+                return "\n".join(lines[1:closing_index]).strip()
+        return cleaned
 
 
 class LLMClient:

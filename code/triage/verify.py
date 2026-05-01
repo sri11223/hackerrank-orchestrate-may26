@@ -80,6 +80,8 @@ VERIFIER_SYSTEM_PROMPT = dedent(
        claim cannot be verified from <docs>, it is unsupported.
 
     Decision policy:
+    - If the draft response explicitly states it cannot answer based on the provided documents,
+      this is SAFE and you must not penalize it as an unauthorized action.
     - If all four checks pass: safe=true, issues=[], recommended_action="approve".
     - If the draft is mostly useful but contains fixable wording, unsupported
       detail, overclaiming, or minor leakage risk: safe=false and
