@@ -111,6 +111,7 @@ def generate_response(
     chunks: Sequence[ChunkRecord | RetrievedChunk | Mapping[str, Any]],
     *,
     trap_tags: Sequence[TrapTag | str] | None = None,
+    critique: Sequence[str] | None = None,
     client: LLMClient | None = None,
 ) -> GroundedGenerationResult:
     """Generate a grounded response from retrieved chunks using GPT-4o-mini.
@@ -133,7 +134,7 @@ def generate_response(
         )
 
     messages = [
-        ChatMessage(role="system", content=_build_generation_system_prompt(trap_tags)),
+        ChatMessage(role="system", content=_build_generation_system_prompt(trap_tags, critique)),
         ChatMessage(role="user", content=_build_grounded_prompt(normalized_ticket, normalized_chunks)),
     ]
 
@@ -148,7 +149,10 @@ def generate_response(
     return parsed
 
 
-def _build_generation_system_prompt(trap_tags: Sequence[TrapTag | str] | None) -> str:
+def _build_generation_system_prompt(
+    trap_tags: Sequence[TrapTag | str] | None,
+    critique: Sequence[str] | None = None,
+) -> str:
     tags = _normalize_trap_tags(trap_tags)
     specialized_rules: list[str] = []
 
@@ -164,6 +168,15 @@ def _build_generation_system_prompt(trap_tags: Sequence[TrapTag | str] | None) -
             "CRITICAL: The user is asking us to perform an action. Tell them we cannot perform "
             "it directly, BUT you MUST provide the step-by-step self-service instructions from "
             "the chunks so they can do it themselves."
+        )
+
+    cleaned_critique = [str(item).strip() for item in critique or () if str(item).strip()]
+    if cleaned_critique:
+        specialized_rules.append(
+            "CRITICAL WARNING: Your previous attempt was rejected by the safety auditor for "
+            "the following reasons: "
+            + "; ".join(cleaned_critique)
+            + ". You MUST rewrite your response to address these issues. Rely ONLY on the provided chunks."
         )
 
     if not specialized_rules:

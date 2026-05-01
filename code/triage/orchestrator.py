@@ -94,11 +94,12 @@ def process_ticket(
             "decision": final_decision.model_dump(),
         }
     else:
-        generation = generate_response(ticket, chunks, trap_tags=trap_result.tags)
-        trace["stages"]["generation"] = generation.model_dump()
-
-        verifier = verify_response(generation, ticket, chunks)
-        trace["stages"]["verifier"] = verifier.model_dump()
+        generation, verifier, generation_trace = _generate_and_verify_with_self_healing(
+            ticket=ticket,
+            chunks=chunks,
+            trap_result=trap_result,
+        )
+        trace["stages"]["generation"] = generation_trace
         generation_tag = _generation_tag(trap_result)
 
         final_decision = TriageDecision(
@@ -367,6 +368,52 @@ def _trap_dump(trap_result: TrapResult) -> dict[str, Any]:
         "tags": [tag.value if isinstance(tag, TrapTag) else str(tag) for tag in trap_result.tags],
         "reasoning": trap_result.reasoning,
     }
+
+
+def _generate_and_verify_with_self_healing(
+    *,
+    ticket: Ticket,
+    chunks: list[RetrievedChunk],
+    trap_result: TrapResult,
+) -> tuple[GroundedGenerationResult, VerificationResult, dict[str, Any]]:
+    """Run actor-critic generation with one verifier-driven rewrite attempt."""
+
+    drafts: list[dict[str, Any]] = []
+
+    draft = generate_response(ticket, chunks, trap_tags=trap_result.tags)
+    verifier = verify_response(draft, ticket, chunks)
+    drafts.append(
+        {
+            "attempt": 1,
+            "critique": [],
+            "generation": draft.model_dump(),
+            "verifier": verifier.model_dump(),
+        }
+    )
+
+    if verifier.safe:
+        return draft, verifier, {"mode": "actor_critic", "drafts": drafts}
+
+    print(
+        "[SELF-HEALING] Verifier flagged draft. "
+        f"Issues: {verifier.issues}. Triggering rewrite..."
+    )
+    rewrite = generate_response(
+        ticket,
+        chunks,
+        trap_tags=trap_result.tags,
+        critique=verifier.issues,
+    )
+    rewrite_verifier = verify_response(rewrite, ticket, chunks)
+    drafts.append(
+        {
+            "attempt": 2,
+            "critique": verifier.issues,
+            "generation": rewrite.model_dump(),
+            "verifier": rewrite_verifier.model_dump(),
+        }
+    )
+    return rewrite, rewrite_verifier, {"mode": "actor_critic", "drafts": drafts}
 
 
 def _generation_tag(trap_result: TrapResult) -> TrapTag:
