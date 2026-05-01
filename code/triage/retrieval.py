@@ -83,6 +83,14 @@ def retrieve(
     return get_retriever(chunks_path).retrieve(query=query, domain=domain, k=k)
 
 
+def embed_query(query: str, *, chunks_path: Path = DEFAULT_CHUNKS_JSONL) -> Any | None:
+    """Embed a ticket query using the process-wide dense retriever singleton."""
+
+    if not query or not query.strip():
+        return None
+    return get_retriever(chunks_path).embed_query(query)
+
+
 def get_retriever(chunks_path: Path = DEFAULT_CHUNKS_JSONL) -> "HybridRetriever":
     """Return the singleton retriever for a chunk file.
 
@@ -273,12 +281,9 @@ class HybridRetriever:
 
         import numpy as np
 
-        query_embedding = self._embedding_model.encode(
-            ["Represent this sentence for searching relevant passages: " + query],
-            convert_to_numpy=True,
-            normalize_embeddings=True,
-            show_progress_bar=False,
-        )[0]
+        query_embedding = self.embed_query(query)
+        if query_embedding is None:
+            return {}
         scope_indices = np.asarray(scope.indices, dtype=int)
         if scope_indices.size == 0:
             return {}
@@ -289,6 +294,21 @@ class HybridRetriever:
             scope.indices[int(position)]: (rank, float(scores[position]))
             for rank, position in enumerate(ordered_positions, start=1)
         }
+
+    def embed_query(self, query: str) -> Any | None:
+        """Return the normalized BGE embedding for a support query."""
+
+        normalized_query = " ".join((query or "").split())
+        if not normalized_query:
+            return None
+        if self._embedding_model is None:
+            raise RuntimeError("Dense model was not initialized")
+        return self._embedding_model.encode(
+            ["Represent this sentence for searching relevant passages: " + normalized_query],
+            convert_to_numpy=True,
+            normalize_embeddings=True,
+            show_progress_bar=False,
+        )[0]
 
     def _cache_paths(self) -> tuple[Path, Path]:
         safe_model = re.sub(r"[^a-zA-Z0-9._-]+", "_", self.dense_model_name).strip("_")

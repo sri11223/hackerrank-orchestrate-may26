@@ -10,10 +10,11 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any, Mapping
 
+from .cache import SemanticCache
 from .config import REPO_ROOT
 from .generate import GroundedGenerationResult, generate_response
 from .handlers import dispatch_trap_handler
-from .retrieval import load_chunks, retrieve
+from .retrieval import embed_query, load_chunks, retrieve
 from .sanitize import sanitize_ticket
 from .schema import RetrievedChunk, Ticket, TriageDecision, TrapResult, TrapTag
 from .traps import classify_traps
@@ -31,6 +32,7 @@ FALLBACK_PRODUCT_AREAS = (
     "conversation_management",
     "travel_support",
 )
+SEMANTIC_CACHE = SemanticCache()
 
 
 def process_ticket(
@@ -53,6 +55,21 @@ def process_ticket(
         company=_get(row_dict, "company"),
     )
     trace["stages"]["sanitize"] = ticket.model_dump()
+    query_embedding = embed_query(ticket.issue or ticket.text)
+    cached_decision = SEMANTIC_CACHE.check_cache(query_embedding)
+    if cached_decision is not None:
+        print("CACHE HIT: Bypassing LLM")
+        trace["stages"]["semantic_cache"] = {
+            "hit": True,
+            "threshold": 0.95,
+        }
+        trace["final_decision"] = cached_decision.model_dump()
+        _write_trace(trace, traces_dir, ticket_id)
+        return cached_decision
+    trace["stages"]["semantic_cache"] = {
+        "hit": False,
+        "threshold": 0.95,
+    }
 
     trap_result = classify_traps(ticket.text or ticket.issue, ticket.company or "None")
     trace["stages"]["trap_classifier"] = _trap_dump(trap_result)
@@ -101,6 +118,7 @@ def process_ticket(
         verifier=verifier,
     )
     final_decision = _snap_decision_product_area(final_decision, ticket, chunks)
+    SEMANTIC_CACHE.add_to_cache(query_embedding, final_decision)
     trace["final_decision"] = final_decision.model_dump()
     _write_trace(trace, traces_dir, ticket_id)
     return final_decision
