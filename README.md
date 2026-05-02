@@ -178,7 +178,9 @@ irm https://raw.githubusercontent.com/sri11223/hackerrank-orchestrate-may26/main
 
 This installs the package, adds the Python user Scripts folder to your User
 `PATH`, updates the current PowerShell session, and verifies the `triage`
-command. After that:
+command. The installed package ships the processed support-corpus chunks and
+dense embedding cache, so interactive demos do not need a separate ingest step.
+After that:
 
 ```bash
 triage run
@@ -224,7 +226,9 @@ For a permanent global command on Windows, add the Python user Scripts folder to
 ```
 
 Secrets stay out of git: `.env` is listed in `.gitignore`, and API keys should
-be supplied through environment variables.
+be supplied through environment variables. The installed CLI loads `.env` from
+the current working directory, the repo checkout when one is detected, or an
+explicit `TRIAGE_ENV_FILE` path.
 
 Install dependencies:
 

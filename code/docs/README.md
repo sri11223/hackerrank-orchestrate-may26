@@ -247,7 +247,12 @@ triage --help
 
 That installer adds the Python user Scripts folder to User `PATH` and updates
 the active PowerShell session. If it is launched from Command Prompt or another
-parent process, open a new terminal once so Windows reloads User `PATH`.
+parent process, open a new terminal once so Windows reloads User `PATH`. The
+installed package includes the processed support-corpus chunks and dense
+embedding cache, so `triage interactive` works immediately without running
+`ingest`. Runtime secrets are still local: the CLI loads `.env` from the current
+working directory, the repo checkout when one is detected, or an explicit
+`TRIAGE_ENV_FILE` path.
 
 Or use pip directly:
 

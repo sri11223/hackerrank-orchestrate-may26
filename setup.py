@@ -43,6 +43,14 @@ setup(
     package_dir={"": "code"},
     packages=find_packages(where="code"),
     include_package_data=True,
+    package_data={
+        "triage": [
+            "resources/processed/*.jsonl",
+            "resources/processed/*.json",
+            "resources/processed/*.npy",
+            "resources/support_tickets/*.csv",
+        ],
+    },
     install_requires=_read_requirements(),
     entry_points={
         "console_scripts": [

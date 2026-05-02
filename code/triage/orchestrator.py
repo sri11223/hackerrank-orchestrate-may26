@@ -17,7 +17,7 @@ from typing import Any, Mapping, Sequence
 from uuid import uuid4
 
 from .cache import SemanticCache
-from .config import REPO_ROOT, get_settings
+from .config import DEFAULT_TRACES_DIR, REPO_ROOT, SUPPORT_TICKETS_DIR, get_settings
 from .generate import GroundedGenerationResult, generate_response_async
 from .handlers import dispatch_trap_handler
 from .llm import LLMClient, LLMResponseError, Provider
@@ -30,8 +30,7 @@ from .verify import VerificationResult, verify_response_async
 
 RETRIEVAL_CONFIDENCE_THRESHOLD = 0.32
 GENERATION_CONFIDENCE_THRESHOLD = 0.25
-DEFAULT_TRACES_DIR = REPO_ROOT / "traces"
-SAMPLE_LABELS_CSV = REPO_ROOT / "support_tickets" / "sample_support_tickets.csv"
+SAMPLE_LABELS_CSV = SUPPORT_TICKETS_DIR / "sample_support_tickets.csv"
 FALLBACK_PRODUCT_AREAS = (
     "screen",
     "community",
