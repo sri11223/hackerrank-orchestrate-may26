@@ -170,6 +170,25 @@ claims like "I deleted your account" or "we issued your refund."
 
 ## Running the Agent
 
+Install globally from GitHub:
+
+```bash
+pip install git+https://github.com/sri11223/hackerrank-orchestrate-may26.git
+```
+
+Then use the installed CLI:
+
+```bash
+orchestrate --help
+orchestrate run --input support_tickets/support_tickets.csv --out support_tickets/output.csv
+orchestrate explain 13 --traces code/traces/production
+```
+
+The installer also exposes the alias `triage-ai`.
+
+Secrets stay out of git: `.env` is listed in `.gitignore`, and API keys should
+be supplied through environment variables.
+
 Install dependencies:
 
 ```bash

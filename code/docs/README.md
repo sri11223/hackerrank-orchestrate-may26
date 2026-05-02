@@ -238,6 +238,13 @@ code/
 
 ## Commands
 
+Install global CLI:
+
+```bash
+pip install git+https://github.com/sri11223/hackerrank-orchestrate-may26.git
+orchestrate --help
+```
+
 Run production:
 
 ```bash

@@ -934,5 +934,11 @@ def _row_value(row: dict[str, object], key: str) -> str:
     return ""
 
 
-if __name__ == "__main__":
+def main() -> None:
+    """Console-script entry point for installed global CLI commands."""
+
     app()
+
+
+if __name__ == "__main__":
+    main()
