@@ -9,7 +9,7 @@ from .schema import Ticket
 
 
 _EMAIL_RE = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.IGNORECASE)
-_CC_RE = re.compile(r"(?<!\d)(?:\d[ -]?){15}\d(?!\d)")
+_CC_RE = re.compile(r"\b(?:\d[ -]*?){13,16}\b")
 _SSN_RE = re.compile(r"(?<!\d)\d{3}-\d{2}-\d{4}(?!\d)")
 _PHONE_RE = re.compile(
     r"(?<![\d\w])(?:\+?\d{1,3}[\s.-]?)?(?:\(?\d{3}\)?[\s.-]?)\d{3}[\s.-]?\d{4}(?![\d\w])"

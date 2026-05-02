@@ -10,11 +10,17 @@ function Invoke-UserPython {
 
     if (Get-Command py -ErrorAction SilentlyContinue) {
         & py -3 @PythonArgs
+        if ($LASTEXITCODE -ne 0) {
+            throw "Python command failed with exit code $($LASTEXITCODE): py -3 $($PythonArgs -join ' ')"
+        }
         return
     }
 
     if (Get-Command python -ErrorAction SilentlyContinue) {
         & python @PythonArgs
+        if ($LASTEXITCODE -ne 0) {
+            throw "Python command failed with exit code $($LASTEXITCODE): python $($PythonArgs -join ' ')"
+        }
         return
     }
 

@@ -749,6 +749,8 @@ def _decision_panel(decision: TriageDecision) -> Panel:
 
 
 def _response_with_receipt(decision: TriageDecision) -> str:
+    if decision.status != "replied":
+        return decision.response
     exact_quote = " ".join(decision.exact_quote.split())
     if not exact_quote:
         return decision.response

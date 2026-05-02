@@ -253,6 +253,8 @@ def _apply_confidence_gates(
         reasons.append(f"retrieval_score={top_score:.2f}<0.32")
     if verifier is not None and not verifier.safe:
         reasons.append("verifier=fail")
+    if _decision_gave_up(decision):
+        reasons.append("doc_gap_response")
 
     if not reasons:
         return decision
@@ -266,8 +268,35 @@ def _apply_confidence_gates(
         ),
         request_type=decision.request_type,
         justification=f"{decision.justification}; hard_override={'|'.join(reasons)}",
-        exact_quote=decision.exact_quote,
+        exact_quote="",
     )
+
+
+def _decision_gave_up(decision: TriageDecision) -> bool:
+    """Detect non-answers that must not be counted as successful replies."""
+
+    text = " ".join(decision.response.casefold().split())
+    give_up_markers = (
+        "i cannot answer",
+        "i can't answer",
+        "cannot answer your issue",
+        "cannot answer this",
+        "i do not know",
+        "i don't know",
+        "not mentioned in the documents",
+        "not mentioned in the docs",
+        "not in the documents",
+        "not in the docs",
+        "provided documents do not",
+        "provided docs do not",
+        "documents do not specify",
+        "docs do not specify",
+        "documents do not mention",
+        "docs do not mention",
+        "cannot be answered based on",
+        "cannot answer based on",
+    )
+    return decision.status == "replied" and any(marker in text for marker in give_up_markers)
 
 
 def _snap_decision_product_area(
@@ -738,7 +767,7 @@ def _second_opinion_critique(draft: GroundedGenerationResult) -> list[str]:
         "The lower-cost model returned a low-confidence or cannot-answer draft. "
         "Take a second look at the retrieved chunks. If they support a safe self-service "
         "answer, provide it with citations and an exact_quote. If they truly do not support "
-        "an answer, explicitly say so."
+        "an answer, say so; the orchestrator will escalate rather than send a non-answer."
     ]
 
 
