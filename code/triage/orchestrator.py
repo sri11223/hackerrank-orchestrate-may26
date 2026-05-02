@@ -28,7 +28,7 @@ from .traps import classify_traps_async
 from .verify import VerificationResult, verify_response_async
 
 
-RETRIEVAL_CONFIDENCE_THRESHOLD = 0.35
+RETRIEVAL_CONFIDENCE_THRESHOLD = 0.32
 GENERATION_CONFIDENCE_THRESHOLD = 0.25
 DEFAULT_TRACES_DIR = REPO_ROOT / "traces"
 SAMPLE_LABELS_CSV = REPO_ROOT / "support_tickets" / "sample_support_tickets.csv"
@@ -251,11 +251,9 @@ def _apply_confidence_gates(
 ) -> TriageDecision:
     reasons: list[str] = []
     if top_score < RETRIEVAL_CONFIDENCE_THRESHOLD:
-        reasons.append(f"retrieval_score={top_score:.2f}<0.35")
+        reasons.append(f"retrieval_score={top_score:.2f}<0.32")
     if verifier is not None and not verifier.safe:
         reasons.append("verifier=fail")
-    if generation_confidence is not None and generation_confidence < GENERATION_CONFIDENCE_THRESHOLD:
-        reasons.append(f"generation_confidence={generation_confidence:.2f}<0.25")
 
     if not reasons:
         return decision
@@ -625,13 +623,44 @@ async def _generate_and_verify_with_self_healing(
         preferred_provider=first_provider,
     )
     generation_ms = _elapsed_ms(generation_started)
+
+    if _needs_second_opinion(draft, first_provider):
+        drafts.append(
+            {
+                "attempt": 1,
+                "mode": "cheap_initial_second_opinion_requested",
+                "critique": [],
+                "provider": first_provider,
+                "provider_fallback": first_fallback,
+                "timings_ms": {
+                    "generate": generation_ms,
+                    "verify": 0.0,
+                },
+                "generation": draft.model_dump(),
+                "verifier": None,
+            }
+        )
+        logger.info(
+            "[SECOND-OPINION] Cheap model produced a low-utility draft; routing to OpenAI."
+        )
+        generation_started = time.perf_counter()
+        draft, first_provider, first_fallback = await _generate_with_provider_fallback(
+            ticket=ticket,
+            chunks=chunks,
+            trap_result=trap_result,
+            critique=_second_opinion_critique(draft),
+            preferred_provider="openai",
+        )
+        generation_ms = _elapsed_ms(generation_started)
+
     verification_started = time.perf_counter()
     verifier = await verify_response_async(draft, ticket, chunks, client=LLM_CLIENT)
     verification_ms = _elapsed_ms(verification_started)
     drafts.append(
         {
-            "attempt": 1,
-            "critique": [],
+            "attempt": len(drafts) + 1,
+            "mode": "second_opinion" if len(drafts) else "initial",
+            "critique": _second_opinion_critique(draft) if len(drafts) else [],
             "provider": first_provider,
             "provider_fallback": first_fallback,
             "timings_ms": {
@@ -666,7 +695,8 @@ async def _generate_and_verify_with_self_healing(
     verification_ms = _elapsed_ms(verification_started)
     drafts.append(
         {
-            "attempt": 2,
+            "attempt": len(drafts) + 1,
+            "mode": "self_healing_rewrite",
             "critique": verifier.issues,
             "provider": rewrite_provider,
             "provider_fallback": rewrite_fallback,
@@ -679,6 +709,38 @@ async def _generate_and_verify_with_self_healing(
         }
     )
     return rewrite, rewrite_verifier, {"mode": "actor_critic", "drafts": drafts}
+
+
+def _needs_second_opinion(draft: GroundedGenerationResult, provider: Provider) -> bool:
+    """Escalate cheap-model give-ups to the stronger generator before verification."""
+
+    if provider != "groq":
+        return False
+    return _draft_gave_up(draft) or draft.confidence < GENERATION_CONFIDENCE_THRESHOLD
+
+
+def _draft_gave_up(draft: GroundedGenerationResult) -> bool:
+    text = " ".join(draft.response.casefold().split())
+    give_up_markers = (
+        "cannot answer",
+        "can't answer",
+        "based on the docs",
+        "based on the provided documents",
+        "documents do not specify",
+        "docs do not specify",
+        "documentation does not specify",
+        "not in the documents",
+    )
+    return draft.request_type == "invalid" or any(marker in text for marker in give_up_markers)
+
+
+def _second_opinion_critique(draft: GroundedGenerationResult) -> list[str]:
+    return [
+        "The lower-cost model returned a low-confidence or cannot-answer draft. "
+        "Take a second look at the retrieved chunks. If they support a safe self-service "
+        "answer, provide it with citations and an exact_quote. If they truly do not support "
+        "an answer, explicitly say so."
+    ]
 
 
 async def _generate_with_provider_fallback(

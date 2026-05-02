@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:24:16.639798Z",
+  "created_at": "2026-05-02T02:36:52.989304Z",
   "final_decision": {
     "exact_quote": "",
     "justification": "[ACTION_REQUEST] grounded generation; retrieval_score=0.90; verifier=fail; hard_override=verifier=fail; product_area_snapped=Interviews->screen",
@@ -33,7 +33,7 @@
         "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
         "status": "escalated"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.8961038961038961,
       "verifier_safe": false
     },
@@ -52,11 +52,12 @@
             "request_type": "product_issue",
             "response": "To remove access for an interviewer from an interview template, follow these steps: 1. Go to Interviews > Templates. 2. Click the More options (⋮) menu next to the template and select Share. 3. In the Share Interview Template dialog box, select the user or team you want to remove. 4. Select Remove User from the drop-down menu. 5. Click Confirm in the confirmation dialog box."
           },
+          "mode": "initial",
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 22.848,
-            "verify": 19.014
+            "generate": 7.245,
+            "verify": 7.484
           },
           "verifier": {
             "issues": [
@@ -81,11 +82,12 @@
             "request_type": "product_issue",
             "response": "I cannot perform the action directly, but you can remove access for any user from an interview template by following these steps: 1. Go to Interviews > Templates. 2. Click the More options (⋮) menu next to the template and select Share. 3. In the Share Interview Template dialog box, select the user you want to remove. 4. Select Remove User from the drop-down menu. 5. Click Confirm in the confirmation dialog box."
           },
+          "mode": "self_healing_rewrite",
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 13.131,
-            "verify": 17.138
+            "generate": 16.335,
+            "verify": 14.335
           },
           "verifier": {
             "issues": [
@@ -179,7 +181,7 @@
           "url_or_file": "https://support.hackerrank.com/articles/1262999130-hackerrank-interview-and-google-calendar-integration"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.8961038961038961
     },
     "sanitize": {
@@ -211,18 +213,18 @@
   },
   "ticket_id": 13,
   "timings_ms": {
-    "confidence_gates": 0.274,
-    "generation": 72.445,
+    "confidence_gates": 0.047,
+    "generation": 51.253,
     "handler": 0.004,
-    "label_normalization": 0.21,
-    "retrieval": 13237.191,
-    "sanitize": 16.727,
-    "semantic_cache": 773.422,
-    "semantic_cache_write": 0.076,
+    "label_normalization": 0.24,
+    "retrieval": 11228.501,
+    "sanitize": 5.401,
+    "semantic_cache": 369.044,
+    "semantic_cache_write": 0.068,
     "source_receipt": 0.003,
-    "total": 14101.887,
-    "trap_classifier": 0.482
+    "total": 11655.136,
+    "trap_classifier": 0.224
   },
-  "trace_file": "code\\traces\\production\\ticket_13_20260502T022416639798Z_89a4831c.json",
-  "trace_id": "13_20260502T022416639798Z_89a4831c"
+  "trace_file": "code\\traces\\production\\ticket_13_20260502T023652989304Z_2551a4de.json",
+  "trace_id": "13_20260502T023652989304Z_2551a4de"
 }

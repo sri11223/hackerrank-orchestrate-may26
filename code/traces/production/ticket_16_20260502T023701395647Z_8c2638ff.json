@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:24:26.966434Z",
+  "created_at": "2026-05-02T02:37:01.395647Z",
   "final_decision": {
     "exact_quote": "Visit our Lost or Stolen card page – if the identity theft involves your Visa card – to learn how to cancel your card or get an emergency replacement card.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass; product_area_snapped=Identity Theft Support->travel_support; exact_quote_source=deterministic_fallback",
@@ -33,7 +33,7 @@
         "response": "To address the issue of identity theft, visit the Lost or Stolen card page to learn how to cancel your card or get an emergency replacement card.",
         "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 1.0,
       "verifier_safe": true
     },
@@ -52,11 +52,12 @@
             "request_type": "product_issue",
             "response": "To address the issue of identity theft, visit the Lost or Stolen card page to learn how to cancel your card or get an emergency replacement card."
           },
+          "mode": "initial",
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 33.288,
-            "verify": 63.858
+            "generate": 3.806,
+            "verify": 34.507
           },
           "verifier": {
             "issues": [],
@@ -148,7 +149,7 @@
           "url_or_file": "https://www.visa.co.in/support/consumer/travelers-cheques.html"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 1.0
     },
     "sanitize": {
@@ -179,18 +180,18 @@
   },
   "ticket_id": 16,
   "timings_ms": {
-    "confidence_gates": 0.038,
-    "generation": 97.256,
-    "handler": 0.004,
-    "label_normalization": 0.199,
-    "retrieval": 4867.307,
-    "sanitize": 46.318,
-    "semantic_cache": 522.015,
-    "semantic_cache_write": 0.113,
-    "source_receipt": 3.806,
-    "total": 5537.999,
-    "trap_classifier": 0.306
+    "confidence_gates": 0.022,
+    "generation": 38.504,
+    "handler": 0.003,
+    "label_normalization": 0.1,
+    "retrieval": 4145.723,
+    "sanitize": 43.481,
+    "semantic_cache": 720.321,
+    "semantic_cache_write": 0.083,
+    "source_receipt": 5.517,
+    "total": 4958.577,
+    "trap_classifier": 0.346
   },
-  "trace_file": "code\\traces\\production\\ticket_16_20260502T022426966434Z_ad4785ee.json",
-  "trace_id": "16_20260502T022426966434Z_ad4785ee"
+  "trace_file": "code\\traces\\production\\ticket_16_20260502T023701395647Z_8c2638ff.json",
+  "trace_id": "16_20260502T023701395647Z_8c2638ff"
 }

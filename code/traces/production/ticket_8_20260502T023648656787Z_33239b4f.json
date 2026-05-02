@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:24:06.343276Z",
+  "created_at": "2026-05-02T02:36:48.656787Z",
   "final_decision": {
     "exact_quote": "Technical Support - If you experience issues accessing or completing the code challenges, please refer to their FAQ or contact HackerRank support at support@hackerrank.com.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass; product_area_snapped=HackerRank Challenges->screen; exact_quote_source=deterministic_fallback",
@@ -33,7 +33,7 @@
         "response": "If you are experiencing issues with submissions not working across any challenges, try closing the challenge window and reopening it using the same challenge link, or open the challenge in another supported browser. Ensure your internet connection is stable. If the issue persists, refer to the FAQ or contact HackerRank support at support@hackerrank.com.",
         "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9919354838709679,
       "verifier_safe": true
     },
@@ -52,11 +52,12 @@
             "request_type": "bug",
             "response": "If you are experiencing issues with submissions not working across any challenges, try closing the challenge window and reopening it using the same challenge link, or open the challenge in another supported browser. Ensure your internet connection is stable. If the issue persists, refer to the FAQ or contact HackerRank support at support@hackerrank.com."
           },
+          "mode": "initial",
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 130.229,
-            "verify": 33.64
+            "generate": 3.964,
+            "verify": 2.664
           },
           "verifier": {
             "issues": [],
@@ -148,7 +149,7 @@
           "url_or_file": "https://support.hackerrank.com/articles/7401637722-interviewplanner-hackerrank-integration-faqs-"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9919354838709679
     },
     "sanitize": {
@@ -179,18 +180,18 @@
   },
   "ticket_id": 8,
   "timings_ms": {
-    "confidence_gates": 0.014,
-    "generation": 163.955,
-    "handler": 0.007,
-    "label_normalization": 0.078,
-    "retrieval": 9850.412,
-    "sanitize": 5.428,
-    "semantic_cache": 270.285,
-    "semantic_cache_write": 0.085,
-    "source_receipt": 2.455,
-    "total": 10293.166,
-    "trap_classifier": 0.162
+    "confidence_gates": 0.013,
+    "generation": 6.698,
+    "handler": 0.003,
+    "label_normalization": 0.08,
+    "retrieval": 3974.939,
+    "sanitize": 26.09,
+    "semantic_cache": 446.764,
+    "semantic_cache_write": 0.081,
+    "source_receipt": 2.186,
+    "total": 4457.32,
+    "trap_classifier": 0.149
   },
-  "trace_file": "code\\traces\\production\\ticket_8_20260502T022406343276Z_084c1754.json",
-  "trace_id": "8_20260502T022406343276Z_084c1754"
+  "trace_file": "code\\traces\\production\\ticket_8_20260502T023648656787Z_33239b4f.json",
+  "trace_id": "8_20260502T023648656787Z_33239b4f"
 }

@@ -13,6 +13,8 @@ GENERATION_ROUTED_TAGS = frozenset(
     {
         TrapTag.NORMAL_FAQ,
         TrapTag.ACTION_REQUEST,
+        TrapTag.ADMIN_ACTION,
+        TrapTag.PAYMENT_DISPUTE,
     }
 )
 _PHONE_RE = re.compile(r"\+?\d[\d\s().-]{6,}\d")
@@ -25,9 +27,10 @@ def dispatch_trap_handler(
 ) -> TriageDecision | None:
     """Return a deterministic decision for traps that should bypass generation.
 
-    NORMAL_FAQ and ACTION_REQUEST are intentionally excluded so the orchestrator
-    can route those paths through grounded generation and verification. Identity
-    fraud bypasses generation through a deterministic emergency-contact handler.
+    NORMAL_FAQ, ACTION_REQUEST, ADMIN_ACTION, and PAYMENT_DISPUTE are excluded
+    so the orchestrator can route those paths through grounded generation and
+    verification. Identity fraud bypasses generation through a deterministic
+    emergency-contact handler.
     """
 
     for tag in trap_result.tags:

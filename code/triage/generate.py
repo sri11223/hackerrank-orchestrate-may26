@@ -342,6 +342,23 @@ def _build_generation_system_prompt(
             "the chunks so they can do it themselves."
         )
 
+    if TrapTag.ADMIN_ACTION.value in tags:
+        specialized_rules.append(
+            "CRITICAL: The user is asking for an administrative or permissioned account action. "
+            "You must NOT claim to restore access, change roles, provision seats, configure SSO, "
+            "or update an account yourself. If the chunks contain admin self-service steps, provide "
+            "those steps and clearly say the user needs the required admin/owner permissions or "
+            "must contact their administrator."
+        )
+
+    if TrapTag.PAYMENT_DISPUTE.value in tags:
+        specialized_rules.append(
+            "CRITICAL: The user has a refund, chargeback, billing, or transaction-dispute issue. "
+            "You must NOT claim to issue a refund, reverse a charge, file a dispute, or contact a "
+            "merchant/issuer yourself. If the chunks contain dispute, billing, issuer-contact, or "
+            "support self-service guidance, provide those documented next steps."
+        )
+
     cleaned_critique = [str(item).strip() for item in critique or () if str(item).strip()]
     if cleaned_critique:
         specialized_rules.append(

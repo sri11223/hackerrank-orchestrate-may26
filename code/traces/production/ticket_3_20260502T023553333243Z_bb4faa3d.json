@@ -1,0 +1,198 @@
+{
+  "created_at": "2026-05-02T02:35:53.333243Z",
+  "final_decision": {
+    "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass; product_area_snapped=billing->travel_support",
+    "product_area": "travel_support",
+    "request_type": "product_issue",
+    "response": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "Visa",
+    "Issue": "I used my Visa card to buy something online, but the merchant sent the wrong product \nand is ignoring my emails. Please make Visa refund me today and ban the seller \nfrom taking payments.",
+    "Subject": "Help"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 0.9,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass",
+        "product_area": "billing",
+        "request_type": "product_issue",
+        "response": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass",
+        "product_area": "billing",
+        "request_type": "product_issue",
+        "response": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
+        "status": "replied"
+      },
+      "threshold": 0.32,
+      "top_score": 0.9682539682539681,
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "visa_06129_dfecc78adc"
+            ],
+            "confidence": 0.9,
+            "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
+            "product_area": "billing",
+            "request_type": "product_issue",
+            "response": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge."
+          },
+          "mode": "initial",
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 6449.029,
+            "verify": 2517.874
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "billing",
+      "output_product_area": "travel_support"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 3,
+          "bm25_score": 0.8098172709652542,
+          "chunk_id": "visa_06144_e050264cb1",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.3100858271062053,
+          "dense_rank": 3,
+          "dense_score": 0.8618316650390625,
+          "domain": "visa",
+          "heading_path": "Get support > FAQ > I have concerns about a place where I used my Visa card. What should I do?",
+          "normalized_score": 0.9682539682539681,
+          "rrf_score": 0.031746031746031744,
+          "url_or_file": "https://www.visa.co.in/support.html"
+        },
+        {
+          "bm25_rank": 4,
+          "bm25_score": 0.805760153755935,
+          "chunk_id": "visa_06130_e69bd4a674",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.004642826498100512,
+          "dense_rank": 5,
+          "dense_score": 0.8601664900779724,
+          "domain": "visa",
+          "heading_path": "Get support > FAQ > Why was my card declined?",
+          "normalized_score": 0.9457932692307692,
+          "rrf_score": 0.031009615384615385,
+          "url_or_file": "https://www.visa.co.in/support.html"
+        },
+        {
+          "bm25_rank": 7,
+          "bm25_score": 0.6802497624978391,
+          "chunk_id": "visa_06131_e63b873fa7",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.024156278529873593,
+          "dense_rank": 12,
+          "dense_score": 0.8475157022476196,
+          "domain": "visa",
+          "heading_path": "Get support > FAQ > What should I do if my Visa card has been lost or stolen?",
+          "normalized_score": 0.878834991708126,
+          "rrf_score": 0.028814262023217248,
+          "url_or_file": "https://www.visa.co.in/support.html"
+        },
+        {
+          "bm25_rank": 5,
+          "bm25_score": 0.7467344767797671,
+          "chunk_id": "visa_06145_bfb0bffdbb",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.21372241328454034,
+          "dense_rank": 15,
+          "dense_score": 0.8436778783798218,
+          "domain": "visa",
+          "heading_path": "Get support > FAQ > Can a merchant set a maximum or minimum limit for using my Visa card?",
+          "normalized_score": 0.875897435897436,
+          "rrf_score": 0.02871794871794872,
+          "url_or_file": "https://www.visa.co.in/support.html"
+        },
+        {
+          "bm25_rank": 14,
+          "bm25_score": 0.5467121053742426,
+          "chunk_id": "visa_06129_dfecc78adc",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.0029912670143381207,
+          "dense_rank": 9,
+          "dense_score": 0.8507575690746307,
+          "domain": "visa",
+          "heading_path": "Get support > FAQ > How do I dispute a charge?",
+          "normalized_score": 0.8541911476694086,
+          "rrf_score": 0.028006267136701922,
+          "url_or_file": "https://www.visa.co.in/support.html"
+        }
+      ],
+      "threshold": 0.32,
+      "top_score": 0.9682539682539681
+    },
+    "sanitize": {
+      "company": "Visa",
+      "issue": "I used my Visa card to buy something online, but the merchant sent the wrong product \nand is ignoring my emails. Please make Visa refund me today and ban the seller \nfrom taking payments.",
+      "language": "en",
+      "pii_detected": false,
+      "subject": "Help"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": true,
+      "has_exact_quote": true,
+      "quote_source": "model"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic high-confidence trap rule matched ticket wording.",
+      "tags": [
+        "PAYMENT_DISPUTE",
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 3,
+  "timings_ms": {
+    "confidence_gates": 0.014,
+    "generation": 8966.984,
+    "handler": 0.006,
+    "label_normalization": 0.085,
+    "retrieval": 16396.126,
+    "sanitize": 3.572,
+    "semantic_cache": 32634.725,
+    "semantic_cache_write": 0.072,
+    "source_receipt": 0.002,
+    "total": 58002.217,
+    "trap_classifier": 0.406
+  },
+  "trace_file": "code\\traces\\production\\ticket_3_20260502T023553333243Z_bb4faa3d.json",
+  "trace_id": "3_20260502T023553333243Z_bb4faa3d"
+}

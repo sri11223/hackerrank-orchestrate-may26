@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:24:36.740870Z",
+  "created_at": "2026-05-02T02:37:10.217182Z",
   "final_decision": {
     "exact_quote": "Look out for ATMs with Visa PLUS mark anywhere to withdraw local currency with ease. Visa cards that bear the PLUS logo can be used for cash withdrawals, using the same PIN at ATMs worldwide. Click here to locate ATMs.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass; product_area_snapped=Visa->travel_support",
@@ -33,7 +33,7 @@
         "response": "To withdraw cash using your Visa card, look for ATMs with the Visa PLUS mark. You can use your Visa card that bears the PLUS logo for cash withdrawals at ATMs worldwide. Click here to locate ATMs.",
         "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9760624679979518,
       "verifier_safe": true
     },
@@ -53,11 +53,12 @@
             "request_type": "product_issue",
             "response": "You can use the Visa card to withdraw cash from ATMs with the Visa PLUS mark. To locate ATMs, click here."
           },
+          "mode": "initial",
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 56.775,
-            "verify": 73.375
+            "generate": 8.067,
+            "verify": 12.254
           },
           "verifier": {
             "issues": [
@@ -82,11 +83,12 @@
             "request_type": "product_issue",
             "response": "To withdraw cash using your Visa card, look for ATMs with the Visa PLUS mark. You can use your Visa card that bears the PLUS logo for cash withdrawals at ATMs worldwide. Click here to locate ATMs."
           },
+          "mode": "self_healing_rewrite",
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 209.946,
-            "verify": 52.942
+            "generate": 16.783,
+            "verify": 14.105
           },
           "verifier": {
             "issues": [],
@@ -178,7 +180,7 @@
           "url_or_file": "https://www.visa.co.in/support.html"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9760624679979518
     },
     "sanitize": {
@@ -209,18 +211,18 @@
   },
   "ticket_id": 22,
   "timings_ms": {
-    "confidence_gates": 0.038,
-    "generation": 395.394,
+    "confidence_gates": 0.016,
+    "generation": 51.903,
     "handler": 0.007,
-    "label_normalization": 0.224,
-    "retrieval": 6544.043,
-    "sanitize": 26.977,
-    "semantic_cache": 828.768,
-    "semantic_cache_write": 0.176,
-    "source_receipt": 0.007,
-    "total": 7796.583,
-    "trap_classifier": 0.341
+    "label_normalization": 0.098,
+    "retrieval": 7005.912,
+    "sanitize": 46.593,
+    "semantic_cache": 777.514,
+    "semantic_cache_write": 0.152,
+    "source_receipt": 0.003,
+    "total": 7882.839,
+    "trap_classifier": 0.175
   },
-  "trace_file": "code\\traces\\production\\ticket_22_20260502T022436739850Z_230ac70b.json",
-  "trace_id": "22_20260502T022436739850Z_230ac70b"
+  "trace_file": "code\\traces\\production\\ticket_22_20260502T023710217182Z_d1444212.json",
+  "trace_id": "22_20260502T023710217182Z_d1444212"
 }

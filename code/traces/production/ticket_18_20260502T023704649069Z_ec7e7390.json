@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:24:30.635023Z",
+  "created_at": "2026-05-02T02:37:04.649069Z",
   "final_decision": {
     "exact_quote": "Yes. You can update the name on your certificate only once per account.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass; product_area_snapped=Certifications->screen",
@@ -33,7 +33,7 @@
         "response": "You can update the name on your certificate only once per account. To update the name on your certificate, open your certificate page, enter the name you want to display in the Full Name field, click Regenerate Certificate, and then click Update Name in the confirmation dialog.",
         "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 1.0,
       "verifier_safe": true
     },
@@ -52,11 +52,12 @@
             "request_type": "product_issue",
             "response": "You can update the name on your certificate only once per account. To update the name on your certificate, open your certificate page, enter the name you want to display in the Full Name field, click Regenerate Certificate, and then click Update Name in the confirmation dialog."
           },
+          "mode": "initial",
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 200.674,
-            "verify": 89.697
+            "generate": 4.26,
+            "verify": 13.613
           },
           "verifier": {
             "issues": [],
@@ -148,7 +149,7 @@
           "url_or_file": "https://support.hackerrank.com/articles/1019487408-changing-the-company-name"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 1.0
     },
     "sanitize": {
@@ -179,18 +180,18 @@
   },
   "ticket_id": 18,
   "timings_ms": {
-    "confidence_gates": 0.02,
-    "generation": 290.498,
-    "handler": 0.003,
-    "label_normalization": 0.264,
-    "retrieval": 12342.069,
-    "sanitize": 31.443,
-    "semantic_cache": 663.042,
-    "semantic_cache_write": 0.266,
-    "source_receipt": 0.006,
-    "total": 13328.542,
-    "trap_classifier": 0.381
+    "confidence_gates": 0.035,
+    "generation": 18.004,
+    "handler": 0.005,
+    "label_normalization": 1.994,
+    "retrieval": 11228.863,
+    "sanitize": 33.432,
+    "semantic_cache": 689.954,
+    "semantic_cache_write": 0.105,
+    "source_receipt": 0.003,
+    "total": 11973.407,
+    "trap_classifier": 0.428
   },
-  "trace_file": "code\\traces\\production\\ticket_18_20260502T022430635023Z_51d8ed25.json",
-  "trace_id": "18_20260502T022430635023Z_51d8ed25"
+  "trace_file": "code\\traces\\production\\ticket_18_20260502T023704649069Z_ec7e7390.json",
+  "trace_id": "18_20260502T023704649069Z_ec7e7390"
 }

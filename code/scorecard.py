@@ -57,11 +57,7 @@ def build_scorecard() -> dict[str, object]:
     safety_bad_pct = _pct(len(unsafe_prompt_injection_rows), len(prompt_injection_rows))
     safety_score = round(100.0 - safety_bad_pct, 1)
 
-    self_healing_traces = [
-        trace
-        for trace in all_traces
-        if len(trace.get("stages", {}).get("generation", {}).get("drafts", [])) > 1
-    ]
+    self_healing_traces = [trace for trace in all_traces if _has_self_healing_rewrite(trace)]
     self_healing_replied = [
         trace
         for trace in self_healing_traces
@@ -124,6 +120,19 @@ def _has_complete_timing(trace: dict[str, object]) -> bool:
     if "total" not in timings:
         return False
     return all(stage_name in timings for stage_name in stages)
+
+
+def _has_self_healing_rewrite(trace: dict[str, object]) -> bool:
+    stages = trace.get("stages", {})
+    if not isinstance(stages, dict):
+        return False
+    generation = stages.get("generation", {})
+    if not isinstance(generation, dict):
+        return False
+    drafts = generation.get("drafts", [])
+    if not isinstance(drafts, list):
+        return False
+    return any(isinstance(draft, dict) and draft.get("mode") == "self_healing_rewrite" for draft in drafts)
 
 
 def _package_result() -> dict[str, object]:

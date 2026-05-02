@@ -408,9 +408,15 @@ def _add_verifier_node(tree: Tree, stages: dict[str, Any]) -> None:
     final_verifier = drafts[-1].get("verifier", {}) if isinstance(drafts[-1], dict) else {}
     final_safe = final_verifier.get("safe") if isinstance(final_verifier, dict) else None
     status = "[bold bright_green]safe[/]" if final_safe else "[bold red]unsafe[/]"
-    if len(drafts) > 1:
+
+    if any(isinstance(draft, dict) and draft.get("mode") == "self_healing_rewrite" for draft in drafts):
         node = tree.add(f"[bold bright_cyan]Stage 7 - Verifier[/]: self-healed, final {status}")
         node.add(_self_healing_table(drafts))
+        return
+
+    if any(isinstance(draft, dict) and draft.get("mode") == "second_opinion" for draft in drafts):
+        node = tree.add(f"[bold bright_cyan]Stage 7 - Verifier[/]: second opinion, final {status}")
+        node.add(_second_opinion_table(drafts))
         return
 
     verifier = drafts[0].get("verifier", {}) if isinstance(drafts[0], dict) else {}
@@ -421,8 +427,16 @@ def _add_verifier_node(tree: Tree, stages: dict[str, Any]) -> None:
 
 
 def _self_healing_table(drafts: list[Any]) -> Table:
-    first = drafts[0] if drafts and isinstance(drafts[0], dict) else {}
-    second = drafts[1] if len(drafts) > 1 and isinstance(drafts[1], dict) else {}
+    rewrite_index = next(
+        (
+            index
+            for index, draft in enumerate(drafts)
+            if isinstance(draft, dict) and draft.get("mode") == "self_healing_rewrite"
+        ),
+        1,
+    )
+    first = drafts[max(0, rewrite_index - 1)] if drafts and isinstance(drafts[max(0, rewrite_index - 1)], dict) else {}
+    second = drafts[rewrite_index] if len(drafts) > rewrite_index and isinstance(drafts[rewrite_index], dict) else {}
     first_generation = first.get("generation", {}) if isinstance(first.get("generation"), dict) else {}
     first_verifier = first.get("verifier", {}) if isinstance(first.get("verifier"), dict) else {}
     second_generation = second.get("generation", {}) if isinstance(second.get("generation"), dict) else {}
@@ -443,6 +457,45 @@ def _self_healing_table(drafts: list[Any]) -> Table:
         _truncate(str(first_generation.get("response") or ""), 520),
         _truncate(critique_text, 520),
         _truncate(str(second_generation.get("response") or ""), 520),
+    )
+    return table
+
+
+def _second_opinion_table(drafts: list[Any]) -> Table:
+    cheap = next(
+        (
+            draft
+            for draft in drafts
+            if isinstance(draft, dict) and draft.get("mode") == "cheap_initial_second_opinion_requested"
+        ),
+        {},
+    )
+    second = next(
+        (
+            draft
+            for draft in drafts
+            if isinstance(draft, dict) and draft.get("mode") == "second_opinion"
+        ),
+        {},
+    )
+    cheap_generation = cheap.get("generation", {}) if isinstance(cheap.get("generation"), dict) else {}
+    second_generation = second.get("generation", {}) if isinstance(second.get("generation"), dict) else {}
+    second_verifier = second.get("verifier", {}) if isinstance(second.get("verifier"), dict) else {}
+
+    table = Table(
+        title="Second Opinion Gate",
+        title_style="bold bright_cyan",
+        box=box.SIMPLE_HEAVY,
+        border_style="bright_cyan",
+    )
+    table.add_column("Cheap Draft", ratio=1)
+    table.add_column("Strong Model Draft", ratio=1)
+    table.add_column("Verifier", ratio=1)
+    table.add_row(
+        _truncate(str(cheap_generation.get("response") or ""), 420),
+        _truncate(str(second_generation.get("response") or ""), 420),
+        "safe=" + str(second_verifier.get("safe")) + "\nissues="
+        + _truncate(", ".join(str(issue) for issue in second_verifier.get("issues", [])), 300),
     )
     return table
 

@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:24:30.749865Z",
+  "created_at": "2026-05-02T02:37:06.354427Z",
   "final_decision": {
     "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass; product_area_snapped=Dispute Resolution->travel_support",
@@ -33,7 +33,7 @@
         "response": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
         "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 1.0,
       "verifier_safe": true
     },
@@ -52,11 +52,12 @@
             "request_type": "product_issue",
             "response": "To dispute a charge, please contact your issuer or bank using the freephone number located on the front or back of your Visa card."
           },
+          "mode": "initial",
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 61.797,
-            "verify": 44.259
+            "generate": 13.511,
+            "verify": 10.715
           },
           "verifier": {
             "issues": [
@@ -81,11 +82,12 @@
             "request_type": "product_issue",
             "response": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge."
           },
+          "mode": "self_healing_rewrite",
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 57.836,
-            "verify": 34.113
+            "generate": 18.633,
+            "verify": 15.506
           },
           "verifier": {
             "issues": [],
@@ -177,7 +179,7 @@
           "url_or_file": "https://www.visa.co.in/support/small-business/dispute-resolution.html"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 1.0
     },
     "sanitize": {
@@ -208,18 +210,18 @@
   },
   "ticket_id": 19,
   "timings_ms": {
-    "confidence_gates": 0.041,
-    "generation": 198.622,
-    "handler": 0.008,
-    "label_normalization": 1.04,
-    "retrieval": 5417.013,
-    "sanitize": 76.89,
-    "semantic_cache": 527.701,
-    "semantic_cache_write": 0.189,
-    "source_receipt": 0.007,
-    "total": 6230.429,
-    "trap_classifier": 0.297
+    "confidence_gates": 0.037,
+    "generation": 58.924,
+    "handler": 0.006,
+    "label_normalization": 2.2,
+    "retrieval": 4770.564,
+    "sanitize": 141.43,
+    "semantic_cache": 814.827,
+    "semantic_cache_write": 0.143,
+    "source_receipt": 0.003,
+    "total": 5789.101,
+    "trap_classifier": 0.474
   },
-  "trace_file": "code\\traces\\production\\ticket_19_20260502T022430749865Z_e6b1ae07.json",
-  "trace_id": "19_20260502T022430749865Z_e6b1ae07"
+  "trace_file": "code\\traces\\production\\ticket_19_20260502T023706354427Z_868eaa51.json",
+  "trace_id": "19_20260502T023706354427Z_868eaa51"
 }

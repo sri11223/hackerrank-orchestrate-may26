@@ -1,12 +1,12 @@
 {
-  "created_at": "2026-05-02T02:24:06.354275Z",
+  "created_at": "2026-05-02T02:36:48.924082Z",
   "final_decision": {
-    "exact_quote": "",
-    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.89; verifier=pass; hard_override=generation_confidence=0.00<0.25; product_area_snapped=HackerRank->screen",
+    "exact_quote": "The HackerRank Test Status is set to error status when an invite cannot be sent or another such error exists. These are the possible error statuses and the resolutions:",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.89; verifier=pass; product_area_snapped=HackerRank->screen; exact_quote_source=deterministic_fallback",
     "product_area": "screen",
     "request_type": "product_issue",
-    "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
-    "status": "escalated"
+    "response": "I cannot answer your issue based on the docs.",
+    "status": "replied"
   },
   "input": {
     "Company": "HackerRank",
@@ -27,13 +27,13 @@
       },
       "output": {
         "exact_quote": "",
-        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.89; verifier=pass; hard_override=generation_confidence=0.00<0.25",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.89; verifier=pass",
         "product_area": "HackerRank",
         "request_type": "product_issue",
-        "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
-        "status": "escalated"
+        "response": "I cannot answer your issue based on the docs.",
+        "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.8854427736006683,
       "verifier_safe": true
     },
@@ -52,11 +52,12 @@
             "request_type": "product_issue",
             "response": "Ensure your internet connection is stable to avoid interruptions during the test. If the issue persists, check if there are any specific requirements for the test, such as zoom connectivity."
           },
+          "mode": "initial",
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 34.504,
-            "verify": 34.889
+            "generate": 3.575,
+            "verify": 3.709
           },
           "verifier": {
             "issues": [
@@ -79,11 +80,12 @@
             "request_type": "invalid",
             "response": "I cannot answer your issue based on the docs."
           },
+          "mode": "self_healing_rewrite",
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 35.675,
-            "verify": 7.199
+            "generate": 4.06,
+            "verify": 3.911
           },
           "verifier": {
             "issues": [],
@@ -175,7 +177,7 @@
           "url_or_file": "https://support.hackerrank.com/articles/8672148210-oracle-recruiting-cloud---hackerrank-integration-setup-guide"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.8854427736006683
     },
     "sanitize": {
@@ -194,8 +196,8 @@
     },
     "source_receipt": {
       "had_exact_quote": false,
-      "has_exact_quote": false,
-      "quote_source": "none"
+      "has_exact_quote": true,
+      "quote_source": "deterministic_fallback"
     },
     "trap_classifier": {
       "reasoning": "Deterministic default: legitimate support question likely answerable from docs.",
@@ -206,18 +208,18 @@
   },
   "ticket_id": 9,
   "timings_ms": {
-    "confidence_gates": 0.146,
-    "generation": 112.701,
-    "handler": 0.004,
-    "label_normalization": 0.174,
-    "retrieval": 10000.297,
-    "sanitize": 5.213,
-    "semantic_cache": 296.317,
-    "semantic_cache_write": 0.159,
-    "source_receipt": 0.006,
-    "total": 10415.559,
-    "trap_classifier": 0.204
+    "confidence_gates": 0.012,
+    "generation": 15.663,
+    "handler": 0.003,
+    "label_normalization": 0.055,
+    "retrieval": 3691.825,
+    "sanitize": 15.849,
+    "semantic_cache": 338.424,
+    "semantic_cache_write": 0.067,
+    "source_receipt": 1.332,
+    "total": 4063.744,
+    "trap_classifier": 0.218
   },
-  "trace_file": "code\\traces\\production\\ticket_9_20260502T022406354275Z_7297d87d.json",
-  "trace_id": "9_20260502T022406354275Z_7297d87d"
+  "trace_file": "code\\traces\\production\\ticket_9_20260502T023648923061Z_caeb5081.json",
+  "trace_id": "9_20260502T023648923061Z_caeb5081"
 }

@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:24:32.372031Z",
+  "created_at": "2026-05-02T02:37:08.331020Z",
   "final_decision": {
     "exact_quote": "- Reporting, Blocking, and Removing Content from Claude",
     "justification": "[SECURITY_DISCLOSURE] Security disclosure is handled by documented security-reporting guidance.; top_chunk=claude_05554_616d399184; product_area_snapped=Safeguards->general_support; exact_quote_source=deterministic_fallback",
@@ -33,7 +33,7 @@
         "response": "This appears to be a security disclosure or vulnerability report. Please follow the security-reporting guidance in the retrieved documentation and avoid sharing exploit details in ordinary support channels.",
         "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9339644693782141,
       "verifier_safe": null
     },
@@ -126,7 +126,7 @@
           "url_or_file": "https://support.claude.com/en/articles/8106465-our-approach-to-user-safety"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9339644693782141
     },
     "sanitize": {
@@ -158,17 +158,17 @@
   },
   "ticket_id": 20,
   "timings_ms": {
-    "confidence_gates": 0.03,
-    "handler": 0.307,
-    "label_normalization": 0.491,
-    "retrieval": 5951.334,
-    "sanitize": 29.479,
-    "semantic_cache": 458.605,
-    "semantic_cache_write": 0.12,
-    "source_receipt": 0.923,
-    "total": 6442.022,
-    "trap_classifier": 0.494
+    "confidence_gates": 0.012,
+    "handler": 0.143,
+    "label_normalization": 0.174,
+    "retrieval": 6946.837,
+    "sanitize": 21.26,
+    "semantic_cache": 537.036,
+    "semantic_cache_write": 0.197,
+    "source_receipt": 1.233,
+    "total": 7507.638,
+    "trap_classifier": 0.373
   },
-  "trace_file": "code\\traces\\production\\ticket_20_20260502T022432372031Z_2e3b79bf.json",
-  "trace_id": "20_20260502T022432372031Z_2e3b79bf"
+  "trace_file": "code\\traces\\production\\ticket_20_20260502T023708331020Z_43227a83.json",
+  "trace_id": "20_20260502T023708331020Z_43227a83"
 }

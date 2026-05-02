@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:23:32.723409Z",
+  "created_at": "2026-05-02T02:35:53.328727Z",
   "final_decision": {
     "exact_quote": "",
     "justification": "[SCORE_DISPUTE] Score disputes are sensitive and require human review.; top_chunk=hackerrank_00923_f782a5cfb9; product_area_snapped=Integrations->screen",
@@ -33,7 +33,7 @@
         "response": "This involves a score, grading, integrity result, or assessment outcome dispute. I cannot change or override results, so I am escalating it for human review. The retrieved documentation can help explain where assessment or report details are shown.",
         "status": "escalated"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.8943707191780821,
       "verifier_safe": null
     },
@@ -126,7 +126,7 @@
           "url_or_file": "https://support.hackerrank.com/articles/1202456939-how-to-try-a-question-or-a-test"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.8943707191780821
     },
     "sanitize": {
@@ -158,17 +158,17 @@
   },
   "ticket_id": 2,
   "timings_ms": {
-    "confidence_gates": 0.013,
-    "handler": 0.179,
-    "label_normalization": 110.728,
-    "retrieval": 6592.963,
-    "sanitize": 5.739,
-    "semantic_cache": 26861.666,
-    "semantic_cache_write": 0.098,
-    "source_receipt": 0.006,
-    "total": 33571.768,
-    "trap_classifier": 0.199
+    "confidence_gates": 0.012,
+    "handler": 0.103,
+    "label_normalization": 0.204,
+    "retrieval": 16432.756,
+    "sanitize": 3.782,
+    "semantic_cache": 32635.82,
+    "semantic_cache_write": 0.145,
+    "source_receipt": 0.009,
+    "total": 49074.547,
+    "trap_classifier": 1.501
   },
-  "trace_file": "code\\traces\\production\\ticket_2_20260502T022332723409Z_0dcf2e68.json",
-  "trace_id": "2_20260502T022332723409Z_0dcf2e68"
+  "trace_file": "code\\traces\\production\\ticket_2_20260502T023553328727Z_ba9ded7f.json",
+  "trace_id": "2_20260502T023553328727Z_ba9ded7f"
 }

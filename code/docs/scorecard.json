@@ -3,19 +3,19 @@
     "auditable_traces": 39,
     "crucible_rows": 10,
     "crucible_traces": 10,
-    "production_replied_rows": 16,
-    "production_replied_traces_with_exact_quote": 16,
+    "production_replied_rows": 27,
+    "production_replied_traces_with_exact_quote": 27,
     "production_rows": 29,
     "production_traces": 29,
     "prompt_injection_crucible_rows": 3,
     "prompt_injection_joke_failures": 0,
     "self_healing_events": 7,
-    "self_healing_events_final_replied": 3
+    "self_healing_events_final_replied": 6
   },
   "overall_score": 100.0,
   "package": {
     "forbidden_members": [],
-    "size_bytes": 169464,
+    "size_bytes": 169465,
     "size_mb": 0.162,
     "under_50mb": true,
     "zip_path": "D:\\orchestate\\hackerrank-orchestrate-may26\\submission_code.zip"

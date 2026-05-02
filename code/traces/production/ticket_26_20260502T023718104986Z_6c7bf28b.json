@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:24:44.553516Z",
+  "created_at": "2026-05-02T02:37:18.105995Z",
   "final_decision": {
     "exact_quote": "Contact AWS Support for Claude in Amazon Bedrock support inquiries or reach out to your AWS account manager. For community-based support, visit AWS re:Post.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.88; verifier=pass; product_area_snapped=Claude in Amazon Bedrock->general_support",
@@ -33,7 +33,7 @@
         "response": "For issues with Claude in Amazon Bedrock, contact AWS Support or reach out to your AWS account manager. For community-based support, visit AWS re:Post.",
         "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.8765432098765432,
       "verifier_safe": true
     },
@@ -52,11 +52,12 @@
             "request_type": "bug",
             "response": "For issues with Claude in Amazon Bedrock, contact AWS Support or reach out to your AWS account manager. For community-based support, visit AWS re:Post."
           },
+          "mode": "initial",
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 252.059,
-            "verify": 9.566
+            "generate": 14.0,
+            "verify": 20.134
           },
           "verifier": {
             "issues": [],
@@ -148,7 +149,7 @@
           "url_or_file": "https://support.claude.com/en/articles/7996918-what-is-amazon-bedrock"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.8765432098765432
     },
     "sanitize": {
@@ -179,18 +180,18 @@
   },
   "ticket_id": 26,
   "timings_ms": {
-    "confidence_gates": 0.038,
-    "generation": 261.754,
-    "handler": 0.041,
-    "label_normalization": 1.352,
-    "retrieval": 5525.76,
-    "sanitize": 43.701,
-    "semantic_cache": 1215.758,
-    "semantic_cache_write": 0.648,
-    "source_receipt": 0.007,
-    "total": 7049.968,
-    "trap_classifier": 0.373
+    "confidence_gates": 0.015,
+    "generation": 34.248,
+    "handler": 0.006,
+    "label_normalization": 0.913,
+    "retrieval": 4238.189,
+    "sanitize": 66.094,
+    "semantic_cache": 710.334,
+    "semantic_cache_write": 0.069,
+    "source_receipt": 0.003,
+    "total": 5050.473,
+    "trap_classifier": 0.163
   },
-  "trace_file": "code\\traces\\production\\ticket_26_20260502T022444553516Z_fc0b3878.json",
-  "trace_id": "26_20260502T022444553516Z_fc0b3878"
+  "trace_file": "code\\traces\\production\\ticket_26_20260502T023718104986Z_6c7bf28b.json",
+  "trace_id": "26_20260502T023718104986Z_6c7bf28b"
 }

@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:24:21.415710Z",
+  "created_at": "2026-05-02T02:36:58.283334Z",
   "final_decision": {
     "exact_quote": "Ensure the Claude Desktop app was open throughout the entire task. If the app was closed or your computer went to sleep, the session may have ended.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.90; verifier=pass; product_area_snapped=Claude->general_support",
@@ -33,7 +33,7 @@
         "response": "Try checking your internet connection, and ensure the Claude Desktop app was open throughout the entire task. If the issue persists, consider restarting Claude Desktop or checking for usage limits.",
         "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.8972528661042612,
       "verifier_safe": true
     },
@@ -54,11 +54,12 @@
             "request_type": "product_issue",
             "response": "Try checking your internet connection, and ensure the Claude Desktop app was open throughout the entire task. If the issue persists, consider restarting Claude Desktop or checking for usage limits."
           },
+          "mode": "initial",
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 229.794,
-            "verify": 86.845
+            "generate": 8.698,
+            "verify": 6.707
           },
           "verifier": {
             "issues": [],
@@ -150,7 +151,7 @@
           "url_or_file": "https://support.claude.com/en/articles/12489464-use-enterprise-search"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.8972528661042612
     },
     "sanitize": {
@@ -181,18 +182,18 @@
   },
   "ticket_id": 15,
   "timings_ms": {
-    "confidence_gates": 0.014,
-    "generation": 316.705,
-    "handler": 0.004,
-    "label_normalization": 0.143,
-    "retrieval": 10135.482,
-    "sanitize": 7.709,
-    "semantic_cache": 465.827,
-    "semantic_cache_write": 0.108,
-    "source_receipt": 0.003,
-    "total": 10926.66,
-    "trap_classifier": 0.362
+    "confidence_gates": 0.038,
+    "generation": 15.543,
+    "handler": 0.007,
+    "label_normalization": 0.408,
+    "retrieval": 8818.649,
+    "sanitize": 66.327,
+    "semantic_cache": 1137.429,
+    "semantic_cache_write": 0.148,
+    "source_receipt": 0.006,
+    "total": 10039.476,
+    "trap_classifier": 0.327
   },
-  "trace_file": "code\\traces\\production\\ticket_15_20260502T022421415710Z_7c33a5c0.json",
-  "trace_id": "15_20260502T022421415710Z_7c33a5c0"
+  "trace_file": "code\\traces\\production\\ticket_15_20260502T023658283334Z_307ac750.json",
+  "trace_id": "15_20260502T023658283334Z_307ac750"
 }

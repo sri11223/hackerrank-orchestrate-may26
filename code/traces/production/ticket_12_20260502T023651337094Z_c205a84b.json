@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:24:16.008209Z",
+  "created_at": "2026-05-02T02:36:51.337094Z",
   "final_decision": {
     "exact_quote": "If you are using a company Slack instance and are not assigned to an Admin role, a Slack Admin must approve the Claude app on behalf of your organization before you’re able to download it.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.71; verifier=pass; product_area_snapped=Claude->general_support",
@@ -33,7 +33,7 @@
         "response": "If you are using a company Slack instance and are not assigned to an Admin role, a Slack Admin must approve the Claude app on behalf of your organization before you’re able to download it.",
         "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.7097926267281105,
       "verifier_safe": true
     },
@@ -52,11 +52,12 @@
             "request_type": "product_issue",
             "response": "If you are using a company Slack instance and are not assigned to an Admin role, a Slack Admin must approve the Claude app on behalf of your organization before you’re able to download it."
           },
+          "mode": "initial",
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 275.353,
-            "verify": 98.851
+            "generate": 14.464,
+            "verify": 11.575
           },
           "verifier": {
             "issues": [],
@@ -148,7 +149,7 @@
           "url_or_file": "index.md"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.7097926267281105
     },
     "sanitize": {
@@ -179,18 +180,18 @@
   },
   "ticket_id": 12,
   "timings_ms": {
-    "confidence_gates": 0.038,
-    "generation": 374.317,
-    "handler": 0.007,
-    "label_normalization": 0.43,
-    "retrieval": 9527.345,
-    "sanitize": 249.917,
-    "semantic_cache": 793.609,
-    "semantic_cache_write": 3.467,
+    "confidence_gates": 0.037,
+    "generation": 26.17,
+    "handler": 0.004,
+    "label_normalization": 4.5,
+    "retrieval": 5703.578,
+    "sanitize": 21.805,
+    "semantic_cache": 1178.104,
+    "semantic_cache_write": 0.172,
     "source_receipt": 0.007,
-    "total": 10949.933,
-    "trap_classifier": 0.298
+    "total": 6934.965,
+    "trap_classifier": 0.135
   },
-  "trace_file": "code\\traces\\production\\ticket_12_20260502T022416008209Z_26027613.json",
-  "trace_id": "12_20260502T022416008209Z_26027613"
+  "trace_file": "code\\traces\\production\\ticket_12_20260502T023651337094Z_c205a84b.json",
+  "trace_id": "12_20260502T023651337094Z_c205a84b"
 }

@@ -271,7 +271,20 @@ def _deterministic_classify(
 
     if any(marker in text for marker in ("ignore previous", "reveal", "system prompt", "hidden prompt")):
         tags.append(TrapTag.PROMPT_INJECTION)
-    if any(marker in text for marker in ("malware", "phishing", "credential theft", "exploit code")):
+    if any(
+        marker in text
+        for marker in (
+            "malware",
+            "phishing",
+            "credential theft",
+            "exploit code",
+            "delete all files",
+            "delete every file",
+            "wipe the system",
+            "wipe my system",
+            "rm -rf",
+        )
+    ):
         tags.append(TrapTag.SYSTEM_HARM)
     if any(marker in text for marker in ("vulnerability", "security flaw", "bug bounty", "responsible disclosure")):
         tags.append(TrapTag.SECURITY_DISCLOSURE)

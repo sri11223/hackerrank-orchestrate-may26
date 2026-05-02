@@ -39,7 +39,7 @@ flowchart TD
     H -- no --> J{Generation route}
     J -- NORMAL_FAQ only --> K[Fast Groq/Llama generation]
     J -- action self-service --> L[OpenAI generation]
-    K -- provider failure --> L
+    K -- provider failure or low-utility draft --> L
     K --> M[OpenAI adversarial verifier]
     L --> M
     M -- safe --> N[Confidence gates]
@@ -47,7 +47,7 @@ flowchart TD
     O --> P[OpenAI verifier retry]
     P --> N
     I --> N
-    N -- low RRF score or verifier failed --> Q[Hard escalate]
+    N -- RRF score below 0.32 or verifier failed --> Q[Hard escalate]
     N -- pass --> R[Reply]
     Q --> S[Snap product_area to valid labels]
     R --> S
@@ -115,11 +115,13 @@ re-encode the model for every ticket.
 The default generation path is cost-aware. Plain `NORMAL_FAQ` tickets use the
 fast Groq/Llama route first. Action self-service flows use OpenAI generation.
 Identity/fraud issues do not call a generator; they use the deterministic
-emergency-contact handler. If the verifier rejects a generated draft, the single
-self-healing rewrite is routed to OpenAI with the verifier critique included in
-the prompt. If Groq is rate-limited or unavailable during a batch run, the
-orchestrator disables that route for the process and falls back to OpenAI rather
-than converting answerable tickets into processing-error escalations.
+emergency-contact handler. If Groq returns a low-confidence or cannot-answer
+draft, OpenAI gets a second-opinion pass before the system accepts low utility.
+If the verifier rejects a generated draft, the single self-healing rewrite is
+routed to OpenAI with the verifier critique included in the prompt. If Groq is
+rate-limited or unavailable during a batch run, the orchestrator disables that
+route for the process and falls back to OpenAI rather than converting answerable
+tickets into processing-error escalations.
 
 Generation also returns `exact_quote`, a required Pydantic field. The code
 accepts the quote only when it is an exact substring of the retrieved chunks.
@@ -144,10 +146,12 @@ prints total elapsed time plus time per ticket at the end of every batch.
 
 The pipeline uses hard gates instead of optimistic guessing:
 
-- If the top retrieval RRF-normalized score is below `0.35`, final status is
+- If the top retrieval RRF-normalized score is below `0.32`, final status is
   forced to `escalated`.
 - If the adversarial verifier returns `safe=false`, final status is forced to
   `escalated`.
+- If the cheap generation route produces a low-confidence or cannot-answer
+  draft, the orchestrator asks OpenAI for a second opinion before final gates.
 - If a row crashes, the CLI catches the exception, writes a valid escalated
   fallback row, and records the error in the trace.
 - Every successful or failed ticket writes a unique JSON sidecar under the

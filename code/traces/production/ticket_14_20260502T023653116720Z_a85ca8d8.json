@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:24:16.772279Z",
+  "created_at": "2026-05-02T02:36:53.116720Z",
   "final_decision": {
     "exact_quote": "- Click the Cancel Plan button. The UI will display a prompt about the new Pause Subscription feature.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass; product_area_snapped=Subscription Settings->screen; exact_quote_source=deterministic_fallback",
@@ -33,7 +33,7 @@
         "response": "To pause your subscription, follow these steps: Access Subscription Settings, Navigate to the Billing section under Subscription, Click the Cancel Plan button, Select the desired pause duration, and Confirm Pause.",
         "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9919354838709679,
       "verifier_safe": true
     },
@@ -52,11 +52,12 @@
             "request_type": "product_issue",
             "response": "To pause your subscription, follow these steps: Access Subscription Settings, Navigate to the Billing section under Subscription, Click the Cancel Plan button, Select the desired pause duration, and Confirm Pause."
           },
+          "mode": "initial",
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 74.494,
-            "verify": 244.819
+            "generate": 19.811,
+            "verify": 17.381
           },
           "verifier": {
             "issues": [],
@@ -148,7 +149,7 @@
           "url_or_file": "https://support.hackerrank.com/articles/5157311476-pause-subscription"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9919354838709679
     },
     "sanitize": {
@@ -179,18 +180,18 @@
   },
   "ticket_id": 14,
   "timings_ms": {
-    "confidence_gates": 0.04,
-    "generation": 319.452,
+    "confidence_gates": 0.033,
+    "generation": 37.354,
     "handler": 0.007,
-    "label_normalization": 0.696,
-    "retrieval": 10400.547,
-    "sanitize": 12.85,
-    "semantic_cache": 875.434,
-    "semantic_cache_write": 0.115,
-    "source_receipt": 2.32,
-    "total": 11612.086,
-    "trap_classifier": 0.145
+    "label_normalization": 7.175,
+    "retrieval": 9591.708,
+    "sanitize": 6.916,
+    "semantic_cache": 444.782,
+    "semantic_cache_write": 0.087,
+    "source_receipt": 0.929,
+    "total": 10089.566,
+    "trap_classifier": 0.157
   },
-  "trace_file": "code\\traces\\production\\ticket_14_20260502T022416772279Z_dc9a21a0.json",
-  "trace_id": "14_20260502T022416772279Z_dc9a21a0"
+  "trace_file": "code\\traces\\production\\ticket_14_20260502T023653116720Z_a85ca8d8.json",
+  "trace_id": "14_20260502T023653116720Z_a85ca8d8"
 }

@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:24:06.306706Z",
+  "created_at": "2026-05-02T02:36:42.417129Z",
   "final_decision": {
     "exact_quote": "Job listings feature has been removed following the deprecation of the Apply tab.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.84; verifier=pass; product_area_snapped=HackerRank->screen",
@@ -33,7 +33,7 @@
         "response": "If you are unable to see the Apply tab, please note that this feature has been removed following the deprecation of the Apply tab. You can still access coding challenges under the Prepare tab.",
         "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.8364738805970149,
       "verifier_safe": true
     },
@@ -52,11 +52,12 @@
             "request_type": "product_issue",
             "response": "The Apply tab has been deprecated and the Job listings feature is no longer available. You can access Coding challenges, such as Algorithms and Data Structures, in the Prepare tab."
           },
+          "mode": "initial",
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 103.106,
-            "verify": 296.315
+            "generate": 8.417,
+            "verify": 8.095
           },
           "verifier": {
             "issues": [
@@ -81,11 +82,12 @@
             "request_type": "product_issue",
             "response": "If you are unable to see the Apply tab, please note that this feature has been removed following the deprecation of the Apply tab. You can still access coding challenges under the Prepare tab."
           },
+          "mode": "self_healing_rewrite",
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 96.603,
-            "verify": 62.807
+            "generate": 7.979,
+            "verify": 8.249
           },
           "verifier": {
             "issues": [],
@@ -177,7 +179,7 @@
           "url_or_file": "https://help.hackerrank.com/articles/4745765442-notification"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.8364738805970149
     },
     "sanitize": {
@@ -208,18 +210,18 @@
   },
   "ticket_id": 7,
   "timings_ms": {
-    "confidence_gates": 0.033,
-    "generation": 559.701,
-    "handler": 0.009,
-    "label_normalization": 0.187,
-    "retrieval": 8538.508,
-    "sanitize": 4.551,
-    "semantic_cache": 271.171,
-    "semantic_cache_write": 0.326,
-    "source_receipt": 0.008,
-    "total": 9375.026,
-    "trap_classifier": 0.139
+    "confidence_gates": 0.035,
+    "generation": 33.502,
+    "handler": 0.007,
+    "label_normalization": 0.202,
+    "retrieval": 5928.588,
+    "sanitize": 10.387,
+    "semantic_cache": 260.932,
+    "semantic_cache_write": 0.158,
+    "source_receipt": 0.009,
+    "total": 6234.723,
+    "trap_classifier": 0.365
   },
-  "trace_file": "code\\traces\\production\\ticket_7_20260502T022406306706Z_28acdbe7.json",
-  "trace_id": "7_20260502T022406306706Z_28acdbe7"
+  "trace_file": "code\\traces\\production\\ticket_7_20260502T023642417129Z_d77933d9.json",
+  "trace_id": "7_20260502T023642417129Z_d77933d9"
 }

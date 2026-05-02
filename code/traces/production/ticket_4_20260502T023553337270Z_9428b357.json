@@ -1,12 +1,12 @@
 {
-  "created_at": "2026-05-02T02:23:32.735412Z",
+  "created_at": "2026-05-02T02:35:53.337270Z",
   "final_decision": {
-    "exact_quote": "",
-    "justification": "[PAYMENT_DISPUTE] Payment disputes require review and cannot be completed by the agent.; top_chunk=hackerrank_00798_7abe213a16; product_area_snapped=Subscriptions, Payments, and Billing->screen",
+    "exact_quote": "If you accidentally make a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request.",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass; product_area_snapped=Refund Policy->screen",
     "product_area": "screen",
     "request_type": "product_issue",
-    "response": "This looks like a refund, chargeback, duplicate charge, or transaction dispute. I cannot resolve or reverse payments directly, so I am escalating it to human support. Use the dispute-resolution guidance in the retrieved documentation for the next steps. Most relevant retrieved document: Subscriptions, Payments, and Billing > Purchase Mock Interview Credits > Refund policy.",
-    "status": "escalated"
+    "response": "If you are not satisfied with your mock interview, you can contact help@hackerrank.com for a review of your refund request.",
+    "status": "replied"
   },
   "input": {
     "Company": "HackerRank",
@@ -15,42 +15,65 @@
   },
   "stages": {
     "confidence_gates": {
-      "generation_confidence": null,
+      "generation_confidence": 0.9,
       "generation_confidence_threshold": 0.25,
       "input": {
-        "exact_quote": "",
-        "justification": "[PAYMENT_DISPUTE] Payment disputes require review and cannot be completed by the agent.; top_chunk=hackerrank_00798_7abe213a16",
-        "product_area": "Subscriptions, Payments, and Billing",
+        "exact_quote": "If you accidentally make a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass",
+        "product_area": "Refund Policy",
         "request_type": "product_issue",
-        "response": "This looks like a refund, chargeback, duplicate charge, or transaction dispute. I cannot resolve or reverse payments directly, so I am escalating it to human support. Use the dispute-resolution guidance in the retrieved documentation for the next steps. Most relevant retrieved document: Subscriptions, Payments, and Billing > Purchase Mock Interview Credits > Refund policy.",
-        "status": "escalated"
+        "response": "If you are not satisfied with your mock interview, you can contact help@hackerrank.com for a review of your refund request.",
+        "status": "replied"
       },
       "output": {
-        "exact_quote": "",
-        "justification": "[PAYMENT_DISPUTE] Payment disputes require review and cannot be completed by the agent.; top_chunk=hackerrank_00798_7abe213a16",
-        "product_area": "Subscriptions, Payments, and Billing",
+        "exact_quote": "If you accidentally make a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass",
+        "product_area": "Refund Policy",
         "request_type": "product_issue",
-        "response": "This looks like a refund, chargeback, duplicate charge, or transaction dispute. I cannot resolve or reverse payments directly, so I am escalating it to human support. Use the dispute-resolution guidance in the retrieved documentation for the next steps. Most relevant retrieved document: Subscriptions, Payments, and Billing > Purchase Mock Interview Credits > Refund policy.",
-        "status": "escalated"
+        "response": "If you are not satisfied with your mock interview, you can contact help@hackerrank.com for a review of your refund request.",
+        "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9919354838709679,
-      "verifier_safe": null
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "hackerrank_00798_7abe213a16"
+            ],
+            "confidence": 0.9,
+            "exact_quote": "If you accidentally make a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request.",
+            "product_area": "Refund Policy",
+            "request_type": "product_issue",
+            "response": "If you are not satisfied with your mock interview, you can contact help@hackerrank.com for a review of your refund request."
+          },
+          "mode": "initial",
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 5381.0,
+            "verify": 1177.854
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
     },
     "handler": {
-      "decision": {
-        "exact_quote": "",
-        "justification": "[PAYMENT_DISPUTE] Payment disputes require review and cannot be completed by the agent.; top_chunk=hackerrank_00798_7abe213a16",
-        "product_area": "Subscriptions, Payments, and Billing",
-        "request_type": "product_issue",
-        "response": "This looks like a refund, chargeback, duplicate charge, or transaction dispute. I cannot resolve or reverse payments directly, so I am escalating it to human support. Use the dispute-resolution guidance in the retrieved documentation for the next steps. Most relevant retrieved document: Subscriptions, Payments, and Billing > Purchase Mock Interview Credits > Refund policy.",
-        "status": "escalated"
-      },
-      "mode": "deterministic"
+      "mode": "generation"
     },
     "label_normalization": {
       "changed": true,
-      "input_product_area": "Subscriptions, Payments, and Billing",
+      "input_product_area": "Refund Policy",
       "output_product_area": "screen"
     },
     "retrieval": {
@@ -126,7 +149,7 @@
           "url_or_file": "https://help.hackerrank.com/articles/6795045456-coding-mock-interview"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9919354838709679
     },
     "sanitize": {
@@ -144,9 +167,9 @@
       "stored": true
     },
     "source_receipt": {
-      "had_exact_quote": false,
-      "has_exact_quote": false,
-      "quote_source": "none"
+      "had_exact_quote": true,
+      "has_exact_quote": true,
+      "quote_source": "model"
     },
     "trap_classifier": {
       "reasoning": "Deterministic high-confidence trap rule matched ticket wording.",
@@ -158,17 +181,18 @@
   },
   "ticket_id": 4,
   "timings_ms": {
-    "confidence_gates": 0.012,
-    "handler": 0.136,
-    "label_normalization": 0.349,
-    "retrieval": 6766.151,
-    "sanitize": 3.869,
-    "semantic_cache": 26796.853,
-    "semantic_cache_write": 0.081,
-    "source_receipt": 0.004,
-    "total": 33567.738,
-    "trap_classifier": 0.161
+    "confidence_gates": 0.034,
+    "generation": 6559.004,
+    "handler": 0.009,
+    "label_normalization": 0.677,
+    "retrieval": 16374.506,
+    "sanitize": 4.259,
+    "semantic_cache": 32641.73,
+    "semantic_cache_write": 0.215,
+    "source_receipt": 0.003,
+    "total": 55581.163,
+    "trap_classifier": 0.384
   },
-  "trace_file": "code\\traces\\production\\ticket_4_20260502T022332734421Z_9e5d3155.json",
-  "trace_id": "4_20260502T022332734421Z_9e5d3155"
+  "trace_file": "code\\traces\\production\\ticket_4_20260502T023553337270Z_9428b357.json",
+  "trace_id": "4_20260502T023553337270Z_9428b357"
 }

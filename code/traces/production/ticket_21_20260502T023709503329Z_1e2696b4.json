@@ -1,12 +1,12 @@
 {
-  "created_at": "2026-05-02T02:24:32.510296Z",
+  "created_at": "2026-05-02T02:37:09.503329Z",
   "final_decision": {
-    "exact_quote": "",
-    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass; hard_override=generation_confidence=0.00<0.25; product_area_snapped=Claude->privacy",
+    "exact_quote": "Blocking or removing websites from Claude web search",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass; product_area_snapped=Claude->privacy; exact_quote_source=deterministic_fallback",
     "product_area": "privacy",
     "request_type": "product_issue",
-    "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
-    "status": "escalated"
+    "response": "To block or remove your website from Claude's web search, you can follow the guidelines provided in the support articles. Unfortunately, the specific steps to block your website are not detailed in the retrieved documents. You may want to refer to the articles on reporting, blocking, and removing content from Claude for more information.",
+    "status": "replied"
   },
   "input": {
     "Company": "Claude",
@@ -27,13 +27,13 @@
       },
       "output": {
         "exact_quote": "",
-        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass; hard_override=generation_confidence=0.00<0.25",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass",
         "product_area": "Claude",
         "request_type": "product_issue",
-        "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
-        "status": "escalated"
+        "response": "To block or remove your website from Claude's web search, you can follow the guidelines provided in the support articles. Unfortunately, the specific steps to block your website are not detailed in the retrieved documents. You may want to refer to the articles on reporting, blocking, and removing content from Claude for more information.",
+        "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9684979838709676,
       "verifier_safe": true
     },
@@ -53,11 +53,12 @@
             "request_type": "product_issue",
             "response": "To block or remove websites from Claude web search, you can refer to the support articles on the Claude website."
           },
+          "mode": "initial",
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 29.793,
-            "verify": 96.765
+            "generate": 5.547,
+            "verify": 17.905
           },
           "verifier": {
             "issues": [
@@ -80,11 +81,12 @@
             "request_type": "invalid",
             "response": "To block or remove your website from Claude's web search, you can follow the guidelines provided in the support articles. Unfortunately, the specific steps to block your website are not detailed in the retrieved documents. You may want to refer to the articles on reporting, blocking, and removing content from Claude for more information."
           },
+          "mode": "self_healing_rewrite",
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 64.534,
-            "verify": 40.547
+            "generate": 31.571,
+            "verify": 10.764
           },
           "verifier": {
             "issues": [],
@@ -176,7 +178,7 @@
           "url_or_file": "https://support.claude.com/en/articles/7996906-reporting-blocking-and-removing-content-from-claude"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9684979838709676
     },
     "sanitize": {
@@ -195,8 +197,8 @@
     },
     "source_receipt": {
       "had_exact_quote": false,
-      "has_exact_quote": false,
-      "quote_source": "none"
+      "has_exact_quote": true,
+      "quote_source": "deterministic_fallback"
     },
     "trap_classifier": {
       "reasoning": "Deterministic default: legitimate support question likely answerable from docs.",
@@ -207,18 +209,18 @@
   },
   "ticket_id": 21,
   "timings_ms": {
-    "confidence_gates": 0.103,
-    "generation": 231.995,
+    "confidence_gates": 1.053,
+    "generation": 66.738,
     "handler": 0.003,
-    "label_normalization": 0.099,
-    "retrieval": 12055.587,
-    "sanitize": 34.206,
-    "semantic_cache": 483.262,
-    "semantic_cache_write": 0.087,
-    "source_receipt": 0.003,
-    "total": 12806.282,
-    "trap_classifier": 0.309
+    "label_normalization": 0.109,
+    "retrieval": 10890.803,
+    "sanitize": 17.325,
+    "semantic_cache": 901.319,
+    "semantic_cache_write": 0.074,
+    "source_receipt": 0.191,
+    "total": 11878.503,
+    "trap_classifier": 0.359
   },
-  "trace_file": "code\\traces\\production\\ticket_21_20260502T022432510296Z_452c86f7.json",
-  "trace_id": "21_20260502T022432510296Z_452c86f7"
+  "trace_file": "code\\traces\\production\\ticket_21_20260502T023709503329Z_1e2696b4.json",
+  "trace_id": "21_20260502T023709503329Z_1e2696b4"
 }

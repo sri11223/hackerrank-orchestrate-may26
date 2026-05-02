@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:23:32.739409Z",
+  "created_at": "2026-05-02T02:35:53.343252Z",
   "final_decision": {
     "exact_quote": "If you accidentally make a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass; product_area_snapped=Payments and Billing->screen",
@@ -33,7 +33,7 @@
         "response": "If you accidentally made a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request.",
         "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9919354838709679,
       "verifier_safe": true
     },
@@ -52,11 +52,12 @@
             "request_type": "bug",
             "response": "If you accidentally made a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request."
           },
+          "mode": "initial",
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 5.175,
-            "verify": 3.656
+            "generate": 9.112,
+            "verify": 8.892
           },
           "verifier": {
             "issues": [],
@@ -148,7 +149,7 @@
           "url_or_file": "https://help.hackerrank.com/articles/4472358331-profile-and-preferences-faqs"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9919354838709679
     },
     "sanitize": {
@@ -179,18 +180,18 @@
   },
   "ticket_id": 5,
   "timings_ms": {
-    "confidence_gates": 0.016,
-    "generation": 8.91,
-    "handler": 0.005,
-    "label_normalization": 0.21,
-    "retrieval": 7010.806,
-    "sanitize": 5.02,
-    "semantic_cache": 26698.61,
-    "semantic_cache_write": 0.073,
-    "source_receipt": 0.002,
-    "total": 33724.544,
-    "trap_classifier": 0.567
+    "confidence_gates": 0.015,
+    "generation": 18.682,
+    "handler": 0.007,
+    "label_normalization": 4.537,
+    "retrieval": 16405.19,
+    "sanitize": 3.677,
+    "semantic_cache": 32623.456,
+    "semantic_cache_write": 0.14,
+    "source_receipt": 0.007,
+    "total": 49056.385,
+    "trap_classifier": 0.334
   },
-  "trace_file": "code\\traces\\production\\ticket_5_20260502T022332739409Z_98ba8179.json",
-  "trace_id": "5_20260502T022332739409Z_98ba8179"
+  "trace_file": "code\\traces\\production\\ticket_5_20260502T023553342256Z_e5371da0.json",
+  "trace_id": "5_20260502T023553342256Z_e5371da0"
 }

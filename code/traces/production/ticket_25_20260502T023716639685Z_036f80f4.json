@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:24:43.974624Z",
+  "created_at": "2026-05-02T02:37:16.639685Z",
   "final_decision": {
     "exact_quote": "Contact us about traveller’s cheques\n\n- Report a lost cheque\n- Request a refund\n- Keep cheques safe",
     "justification": "[IDENTITY_FRAUD] Identity/fraud ticket matched documented emergency contact guidance.; top_chunk=visa_06184_008d6800ee; product_area_snapped=Support->travel_support",
@@ -33,7 +33,7 @@
         "response": "This looks like a lost-card, stolen-card, or fraud-related identity issue. Use the emergency contact guidance from the retrieved Visa documentation. Relevant phone numbers found in the docs: 1-800-645-6556, 1-813-623-1709, 282121283, 243924632. I cannot block a card, open a dispute, or contact an issuer for you, but you should use the documented emergency contact path immediately. Most relevant retrieved document: Support > Consumer > Visa Traveller's Cheques.",
         "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.8777432712215321,
       "verifier_safe": null
     },
@@ -126,7 +126,7 @@
           "url_or_file": "https://www.visa.co.in/support/consumer/travelers-cheques.html"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.8777432712215321
     },
     "sanitize": {
@@ -158,17 +158,17 @@
   },
   "ticket_id": 25,
   "timings_ms": {
-    "confidence_gates": 0.016,
-    "handler": 1.309,
-    "label_normalization": 0.167,
-    "retrieval": 8645.06,
-    "sanitize": 37.097,
-    "semantic_cache": 1766.348,
-    "semantic_cache_write": 0.123,
-    "source_receipt": 0.003,
-    "total": 10451.005,
-    "trap_classifier": 0.572
+    "confidence_gates": 0.03,
+    "handler": 1.451,
+    "label_normalization": 0.775,
+    "retrieval": 8079.068,
+    "sanitize": 47.958,
+    "semantic_cache": 1513.322,
+    "semantic_cache_write": 0.168,
+    "source_receipt": 0.007,
+    "total": 9643.656,
+    "trap_classifier": 0.582
   },
-  "trace_file": "code\\traces\\production\\ticket_25_20260502T022443974624Z_29ed97f8.json",
-  "trace_id": "25_20260502T022443974624Z_29ed97f8"
+  "trace_file": "code\\traces\\production\\ticket_25_20260502T023716639685Z_036f80f4.json",
+  "trace_id": "25_20260502T023716639685Z_036f80f4"
 }

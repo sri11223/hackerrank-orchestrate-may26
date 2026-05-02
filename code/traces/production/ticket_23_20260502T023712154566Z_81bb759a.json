@@ -1,12 +1,12 @@
 {
-  "created_at": "2026-05-02T02:24:36.986433Z",
+  "created_at": "2026-05-02T02:37:12.154566Z",
   "final_decision": {
-    "exact_quote": "",
-    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass; hard_override=generation_confidence=0.00<0.25; product_area_snapped=Claude->privacy",
+    "exact_quote": "You can refer to Models overview in our Claude Docs for more detailed information about our models.",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass; product_area_snapped=Claude->privacy; exact_quote_source=deterministic_fallback",
     "product_area": "privacy",
     "request_type": "product_issue",
-    "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
-    "status": "escalated"
+    "response": "I cannot answer it based on the docs.",
+    "status": "replied"
   },
   "input": {
     "Company": "Claude",
@@ -22,18 +22,18 @@
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass",
         "product_area": "Claude",
         "request_type": "product_issue",
-        "response": "The documentation does not specify how long the data will be used for when allowing Claude to use it to improve the models.",
+        "response": "I cannot answer it based on the docs.",
         "status": "replied"
       },
       "output": {
         "exact_quote": "",
-        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass; hard_override=generation_confidence=0.00<0.25",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass",
         "product_area": "Claude",
         "request_type": "product_issue",
-        "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
-        "status": "escalated"
+        "response": "I cannot answer it based on the docs.",
+        "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9838709677419354,
       "verifier_safe": true
     },
@@ -50,11 +50,34 @@
             "request_type": "product_issue",
             "response": "The documentation does not specify how long the data will be used for when allowing Claude to use it to improve the models."
           },
+          "mode": "cheap_initial_second_opinion_requested",
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 62.446,
-            "verify": 52.492
+            "generate": 3.187,
+            "verify": 0.0
+          },
+          "verifier": null
+        },
+        {
+          "attempt": 2,
+          "critique": [
+            "The lower-cost model returned a low-confidence or cannot-answer draft. Take a second look at the retrieved chunks. If they support a safe self-service answer, provide it with citations and an exact_quote. If they truly do not support an answer, explicitly say so."
+          ],
+          "generation": {
+            "citations": [],
+            "confidence": 0.0,
+            "exact_quote": "",
+            "product_area": "Claude",
+            "request_type": "invalid",
+            "response": "I cannot answer it based on the docs."
+          },
+          "mode": "second_opinion",
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 2375.725,
+            "verify": 48.62
           },
           "verifier": {
             "issues": [],
@@ -146,7 +169,7 @@
           "url_or_file": "https://support.claude.com/en/articles/8114494-how-up-to-date-is-claude-s-training-data"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9838709677419354
     },
     "sanitize": {
@@ -165,8 +188,8 @@
     },
     "source_receipt": {
       "had_exact_quote": false,
-      "has_exact_quote": false,
-      "quote_source": "none"
+      "has_exact_quote": true,
+      "quote_source": "deterministic_fallback"
     },
     "trap_classifier": {
       "reasoning": "Deterministic default: legitimate support question likely answerable from docs.",
@@ -177,18 +200,18 @@
   },
   "ticket_id": 23,
   "timings_ms": {
-    "confidence_gates": 0.111,
-    "generation": 115.022,
-    "handler": 0.007,
-    "label_normalization": 0.132,
-    "retrieval": 8168.364,
-    "sanitize": 29.31,
-    "semantic_cache": 695.844,
-    "semantic_cache_write": 0.177,
-    "source_receipt": 0.007,
-    "total": 9009.71,
-    "trap_classifier": 0.378
+    "confidence_gates": 0.013,
+    "generation": 2427.805,
+    "handler": 0.004,
+    "label_normalization": 0.045,
+    "retrieval": 7079.094,
+    "sanitize": 48.252,
+    "semantic_cache": 1272.197,
+    "semantic_cache_write": 0.158,
+    "source_receipt": 1.697,
+    "total": 10830.06,
+    "trap_classifier": 0.345
   },
-  "trace_file": "code\\traces\\production\\ticket_23_20260502T022436986433Z_e62084aa.json",
-  "trace_id": "23_20260502T022436986433Z_e62084aa"
+  "trace_file": "code\\traces\\production\\ticket_23_20260502T023712154566Z_81bb759a.json",
+  "trace_id": "23_20260502T023712154566Z_81bb759a"
 }

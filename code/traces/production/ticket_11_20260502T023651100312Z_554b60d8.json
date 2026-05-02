@@ -1,12 +1,12 @@
 {
-  "created_at": "2026-05-02T02:24:15.694015Z",
+  "created_at": "2026-05-02T02:36:51.100312Z",
   "final_decision": {
-    "exact_quote": "",
-    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass; hard_override=generation_confidence=0.00<0.25; product_area_snapped=HackerRank Interviews->screen",
+    "exact_quote": "- If your organization isn't disqualifying candidates based on their scores (which is sometimes the case for senior candidates), have the recruiter highlight this in their messaging/positioning. For example, the messaging could include: \"Please note that your performance on this assessment isn't dictated by your percentage score, but rather by your overall thought process (how you approach the question, ability to problem solve, etc.)\"",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass; product_area_snapped=Interviews->screen; exact_quote_source=deterministic_fallback",
     "product_area": "screen",
     "request_type": "product_issue",
-    "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
-    "status": "escalated"
+    "response": "I cannot answer your question about inactivity times for candidates and interviewers based on the provided documents.",
+    "status": "replied"
   },
   "input": {
     "Company": "HackerRank",
@@ -20,20 +20,20 @@
       "input": {
         "exact_quote": "",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass",
-        "product_area": "HackerRank Interviews",
+        "product_area": "Interviews",
         "request_type": "product_issue",
-        "response": "Cannot answer based on the docs",
+        "response": "I cannot answer your question about inactivity times for candidates and interviewers based on the provided documents.",
         "status": "replied"
       },
       "output": {
         "exact_quote": "",
-        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass; hard_override=generation_confidence=0.00<0.25",
-        "product_area": "HackerRank Interviews",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass",
+        "product_area": "Interviews",
         "request_type": "product_issue",
-        "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
-        "status": "escalated"
+        "response": "I cannot answer your question about inactivity times for candidates and interviewers based on the provided documents.",
+        "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9684979838709676,
       "verifier_safe": true
     },
@@ -50,11 +50,34 @@
             "request_type": "product_issue",
             "response": "Cannot answer based on the docs"
           },
+          "mode": "cheap_initial_second_opinion_requested",
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 70.973,
-            "verify": 41.608
+            "generate": 20.078,
+            "verify": 0.0
+          },
+          "verifier": null
+        },
+        {
+          "attempt": 2,
+          "critique": [
+            "The lower-cost model returned a low-confidence or cannot-answer draft. Take a second look at the retrieved chunks. If they support a safe self-service answer, provide it with citations and an exact_quote. If they truly do not support an answer, explicitly say so."
+          ],
+          "generation": {
+            "citations": [],
+            "confidence": 0.0,
+            "exact_quote": "",
+            "product_area": "Interviews",
+            "request_type": "invalid",
+            "response": "I cannot answer your question about inactivity times for candidates and interviewers based on the provided documents."
+          },
+          "mode": "second_opinion",
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 2757.616,
+            "verify": 41.535
           },
           "verifier": {
             "issues": [],
@@ -70,7 +93,7 @@
     },
     "label_normalization": {
       "changed": true,
-      "input_product_area": "HackerRank Interviews",
+      "input_product_area": "Interviews",
       "output_product_area": "screen"
     },
     "retrieval": {
@@ -146,7 +169,7 @@
           "url_or_file": "https://support.hackerrank.com/articles/1216495690-early-talent-"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9684979838709676
     },
     "sanitize": {
@@ -165,8 +188,8 @@
     },
     "source_receipt": {
       "had_exact_quote": false,
-      "has_exact_quote": false,
-      "quote_source": "none"
+      "has_exact_quote": true,
+      "quote_source": "deterministic_fallback"
     },
     "trap_classifier": {
       "reasoning": "Deterministic default: legitimate support question likely answerable from docs.",
@@ -177,18 +200,18 @@
   },
   "ticket_id": 11,
   "timings_ms": {
-    "confidence_gates": 0.15,
-    "generation": 112.737,
-    "handler": 0.007,
-    "label_normalization": 0.296,
-    "retrieval": 13730.407,
-    "sanitize": 26.313,
-    "semantic_cache": 1067.781,
-    "semantic_cache_write": 0.181,
-    "source_receipt": 0.007,
-    "total": 14938.702,
-    "trap_classifier": 0.283
+    "confidence_gates": 0.036,
+    "generation": 2819.413,
+    "handler": 0.004,
+    "label_normalization": 0.101,
+    "retrieval": 13487.043,
+    "sanitize": 5.56,
+    "semantic_cache": 2060.107,
+    "semantic_cache_write": 0.075,
+    "source_receipt": 14.257,
+    "total": 18387.287,
+    "trap_classifier": 0.326
   },
-  "trace_file": "code\\traces\\production\\ticket_11_20260502T022415694015Z_65648648.json",
-  "trace_id": "11_20260502T022415694015Z_65648648"
+  "trace_file": "code\\traces\\production\\ticket_11_20260502T023651100312Z_554b60d8.json",
+  "trace_id": "11_20260502T023651100312Z_554b60d8"
 }

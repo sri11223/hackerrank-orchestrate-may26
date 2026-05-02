@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:24:06.465691Z",
+  "created_at": "2026-05-02T02:36:51.042403Z",
   "final_decision": {
     "exact_quote": "2. As an interviewer, access the interview link and log in to the session with your HackerRank for Work company admin user account. For more information on conducting coding interviews, refer to📄 Introduction to HackerRank Interviews",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.78; verifier=pass; product_area_snapped=HackerRank Interviews->screen; exact_quote_source=deterministic_fallback",
@@ -33,7 +33,7 @@
         "response": "To reschedule an interview, log in to your HackerRank for Work account, go to the Interviews > Interview List, click the interview you want to reschedule, click Invite Participants, update the date, time, and other fields as needed, and click Save and Send Email.",
         "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.7847256147207295,
       "verifier_safe": true
     },
@@ -52,11 +52,12 @@
             "request_type": "product_issue",
             "response": "To reschedule an interview, log in to your HackerRank for Work account, go to the Interviews > Interview List, click the interview you want to reschedule, click Invite Participants, update the date, time, and other fields as needed, and click Save and Send Email."
           },
+          "mode": "initial",
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 282.848,
-            "verify": 57.234
+            "generate": 17.866,
+            "verify": 29.247
           },
           "verifier": {
             "issues": [],
@@ -148,7 +149,7 @@
           "url_or_file": "https://support.hackerrank.com/articles/9684438314-creating-an-email-template"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.7847256147207295
     },
     "sanitize": {
@@ -179,18 +180,18 @@
   },
   "ticket_id": 10,
   "timings_ms": {
-    "confidence_gates": 0.014,
-    "generation": 340.194,
-    "handler": 0.011,
-    "label_normalization": 0.091,
-    "retrieval": 14264.739,
-    "sanitize": 4.759,
-    "semantic_cache": 334.41,
-    "semantic_cache_write": 0.103,
-    "source_receipt": 1.737,
-    "total": 14946.593,
-    "trap_classifier": 0.236
+    "confidence_gates": 0.03,
+    "generation": 47.288,
+    "handler": 0.007,
+    "label_normalization": 0.217,
+    "retrieval": 8733.373,
+    "sanitize": 16.589,
+    "semantic_cache": 1529.608,
+    "semantic_cache_write": 0.126,
+    "source_receipt": 13.487,
+    "total": 10341.522,
+    "trap_classifier": 0.232
   },
-  "trace_file": "code\\traces\\production\\ticket_10_20260502T022406465691Z_4def5a67.json",
-  "trace_id": "10_20260502T022406465691Z_4def5a67"
+  "trace_file": "code\\traces\\production\\ticket_10_20260502T023651042403Z_a8c84af3.json",
+  "trace_id": "10_20260502T023651042403Z_a8c84af3"
 }

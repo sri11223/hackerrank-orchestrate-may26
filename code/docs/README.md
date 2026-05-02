@@ -29,9 +29,9 @@ This is the point-by-point map from architecture claim to implementation:
 | Pillar | Implementation |
 | --- | --- |
 | Trap taxonomy as architecture | `triage/schema.py` defines the fixed `TrapTag` enum; `triage/traps.py` classifies before retrieval; `triage/handlers.py` dispatches high-risk tags before generation. The LLM cannot override the Python handler map. |
-| Three-signal escalation gate | `triage/orchestrator.py` hard-gates on retrieval confidence, verifier safety, and generation confidence. Processing errors also fall back to a valid escalated decision. |
+| Three-signal escalation gate | `triage/orchestrator.py` hard-gates on retrieval confidence and verifier safety; low generation confidence now triggers the stronger second-opinion route before finalization. Processing errors also fall back to a valid escalated decision. |
 | Adversarial verifier | `triage/verify.py` audits the original user issue, draft response, and chunks for system leaks, prompt-injection obedience, unauthorized action claims, and unsupported facts. |
-| Cost-routed dual-provider LLM | `triage/orchestrator.py` routes normal FAQs to Groq/Llama first, routes sensitive generation and rewrites to OpenAI, and falls back safely if a provider is rate-limited. |
+| Cost-routed dual-provider LLM | `triage/orchestrator.py` routes normal FAQs to Groq/Llama first, routes sensitive generation, second opinions, and rewrites to OpenAI, and falls back safely if a provider is rate-limited. |
 | Hybrid retrieval | `triage/retrieval.py` builds BM25 plus BGE dense indexes once per process, normalizes scores, then fuses rankings with RRF. |
 | Cross-encoder rerank with sigmoid scoring | `triage/retrieval.py` reranks RRF candidates with a CrossEncoder when available and sigmoid-normalizes the pairwise scores; if the model cannot load offline, it uses a deterministic sigmoid fallback so traces still contain a calibrated rerank signal. |
 | Citation enforcement and validation | `triage/generate.py` validates cited chunk IDs against supplied chunks and drops non-verbatim `exact_quote` values. `triage/orchestrator.py` adds a deterministic verbatim receipt fallback for replied decisions. |
@@ -54,8 +54,10 @@ truth. Python decides when the model is allowed to speak.
 
 The pipeline starts by cleaning the ticket and detecting language. It then
 classifies the ticket into a fixed trap taxonomy before retrieval. Prompt
-injections, harmful system requests, outages, payment disputes, score disputes,
-and other sensitive patterns can bypass generation entirely. Normal support
+injections, harmful system requests, outages, score disputes, and other
+sensitive patterns can bypass generation entirely. Payment and admin requests
+route through grounded self-service generation when docs are available, so the
+agent can give next steps without claiming to perform the action. Normal support
 questions enter hybrid retrieval, where exact BM25 matching protects support
 artifacts like issuer names and error wording, while BGE dense retrieval handles
 semantic paraphrases. The two rankings are normalized and fused with reciprocal
@@ -74,8 +76,9 @@ escalated.
 
 Finally, the agent applies confidence gates. If the top retrieval confidence is
 too low, or the verifier is unsafe, Python overrides the answer to
-`escalated`. Every result gets a JSON sidecar so the judge can inspect the full
-decision tree.
+`escalated`. If the cheap model gives up first, OpenAI gets a second-opinion
+pass before those gates fire. Every result gets a JSON sidecar so the judge can
+inspect the full decision tree.
 
 ## The 16 Judge Pillars
 
@@ -83,13 +86,14 @@ decision tree.
    control flow, not model suggestions. Safety tags can bypass generation.
 2. **Enterprise Privacy Shield**: Stage 1 redacts emails, 16-digit credit
    cards, SSNs, and phone numbers, then records `pii_detected` in the trace.
-3. **Three-Signal Escalation Gate**: retrieval confidence, verifier safety, and
-   generation confidence are checked before any generated answer is allowed.
+3. **Three-Signal Escalation Gate**: retrieval confidence and verifier safety
+   are hard gates, while generation confidence triggers a stronger second
+   opinion before any generated answer is finalized.
 4. **Adversarial Verifier**: a separate critic audits prompt injection,
    unsupported facts, hidden-rule leakage, and unauthorized action claims.
 5. **Cost-Routed Dual Provider LLM**: normal FAQs try Groq/Llama first;
-   sensitive paths and rewrites route to OpenAI, with fallback on provider
-   failure.
+   sensitive paths, cheap-model give-ups, and rewrites route to OpenAI, with
+   fallback on provider failure.
 6. **Hybrid Retrieval**: BM25 exact search, BGE dense search, score
    normalization, and RRF fusion run before generation.
 7. **Cross-Encoder Rerank**: RRF candidates receive sigmoid-normalized
@@ -135,11 +139,11 @@ artifacts can be shared without leaking customer identifiers.
 The packaged proof currently scores `100.0 / 100.0` on the judge-facing
 integrity scan:
 
-- Grounding Accuracy: `16 / 16` replied production traces have non-empty
+- Grounding Accuracy: `27 / 27` replied production traces have non-empty
   verbatim `exact_quote` receipts.
 - Safety Moat: `0 / 3` prompt-injection crucible tickets produced a replied
   joke or roleplay failure.
-- Self-Healing Efficacy: `7` verifier-triggered rewrites occurred, with `3`
+- Self-Healing Efficacy: `7` verifier-triggered rewrites occurred, with `6`
   ending in final `replied` decisions.
 - Auditability: `39 / 39` production plus crucible traces contain complete
   timing blocks for every recorded stage.
@@ -151,10 +155,12 @@ integrity scan:
 The final status can be forcibly escalated even if the generator writes a nice
 draft. The hard gates are:
 
-- top retrieval confidence below `0.35`
+- top retrieval confidence below `0.32`
 - verifier returns `safe=false`
 - row processing error
 - deterministic handler decides the request requires human review
+- cheap generation returns low confidence or "cannot answer", which triggers
+  OpenAI second opinion before the hard gates
 
 The important detail is that the model never gets final authority. It proposes;
 the state machine disposes.
@@ -174,10 +180,12 @@ Retrieval happens in four layers:
 
 ## Model Routing
 
-Normal FAQ tickets try the fast Groq/Llama path first. Sensitive self-service
-generation and verifier rewrites use the stronger OpenAI path. If Groq is
-rate-limited or unavailable, the orchestrator disables that route for the
-current process and falls back to OpenAI instead of crashing the batch.
+Normal FAQ tickets try the fast Groq/Llama path first. If that route produces a
+low-confidence or cannot-answer draft, the orchestrator asks OpenAI for a second
+opinion before accepting an escalation. Sensitive self-service generation and
+verifier rewrites also use the stronger OpenAI path. If Groq is rate-limited or
+unavailable, the orchestrator disables that route for the current process and
+falls back to OpenAI instead of crashing the batch.
 
 The LLM client also uses a hash-keyed file cache. The cache key includes the
 provider, model, messages, temperature, max-token setting, and JSON mode. Cache
@@ -195,9 +203,11 @@ elapsed time plus average time per ticket.
 Latest cleaned production run:
 
 - Rows: `29`
+- Replied: `27`
+- Escalated: `2`
 - Concurrency limit: `5`
-- Total elapsed: `83.93s`
-- Time per ticket: `2.89s`
+- Total elapsed: `103.26s`
+- Time per ticket: `3.56s`
 - Fresh production traces: `29`
 
 ## Proof Layout

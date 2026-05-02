@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:24:45.333297Z",
+  "created_at": "2026-05-02T02:37:21.386263Z",
   "final_decision": {
     "exact_quote": "7. In the confirmation dialog, click Delete Team. A success message appears.",
     "justification": "[ACTION_REQUEST] grounded generation; retrieval_score=0.90; verifier=pass; product_area_snapped=HackerRank for Work->community; exact_quote_source=deterministic_fallback",
@@ -33,7 +33,7 @@
         "response": "To remove an employee from your HackerRank hiring account, you need to delete the team they are part of. Here are the step-by-step instructions to delete a team:\n\n1. Log in to your HackerRank for Work account using your credentials.\n\n2. Select your profile icon in the upper-right corner.\n\n3. Select Teams Management from the drop-down menu.\n\n4. Go to the Teams tab.\n\n5. Select the team you want to delete.\n\n6. Click the delete icon.\n\n7. In the confirmation dialog, click Delete Team. A success message appears.",
         "status": "replied"
       },
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9019352033050663,
       "verifier_safe": true
     },
@@ -52,11 +52,12 @@
             "request_type": "product_issue",
             "response": "To remove an employee from your HackerRank hiring account, you need to delete the team they are part of. Here are the step-by-step instructions to delete a team:\n\n1. Log in to your HackerRank for Work account using your credentials.\n\n2. Select your profile icon in the upper-right corner.\n\n3. Select Teams Management from the drop-down menu.\n\n4. Go to the Teams tab.\n\n5. Select the team you want to delete.\n\n6. Click the delete icon.\n\n7. In the confirmation dialog, click Delete Team. A success message appears."
           },
+          "mode": "initial",
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 4.828,
-            "verify": 5.229
+            "generate": 8.197,
+            "verify": 5.373
           },
           "verifier": {
             "issues": [],
@@ -148,7 +149,7 @@
           "url_or_file": "https://support.hackerrank.com/articles/1999755553-workday---hackerrank-tests-user-guide"
         }
       ],
-      "threshold": 0.35,
+      "threshold": 0.32,
       "top_score": 0.9019352033050663
     },
     "sanitize": {
@@ -180,18 +181,18 @@
   },
   "ticket_id": 27,
   "timings_ms": {
-    "confidence_gates": 0.015,
-    "generation": 10.277,
+    "confidence_gates": 0.016,
+    "generation": 13.726,
     "handler": 0.008,
-    "label_normalization": 0.102,
-    "retrieval": 10189.73,
-    "sanitize": 42.069,
-    "semantic_cache": 701.425,
-    "semantic_cache_write": 0.081,
-    "source_receipt": 1.966,
-    "total": 10946.643,
-    "trap_classifier": 0.476
+    "label_normalization": 0.117,
+    "retrieval": 8584.384,
+    "sanitize": 27.368,
+    "semantic_cache": 982.447,
+    "semantic_cache_write": 0.077,
+    "source_receipt": 4.691,
+    "total": 9613.555,
+    "trap_classifier": 0.241
   },
-  "trace_file": "code\\traces\\production\\ticket_27_20260502T022445333297Z_c7fe5a6d.json",
-  "trace_id": "27_20260502T022445333297Z_c7fe5a6d"
+  "trace_file": "code\\traces\\production\\ticket_27_20260502T023721386263Z_77342be4.json",
+  "trace_id": "27_20260502T023721386263Z_77342be4"
 }
