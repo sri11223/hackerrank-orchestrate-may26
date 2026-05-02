@@ -184,7 +184,27 @@ orchestrate run --input support_tickets/support_tickets.csv --out support_ticket
 orchestrate explain 13 --traces code/traces/production
 ```
 
-The installer also exposes the alias `triage-ai`.
+The installer also exposes the aliases `triage` and `triage-ai`.
+
+On Windows, pip may install console scripts into a user Scripts directory that
+is not on `PATH`. In that case, use the no-PATH launcher, which works after
+installation anywhere Python can import the package:
+
+```bash
+python -m triage --help
+python -m triage run --input support_tickets/support_tickets.csv --out support_tickets/output.csv
+```
+
+For a permanent global command on Windows, add the Python user Scripts folder to
+`PATH` once:
+
+```powershell
+[Environment]::SetEnvironmentVariable(
+  "Path",
+  [Environment]::GetEnvironmentVariable("Path", "User") + ";" + "$env:APPDATA\Python\Python312\Scripts",
+  "User"
+)
+```
 
 Secrets stay out of git: `.env` is listed in `.gitignore`, and API keys should
 be supplied through environment variables.

@@ -245,6 +245,14 @@ pip install git+https://github.com/sri11223/hackerrank-orchestrate-may26.git
 orchestrate --help
 ```
 
+If Windows installs the console scripts outside `PATH`, use the module launcher
+with no PATH setup:
+
+```bash
+python -m triage --help
+python -m triage run --input support_tickets/support_tickets.csv --out support_tickets/output.csv
+```
+
 Run production:
 
 ```bash
