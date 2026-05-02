@@ -170,7 +170,24 @@ claims like "I deleted your account" or "we issued your refund."
 
 ## Running the Agent
 
-Install globally from GitHub:
+Windows one-command installer from PowerShell:
+
+```powershell
+irm https://raw.githubusercontent.com/sri11223/hackerrank-orchestrate-may26/main/install.ps1 | iex
+```
+
+This installs the package, adds the Python user Scripts folder to your User
+`PATH`, updates the current PowerShell session, and verifies the `triage`
+command. After that:
+
+```bash
+triage run
+```
+
+If you launch the installer from Command Prompt or another parent process, open
+a new terminal after install so Windows reloads the User `PATH`.
+
+Standard pip install:
 
 ```bash
 pip install git+https://github.com/sri11223/hackerrank-orchestrate-may26.git

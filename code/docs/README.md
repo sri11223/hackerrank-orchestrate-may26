@@ -240,6 +240,17 @@ code/
 
 Install global CLI:
 
+```powershell
+irm https://raw.githubusercontent.com/sri11223/hackerrank-orchestrate-may26/main/install.ps1 | iex
+triage --help
+```
+
+That installer adds the Python user Scripts folder to User `PATH` and updates
+the active PowerShell session. If it is launched from Command Prompt or another
+parent process, open a new terminal once so Windows reloads User `PATH`.
+
+Or use pip directly:
+
 ```bash
 pip install git+https://github.com/sri11223/hackerrank-orchestrate-may26.git
 orchestrate --help
