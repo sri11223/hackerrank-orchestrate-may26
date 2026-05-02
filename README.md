@@ -20,6 +20,11 @@ The important design choice is that every ticket becomes a traceable decision
 tree. The model can write wording, but Python owns routing, confidence gates,
 schema validation, and the final CSV contract.
 
+The batch runner is asynchronous with a concurrency limit of 5. Local retrieval
+and embedding work runs off the event loop, while OpenAI and Groq calls use
+`AsyncOpenAI` and `AsyncGroq`, so the 29-ticket production run can advance
+multiple safe decisions at once without stampeding provider rate limits.
+
 ```mermaid
 flowchart TD
     A[CSV row or interactive ticket] --> B[Sanitize unicode, controls, PII, language]
@@ -131,6 +136,10 @@ The LLM wrapper also uses a hash-keyed file cache under
 `data/processed/llm_cache` by default. Cache keys include provider, model,
 messages, temperature, token budget, and strict JSON mode.
 
+For performance, the CSV runner uses an `asyncio.Semaphore(5)` around ticket
+processing. The Rich progress bar updates as background tasks complete and
+prints total elapsed time plus time per ticket at the end of every batch.
+
 ## Confidence-Gated Escalation
 
 The pipeline uses hard gates instead of optimistic guessing:
@@ -190,7 +199,7 @@ Run the production CSV:
 PYTHONPATH=code python -m triage.cli run \
   --input support_tickets/support_tickets.csv \
   --out support_tickets/output.csv \
-  --traces traces
+  --traces code/traces/production
 ```
 
 Validate the output:

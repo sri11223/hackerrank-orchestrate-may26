@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-01T16:52:51.110888Z",
+  "created_at": "2026-05-02T02:24:36.986433Z",
   "final_decision": {
     "exact_quote": "",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass; hard_override=generation_confidence=0.00<0.25; product_area_snapped=Claude->privacy",
@@ -22,7 +22,7 @@
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass",
         "product_area": "Claude",
         "request_type": "product_issue",
-        "response": "I cannot answer it based on the docs.",
+        "response": "The documentation does not specify how long the data will be used for when allowing Claude to use it to improve the models.",
         "status": "replied"
       },
       "output": {
@@ -47,14 +47,14 @@
             "confidence": 0.0,
             "exact_quote": "",
             "product_area": "Claude",
-            "request_type": "invalid",
-            "response": "I cannot answer it based on the docs."
+            "request_type": "product_issue",
+            "response": "The documentation does not specify how long the data will be used for when allowing Claude to use it to improve the models."
           },
-          "provider": "openai",
+          "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 2141.106,
-            "verify": 3173.461
+            "generate": 62.446,
+            "verify": 52.492
           },
           "verifier": {
             "issues": [],
@@ -80,7 +80,7 @@
           "bm25_score": 0.891938630790553,
           "chunk_id": "claude_03638_6d27d5592b",
           "cross_encoder_rank": 1,
-          "cross_encoder_score": 0.7407848075960953,
+          "cross_encoder_score": 0.8592670679659569,
           "dense_rank": 2,
           "dense_score": 0.8827182054519653,
           "domain": "claude",
@@ -94,7 +94,7 @@
           "bm25_score": 1.0,
           "chunk_id": "claude_04211_537d4708ca",
           "cross_encoder_rank": 2,
-          "cross_encoder_score": 0.9404993536923814,
+          "cross_encoder_score": 0.9749913669910915,
           "dense_rank": 7,
           "dense_score": 0.8757816851139069,
           "domain": "claude",
@@ -108,7 +108,7 @@
           "bm25_score": 0.7941833153073631,
           "chunk_id": "claude_04210_c3838571eb",
           "cross_encoder_rank": 3,
-          "cross_encoder_score": 0.6794392832383991,
+          "cross_encoder_score": 0.5714070805032103,
           "dense_rank": 6,
           "dense_score": 0.8771481215953827,
           "domain": "claude",
@@ -122,7 +122,7 @@
           "bm25_score": 0.7899135084647907,
           "chunk_id": "claude_04236_bb60dc98a2",
           "cross_encoder_rank": 4,
-          "cross_encoder_score": 0.6949117951522986,
+          "cross_encoder_score": 0.5422427885590957,
           "dense_rank": 18,
           "dense_score": 0.8611018359661102,
           "domain": "claude",
@@ -136,7 +136,7 @@
           "bm25_score": 0.6626472367490237,
           "chunk_id": "claude_04928_4577c95fb5",
           "cross_encoder_rank": 5,
-          "cross_encoder_score": 0.6387524141633598,
+          "cross_encoder_score": 0.3191426893228018,
           "dense_rank": 1,
           "dense_score": 0.8868609070777893,
           "domain": "claude",
@@ -177,18 +177,18 @@
   },
   "ticket_id": 23,
   "timings_ms": {
-    "confidence_gates": 0.038,
-    "generation": 5314.615,
-    "handler": 0.004,
-    "label_normalization": 0.046,
-    "retrieval": 94.071,
-    "sanitize": 7.831,
-    "semantic_cache": 50.826,
-    "semantic_cache_write": 0.064,
-    "source_receipt": 0.003,
-    "total": 5467.89,
-    "trap_classifier": 0.176
+    "confidence_gates": 0.111,
+    "generation": 115.022,
+    "handler": 0.007,
+    "label_normalization": 0.132,
+    "retrieval": 8168.364,
+    "sanitize": 29.31,
+    "semantic_cache": 695.844,
+    "semantic_cache_write": 0.177,
+    "source_receipt": 0.007,
+    "total": 9009.71,
+    "trap_classifier": 0.378
   },
-  "trace_file": "code\\traces\\production\\ticket_23_20260501T165251110888Z_7d0cbf9a.json",
-  "trace_id": "23_20260501T165251110888Z_7d0cbf9a"
+  "trace_file": "code\\traces\\production\\ticket_23_20260502T022436986433Z_e62084aa.json",
+  "trace_id": "23_20260502T022436986433Z_e62084aa"
 }

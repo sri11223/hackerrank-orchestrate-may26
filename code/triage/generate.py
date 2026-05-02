@@ -175,6 +175,53 @@ def generate_response(
     return parsed
 
 
+async def generate_response_async(
+    ticket: Ticket | Mapping[str, Any],
+    chunks: Sequence[ChunkRecord | RetrievedChunk | Mapping[str, Any]],
+    *,
+    trap_tags: Sequence[TrapTag | str] | None = None,
+    critique: Sequence[str] | None = None,
+    provider: Provider | None = None,
+    client: LLMClient | None = None,
+) -> GroundedGenerationResult:
+    """Async variant used by the parallel batch orchestrator."""
+
+    normalized_ticket = _coerce_ticket(ticket)
+    normalized_chunks = _coerce_chunks(chunks)
+
+    if not normalized_chunks:
+        return GroundedGenerationResult(
+            response="I cannot answer this based on the provided documents.",
+            citations=[],
+            exact_quote="",
+            product_area="unknown",
+            request_type="invalid",
+            confidence=0.0,
+        )
+
+    messages = [
+        ChatMessage(role="system", content=_build_generation_system_prompt(trap_tags, critique)),
+        ChatMessage(role="user", content=_build_grounded_prompt(normalized_ticket, normalized_chunks)),
+    ]
+
+    llm = client or LLMClient()
+    selected_provider = provider or _select_generation_provider(trap_tags, critique, llm)
+    result = await _call_generation_llm_with_fallback_async(
+        llm,
+        tuple(messages),
+        selected_provider,
+        allow_fallback=provider is None,
+    )
+    try:
+        parsed = GroundedGenerationResult.model_validate(_parse_generation_payload(result.content))
+    except ValidationError as exc:
+        raise LLMResponseError(f"Invalid grounded generation JSON: {result.content}") from exc
+
+    _validate_citations(parsed, normalized_chunks)
+    parsed = _drop_non_verbatim_quote(parsed, normalized_chunks)
+    return parsed
+
+
 @retry(wait=wait_exponential(min=1, max=10), stop=stop_after_attempt(3), reraise=True)
 def _call_generation_llm(
     llm: LLMClient,
@@ -184,6 +231,17 @@ def _call_generation_llm(
     """Call the routed generation model with outer retry/backoff protection."""
 
     return llm.chat(provider, messages, temperature=0.0, max_tokens=700, strict_json=False)
+
+
+@retry(wait=wait_exponential(min=1, max=10), stop=stop_after_attempt(3), reraise=True)
+async def _call_generation_llm_async(
+    llm: LLMClient,
+    messages: tuple[ChatMessage, ...],
+    provider: Provider,
+) -> LLMResult:
+    """Async routed generation model call with outer retry/backoff protection."""
+
+    return await llm.chat_async(provider, messages, temperature=0.0, max_tokens=700, strict_json=False)
 
 
 def _call_generation_llm_with_fallback(
@@ -200,6 +258,22 @@ def _call_generation_llm_with_fallback(
         if fallback is None:
             raise
         return _call_generation_llm(llm, messages, fallback)
+
+
+async def _call_generation_llm_with_fallback_async(
+    llm: LLMClient,
+    messages: tuple[ChatMessage, ...],
+    provider: Provider,
+    *,
+    allow_fallback: bool,
+) -> LLMResult:
+    try:
+        return await _call_generation_llm_async(llm, messages, provider)
+    except LLMResponseError:
+        fallback = _fallback_provider(provider, llm) if allow_fallback else None
+        if fallback is None:
+            raise
+        return await _call_generation_llm_async(llm, messages, fallback)
 
 
 def _select_generation_provider(

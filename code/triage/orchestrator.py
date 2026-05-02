@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import json
 import logging
+import asyncio
 import re
+import threading
 import time
 from csv import DictReader
 from datetime import datetime, timezone
@@ -16,14 +18,14 @@ from uuid import uuid4
 
 from .cache import SemanticCache
 from .config import REPO_ROOT, get_settings
-from .generate import GroundedGenerationResult, generate_response
+from .generate import GroundedGenerationResult, generate_response_async
 from .handlers import dispatch_trap_handler
-from .llm import LLMResponseError, Provider
+from .llm import LLMClient, LLMResponseError, Provider
 from .retrieval import embed_query, load_chunks, retrieve
 from .sanitize import sanitize_ticket, scrub_pii
 from .schema import RetrievedChunk, Ticket, TriageDecision, TrapResult, TrapTag
-from .traps import classify_traps
-from .verify import VerificationResult, verify_response
+from .traps import classify_traps_async
+from .verify import VerificationResult, verify_response_async
 
 
 RETRIEVAL_CONFIDENCE_THRESHOLD = 0.35
@@ -39,11 +41,13 @@ FALLBACK_PRODUCT_AREAS = (
     "travel_support",
 )
 SEMANTIC_CACHE = SemanticCache()
+SEMANTIC_CACHE_LOCK = threading.Lock()
+LLM_CLIENT = LLMClient()
 _DISABLED_GENERATION_PROVIDERS: set[Provider] = set()
 logger = logging.getLogger(__name__)
 
 
-def process_ticket(
+async def process_ticket(
     row_dict: Mapping[str, Any],
     *,
     ticket_id: int | str = 0,
@@ -72,8 +76,9 @@ def process_ticket(
     _record_stage(trace, "sanitize", stage_started, ticket.model_dump())
 
     stage_started = time.perf_counter()
-    query_embedding = embed_query(ticket.issue or ticket.text)
-    cached_decision = SEMANTIC_CACHE.check_cache(query_embedding)
+    query_embedding = await asyncio.to_thread(embed_query, ticket.issue or ticket.text)
+    with SEMANTIC_CACHE_LOCK:
+        cached_decision = SEMANTIC_CACHE.check_cache(query_embedding)
     if cached_decision is not None:
         logger.info("CACHE HIT: Bypassing LLM")
         _record_stage(trace, "semantic_cache", stage_started, {
@@ -90,11 +95,15 @@ def process_ticket(
     })
 
     stage_started = time.perf_counter()
-    trap_result = classify_traps(ticket.text or ticket.issue, ticket.company or "None")
+    trap_result = await classify_traps_async(
+        ticket.text or ticket.issue,
+        ticket.company or "None",
+        client=LLM_CLIENT,
+    )
     _record_stage(trace, "trap_classifier", stage_started, _trap_dump(trap_result))
 
     stage_started = time.perf_counter()
-    chunks = retrieve(ticket.text, domain=ticket.company, k=5)
+    chunks = await asyncio.to_thread(retrieve, ticket.text, ticket.company, 5)
     chunks = _augment_self_service_chunks(ticket, trap_result, chunks)
     top_score = _top_retrieval_score(chunks)
     _record_stage(trace, "retrieval", stage_started, {
@@ -118,7 +127,7 @@ def process_ticket(
     else:
         _record_stage(trace, "handler", stage_started, {"mode": "generation"})
         stage_started = time.perf_counter()
-        generation, verifier, generation_trace = _generate_and_verify_with_self_healing(
+        generation, verifier, generation_trace = await _generate_and_verify_with_self_healing(
             ticket=ticket,
             chunks=chunks,
             trap_result=trap_result,
@@ -176,12 +185,24 @@ def process_ticket(
     })
 
     stage_started = time.perf_counter()
-    SEMANTIC_CACHE.add_to_cache(query_embedding, final_decision)
+    with SEMANTIC_CACHE_LOCK:
+        SEMANTIC_CACHE.add_to_cache(query_embedding, final_decision)
     _record_stage(trace, "semantic_cache_write", stage_started, {"stored": query_embedding is not None})
     trace["final_decision"] = final_decision.model_dump()
     trace["timings_ms"]["total"] = _elapsed_ms(pipeline_started)
     _write_trace(trace, traces_dir, ticket_id, trace_id)
     return final_decision
+
+
+def process_ticket_sync(
+    row_dict: Mapping[str, Any],
+    *,
+    ticket_id: int | str = 0,
+    traces_dir: Path | None = DEFAULT_TRACES_DIR,
+) -> TriageDecision:
+    """Synchronous compatibility wrapper for scripts that cannot await."""
+
+    return asyncio.run(process_ticket(row_dict, ticket_id=ticket_id, traces_dir=traces_dir))
 
 
 def error_decision(
@@ -208,7 +229,7 @@ def error_decision(
         "trace_id": trace_id,
         "ticket_id": ticket_id,
         "created_at": _utc_timestamp(),
-        "input": dict(row_dict),
+        "input": _redact_mapping(row_dict),
         "stages": {},
         "timings_ms": {"total": 0.0},
         "error": {
@@ -547,6 +568,13 @@ def _redacted_input(row: Mapping[str, Any], ticket: Ticket) -> dict[str, Any]:
     return redacted
 
 
+def _redact_mapping(row: Mapping[str, Any]) -> dict[str, Any]:
+    redacted: dict[str, Any] = {}
+    for row_key, value in row.items():
+        redacted[str(row_key)] = scrub_pii(value) if isinstance(value, str) else value
+    return redacted
+
+
 def _top_retrieval_score(chunks: list[RetrievedChunk]) -> float:
     if not chunks:
         return 0.0
@@ -577,7 +605,7 @@ def _trap_dump(trap_result: TrapResult) -> dict[str, Any]:
     }
 
 
-def _generate_and_verify_with_self_healing(
+async def _generate_and_verify_with_self_healing(
     *,
     ticket: Ticket,
     chunks: list[RetrievedChunk],
@@ -589,7 +617,7 @@ def _generate_and_verify_with_self_healing(
 
     first_provider = _generation_provider_for(trap_result, critique=None)
     generation_started = time.perf_counter()
-    draft, first_provider, first_fallback = _generate_with_provider_fallback(
+    draft, first_provider, first_fallback = await _generate_with_provider_fallback(
         ticket=ticket,
         chunks=chunks,
         trap_result=trap_result,
@@ -598,7 +626,7 @@ def _generate_and_verify_with_self_healing(
     )
     generation_ms = _elapsed_ms(generation_started)
     verification_started = time.perf_counter()
-    verifier = verify_response(draft, ticket, chunks)
+    verifier = await verify_response_async(draft, ticket, chunks, client=LLM_CLIENT)
     verification_ms = _elapsed_ms(verification_started)
     drafts.append(
         {
@@ -625,7 +653,7 @@ def _generate_and_verify_with_self_healing(
     )
     rewrite_provider = _generation_provider_for(trap_result, critique=verifier.issues)
     generation_started = time.perf_counter()
-    rewrite, rewrite_provider, rewrite_fallback = _generate_with_provider_fallback(
+    rewrite, rewrite_provider, rewrite_fallback = await _generate_with_provider_fallback(
         ticket,
         chunks,
         trap_result=trap_result,
@@ -634,7 +662,7 @@ def _generate_and_verify_with_self_healing(
     )
     generation_ms = _elapsed_ms(generation_started)
     verification_started = time.perf_counter()
-    rewrite_verifier = verify_response(rewrite, ticket, chunks)
+    rewrite_verifier = await verify_response_async(rewrite, ticket, chunks, client=LLM_CLIENT)
     verification_ms = _elapsed_ms(verification_started)
     drafts.append(
         {
@@ -653,7 +681,7 @@ def _generate_and_verify_with_self_healing(
     return rewrite, rewrite_verifier, {"mode": "actor_critic", "drafts": drafts}
 
 
-def _generate_with_provider_fallback(
+async def _generate_with_provider_fallback(
     ticket: Ticket,
     chunks: list[RetrievedChunk],
     trap_result: TrapResult,
@@ -664,12 +692,13 @@ def _generate_with_provider_fallback(
 
     try:
         return (
-            generate_response(
+            await generate_response_async(
                 ticket,
                 chunks,
                 trap_tags=trap_result.tags,
                 critique=critique,
                 provider=preferred_provider,
+                client=LLM_CLIENT,
             ),
             preferred_provider,
             None,
@@ -686,12 +715,13 @@ def _generate_with_provider_fallback(
             exc,
         )
         return (
-            generate_response(
+            await generate_response_async(
                 ticket,
                 chunks,
                 trap_tags=trap_result.tags,
                 critique=critique,
                 provider=fallback,
+                client=LLM_CLIENT,
             ),
             fallback,
             f"{preferred_provider}_failed",

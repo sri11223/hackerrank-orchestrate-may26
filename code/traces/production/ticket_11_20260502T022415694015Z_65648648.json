@@ -1,8 +1,8 @@
 {
-  "created_at": "2026-05-01T16:51:38.556827Z",
+  "created_at": "2026-05-02T02:24:15.694015Z",
   "final_decision": {
     "exact_quote": "",
-    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass; hard_override=generation_confidence=0.00<0.25; product_area_snapped=Interviews->screen",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass; hard_override=generation_confidence=0.00<0.25; product_area_snapped=HackerRank Interviews->screen",
     "product_area": "screen",
     "request_type": "product_issue",
     "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
@@ -20,15 +20,15 @@
       "input": {
         "exact_quote": "",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass",
-        "product_area": "Interviews",
+        "product_area": "HackerRank Interviews",
         "request_type": "product_issue",
-        "response": "I cannot answer your question about inactivity times for candidates and interviewers based on the provided documents.",
+        "response": "Cannot answer based on the docs",
         "status": "replied"
       },
       "output": {
         "exact_quote": "",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass; hard_override=generation_confidence=0.00<0.25",
-        "product_area": "Interviews",
+        "product_area": "HackerRank Interviews",
         "request_type": "product_issue",
         "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
         "status": "escalated"
@@ -46,15 +46,15 @@
             "citations": [],
             "confidence": 0.0,
             "exact_quote": "",
-            "product_area": "Interviews",
-            "request_type": "invalid",
-            "response": "I cannot answer your question about inactivity times for candidates and interviewers based on the provided documents."
+            "product_area": "HackerRank Interviews",
+            "request_type": "product_issue",
+            "response": "Cannot answer based on the docs"
           },
-          "provider": "openai",
+          "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 2732.107,
-            "verify": 1966.426
+            "generate": 70.973,
+            "verify": 41.608
           },
           "verifier": {
             "issues": [],
@@ -70,7 +70,7 @@
     },
     "label_normalization": {
       "changed": true,
-      "input_product_area": "Interviews",
+      "input_product_area": "HackerRank Interviews",
       "output_product_area": "screen"
     },
     "retrieval": {
@@ -80,7 +80,7 @@
           "bm25_score": 0.946007196326387,
           "chunk_id": "hackerrank_01586_3d44820505",
           "cross_encoder_rank": 1,
-          "cross_encoder_score": 0.5280934853036038,
+          "cross_encoder_score": 0.30339829880390357,
           "dense_rank": 2,
           "dense_score": 0.8725100159645081,
           "domain": "hackerrank",
@@ -94,7 +94,7 @@
           "bm25_score": 1.0,
           "chunk_id": "hackerrank_02081_d3d0be86f8",
           "cross_encoder_rank": 2,
-          "cross_encoder_score": 0.5593515610106554,
+          "cross_encoder_score": 0.09282581640781841,
           "dense_rank": 13,
           "dense_score": 0.8590494394302368,
           "domain": "hackerrank",
@@ -108,7 +108,7 @@
           "bm25_score": 0.8358331937099058,
           "chunk_id": "hackerrank_01532_7f9d13ca2d",
           "cross_encoder_rank": 3,
-          "cross_encoder_score": 0.4322186570879768,
+          "cross_encoder_score": 0.28251051139636113,
           "dense_rank": 1,
           "dense_score": 0.8812755048274994,
           "domain": "hackerrank",
@@ -122,7 +122,7 @@
           "bm25_score": 0.8680353848164536,
           "chunk_id": "hackerrank_01587_c1f37986ed",
           "cross_encoder_rank": 4,
-          "cross_encoder_score": 0.3150810531382335,
+          "cross_encoder_score": 0.0903857314668456,
           "dense_rank": 12,
           "dense_score": 0.85930135846138,
           "domain": "hackerrank",
@@ -136,7 +136,7 @@
           "bm25_score": 0.95258755474693,
           "chunk_id": "hackerrank_00128_d8d87b41d5",
           "cross_encoder_rank": 5,
-          "cross_encoder_score": 0.502690074474331,
+          "cross_encoder_score": 0.02736488633807682,
           "dense_rank": 39,
           "dense_score": 0.849514901638031,
           "domain": "hackerrank",
@@ -177,18 +177,18 @@
   },
   "ticket_id": 11,
   "timings_ms": {
-    "confidence_gates": 0.049,
-    "generation": 4698.6,
-    "handler": 0.003,
-    "label_normalization": 0.08,
-    "retrieval": 315.121,
-    "sanitize": 9.887,
-    "semantic_cache": 100.246,
-    "semantic_cache_write": 0.074,
-    "source_receipt": 0.003,
-    "total": 5124.865,
-    "trap_classifier": 0.492
+    "confidence_gates": 0.15,
+    "generation": 112.737,
+    "handler": 0.007,
+    "label_normalization": 0.296,
+    "retrieval": 13730.407,
+    "sanitize": 26.313,
+    "semantic_cache": 1067.781,
+    "semantic_cache_write": 0.181,
+    "source_receipt": 0.007,
+    "total": 14938.702,
+    "trap_classifier": 0.283
   },
-  "trace_file": "code\\traces\\production\\ticket_11_20260501T165138556827Z_7fff0ace.json",
-  "trace_id": "11_20260501T165138556827Z_7fff0ace"
+  "trace_file": "code\\traces\\production\\ticket_11_20260502T022415694015Z_65648648.json",
+  "trace_id": "11_20260502T022415694015Z_65648648"
 }

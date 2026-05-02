@@ -1,8 +1,8 @@
 {
-  "created_at": "2026-05-01T16:52:56.582876Z",
+  "created_at": "2026-05-02T02:24:38.817563Z",
   "final_decision": {
     "exact_quote": "",
-    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.93; verifier=pass; hard_override=generation_confidence=0.00<0.25; product_area_snapped=invalid->screen",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.93; verifier=pass; hard_override=generation_confidence=0.00<0.25; product_area_snapped=None->screen",
     "product_area": "screen",
     "request_type": "product_issue",
     "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
@@ -20,15 +20,15 @@
       "input": {
         "exact_quote": "",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.93; verifier=pass",
-        "product_area": "invalid",
+        "product_area": "None",
         "request_type": "product_issue",
-        "response": "I cannot answer it based on the docs.",
+        "response": "Cannot answer based on the docs",
         "status": "replied"
       },
       "output": {
         "exact_quote": "",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.93; verifier=pass; hard_override=generation_confidence=0.00<0.25",
-        "product_area": "invalid",
+        "product_area": "None",
         "request_type": "product_issue",
         "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
         "status": "escalated"
@@ -46,15 +46,15 @@
             "citations": [],
             "confidence": 0.0,
             "exact_quote": "",
-            "product_area": "invalid",
+            "product_area": "None",
             "request_type": "invalid",
-            "response": "I cannot answer it based on the docs."
+            "response": "Cannot answer based on the docs"
           },
-          "provider": "openai",
+          "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 2055.217,
-            "verify": 3355.839
+            "generate": 41.377,
+            "verify": 76.438
           },
           "verifier": {
             "issues": [],
@@ -70,7 +70,7 @@
     },
     "label_normalization": {
       "changed": true,
-      "input_product_area": "invalid",
+      "input_product_area": "None",
       "output_product_area": "screen"
     },
     "retrieval": {
@@ -80,7 +80,7 @@
           "bm25_score": 0.8478468101563905,
           "chunk_id": "hackerrank_00381_23dd01fd6b",
           "cross_encoder_rank": 1,
-          "cross_encoder_score": 0.4174297935376853,
+          "cross_encoder_score": 0.010622265289437471,
           "dense_rank": 2,
           "dense_score": 0.8124091327190399,
           "domain": "hackerrank",
@@ -94,7 +94,7 @@
           "bm25_score": 0.7871607644479872,
           "chunk_id": "claude_03271_0c7b4c31ee",
           "cross_encoder_rank": 2,
-          "cross_encoder_score": 0.7167853694650885,
+          "cross_encoder_score": 0.5499866293141866,
           "dense_rank": 1,
           "dense_score": 0.8357559442520142,
           "domain": "claude",
@@ -108,7 +108,7 @@
           "bm25_score": 0.8740903582859111,
           "chunk_id": "claude_03380_ecbf523d6e",
           "cross_encoder_rank": 3,
-          "cross_encoder_score": 0.6660728493210479,
+          "cross_encoder_score": 7.217452735379902e-05,
           "dense_rank": 46,
           "dense_score": 0.7842430472373962,
           "domain": "claude",
@@ -122,7 +122,7 @@
           "bm25_score": 0.7587436331237978,
           "chunk_id": "claude_03290_dadbba0b46",
           "cross_encoder_rank": 4,
-          "cross_encoder_score": 0.42215003169598236,
+          "cross_encoder_score": 2.2225931698633515e-05,
           "dense_rank": 22,
           "dense_score": 0.7915979623794556,
           "domain": "claude",
@@ -136,7 +136,7 @@
           "bm25_score": 0.7621771564624807,
           "chunk_id": "hackerrank_02248_bdb06944e4",
           "cross_encoder_rank": 5,
-          "cross_encoder_score": 0.5621765008857981,
+          "cross_encoder_score": 0.03297794793977635,
           "dense_rank": 28,
           "dense_score": 0.7903158664703369,
           "domain": "hackerrank",
@@ -177,18 +177,18 @@
   },
   "ticket_id": 24,
   "timings_ms": {
-    "confidence_gates": 0.036,
-    "generation": 5411.116,
-    "handler": 0.003,
-    "label_normalization": 0.054,
-    "retrieval": 119.716,
-    "sanitize": 15.722,
-    "semantic_cache": 49.759,
-    "semantic_cache_write": 0.055,
-    "source_receipt": 0.002,
-    "total": 5596.866,
-    "trap_classifier": 0.186
+    "confidence_gates": 0.051,
+    "generation": 117.921,
+    "handler": 0.004,
+    "label_normalization": 0.075,
+    "retrieval": 11091.578,
+    "sanitize": 28.669,
+    "semantic_cache": 558.363,
+    "semantic_cache_write": 0.134,
+    "source_receipt": 0.004,
+    "total": 11797.52,
+    "trap_classifier": 0.3
   },
-  "trace_file": "code\\traces\\production\\ticket_24_20260501T165256582876Z_dbd121f6.json",
-  "trace_id": "24_20260501T165256582876Z_dbd121f6"
+  "trace_file": "code\\traces\\production\\ticket_24_20260502T022438816559Z_252874a6.json",
+  "trace_id": "24_20260502T022438816559Z_252874a6"
 }

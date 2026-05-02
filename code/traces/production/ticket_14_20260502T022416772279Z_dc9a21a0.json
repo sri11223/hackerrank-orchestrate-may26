@@ -1,11 +1,11 @@
 {
-  "created_at": "2026-05-01T16:51:51.798494Z",
+  "created_at": "2026-05-02T02:24:16.772279Z",
   "final_decision": {
-    "exact_quote": "The Pause Subscription feature allows individual self-serve plan subscribers to temporarily pause their HackerRank subscription instead of canceling it.",
-    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass; product_area_snapped=Subscription Management->conversation_management",
-    "product_area": "conversation_management",
+    "exact_quote": "- Click the Cancel Plan button. The UI will display a prompt about the new Pause Subscription feature.",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass; product_area_snapped=Subscription Settings->screen; exact_quote_source=deterministic_fallback",
+    "product_area": "screen",
     "request_type": "product_issue",
-    "response": "To pause your subscription, you need to follow specific steps. First, access your Subscription Settings by clicking on the profile icon in the top-right corner and selecting Settings. Then, navigate to the Billing section and click the Cancel Plan button. This will prompt you about the Pause Subscription feature. You can select a pause duration between 1 to 12 months and confirm the pause. Ensure you meet the prerequisites, such as having an active subscription that started at least 30 days ago.",
+    "response": "To pause your subscription, follow these steps: Access Subscription Settings, Navigate to the Billing section under Subscription, Click the Cancel Plan button, Select the desired pause duration, and Confirm Pause.",
     "status": "replied"
   },
   "input": {
@@ -15,22 +15,22 @@
   },
   "stages": {
     "confidence_gates": {
-      "generation_confidence": 0.9,
+      "generation_confidence": 0.8,
       "generation_confidence_threshold": 0.25,
       "input": {
-        "exact_quote": "The Pause Subscription feature allows individual self-serve plan subscribers to temporarily pause their HackerRank subscription instead of canceling it.",
+        "exact_quote": "",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass",
-        "product_area": "Subscription Management",
+        "product_area": "Subscription Settings",
         "request_type": "product_issue",
-        "response": "To pause your subscription, you need to follow specific steps. First, access your Subscription Settings by clicking on the profile icon in the top-right corner and selecting Settings. Then, navigate to the Billing section and click the Cancel Plan button. This will prompt you about the Pause Subscription feature. You can select a pause duration between 1 to 12 months and confirm the pause. Ensure you meet the prerequisites, such as having an active subscription that started at least 30 days ago.",
+        "response": "To pause your subscription, follow these steps: Access Subscription Settings, Navigate to the Billing section under Subscription, Click the Cancel Plan button, Select the desired pause duration, and Confirm Pause.",
         "status": "replied"
       },
       "output": {
-        "exact_quote": "The Pause Subscription feature allows individual self-serve plan subscribers to temporarily pause their HackerRank subscription instead of canceling it.",
+        "exact_quote": "",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass",
-        "product_area": "Subscription Management",
+        "product_area": "Subscription Settings",
         "request_type": "product_issue",
-        "response": "To pause your subscription, you need to follow specific steps. First, access your Subscription Settings by clicking on the profile icon in the top-right corner and selecting Settings. Then, navigate to the Billing section and click the Cancel Plan button. This will prompt you about the Pause Subscription feature. You can select a pause duration between 1 to 12 months and confirm the pause. Ensure you meet the prerequisites, such as having an active subscription that started at least 30 days ago.",
+        "response": "To pause your subscription, follow these steps: Access Subscription Settings, Navigate to the Billing section under Subscription, Click the Cancel Plan button, Select the desired pause duration, and Confirm Pause.",
         "status": "replied"
       },
       "threshold": 0.35,
@@ -44,20 +44,19 @@
           "critique": [],
           "generation": {
             "citations": [
-              "hackerrank_02790_e4268ebaa1",
-              "hackerrank_02789_8bc1cea232"
+              "hackerrank_02790_e4268ebaa1"
             ],
-            "confidence": 0.9,
-            "exact_quote": "The Pause Subscription feature allows individual self-serve plan subscribers to temporarily pause their HackerRank subscription instead of canceling it.",
-            "product_area": "Subscription Management",
+            "confidence": 0.8,
+            "exact_quote": "",
+            "product_area": "Subscription Settings",
             "request_type": "product_issue",
-            "response": "To pause your subscription, you need to follow specific steps. First, access your Subscription Settings by clicking on the profile icon in the top-right corner and selecting Settings. Then, navigate to the Billing section and click the Cancel Plan button. This will prompt you about the Pause Subscription feature. You can select a pause duration between 1 to 12 months and confirm the pause. Ensure you meet the prerequisites, such as having an active subscription that started at least 30 days ago."
+            "response": "To pause your subscription, follow these steps: Access Subscription Settings, Navigate to the Billing section under Subscription, Click the Cancel Plan button, Select the desired pause duration, and Confirm Pause."
           },
-          "provider": "openai",
+          "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 6269.553,
-            "verify": 8028.388
+            "generate": 74.494,
+            "verify": 244.819
           },
           "verifier": {
             "issues": [],
@@ -73,8 +72,8 @@
     },
     "label_normalization": {
       "changed": true,
-      "input_product_area": "Subscription Management",
-      "output_product_area": "conversation_management"
+      "input_product_area": "Subscription Settings",
+      "output_product_area": "screen"
     },
     "retrieval": {
       "chunks": [
@@ -83,7 +82,7 @@
           "bm25_score": 0.7984170380099128,
           "chunk_id": "hackerrank_02788_da6bdc1099",
           "cross_encoder_rank": 1,
-          "cross_encoder_score": 0.16458130843825905,
+          "cross_encoder_score": 0.8880523778062892,
           "dense_rank": 1,
           "dense_score": 0.8725761771202087,
           "domain": "hackerrank",
@@ -97,7 +96,7 @@
           "bm25_score": 1.0,
           "chunk_id": "hackerrank_02790_e4268ebaa1",
           "cross_encoder_rank": 2,
-          "cross_encoder_score": 0.22832239327024975,
+          "cross_encoder_score": 0.8395863144476657,
           "dense_rank": 4,
           "dense_score": 0.8456189930438995,
           "domain": "hackerrank",
@@ -111,7 +110,7 @@
           "bm25_score": 0.7905434526449121,
           "chunk_id": "hackerrank_02789_8bc1cea232",
           "cross_encoder_rank": 3,
-          "cross_encoder_score": 0.318722450294231,
+          "cross_encoder_score": 0.42291023874174277,
           "dense_rank": 2,
           "dense_score": 0.8515849709510803,
           "domain": "hackerrank",
@@ -125,7 +124,7 @@
           "bm25_score": 0.7852243579068364,
           "chunk_id": "hackerrank_02792_e018835003",
           "cross_encoder_rank": 4,
-          "cross_encoder_score": 0.1683402887163471,
+          "cross_encoder_score": 0.2956949040871938,
           "dense_rank": 6,
           "dense_score": 0.8243392109870911,
           "domain": "hackerrank",
@@ -139,7 +138,7 @@
           "bm25_score": 0.506514440894855,
           "chunk_id": "hackerrank_02791_5d74ddea79",
           "cross_encoder_rank": 5,
-          "cross_encoder_score": 0.16280552511342444,
+          "cross_encoder_score": 0.6327605655974897,
           "dense_rank": 3,
           "dense_score": 0.8460124731063843,
           "domain": "hackerrank",
@@ -167,9 +166,9 @@
       "stored": true
     },
     "source_receipt": {
-      "had_exact_quote": true,
+      "had_exact_quote": false,
       "has_exact_quote": true,
-      "quote_source": "model"
+      "quote_source": "deterministic_fallback"
     },
     "trap_classifier": {
       "reasoning": "Deterministic default: legitimate support question likely answerable from docs.",
@@ -180,18 +179,18 @@
   },
   "ticket_id": 14,
   "timings_ms": {
-    "confidence_gates": 0.033,
-    "generation": 14298.117,
-    "handler": 0.004,
-    "label_normalization": 1.643,
-    "retrieval": 665.52,
-    "sanitize": 15.497,
-    "semantic_cache": 82.268,
-    "semantic_cache_write": 0.118,
-    "source_receipt": 0.004,
-    "total": 15063.942,
-    "trap_classifier": 0.186
+    "confidence_gates": 0.04,
+    "generation": 319.452,
+    "handler": 0.007,
+    "label_normalization": 0.696,
+    "retrieval": 10400.547,
+    "sanitize": 12.85,
+    "semantic_cache": 875.434,
+    "semantic_cache_write": 0.115,
+    "source_receipt": 2.32,
+    "total": 11612.086,
+    "trap_classifier": 0.145
   },
-  "trace_file": "code\\traces\\production\\ticket_14_20260501T165151797483Z_932e7247.json",
-  "trace_id": "14_20260501T165151797483Z_932e7247"
+  "trace_file": "code\\traces\\production\\ticket_14_20260502T022416772279Z_dc9a21a0.json",
+  "trace_id": "14_20260502T022416772279Z_dc9a21a0"
 }

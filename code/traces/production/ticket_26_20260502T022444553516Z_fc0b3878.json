@@ -1,11 +1,11 @@
 {
-  "created_at": "2026-05-01T16:53:02.394802Z",
+  "created_at": "2026-05-02T02:24:44.553516Z",
   "final_decision": {
     "exact_quote": "Contact AWS Support for Claude in Amazon Bedrock support inquiries or reach out to your AWS account manager. For community-based support, visit AWS re:Post.",
-    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.88; verifier=pass; product_area_snapped=Claude->general_support",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.88; verifier=pass; product_area_snapped=Claude in Amazon Bedrock->general_support",
     "product_area": "general_support",
-    "request_type": "product_issue",
-    "response": "For issues related to Claude in Amazon Bedrock, you should contact AWS Support or reach out to your AWS account manager. For community-based support, visit AWS re:Post.",
+    "request_type": "bug",
+    "response": "For issues with Claude in Amazon Bedrock, contact AWS Support or reach out to your AWS account manager. For community-based support, visit AWS re:Post.",
     "status": "replied"
   },
   "input": {
@@ -15,22 +15,22 @@
   },
   "stages": {
     "confidence_gates": {
-      "generation_confidence": 0.9,
+      "generation_confidence": 0.8,
       "generation_confidence_threshold": 0.25,
       "input": {
         "exact_quote": "Contact AWS Support for Claude in Amazon Bedrock support inquiries or reach out to your AWS account manager. For community-based support, visit AWS re:Post.",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.88; verifier=pass",
-        "product_area": "Claude",
-        "request_type": "product_issue",
-        "response": "For issues related to Claude in Amazon Bedrock, you should contact AWS Support or reach out to your AWS account manager. For community-based support, visit AWS re:Post.",
+        "product_area": "Claude in Amazon Bedrock",
+        "request_type": "bug",
+        "response": "For issues with Claude in Amazon Bedrock, contact AWS Support or reach out to your AWS account manager. For community-based support, visit AWS re:Post.",
         "status": "replied"
       },
       "output": {
         "exact_quote": "Contact AWS Support for Claude in Amazon Bedrock support inquiries or reach out to your AWS account manager. For community-based support, visit AWS re:Post.",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.88; verifier=pass",
-        "product_area": "Claude",
-        "request_type": "product_issue",
-        "response": "For issues related to Claude in Amazon Bedrock, you should contact AWS Support or reach out to your AWS account manager. For community-based support, visit AWS re:Post.",
+        "product_area": "Claude in Amazon Bedrock",
+        "request_type": "bug",
+        "response": "For issues with Claude in Amazon Bedrock, contact AWS Support or reach out to your AWS account manager. For community-based support, visit AWS re:Post.",
         "status": "replied"
       },
       "threshold": 0.35,
@@ -46,17 +46,17 @@
             "citations": [
               "claude_02999_cca416edba"
             ],
-            "confidence": 0.9,
+            "confidence": 0.8,
             "exact_quote": "Contact AWS Support for Claude in Amazon Bedrock support inquiries or reach out to your AWS account manager. For community-based support, visit AWS re:Post.",
-            "product_area": "Claude",
-            "request_type": "product_issue",
-            "response": "For issues related to Claude in Amazon Bedrock, you should contact AWS Support or reach out to your AWS account manager. For community-based support, visit AWS re:Post."
+            "product_area": "Claude in Amazon Bedrock",
+            "request_type": "bug",
+            "response": "For issues with Claude in Amazon Bedrock, contact AWS Support or reach out to your AWS account manager. For community-based support, visit AWS re:Post."
           },
-          "provider": "openai",
+          "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 25.943,
-            "verify": 23.937
+            "generate": 252.059,
+            "verify": 9.566
           },
           "verifier": {
             "issues": [],
@@ -72,7 +72,7 @@
     },
     "label_normalization": {
       "changed": true,
-      "input_product_area": "Claude",
+      "input_product_area": "Claude in Amazon Bedrock",
       "output_product_area": "general_support"
     },
     "retrieval": {
@@ -82,7 +82,7 @@
           "bm25_score": 0.7060871489544935,
           "chunk_id": "claude_02999_cca416edba",
           "cross_encoder_rank": 1,
-          "cross_encoder_score": 0.4289327341439307,
+          "cross_encoder_score": 0.16241078072730583,
           "dense_rank": 1,
           "dense_score": 0.901956170797348,
           "domain": "claude",
@@ -96,7 +96,7 @@
           "bm25_score": 0.7222683503541586,
           "chunk_id": "claude_04190_d0382ac921",
           "cross_encoder_rank": 2,
-          "cross_encoder_score": 0.5475828423002365,
+          "cross_encoder_score": 0.06403836144669517,
           "dense_rank": 7,
           "dense_score": 0.8789826035499573,
           "domain": "claude",
@@ -110,7 +110,7 @@
           "bm25_score": 0.7017609469526755,
           "chunk_id": "claude_05295_173bd1234d",
           "cross_encoder_rank": 3,
-          "cross_encoder_score": 0.4833395034305885,
+          "cross_encoder_score": 0.04358924651333884,
           "dense_rank": 3,
           "dense_score": 0.8877992033958435,
           "domain": "claude",
@@ -124,7 +124,7 @@
           "bm25_score": 0.7091338905642981,
           "chunk_id": "claude_02998_cd094dd3de",
           "cross_encoder_rank": 4,
-          "cross_encoder_score": 0.4945948051678682,
+          "cross_encoder_score": 0.01594820740193509,
           "dense_rank": 9,
           "dense_score": 0.8732972145080566,
           "domain": "claude",
@@ -138,7 +138,7 @@
           "bm25_score": 0.6788933506987267,
           "chunk_id": "claude_02996_6c8a1e65cc",
           "cross_encoder_rank": 5,
-          "cross_encoder_score": 0.5676066667897529,
+          "cross_encoder_score": 0.041969436409847544,
           "dense_rank": 6,
           "dense_score": 0.8795387148857117,
           "domain": "claude",
@@ -179,18 +179,18 @@
   },
   "ticket_id": 26,
   "timings_ms": {
-    "confidence_gates": 0.013,
-    "generation": 49.954,
-    "handler": 0.005,
-    "label_normalization": 0.174,
-    "retrieval": 110.924,
-    "sanitize": 11.228,
-    "semantic_cache": 64.674,
-    "semantic_cache_write": 0.214,
-    "source_receipt": 0.003,
-    "total": 237.559,
-    "trap_classifier": 0.112
+    "confidence_gates": 0.038,
+    "generation": 261.754,
+    "handler": 0.041,
+    "label_normalization": 1.352,
+    "retrieval": 5525.76,
+    "sanitize": 43.701,
+    "semantic_cache": 1215.758,
+    "semantic_cache_write": 0.648,
+    "source_receipt": 0.007,
+    "total": 7049.968,
+    "trap_classifier": 0.373
   },
-  "trace_file": "code\\traces\\production\\ticket_26_20260501T165302394802Z_ae55c566.json",
-  "trace_id": "26_20260501T165302394802Z_ae55c566"
+  "trace_file": "code\\traces\\production\\ticket_26_20260502T022444553516Z_fc0b3878.json",
+  "trace_id": "26_20260502T022444553516Z_fc0b3878"
 }

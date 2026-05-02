@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-01T16:51:23.353153Z",
+  "created_at": "2026-05-02T02:24:06.354275Z",
   "final_decision": {
     "exact_quote": "",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.89; verifier=pass; hard_override=generation_confidence=0.00<0.25; product_area_snapped=HackerRank->screen",
@@ -43,6 +43,35 @@
           "attempt": 1,
           "critique": [],
           "generation": {
+            "citations": [
+              "hackerrank_00706_b98c69da34"
+            ],
+            "confidence": 0.8,
+            "exact_quote": "internet connection, the test pauses automatically. When your connection is restored, you can continue the test if time remains.",
+            "product_area": "Certifications",
+            "request_type": "product_issue",
+            "response": "Ensure your internet connection is stable to avoid interruptions during the test. If the issue persists, check if there are any specific requirements for the test, such as zoom connectivity."
+          },
+          "provider": "groq",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 34.504,
+            "verify": 34.889
+          },
+          "verifier": {
+            "issues": [
+              "The draft response suggests checking for specific requirements for the test, such as zoom connectivity, which is not supported by the provided documents."
+            ],
+            "recommended_action": "rewrite",
+            "safe": false
+          }
+        },
+        {
+          "attempt": 2,
+          "critique": [
+            "The draft response suggests checking for specific requirements for the test, such as zoom connectivity, which is not supported by the provided documents."
+          ],
+          "generation": {
             "citations": [],
             "confidence": 0.0,
             "exact_quote": "",
@@ -53,8 +82,8 @@
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 2450.958,
-            "verify": 1935.549
+            "generate": 35.675,
+            "verify": 7.199
           },
           "verifier": {
             "issues": [],
@@ -80,7 +109,7 @@
           "bm25_score": 0.9736983115447165,
           "chunk_id": "hackerrank_01242_3e27c1600f",
           "cross_encoder_rank": 1,
-          "cross_encoder_score": 0.2942849408014159,
+          "cross_encoder_score": 7.419550464150074e-05,
           "dense_rank": 16,
           "dense_score": 0.8217641115188599,
           "domain": "hackerrank",
@@ -94,7 +123,7 @@
           "bm25_score": 0.8416813691898767,
           "chunk_id": "hackerrank_00787_7243b1d3bf",
           "cross_encoder_rank": 2,
-          "cross_encoder_score": 0.3444100754186774,
+          "cross_encoder_score": 0.00011866151519602929,
           "dense_rank": 22,
           "dense_score": 0.8204016983509064,
           "domain": "hackerrank",
@@ -108,7 +137,7 @@
           "bm25_score": 0.7102017756873532,
           "chunk_id": "hackerrank_00706_b98c69da34",
           "cross_encoder_rank": 3,
-          "cross_encoder_score": 0.2141650169574414,
+          "cross_encoder_score": 3.014101396114734e-05,
           "dense_rank": 14,
           "dense_score": 0.8225436508655548,
           "domain": "hackerrank",
@@ -122,7 +151,7 @@
           "bm25_score": 0.5296715532009336,
           "chunk_id": "hackerrank_01084_e314ecf47c",
           "cross_encoder_rank": 4,
-          "cross_encoder_score": 0.3263219787061085,
+          "cross_encoder_score": 2.5465165389293302e-05,
           "dense_rank": 7,
           "dense_score": 0.8308975398540497,
           "domain": "hackerrank",
@@ -136,7 +165,7 @@
           "bm25_score": 0.5519218796048705,
           "chunk_id": "hackerrank_01185_8971972a64",
           "cross_encoder_rank": 5,
-          "cross_encoder_score": 0.5229920153894693,
+          "cross_encoder_score": 2.5355996780765875e-05,
           "dense_rank": 12,
           "dense_score": 0.8231393992900848,
           "domain": "hackerrank",
@@ -177,18 +206,18 @@
   },
   "ticket_id": 9,
   "timings_ms": {
-    "confidence_gates": 0.114,
-    "generation": 4386.594,
-    "handler": 0.005,
-    "label_normalization": 0.128,
-    "retrieval": 171.471,
-    "sanitize": 5.375,
-    "semantic_cache": 78.346,
-    "semantic_cache_write": 0.109,
-    "source_receipt": 0.005,
-    "total": 4642.837,
-    "trap_classifier": 0.38
+    "confidence_gates": 0.146,
+    "generation": 112.701,
+    "handler": 0.004,
+    "label_normalization": 0.174,
+    "retrieval": 10000.297,
+    "sanitize": 5.213,
+    "semantic_cache": 296.317,
+    "semantic_cache_write": 0.159,
+    "source_receipt": 0.006,
+    "total": 10415.559,
+    "trap_classifier": 0.204
   },
-  "trace_file": "code\\traces\\production\\ticket_9_20260501T165123353153Z_bb41b0d4.json",
-  "trace_id": "9_20260501T165123353153Z_bb41b0d4"
+  "trace_file": "code\\traces\\production\\ticket_9_20260502T022406354275Z_7297d87d.json",
+  "trace_id": "9_20260502T022406354275Z_7297d87d"
 }

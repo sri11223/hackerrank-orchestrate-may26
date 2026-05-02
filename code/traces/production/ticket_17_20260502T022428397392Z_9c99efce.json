@@ -1,8 +1,8 @@
 {
-  "created_at": "2026-05-01T16:52:21.560783Z",
+  "created_at": "2026-05-02T02:24:28.397392Z",
   "final_decision": {
     "exact_quote": "",
-    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass; hard_override=generation_confidence=0.00<0.25; product_area_snapped=HackerRank->screen",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass; hard_override=generation_confidence=0.00<0.25; product_area_snapped=Resume Builder->screen",
     "product_area": "screen",
     "request_type": "product_issue",
     "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
@@ -20,15 +20,15 @@
       "input": {
         "exact_quote": "",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass",
-        "product_area": "HackerRank",
+        "product_area": "Resume Builder",
         "request_type": "product_issue",
-        "response": "I cannot answer your issue regarding the Resume Builder being down based on the provided documents.",
+        "response": "I cannot confirm if the Resume Builder is down based on the provided documents.",
         "status": "replied"
       },
       "output": {
         "exact_quote": "",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass; hard_override=generation_confidence=0.00<0.25",
-        "product_area": "HackerRank",
+        "product_area": "Resume Builder",
         "request_type": "product_issue",
         "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
         "status": "escalated"
@@ -43,18 +43,48 @@
           "attempt": 1,
           "critique": [],
           "generation": {
+            "citations": [
+              "hackerrank_00692_6c8890318a",
+              "hackerrank_00228_2e480ea946"
+            ],
+            "confidence": 0.8,
+            "exact_quote": "HackerRank’s Resume Builder allows developers to revamp their professional resumes instantly.",
+            "product_area": "Resume Builder",
+            "request_type": "bug",
+            "response": "To create a resume, you can use the Resume Builder tool, which allows you to build from scratch using a template or import an existing resume in .doc, .docx, or .pdf format. However, it seems that the Resume Builder is currently down. You can try reaching out to Community Support for assistance."
+          },
+          "provider": "groq",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 255.772,
+            "verify": 87.983
+          },
+          "verifier": {
+            "issues": [
+              "The draft response claims the Resume Builder is currently down without verification from the provided documents."
+            ],
+            "recommended_action": "escalate",
+            "safe": false
+          }
+        },
+        {
+          "attempt": 2,
+          "critique": [
+            "The draft response claims the Resume Builder is currently down without verification from the provided documents."
+          ],
+          "generation": {
             "citations": [],
             "confidence": 0.0,
             "exact_quote": "",
-            "product_area": "HackerRank",
+            "product_area": "Resume Builder",
             "request_type": "invalid",
-            "response": "I cannot answer your issue regarding the Resume Builder being down based on the provided documents."
+            "response": "I cannot confirm if the Resume Builder is down based on the provided documents."
           },
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 3337.656,
-            "verify": 3176.111
+            "generate": 73.198,
+            "verify": 226.744
           },
           "verifier": {
             "issues": [],
@@ -70,7 +100,7 @@
     },
     "label_normalization": {
       "changed": true,
-      "input_product_area": "HackerRank",
+      "input_product_area": "Resume Builder",
       "output_product_area": "screen"
     },
     "retrieval": {
@@ -80,7 +110,7 @@
           "bm25_score": 0.8788689401278659,
           "chunk_id": "hackerrank_00691_b48c309e50",
           "cross_encoder_rank": 1,
-          "cross_encoder_score": 0.8777076923991645,
+          "cross_encoder_score": 0.9966555899195951,
           "dense_rank": 1,
           "dense_score": 0.9057402610778809,
           "domain": "hackerrank",
@@ -94,7 +124,7 @@
           "bm25_score": 1.0,
           "chunk_id": "hackerrank_00692_6c8890318a",
           "cross_encoder_rank": 2,
-          "cross_encoder_score": 0.7608131695210789,
+          "cross_encoder_score": 0.9767588924748767,
           "dense_rank": 3,
           "dense_score": 0.8927331566810608,
           "domain": "hackerrank",
@@ -108,7 +138,7 @@
           "bm25_score": 0.8903961609459827,
           "chunk_id": "hackerrank_00694_49de11b42f",
           "cross_encoder_rank": 3,
-          "cross_encoder_score": 0.7342870653712599,
+          "cross_encoder_score": 0.997130787622204,
           "dense_rank": 2,
           "dense_score": 0.8948125839233398,
           "domain": "hackerrank",
@@ -122,7 +152,7 @@
           "bm25_score": 0.8490268580314455,
           "chunk_id": "hackerrank_00693_f25681684d",
           "cross_encoder_rank": 4,
-          "cross_encoder_score": 0.7286592297016654,
+          "cross_encoder_score": 0.9963567091257426,
           "dense_rank": 4,
           "dense_score": 0.8918835818767548,
           "domain": "hackerrank",
@@ -136,7 +166,7 @@
           "bm25_score": 0.7811219241919145,
           "chunk_id": "hackerrank_00228_2e480ea946",
           "cross_encoder_rank": 5,
-          "cross_encoder_score": 0.8676173183600082,
+          "cross_encoder_score": 0.9946759344988363,
           "dense_rank": 6,
           "dense_score": 0.883477509021759,
           "domain": "hackerrank",
@@ -177,18 +207,18 @@
   },
   "ticket_id": 17,
   "timings_ms": {
-    "confidence_gates": 0.054,
-    "generation": 6513.846,
-    "handler": 0.006,
-    "label_normalization": 0.171,
-    "retrieval": 143.511,
-    "sanitize": 19.694,
-    "semantic_cache": 98.074,
-    "semantic_cache_write": 0.125,
-    "source_receipt": 0.004,
-    "total": 6776.07,
-    "trap_classifier": 0.184
+    "confidence_gates": 0.048,
+    "generation": 644.275,
+    "handler": 0.008,
+    "label_normalization": 0.21,
+    "retrieval": 7004.404,
+    "sanitize": 30.981,
+    "semantic_cache": 645.96,
+    "semantic_cache_write": 0.091,
+    "source_receipt": 0.002,
+    "total": 8326.878,
+    "trap_classifier": 0.31
   },
-  "trace_file": "code\\traces\\production\\ticket_17_20260501T165221559778Z_1dc2720d.json",
-  "trace_id": "17_20260501T165221559778Z_1dc2720d"
+  "trace_file": "code\\traces\\production\\ticket_17_20260502T022428397392Z_9c99efce.json",
+  "trace_id": "17_20260502T022428397392Z_9c99efce"
 }

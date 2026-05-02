@@ -189,6 +189,52 @@ def classify_traps(
     return parsed
 
 
+async def classify_traps_async(
+    ticket_text: str,
+    stated_company: str,
+    *,
+    client: LLMClient | None = None,
+) -> TrapResult:
+    """Async Stage 2 classifier with deterministic fast path."""
+
+    normalized_ticket = " ".join((ticket_text or "").split())
+    normalized_company = " ".join((stated_company or "None").split())
+    outage_detected = _looks_like_system_outage(normalized_ticket)
+    deterministic = _deterministic_classify(normalized_ticket, normalized_company, outage_detected)
+    if deterministic is not None:
+        return deterministic
+
+    messages = [
+        ChatMessage(role="system", content=TRAP_CLASSIFIER_SYSTEM_PROMPT),
+        ChatMessage(role="user", content=_ticket_prompt(normalized_ticket, normalized_company)),
+    ]
+    llm = client or LLMClient()
+    result = await llm.chat_json_async("groq", messages, temperature=0.0, max_tokens=280)
+
+    try:
+        parsed = TrapResult.model_validate(result.parsed_json)
+    except ValidationError as exc:
+        raise LLMResponseError(
+            f"Groq trap classifier returned invalid taxonomy JSON: {result.content}"
+        ) from exc
+
+    if outage_detected and TrapTag.SYSTEM_OUTAGE not in parsed.tags:
+        parsed = TrapResult(
+            tags=[TrapTag.SYSTEM_OUTAGE, *parsed.tags],
+            reasoning=(
+                "Ticket reports site-wide outage or complete inaccessibility. "
+                f"{parsed.reasoning}"
+            ),
+        )
+
+    if TrapTag.NORMAL_FAQ in parsed.tags and len(parsed.tags) > 1:
+        parsed = TrapResult(
+            tags=[tag for tag in parsed.tags if tag != TrapTag.NORMAL_FAQ] + [TrapTag.NORMAL_FAQ],
+            reasoning=parsed.reasoning,
+        )
+    return parsed
+
+
 def _looks_like_system_outage(ticket_text: str) -> bool:
     """Deterministically catch broad outage wording before handler dispatch."""
 

@@ -39,6 +39,7 @@ This is the point-by-point map from architecture claim to implementation:
 | Enterprise Privacy Shield | `triage/sanitize.py` scrubs emails, 16-digit credit cards, SSNs, and phone numbers before classifier, retrieval, generator, verifier, or trace sidecar writes can see the text. |
 | Multilingual without translation | `triage/sanitize.py` detects the language and stores it on the `Ticket`; prompts carry the language metadata without translating or altering the redacted user issue. |
 | File-based LLM cache | `triage/llm.py` hashes provider, model, messages, temperature, max tokens, and strict JSON mode; successful responses are cached as JSON files under `data/processed/llm_cache` by default. |
+| Async parallel batch runtime | `triage/cli.py` processes CSV rows with `asyncio.as_completed` behind an `asyncio.Semaphore(5)`, while `triage/llm.py` uses `AsyncOpenAI` and `AsyncGroq` for awaited model calls. |
 | Per-stage timing instrumentation | `triage/orchestrator.py` records `timings_ms` for each stage and total runtime. |
 | Decision trace JSON sidecars | `triage/orchestrator.py` writes unique `ticket_<id>_<timestamp>_<uuid>.json` traces for batch, crucible, interactive, and error paths. |
 | Claude-Code-style REPL | `triage/cli.py` implements the Rich interactive shell with banner, slash commands, mode switching, spinner, Markdown rendering, colored decision panel, and source receipt display. |
@@ -75,7 +76,7 @@ too low, or the verifier is unsafe, Python overrides the answer to
 `escalated`. Every result gets a JSON sidecar so the judge can inspect the full
 decision tree.
 
-## The 14 Judge Pillars
+## The 15 Judge Pillars
 
 1. **Trap Taxonomy as Architecture**: `TrapTag` and handler dispatch are Python
    control flow, not model suggestions. Safety tags can bypass generation.
@@ -100,11 +101,14 @@ decision tree.
    metadata while the original issue remains unchanged.
 11. **File-Based LLM Cache**: LLM calls are cached by SHA-256 hash key under
     `data/processed/llm_cache`.
-12. **Per-Stage Timing Instrumentation**: every stage records elapsed
+12. **Async Parallel Batch Runtime**: the batch command processes up to five
+    tickets concurrently with awaited provider calls and live Rich progress
+    updates.
+13. **Per-Stage Timing Instrumentation**: every stage records elapsed
     milliseconds in `timings_ms`.
-13. **Decision Trace JSON Sidecars**: each batch, crucible, interactive, or
+14. **Decision Trace JSON Sidecars**: each batch, crucible, interactive, or
     error path writes a unique JSON trace.
-14. **Claude-Code-Style REPL**: the Rich terminal UI includes slash commands,
+15. **Claude-Code-Style REPL**: the Rich terminal UI includes slash commands,
     mode switching, spinner, Markdown rendering, and source receipts.
 
 ## Enterprise Privacy Shield
@@ -131,7 +135,7 @@ integrity scan:
   verbatim `exact_quote` receipts.
 - Safety Moat: `0 / 3` prompt-injection crucible tickets produced a replied
   joke or roleplay failure.
-- Self-Healing Efficacy: `3` verifier-triggered rewrites occurred, with `1`
+- Self-Healing Efficacy: `7` verifier-triggered rewrites occurred, with `3`
   ending in final `replied` decisions.
 - Auditability: `39 / 39` production plus crucible traces contain complete
   timing blocks for every recorded stage.
@@ -174,6 +178,23 @@ current process and falls back to OpenAI instead of crashing the batch.
 The LLM client also uses a hash-keyed file cache. The cache key includes the
 provider, model, messages, temperature, max-token setting, and JSON mode. Cache
 files store only provider output metadata and content, not API keys.
+
+## Parallel Runtime
+
+The production runner is asynchronous. `triage/orchestrator.py` exposes
+`async def process_ticket(...)`, and the CLI schedules rows with
+`asyncio.as_completed` under a concurrency limit of five. Local retrieval work
+is moved through `asyncio.to_thread`; external calls use `AsyncOpenAI` and
+`AsyncGroq`. The Rich dashboard updates as each task completes and prints total
+elapsed time plus average time per ticket.
+
+Latest cleaned production run:
+
+- Rows: `29`
+- Concurrency limit: `5`
+- Total elapsed: `83.93s`
+- Time per ticket: `2.89s`
+- Fresh production traces: `29`
 
 ## Proof Layout
 

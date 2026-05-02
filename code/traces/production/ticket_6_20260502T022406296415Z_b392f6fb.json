@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-01T16:50:41.930583Z",
+  "created_at": "2026-05-02T02:24:06.296415Z",
   "final_decision": {
     "exact_quote": "",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.91; verifier=pass; hard_override=generation_confidence=0.00<0.25; product_area_snapped=HackerRank->screen",
@@ -22,7 +22,7 @@
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.91; verifier=pass",
         "product_area": "HackerRank",
         "request_type": "product_issue",
-        "response": "I cannot answer your request based on the docs.",
+        "response": "Cannot answer based on the docs",
         "status": "replied"
       },
       "output": {
@@ -48,13 +48,13 @@
             "exact_quote": "",
             "product_area": "HackerRank",
             "request_type": "invalid",
-            "response": "I cannot answer your request based on the docs."
+            "response": "Cannot answer based on the docs"
           },
-          "provider": "openai",
-          "provider_fallback": "groq_failed",
+          "provider": "groq",
+          "provider_fallback": null,
           "timings_ms": {
-            "generate": 26347.15,
-            "verify": 2017.166
+            "generate": 54.202,
+            "verify": 209.693
           },
           "verifier": {
             "issues": [],
@@ -80,7 +80,7 @@
           "bm25_score": 0.9394554282355919,
           "chunk_id": "hackerrank_02981_7ff0b813ce",
           "cross_encoder_rank": 1,
-          "cross_encoder_score": 0.8117184745554938,
+          "cross_encoder_score": 0.9973062267151142,
           "dense_rank": 11,
           "dense_score": 0.8861446976661682,
           "domain": "hackerrank",
@@ -94,7 +94,7 @@
           "bm25_score": 0.812116076460429,
           "chunk_id": "hackerrank_02156_19e3134d20",
           "cross_encoder_rank": 2,
-          "cross_encoder_score": 0.7474766996208765,
+          "cross_encoder_score": 0.9784713771707626,
           "dense_rank": 7,
           "dense_score": 0.8883955478668213,
           "domain": "hackerrank",
@@ -108,7 +108,7 @@
           "bm25_score": 1.0,
           "chunk_id": "hackerrank_00688_9f0aee3255",
           "cross_encoder_rank": 3,
-          "cross_encoder_score": 0.6345029458152619,
+          "cross_encoder_score": 0.9700841773709473,
           "dense_rank": 24,
           "dense_score": 0.8822385668754578,
           "domain": "hackerrank",
@@ -122,7 +122,7 @@
           "bm25_score": 0.7436791614329727,
           "chunk_id": "hackerrank_01409_28af215ab2",
           "cross_encoder_rank": 4,
-          "cross_encoder_score": 0.6377304295812559,
+          "cross_encoder_score": 0.95019377236628,
           "dense_rank": 6,
           "dense_score": 0.8885372877120972,
           "domain": "hackerrank",
@@ -136,7 +136,7 @@
           "bm25_score": 0.7070532469671108,
           "chunk_id": "hackerrank_02155_10061cfff5",
           "cross_encoder_rank": 5,
-          "cross_encoder_score": 0.5312473808200845,
+          "cross_encoder_score": 0.9885218685650654,
           "dense_rank": 4,
           "dense_score": 0.8898227214813232,
           "domain": "hackerrank",
@@ -177,18 +177,18 @@
   },
   "ticket_id": 6,
   "timings_ms": {
-    "confidence_gates": 0.052,
-    "generation": 28364.38,
-    "handler": 0.004,
-    "label_normalization": 0.068,
-    "retrieval": 83.311,
-    "sanitize": 5.207,
-    "semantic_cache": 41.37,
-    "semantic_cache_write": 0.051,
-    "source_receipt": 0.002,
-    "total": 28494.861,
-    "trap_classifier": 0.143
+    "confidence_gates": 0.107,
+    "generation": 263.98,
+    "handler": 0.007,
+    "label_normalization": 0.062,
+    "retrieval": 9126.975,
+    "sanitize": 4.898,
+    "semantic_cache": 312.611,
+    "semantic_cache_write": 0.08,
+    "source_receipt": 0.003,
+    "total": 9709.162,
+    "trap_classifier": 0.173
   },
-  "trace_file": "code\\traces\\production\\ticket_6_20260501T165041929581Z_331ec334.json",
-  "trace_id": "6_20260501T165041929581Z_331ec334"
+  "trace_file": "code\\traces\\production\\ticket_6_20260502T022406296415Z_b392f6fb.json",
+  "trace_id": "6_20260502T022406296415Z_b392f6fb"
 }

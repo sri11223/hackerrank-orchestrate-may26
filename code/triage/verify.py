@@ -161,6 +161,43 @@ def verify_response(
     )
 
 
+async def verify_response_async(
+    draft_response: str | GroundedGenerationResult | Mapping[str, Any],
+    user_issue: str | Ticket | Mapping[str, Any],
+    chunks: Sequence[ChunkRecord | RetrievedChunk | Mapping[str, Any]],
+    *,
+    client: LLMClient | None = None,
+) -> VerificationResult:
+    """Async verifier pass for the actor-critic batch pipeline."""
+
+    draft_text = _draft_to_text(draft_response)
+    issue_text = _issue_to_text(user_issue)
+    normalized_chunks = _coerce_chunks(chunks)
+
+    if not draft_text:
+        return VerificationResult(
+            safe=False,
+            issues=["Draft response is empty."],
+            recommended_action="rewrite",
+        )
+
+    messages = [
+        ChatMessage(role="system", content=VERIFIER_SYSTEM_PROMPT),
+        ChatMessage(role="user", content=_build_verifier_prompt(draft_text, issue_text, normalized_chunks)),
+    ]
+    llm = client or LLMClient()
+    result = await llm.chat_json_async("openai", messages, temperature=0.0, max_tokens=420)
+
+    try:
+        parsed = VerificationResult.model_validate(result.parsed_json)
+    except ValidationError as exc:
+        raise LLMResponseError(f"Invalid verifier JSON: {result.content}") from exc
+    return _repair_doc_gap_false_positive(
+        _repair_self_service_false_positive(parsed, draft_text),
+        draft_text,
+    )
+
+
 def _draft_to_text(draft_response: str | GroundedGenerationResult | Mapping[str, Any]) -> str:
     if isinstance(draft_response, GroundedGenerationResult):
         return json.dumps(draft_response.model_dump(), ensure_ascii=False, sort_keys=True)

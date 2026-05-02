@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-01T16:51:51.398889Z",
+  "created_at": "2026-05-02T02:24:16.639798Z",
   "final_decision": {
     "exact_quote": "",
     "justification": "[ACTION_REQUEST] grounded generation; retrieval_score=0.90; verifier=fail; hard_override=verifier=fail; product_area_snapped=Interviews->screen",
@@ -55,8 +55,8 @@
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 33.908,
-            "verify": 24.057
+            "generate": 22.848,
+            "verify": 19.014
           },
           "verifier": {
             "issues": [
@@ -84,8 +84,8 @@
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 41.516,
-            "verify": 23.385
+            "generate": 13.131,
+            "verify": 17.138
           },
           "verifier": {
             "issues": [
@@ -113,7 +113,7 @@
           "bm25_score": 0.7724018250074647,
           "chunk_id": "hackerrank_01628_6742c861b4",
           "cross_encoder_rank": 1,
-          "cross_encoder_score": 0.5028698664430903,
+          "cross_encoder_score": 0.9946920386512499,
           "dense_rank": 1,
           "dense_score": 0.8956478834152222,
           "domain": "hackerrank",
@@ -127,7 +127,7 @@
           "bm25_score": 0.8187436709810578,
           "chunk_id": "hackerrank_01866_e1c0a76929",
           "cross_encoder_rank": 2,
-          "cross_encoder_score": 0.5505344166600895,
+          "cross_encoder_score": 0.8262347699087487,
           "dense_rank": 12,
           "dense_score": 0.8486390709877014,
           "domain": "hackerrank",
@@ -141,7 +141,7 @@
           "bm25_score": 1.0,
           "chunk_id": "hackerrank_01389_1b73baca3c",
           "cross_encoder_rank": 3,
-          "cross_encoder_score": 0.620912013126667,
+          "cross_encoder_score": 0.2014396794658904,
           "dense_rank": 50,
           "dense_score": 0.8320481181144714,
           "domain": "hackerrank",
@@ -155,7 +155,7 @@
           "bm25_score": 0.6908869582175896,
           "chunk_id": "hackerrank_01708_4d991955f6",
           "cross_encoder_rank": 4,
-          "cross_encoder_score": 0.5694494462878846,
+          "cross_encoder_score": 0.15293139969798147,
           "dense_rank": 14,
           "dense_score": 0.8459427952766418,
           "domain": "hackerrank",
@@ -169,7 +169,7 @@
           "bm25_score": 0.9375649603719847,
           "chunk_id": "hackerrank_01390_f4f2a74770",
           "cross_encoder_rank": 5,
-          "cross_encoder_score": 0.47036990289565894,
+          "cross_encoder_score": 0.05583676457687484,
           "dense_rank": 85,
           "dense_score": 0.8257640898227692,
           "domain": "hackerrank",
@@ -211,18 +211,18 @@
   },
   "ticket_id": 13,
   "timings_ms": {
-    "confidence_gates": 0.083,
-    "generation": 123.248,
+    "confidence_gates": 0.274,
+    "generation": 72.445,
     "handler": 0.004,
-    "label_normalization": 0.31,
-    "retrieval": 175.606,
-    "sanitize": 11.101,
-    "semantic_cache": 84.003,
-    "semantic_cache_write": 0.101,
-    "source_receipt": 0.004,
-    "total": 395.192,
-    "trap_classifier": 0.314
+    "label_normalization": 0.21,
+    "retrieval": 13237.191,
+    "sanitize": 16.727,
+    "semantic_cache": 773.422,
+    "semantic_cache_write": 0.076,
+    "source_receipt": 0.003,
+    "total": 14101.887,
+    "trap_classifier": 0.482
   },
-  "trace_file": "code\\traces\\production\\ticket_13_20260501T165151398889Z_b4f14a3e.json",
-  "trace_id": "13_20260501T165151398889Z_b4f14a3e"
+  "trace_file": "code\\traces\\production\\ticket_13_20260502T022416639798Z_89a4831c.json",
+  "trace_id": "13_20260502T022416639798Z_89a4831c"
 }

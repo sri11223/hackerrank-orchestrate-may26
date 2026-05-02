@@ -1,11 +1,11 @@
 {
-  "created_at": "2026-05-01T16:52:07.411664Z",
+  "created_at": "2026-05-02T02:24:26.966434Z",
   "final_decision": {
     "exact_quote": "Visit our Lost or Stolen card page – if the identity theft involves your Visa card – to learn how to cancel your card or get an emergency replacement card.",
-    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass; product_area_snapped=Visa->travel_support",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass; product_area_snapped=Identity Theft Support->travel_support; exact_quote_source=deterministic_fallback",
     "product_area": "travel_support",
     "request_type": "product_issue",
-    "response": "If your identity has been stolen, you should visit the Lost or Stolen card page to learn how to cancel your card or get an emergency replacement card if the theft involves your Visa card.",
+    "response": "To address the issue of identity theft, visit the Lost or Stolen card page to learn how to cancel your card or get an emergency replacement card.",
     "status": "replied"
   },
   "input": {
@@ -18,19 +18,19 @@
       "generation_confidence": 0.9,
       "generation_confidence_threshold": 0.25,
       "input": {
-        "exact_quote": "Visit our Lost or Stolen card page – if the identity theft involves your Visa card – to learn how to cancel your card or get an emergency replacement card.",
+        "exact_quote": "",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass",
-        "product_area": "Visa",
+        "product_area": "Identity Theft Support",
         "request_type": "product_issue",
-        "response": "If your identity has been stolen, you should visit the Lost or Stolen card page to learn how to cancel your card or get an emergency replacement card if the theft involves your Visa card.",
+        "response": "To address the issue of identity theft, visit the Lost or Stolen card page to learn how to cancel your card or get an emergency replacement card.",
         "status": "replied"
       },
       "output": {
-        "exact_quote": "Visit our Lost or Stolen card page – if the identity theft involves your Visa card – to learn how to cancel your card or get an emergency replacement card.",
+        "exact_quote": "",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass",
-        "product_area": "Visa",
+        "product_area": "Identity Theft Support",
         "request_type": "product_issue",
-        "response": "If your identity has been stolen, you should visit the Lost or Stolen card page to learn how to cancel your card or get an emergency replacement card if the theft involves your Visa card.",
+        "response": "To address the issue of identity theft, visit the Lost or Stolen card page to learn how to cancel your card or get an emergency replacement card.",
         "status": "replied"
       },
       "threshold": 0.35,
@@ -46,46 +46,17 @@
             "citations": [
               "visa_06135_34f406e4e3"
             ],
-            "confidence": 1.0,
-            "exact_quote": "Visit our Lost or Stolen card page – if the identity theft involves your Visa card – to learn how to cancel your card or get an emergency replacement card.",
-            "product_area": "Visa",
-            "request_type": "product_issue",
-            "response": "Visit our Lost or Stolen card page – if the identity theft involves your Visa card – to learn how to cancel your card or get an emergency replacement card."
-          },
-          "provider": "openai",
-          "provider_fallback": null,
-          "timings_ms": {
-            "generate": 3893.666,
-            "verify": 2629.3
-          },
-          "verifier": {
-            "issues": [
-              "The draft response directly copies a quote from the source document without providing additional context or guidance, which may not fully address the user's issue regarding identity theft."
-            ],
-            "recommended_action": "rewrite",
-            "safe": false
-          }
-        },
-        {
-          "attempt": 2,
-          "critique": [
-            "The draft response directly copies a quote from the source document without providing additional context or guidance, which may not fully address the user's issue regarding identity theft."
-          ],
-          "generation": {
-            "citations": [
-              "visa_06135_34f406e4e3"
-            ],
             "confidence": 0.9,
-            "exact_quote": "Visit our Lost or Stolen card page – if the identity theft involves your Visa card – to learn how to cancel your card or get an emergency replacement card.",
-            "product_area": "Visa",
+            "exact_quote": "",
+            "product_area": "Identity Theft Support",
             "request_type": "product_issue",
-            "response": "If your identity has been stolen, you should visit the Lost or Stolen card page to learn how to cancel your card or get an emergency replacement card if the theft involves your Visa card."
+            "response": "To address the issue of identity theft, visit the Lost or Stolen card page to learn how to cancel your card or get an emergency replacement card."
           },
-          "provider": "openai",
+          "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 4299.224,
-            "verify": 3046.645
+            "generate": 33.288,
+            "verify": 63.858
           },
           "verifier": {
             "issues": [],
@@ -101,7 +72,7 @@
     },
     "label_normalization": {
       "changed": true,
-      "input_product_area": "Visa",
+      "input_product_area": "Identity Theft Support",
       "output_product_area": "travel_support"
     },
     "retrieval": {
@@ -111,7 +82,7 @@
           "bm25_score": 1.0,
           "chunk_id": "visa_06135_34f406e4e3",
           "cross_encoder_rank": 1,
-          "cross_encoder_score": 0.9690952959712843,
+          "cross_encoder_score": 0.9993468735681081,
           "dense_rank": 1,
           "dense_score": 0.9184466004371643,
           "domain": "visa",
@@ -125,7 +96,7 @@
           "bm25_score": 0.5211116290606169,
           "chunk_id": "visa_06131_e63b873fa7",
           "cross_encoder_rank": 2,
-          "cross_encoder_score": 0.8842526814109777,
+          "cross_encoder_score": 0.4845519632961848,
           "dense_rank": 2,
           "dense_score": 0.8603909015655518,
           "domain": "visa",
@@ -139,7 +110,7 @@
           "bm25_score": 0.1785532845892999,
           "chunk_id": "visa_06218_942f0e49fd",
           "cross_encoder_rank": 3,
-          "cross_encoder_score": 0.2517174000434781,
+          "cross_encoder_score": 3.173438585076142e-05,
           "dense_rank": 3,
           "dense_score": 0.8442139029502869,
           "domain": "visa",
@@ -153,7 +124,7 @@
           "bm25_score": 0.32575419170427555,
           "chunk_id": "visa_06138_d13823e9f3",
           "cross_encoder_rank": 4,
-          "cross_encoder_score": 0.6607563687658171,
+          "cross_encoder_score": 0.002634891237284495,
           "dense_rank": 14,
           "dense_score": 0.8154569864273071,
           "domain": "visa",
@@ -167,7 +138,7 @@
           "bm25_score": 0.10730488598969844,
           "chunk_id": "visa_06185_f0e5c0120f",
           "cross_encoder_rank": 5,
-          "cross_encoder_score": 0.22986194363983403,
+          "cross_encoder_score": 9.334421557188212e-05,
           "dense_rank": 5,
           "dense_score": 0.8329281806945801,
           "domain": "visa",
@@ -195,9 +166,9 @@
       "stored": true
     },
     "source_receipt": {
-      "had_exact_quote": true,
+      "had_exact_quote": false,
       "has_exact_quote": true,
-      "quote_source": "model"
+      "quote_source": "deterministic_fallback"
     },
     "trap_classifier": {
       "reasoning": "Deterministic default: legitimate support question likely answerable from docs.",
@@ -208,18 +179,18 @@
   },
   "ticket_id": 16,
   "timings_ms": {
-    "confidence_gates": 0.056,
-    "generation": 13869.405,
-    "handler": 0.007,
-    "label_normalization": 0.333,
-    "retrieval": 124.228,
-    "sanitize": 30.955,
-    "semantic_cache": 115.706,
-    "semantic_cache_write": 0.325,
-    "source_receipt": 0.008,
-    "total": 14141.987,
-    "trap_classifier": 0.291
+    "confidence_gates": 0.038,
+    "generation": 97.256,
+    "handler": 0.004,
+    "label_normalization": 0.199,
+    "retrieval": 4867.307,
+    "sanitize": 46.318,
+    "semantic_cache": 522.015,
+    "semantic_cache_write": 0.113,
+    "source_receipt": 3.806,
+    "total": 5537.999,
+    "trap_classifier": 0.306
   },
-  "trace_file": "code\\traces\\production\\ticket_16_20260501T165207411664Z_36d5c011.json",
-  "trace_id": "16_20260501T165207411664Z_36d5c011"
+  "trace_file": "code\\traces\\production\\ticket_16_20260502T022426966434Z_ad4785ee.json",
+  "trace_id": "16_20260502T022426966434Z_ad4785ee"
 }

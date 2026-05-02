@@ -1,11 +1,11 @@
 {
-  "created_at": "2026-05-01T16:51:43.684572Z",
+  "created_at": "2026-05-02T02:24:16.008209Z",
   "final_decision": {
     "exact_quote": "If you are using a company Slack instance and are not assigned to an Admin role, a Slack Admin must approve the Claude app on behalf of your organization before you’re able to download it.",
-    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.71; verifier=pass; product_area_snapped=Claude in Slack->general_support",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.71; verifier=pass; product_area_snapped=Claude->general_support",
     "product_area": "general_support",
     "request_type": "product_issue",
-    "response": "If you are using a company Slack instance and are not assigned to an Admin role, a Slack Admin must approve the Claude app on behalf of your organization before you’re able to download it. If you try to skip this step and install Claude in Slack, you’ll see a Request to install prompt where you can send a message to your Slack Admin. Work with them to approve the app and make it available for your team.",
+    "response": "If you are using a company Slack instance and are not assigned to an Admin role, a Slack Admin must approve the Claude app on behalf of your organization before you’re able to download it.",
     "status": "replied"
   },
   "input": {
@@ -15,22 +15,22 @@
   },
   "stages": {
     "confidence_gates": {
-      "generation_confidence": 0.9,
+      "generation_confidence": 0.8,
       "generation_confidence_threshold": 0.25,
       "input": {
         "exact_quote": "If you are using a company Slack instance and are not assigned to an Admin role, a Slack Admin must approve the Claude app on behalf of your organization before you’re able to download it.",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.71; verifier=pass",
-        "product_area": "Claude in Slack",
+        "product_area": "Claude",
         "request_type": "product_issue",
-        "response": "If you are using a company Slack instance and are not assigned to an Admin role, a Slack Admin must approve the Claude app on behalf of your organization before you’re able to download it. If you try to skip this step and install Claude in Slack, you’ll see a Request to install prompt where you can send a message to your Slack Admin. Work with them to approve the app and make it available for your team.",
+        "response": "If you are using a company Slack instance and are not assigned to an Admin role, a Slack Admin must approve the Claude app on behalf of your organization before you’re able to download it.",
         "status": "replied"
       },
       "output": {
         "exact_quote": "If you are using a company Slack instance and are not assigned to an Admin role, a Slack Admin must approve the Claude app on behalf of your organization before you’re able to download it.",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.71; verifier=pass",
-        "product_area": "Claude in Slack",
+        "product_area": "Claude",
         "request_type": "product_issue",
-        "response": "If you are using a company Slack instance and are not assigned to an Admin role, a Slack Admin must approve the Claude app on behalf of your organization before you’re able to download it. If you try to skip this step and install Claude in Slack, you’ll see a Request to install prompt where you can send a message to your Slack Admin. Work with them to approve the app and make it available for your team.",
+        "response": "If you are using a company Slack instance and are not assigned to an Admin role, a Slack Admin must approve the Claude app on behalf of your organization before you’re able to download it.",
         "status": "replied"
       },
       "threshold": 0.35,
@@ -46,17 +46,17 @@
             "citations": [
               "claude_05128_7fe636e699"
             ],
-            "confidence": 0.9,
+            "confidence": 0.8,
             "exact_quote": "If you are using a company Slack instance and are not assigned to an Admin role, a Slack Admin must approve the Claude app on behalf of your organization before you’re able to download it.",
-            "product_area": "Claude in Slack",
+            "product_area": "Claude",
             "request_type": "product_issue",
-            "response": "If you are using a company Slack instance and are not assigned to an Admin role, a Slack Admin must approve the Claude app on behalf of your organization before you’re able to download it. If you try to skip this step and install Claude in Slack, you’ll see a Request to install prompt where you can send a message to your Slack Admin. Work with them to approve the app and make it available for your team."
+            "response": "If you are using a company Slack instance and are not assigned to an Admin role, a Slack Admin must approve the Claude app on behalf of your organization before you’re able to download it."
           },
-          "provider": "openai",
+          "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 5340.225,
-            "verify": 2143.71
+            "generate": 275.353,
+            "verify": 98.851
           },
           "verifier": {
             "issues": [],
@@ -72,7 +72,7 @@
     },
     "label_normalization": {
       "changed": true,
-      "input_product_area": "Claude in Slack",
+      "input_product_area": "Claude",
       "output_product_area": "general_support"
     },
     "retrieval": {
@@ -82,7 +82,7 @@
           "bm25_score": 0.6322455444496828,
           "chunk_id": "claude_05556_fa9f8990f3",
           "cross_encoder_rank": 1,
-          "cross_encoder_score": 0.8275519807300706,
+          "cross_encoder_score": 0.22609226032964883,
           "dense_rank": 80,
           "dense_score": 0.7953738570213318,
           "domain": "claude",
@@ -96,7 +96,7 @@
           "bm25_score": 0.5008421311211732,
           "chunk_id": "claude_05561_e87e1100a3",
           "cross_encoder_rank": 2,
-          "cross_encoder_score": 0.8311946387393142,
+          "cross_encoder_score": 0.006278301165486591,
           "dense_rank": 21,
           "dense_score": 0.8102622032165527,
           "domain": "claude",
@@ -110,7 +110,7 @@
           "bm25_score": 1.0,
           "chunk_id": "claude_05128_7fe636e699",
           "cross_encoder_rank": 3,
-          "cross_encoder_score": 0.9335693772067858,
+          "cross_encoder_score": 0.9516392802997401,
           "dense_rank": 98,
           "dense_score": 0.7929010391235352,
           "domain": "claude",
@@ -124,7 +124,7 @@
           "bm25_score": 0.4910740186211249,
           "chunk_id": "claude_03830_db9ec0b08e",
           "cross_encoder_rank": 4,
-          "cross_encoder_score": 0.39963726224312895,
+          "cross_encoder_score": 0.02094432872207544,
           "dense_rank": 27,
           "dense_score": 0.8092786073684692,
           "domain": "claude",
@@ -138,7 +138,7 @@
           "bm25_score": 0.5309572546137619,
           "chunk_id": "claude_05302_69995a1c08",
           "cross_encoder_rank": 5,
-          "cross_encoder_score": 0.6532449007182833,
+          "cross_encoder_score": 0.02448759783908353,
           "dense_rank": 70,
           "dense_score": 0.7983292639255524,
           "domain": "claude",
@@ -179,18 +179,18 @@
   },
   "ticket_id": 12,
   "timings_ms": {
-    "confidence_gates": 0.029,
-    "generation": 7484.042,
-    "handler": 0.004,
-    "label_normalization": 0.431,
-    "retrieval": 103.409,
-    "sanitize": 55.083,
-    "semantic_cache": 65.737,
-    "semantic_cache_write": 0.116,
-    "source_receipt": 0.005,
-    "total": 7709.639,
-    "trap_classifier": 0.225
+    "confidence_gates": 0.038,
+    "generation": 374.317,
+    "handler": 0.007,
+    "label_normalization": 0.43,
+    "retrieval": 9527.345,
+    "sanitize": 249.917,
+    "semantic_cache": 793.609,
+    "semantic_cache_write": 3.467,
+    "source_receipt": 0.007,
+    "total": 10949.933,
+    "trap_classifier": 0.298
   },
-  "trace_file": "code\\traces\\production\\ticket_12_20260501T165143684572Z_d95dab9e.json",
-  "trace_id": "12_20260501T165143684572Z_d95dab9e"
+  "trace_file": "code\\traces\\production\\ticket_12_20260502T022416008209Z_26027613.json",
+  "trace_id": "12_20260502T022416008209Z_26027613"
 }

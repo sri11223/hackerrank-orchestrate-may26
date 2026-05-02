@@ -3,9 +3,12 @@
 from __future__ import annotations
 
 import hashlib
+import asyncio
 import json
+import os
 import random
 import re
+import threading
 import time
 from pathlib import Path
 from dataclasses import dataclass
@@ -125,6 +128,10 @@ class LLMClient:
         self._rng = random.Random(seed)
         self._openai_client: Any | None = None
         self._groq_client: Any | None = None
+        self._async_openai_client: Any | None = None
+        self._async_groq_client: Any | None = None
+        self._async_openai_loop: asyncio.AbstractEventLoop | None = None
+        self._async_groq_loop: asyncio.AbstractEventLoop | None = None
 
     def count_tokens(self, messages: Sequence[ChatMessage], model: str | None = None) -> int:
         return TokenCounter(model or self.settings.openai_model).count_messages(messages)
@@ -139,6 +146,24 @@ class LLMClient:
         max_tokens: int = 800,
     ) -> LLMResult:
         return self.chat(
+            provider,
+            messages,
+            model=model,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            strict_json=True,
+        )
+
+    async def chat_json_async(
+        self,
+        provider: Provider,
+        messages: Sequence[ChatMessage],
+        *,
+        model: str | None = None,
+        temperature: float = 0.0,
+        max_tokens: int = 800,
+    ) -> LLMResult:
+        return await self.chat_async(
             provider,
             messages,
             model=model,
@@ -219,6 +244,80 @@ class LLMClient:
             f"{provider} call failed after {self.settings.max_retries} attempts: {last_error}"
         ) from last_error
 
+    async def chat_async(
+        self,
+        provider: Provider,
+        messages: Sequence[ChatMessage],
+        *,
+        model: str | None = None,
+        temperature: float = 0.0,
+        max_tokens: int = 800,
+        strict_json: bool = False,
+    ) -> LLMResult:
+        """Async chat-completion wrapper with the same cache and strict JSON behavior."""
+
+        resolved_model = model or self._default_model(provider)
+        input_tokens = self.count_tokens(messages, resolved_model)
+        cache_key = self._cache_key(
+            provider=provider,
+            model=resolved_model,
+            messages=messages,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            strict_json=strict_json,
+        )
+        cached = self._read_cache(
+            cache_key=cache_key,
+            provider=provider,
+            model=resolved_model,
+            input_tokens=input_tokens,
+            strict_json=strict_json,
+        )
+        if cached is not None:
+            return cached
+
+        last_error: Exception | None = None
+
+        for attempt in range(1, self.settings.max_retries + 1):
+            try:
+                content, usage_in, usage_out = await self._call_provider_async(
+                    provider=provider,
+                    model=resolved_model,
+                    messages=messages,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                    strict_json=strict_json,
+                )
+                output_tokens = usage_out or TokenCounter(resolved_model).count_text(content)
+                parsed = StrictJSONParser.parse(content) if strict_json else None
+                result = LLMResult(
+                    provider=provider,
+                    model=resolved_model,
+                    content=content,
+                    input_tokens=usage_in or input_tokens,
+                    output_tokens=output_tokens,
+                    attempts=attempt,
+                    parsed_json=parsed,
+                )
+                self._write_cache(cache_key, result)
+                return result
+            except LLMConfigurationError:
+                raise
+            except StrictJSONError as exc:
+                last_error = exc
+                if attempt >= self.settings.max_retries:
+                    break
+                await self._sleep_before_retry_async(attempt)
+            except Exception as exc:  # Provider SDKs expose different retryable exception types.
+                last_error = exc
+                if attempt >= self.settings.max_retries:
+                    break
+                await self._sleep_before_retry_async(attempt)
+
+        raise LLMResponseError(
+            f"{provider} async call failed after {self.settings.max_retries} attempts: {last_error}"
+        ) from last_error
+
     def _cache_key(
         self,
         *,
@@ -281,7 +380,7 @@ class LLMClient:
             cache_dir = self.settings.llm_cache_dir
             cache_dir.mkdir(parents=True, exist_ok=True)
             path = self._cache_path(cache_key)
-            temp_path = path.with_suffix(".tmp")
+            temp_path = path.with_suffix(f".{os.getpid()}.{threading.get_ident()}.tmp")
             temp_path.write_text(
                 json.dumps(
                     {
@@ -313,6 +412,12 @@ class LLMClient:
         delay = min(self.settings.retry_max_delay_seconds, base + jitter)
         time.sleep(delay)
 
+    async def _sleep_before_retry_async(self, attempt: int) -> None:
+        base = self.settings.retry_base_delay_seconds * (2 ** (attempt - 1))
+        jitter = self._rng.uniform(0, self.settings.retry_base_delay_seconds)
+        delay = min(self.settings.retry_max_delay_seconds, base + jitter)
+        await asyncio.sleep(delay)
+
     def _call_provider(
         self,
         *,
@@ -327,6 +432,22 @@ class LLMClient:
             return self._call_openai(model, messages, temperature, max_tokens, strict_json)
         if provider == "groq":
             return self._call_groq(model, messages, temperature, max_tokens, strict_json)
+        raise LLMConfigurationError(f"Unsupported provider: {provider}")
+
+    async def _call_provider_async(
+        self,
+        *,
+        provider: Provider,
+        model: str,
+        messages: Sequence[ChatMessage],
+        temperature: float,
+        max_tokens: int,
+        strict_json: bool,
+    ) -> tuple[str, int | None, int | None]:
+        if provider == "openai":
+            return await self._call_openai_async(model, messages, temperature, max_tokens, strict_json)
+        if provider == "groq":
+            return await self._call_groq_async(model, messages, temperature, max_tokens, strict_json)
         raise LLMConfigurationError(f"Unsupported provider: {provider}")
 
     def _call_openai(
@@ -365,6 +486,44 @@ class LLMClient:
         output_tokens = getattr(usage, "completion_tokens", None) if usage else None
         return content.strip(), input_tokens, output_tokens
 
+    async def _call_openai_async(
+        self,
+        model: str,
+        messages: Sequence[ChatMessage],
+        temperature: float,
+        max_tokens: int,
+        strict_json: bool,
+    ) -> tuple[str, int | None, int | None]:
+        if not self.settings.openai_api_key:
+            raise LLMConfigurationError("OPENAI_API_KEY is not set")
+        loop = asyncio.get_running_loop()
+        if self._async_openai_client is None or self._async_openai_loop is not loop:
+            try:
+                from openai import AsyncOpenAI  # type: ignore
+            except ImportError as exc:
+                raise LLMConfigurationError("Install the openai package to use OpenAI") from exc
+            self._async_openai_client = AsyncOpenAI(
+                api_key=self.settings.openai_api_key,
+                timeout=self.settings.request_timeout_seconds,
+            )
+            self._async_openai_loop = loop
+
+        kwargs: dict[str, Any] = {
+            "model": model,
+            "messages": [message.as_dict() for message in messages],
+            "temperature": temperature,
+            "max_tokens": max_tokens,
+        }
+        if strict_json:
+            kwargs["response_format"] = {"type": "json_object"}
+
+        response = await self._async_openai_client.chat.completions.create(**kwargs)
+        content = response.choices[0].message.content or ""
+        usage = getattr(response, "usage", None)
+        input_tokens = getattr(usage, "prompt_tokens", None) if usage else None
+        output_tokens = getattr(usage, "completion_tokens", None) if usage else None
+        return content.strip(), input_tokens, output_tokens
+
     def _call_groq(
         self,
         model: str,
@@ -395,6 +554,44 @@ class LLMClient:
             kwargs["response_format"] = {"type": "json_object"}
 
         response = self._groq_client.chat.completions.create(**kwargs)
+        content = response.choices[0].message.content or ""
+        usage = getattr(response, "usage", None)
+        input_tokens = getattr(usage, "prompt_tokens", None) if usage else None
+        output_tokens = getattr(usage, "completion_tokens", None) if usage else None
+        return content.strip(), input_tokens, output_tokens
+
+    async def _call_groq_async(
+        self,
+        model: str,
+        messages: Sequence[ChatMessage],
+        temperature: float,
+        max_tokens: int,
+        strict_json: bool,
+    ) -> tuple[str, int | None, int | None]:
+        if not self.settings.groq_api_key:
+            raise LLMConfigurationError("GROQ_API_KEY is not set")
+        loop = asyncio.get_running_loop()
+        if self._async_groq_client is None or self._async_groq_loop is not loop:
+            try:
+                from groq import AsyncGroq  # type: ignore
+            except ImportError as exc:
+                raise LLMConfigurationError("Install the groq package to use Groq") from exc
+            self._async_groq_client = AsyncGroq(
+                api_key=self.settings.groq_api_key,
+                timeout=self.settings.request_timeout_seconds,
+            )
+            self._async_groq_loop = loop
+
+        kwargs: dict[str, Any] = {
+            "model": model,
+            "messages": [message.as_dict() for message in messages],
+            "temperature": temperature,
+            "max_tokens": max_tokens,
+        }
+        if strict_json:
+            kwargs["response_format"] = {"type": "json_object"}
+
+        response = await self._async_groq_client.chat.completions.create(**kwargs)
         content = response.choices[0].message.content or ""
         usage = getattr(response, "usage", None)
         input_tokens = getattr(usage, "prompt_tokens", None) if usage else None

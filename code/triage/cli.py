@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import os
 import sys
+import time
+import asyncio
 from pathlib import Path
-from typing import Optional
+from typing import Any, Optional
 
 import typer
 from rich.console import Console, Group
@@ -246,10 +248,12 @@ def interactive(
                     "[bold cyan]Analyzing intent and retrieving hybrid vectors...",
                     spinner="dots",
                 ):
-                    decision = process_ticket(
-                        {"issue": issue, "subject": "", "company": current_company},
-                        ticket_id=f"interactive_{ticket_id}",
-                        traces_dir=traces_dir,
+                    decision = asyncio.run(
+                        process_ticket(
+                            {"issue": issue, "subject": "", "company": current_company},
+                            ticket_id=f"interactive_{ticket_id}",
+                            traces_dir=traces_dir,
+                        )
                     )
             except Exception as exc:
                 decision = error_decision(
@@ -466,9 +470,53 @@ def _run_batch_csv(
         typer.echo(f"run failed: could not read input CSV {input_csv}: {exc}", err=True)
         raise typer.Exit(1) from exc
 
-    output_rows: list[dict[str, str]] = []
+    started = time.perf_counter()
+    try:
+        metrics = asyncio.run(
+            _run_batch_csv_async(frame=frame, output_csv=output_csv, traces_dir=traces_dir)
+        )
+    except KeyboardInterrupt:
+        console.print("\n[bright_black]Batch interrupted.[/]")
+        raise typer.Exit(130) from None
+
+    elapsed = metrics.get("elapsed_seconds", time.perf_counter() - started)
+    time_per_ticket = metrics.get("time_per_ticket_seconds", 0.0)
+    typer.echo(f"wrote {metrics['row_count']} rows to {output_csv}")
+    if traces_dir is not None:
+        typer.echo(f"wrote traces to {traces_dir}")
+    typer.echo(f"total time elapsed: {elapsed:.2f}s")
+    typer.echo(f"time per ticket: {time_per_ticket:.2f}s")
+
+
+async def _run_batch_csv_async(
+    *,
+    frame: Any,
+    output_csv: Path,
+    traces_dir: Optional[Path],
+) -> dict[str, float | int]:
+    """Process tickets concurrently while updating Rich progress on completion."""
+
+    import pandas as pd
+
+    output_rows: list[dict[str, str] | None] = [None] * len(frame)
     replied_count = 0
     escalated_count = 0
+    started = time.perf_counter()
+    semaphore = asyncio.Semaphore(5)
+
+    async def process_row(index: int, row: Any) -> tuple[int, dict[str, object], TriageDecision]:
+        row_id = index + 1
+        row_dict = row.to_dict()
+        async with semaphore:
+            try:
+                decision = await process_ticket(row_dict, ticket_id=row_id, traces_dir=traces_dir)
+            except Exception as exc:
+                console.print(
+                    f"[bold red]ticket {row_id}: escalated after processing error:[/] {exc}"
+                )
+                decision = error_decision(row_dict, exc, ticket_id=row_id, traces_dir=traces_dir)
+            return index, row_dict, decision
+
     with Progress(
         SpinnerColumn(),
         TextColumn("[progress.description]{task.description}"),
@@ -480,34 +528,28 @@ def _run_batch_csv(
             _batch_progress_description(replied_count, escalated_count),
             total=len(frame),
         )
-        for index, row in frame.iterrows():
-            row_id = index + 1
-            row_dict = row.to_dict()
-            try:
-                decision = process_ticket(row_dict, ticket_id=row_id, traces_dir=traces_dir)
-            except Exception as exc:
-                progress.console.print(
-                    f"[bold red]ticket {row_id}: escalated after processing error:[/] {exc}"
-                )
-                decision = error_decision(row_dict, exc, ticket_id=row_id, traces_dir=traces_dir)
+        tasks = [
+            asyncio.create_task(process_row(index, row))
+            for index, row in frame.iterrows()
+        ]
+        for completed in asyncio.as_completed(tasks):
+            index, row_dict, decision = await completed
 
             if decision.status == "replied":
                 replied_count += 1
             else:
                 escalated_count += 1
 
-            output_rows.append(
-                {
-                    "issue": _row_value(row_dict, "issue"),
-                    "subject": _row_value(row_dict, "subject"),
-                    "company": _row_value(row_dict, "company"),
-                    "response": decision.response,
-                    "product_area": decision.product_area,
-                    "status": decision.status,
-                    "request_type": decision.request_type,
-                    "justification": decision.justification,
-                }
-            )
+            output_rows[index] = {
+                "issue": _row_value(row_dict, "issue"),
+                "subject": _row_value(row_dict, "subject"),
+                "company": _row_value(row_dict, "company"),
+                "response": decision.response,
+                "product_area": decision.product_area,
+                "status": decision.status,
+                "request_type": decision.request_type,
+                "justification": decision.justification,
+            }
             progress.update(
                 task_id,
                 advance=1,
@@ -516,7 +558,7 @@ def _run_batch_csv(
 
     output_csv.parent.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(
-        output_rows,
+        [row for row in output_rows if row is not None],
         columns=[
             "issue",
             "subject",
@@ -528,9 +570,12 @@ def _run_batch_csv(
             "justification",
         ],
     ).to_csv(output_csv, index=False)
-    typer.echo(f"wrote {len(output_rows)} rows to {output_csv}")
-    if traces_dir is not None:
-        typer.echo(f"wrote traces to {traces_dir}")
+    elapsed = time.perf_counter() - started
+    return {
+        "row_count": len([row for row in output_rows if row is not None]),
+        "elapsed_seconds": elapsed,
+        "time_per_ticket_seconds": elapsed / len(frame) if len(frame) else 0.0,
+    }
 
 
 def _batch_progress_description(replied_count: int, escalated_count: int) -> str:

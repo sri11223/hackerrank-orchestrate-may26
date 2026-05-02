@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-01T16:50:30.365246Z",
+  "created_at": "2026-05-02T02:23:32.739409Z",
   "final_decision": {
     "exact_quote": "If you accidentally make a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass; product_area_snapped=Payments and Billing->screen",
@@ -55,8 +55,8 @@
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 4073.437,
-            "verify": 7289.936
+            "generate": 5.175,
+            "verify": 3.656
           },
           "verifier": {
             "issues": [],
@@ -82,7 +82,7 @@
           "bm25_score": 1.0,
           "chunk_id": "hackerrank_00814_0665960741",
           "cross_encoder_rank": 1,
-          "cross_encoder_score": 0.46483089932277566,
+          "cross_encoder_score": 4.111661274746315e-05,
           "dense_rank": 2,
           "dense_score": 0.829628050327301,
           "domain": "hackerrank",
@@ -96,7 +96,7 @@
           "bm25_score": 0.35985036232085427,
           "chunk_id": "hackerrank_00798_7abe213a16",
           "cross_encoder_rank": 2,
-          "cross_encoder_score": 0.3176254413050488,
+          "cross_encoder_score": 2.689902465027605e-05,
           "dense_rank": 1,
           "dense_score": 0.8413910567760468,
           "domain": "hackerrank",
@@ -110,7 +110,7 @@
           "bm25_score": 0.44846790442266504,
           "chunk_id": "hackerrank_00801_2da273fbef",
           "cross_encoder_rank": 3,
-          "cross_encoder_score": 0.21618415652822923,
+          "cross_encoder_score": 3.686106848817112e-05,
           "dense_rank": 11,
           "dense_score": 0.8050425052642822,
           "domain": "hackerrank",
@@ -124,7 +124,7 @@
           "bm25_score": 0.34459142965740874,
           "chunk_id": "hackerrank_00813_65b1570c9b",
           "cross_encoder_rank": 4,
-          "cross_encoder_score": 0.11489713026172114,
+          "cross_encoder_score": 1.7722689474503563e-05,
           "dense_rank": 5,
           "dense_score": 0.8110218048095703,
           "domain": "hackerrank",
@@ -138,7 +138,7 @@
           "bm25_score": 0.4645383787099656,
           "chunk_id": "hackerrank_00665_27a0bc0bfb",
           "cross_encoder_rank": 5,
-          "cross_encoder_score": 0.21091073829423757,
+          "cross_encoder_score": 1.0669694439763403e-05,
           "dense_rank": 24,
           "dense_score": 0.7912788987159729,
           "domain": "hackerrank",
@@ -179,18 +179,18 @@
   },
   "ticket_id": 5,
   "timings_ms": {
-    "confidence_gates": 0.03,
-    "generation": 11363.512,
-    "handler": 0.003,
-    "label_normalization": 0.5,
-    "retrieval": 118.536,
-    "sanitize": 6.863,
-    "semantic_cache": 72.292,
-    "semantic_cache_write": 0.163,
-    "source_receipt": 0.004,
-    "total": 11562.506,
-    "trap_classifier": 0.183
+    "confidence_gates": 0.016,
+    "generation": 8.91,
+    "handler": 0.005,
+    "label_normalization": 0.21,
+    "retrieval": 7010.806,
+    "sanitize": 5.02,
+    "semantic_cache": 26698.61,
+    "semantic_cache_write": 0.073,
+    "source_receipt": 0.002,
+    "total": 33724.544,
+    "trap_classifier": 0.567
   },
-  "trace_file": "code\\traces\\production\\ticket_5_20260501T165030364246Z_e7eaa53d.json",
-  "trace_id": "5_20260501T165030364246Z_e7eaa53d"
+  "trace_file": "code\\traces\\production\\ticket_5_20260502T022332739409Z_98ba8179.json",
+  "trace_id": "5_20260502T022332739409Z_98ba8179"
 }

@@ -1,11 +1,11 @@
 {
-  "created_at": "2026-05-01T16:51:27.999145Z",
+  "created_at": "2026-05-02T02:24:06.465691Z",
   "final_decision": {
     "exact_quote": "2. As an interviewer, access the interview link and log in to the session with your HackerRank for Work company admin user account. For more information on conducting coding interviews, refer to📄 Introduction to HackerRank Interviews",
-    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.78; verifier=pass; product_area_snapped=Interviews->screen; exact_quote_source=deterministic_fallback",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.78; verifier=pass; product_area_snapped=HackerRank Interviews->screen; exact_quote_source=deterministic_fallback",
     "product_area": "screen",
     "request_type": "product_issue",
-    "response": "To reschedule an interview, you need to log in to your HackerRank for Work account, go to the Interviews section, select the interview you want to reschedule, and update the date and time. After making the changes, click Save and Send Email to notify all participants of the updated schedule.",
+    "response": "To reschedule an interview, log in to your HackerRank for Work account, go to the Interviews > Interview List, click the interview you want to reschedule, click Invite Participants, update the date, time, and other fields as needed, and click Save and Send Email.",
     "status": "replied"
   },
   "input": {
@@ -15,22 +15,22 @@
   },
   "stages": {
     "confidence_gates": {
-      "generation_confidence": 0.9,
+      "generation_confidence": 0.8,
       "generation_confidence_threshold": 0.25,
       "input": {
         "exact_quote": "",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.78; verifier=pass",
-        "product_area": "Interviews",
+        "product_area": "HackerRank Interviews",
         "request_type": "product_issue",
-        "response": "To reschedule an interview, you need to log in to your HackerRank for Work account, go to the Interviews section, select the interview you want to reschedule, and update the date and time. After making the changes, click Save and Send Email to notify all participants of the updated schedule.",
+        "response": "To reschedule an interview, log in to your HackerRank for Work account, go to the Interviews > Interview List, click the interview you want to reschedule, click Invite Participants, update the date, time, and other fields as needed, and click Save and Send Email.",
         "status": "replied"
       },
       "output": {
         "exact_quote": "",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.78; verifier=pass",
-        "product_area": "Interviews",
+        "product_area": "HackerRank Interviews",
         "request_type": "product_issue",
-        "response": "To reschedule an interview, you need to log in to your HackerRank for Work account, go to the Interviews section, select the interview you want to reschedule, and update the date and time. After making the changes, click Save and Send Email to notify all participants of the updated schedule.",
+        "response": "To reschedule an interview, log in to your HackerRank for Work account, go to the Interviews > Interview List, click the interview you want to reschedule, click Invite Participants, update the date, time, and other fields as needed, and click Save and Send Email.",
         "status": "replied"
       },
       "threshold": 0.35,
@@ -46,17 +46,17 @@
             "citations": [
               "hackerrank_01620_f5ea5c8629"
             ],
-            "confidence": 0.9,
+            "confidence": 0.8,
             "exact_quote": "",
-            "product_area": "Interviews",
+            "product_area": "HackerRank Interviews",
             "request_type": "product_issue",
-            "response": "To reschedule an interview, you need to log in to your HackerRank for Work account, go to the Interviews section, select the interview you want to reschedule, and update the date and time. After making the changes, click Save and Send Email to notify all participants of the updated schedule."
+            "response": "To reschedule an interview, log in to your HackerRank for Work account, go to the Interviews > Interview List, click the interview you want to reschedule, click Invite Participants, update the date, time, and other fields as needed, and click Save and Send Email."
           },
-          "provider": "openai",
+          "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 7113.244,
-            "verify": 3159.504
+            "generate": 282.848,
+            "verify": 57.234
           },
           "verifier": {
             "issues": [],
@@ -72,7 +72,7 @@
     },
     "label_normalization": {
       "changed": true,
-      "input_product_area": "Interviews",
+      "input_product_area": "HackerRank Interviews",
       "output_product_area": "screen"
     },
     "retrieval": {
@@ -82,7 +82,7 @@
           "bm25_score": 0.8345682488140065,
           "chunk_id": "hackerrank_00706_b98c69da34",
           "cross_encoder_rank": 1,
-          "cross_encoder_score": 0.4868162434052595,
+          "cross_encoder_score": 0.0427386498468085,
           "dense_rank": 9,
           "dense_score": 0.8721375465393066,
           "domain": "hackerrank",
@@ -96,7 +96,7 @@
           "bm25_score": 0.7895722272418875,
           "chunk_id": "hackerrank_01409_28af215ab2",
           "cross_encoder_rank": 2,
-          "cross_encoder_score": 0.40158617207398023,
+          "cross_encoder_score": 0.009530642981059255,
           "dense_rank": 4,
           "dense_score": 0.876333475112915,
           "domain": "hackerrank",
@@ -110,7 +110,7 @@
           "bm25_score": 0.8012150747615796,
           "chunk_id": "hackerrank_01266_7c2f79caa8",
           "cross_encoder_rank": 3,
-          "cross_encoder_score": 0.4851727749263377,
+          "cross_encoder_score": 0.07529301526097958,
           "dense_rank": 7,
           "dense_score": 0.8745394945144653,
           "domain": "hackerrank",
@@ -124,7 +124,7 @@
           "bm25_score": 0.7545413874634511,
           "chunk_id": "hackerrank_01620_f5ea5c8629",
           "cross_encoder_rank": 4,
-          "cross_encoder_score": 0.46204865941984274,
+          "cross_encoder_score": 0.20924686306282514,
           "dense_rank": 1,
           "dense_score": 0.8930166065692902,
           "domain": "hackerrank",
@@ -138,7 +138,7 @@
           "bm25_score": 0.9114094564654406,
           "chunk_id": "hackerrank_02197_102e5a6f7a",
           "cross_encoder_rank": 5,
-          "cross_encoder_score": 0.6441804328453236,
+          "cross_encoder_score": 0.25594429590749734,
           "dense_rank": 75,
           "dense_score": 0.8553765416145325,
           "domain": "hackerrank",
@@ -180,17 +180,17 @@
   "ticket_id": 10,
   "timings_ms": {
     "confidence_gates": 0.014,
-    "generation": 10272.82,
-    "handler": 0.005,
-    "label_normalization": 0.114,
-    "retrieval": 197.727,
-    "sanitize": 8.528,
-    "semantic_cache": 72.407,
-    "semantic_cache_write": 0.046,
-    "source_receipt": 1.622,
-    "total": 10554.811,
-    "trap_classifier": 1.244
+    "generation": 340.194,
+    "handler": 0.011,
+    "label_normalization": 0.091,
+    "retrieval": 14264.739,
+    "sanitize": 4.759,
+    "semantic_cache": 334.41,
+    "semantic_cache_write": 0.103,
+    "source_receipt": 1.737,
+    "total": 14946.593,
+    "trap_classifier": 0.236
   },
-  "trace_file": "code\\traces\\production\\ticket_10_20260501T165127999145Z_77f04597.json",
-  "trace_id": "10_20260501T165127999145Z_77f04597"
+  "trace_file": "code\\traces\\production\\ticket_10_20260502T022406465691Z_4def5a67.json",
+  "trace_id": "10_20260502T022406465691Z_4def5a67"
 }

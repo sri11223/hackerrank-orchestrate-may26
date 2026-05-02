@@ -1,11 +1,11 @@
 {
-  "created_at": "2026-05-01T16:53:13.496722Z",
+  "created_at": "2026-05-02T02:24:50.622133Z",
   "final_decision": {
-    "exact_quote": "In general, a merchant is not permitted to establish a minimum or maximum amount for a Visa transaction.",
-    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass; product_area_snapped=Visa->travel_support; exact_quote_source=deterministic_fallback",
+    "exact_quote": "In those locations, and only for credit cards, a merchant may require a minimum transaction amount of US\\$10.",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass; product_area_snapped=Visa card->travel_support; exact_quote_source=deterministic_fallback",
     "product_area": "travel_support",
     "request_type": "product_issue",
-    "response": "In the USA and US territories, like the US Virgin Islands, a merchant may require a minimum transaction amount of US$10 for credit cards. This is an exception to the general rule that merchants cannot establish a minimum or maximum amount for Visa transactions.",
+    "response": "In the US Virgin Islands, a merchant may require a minimum transaction amount of US$10 for credit cards.",
     "status": "replied"
   },
   "input": {
@@ -20,17 +20,17 @@
       "input": {
         "exact_quote": "",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass",
-        "product_area": "Visa",
+        "product_area": "Visa card",
         "request_type": "product_issue",
-        "response": "In the USA and US territories, like the US Virgin Islands, a merchant may require a minimum transaction amount of US$10 for credit cards. This is an exception to the general rule that merchants cannot establish a minimum or maximum amount for Visa transactions.",
+        "response": "In the US Virgin Islands, a merchant may require a minimum transaction amount of US$10 for credit cards.",
         "status": "replied"
       },
       "output": {
         "exact_quote": "",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass",
-        "product_area": "Visa",
+        "product_area": "Visa card",
         "request_type": "product_issue",
-        "response": "In the USA and US territories, like the US Virgin Islands, a merchant may require a minimum transaction amount of US$10 for credit cards. This is an exception to the general rule that merchants cannot establish a minimum or maximum amount for Visa transactions.",
+        "response": "In the US Virgin Islands, a merchant may require a minimum transaction amount of US$10 for credit cards.",
         "status": "replied"
       },
       "threshold": 0.35,
@@ -48,15 +48,15 @@
             ],
             "confidence": 0.9,
             "exact_quote": "",
-            "product_area": "Visa",
+            "product_area": "Visa card",
             "request_type": "product_issue",
-            "response": "In the USA and US territories, like the US Virgin Islands, a merchant may require a minimum transaction amount of US$10 for credit cards. This is an exception to the general rule that merchants cannot establish a minimum or maximum amount for Visa transactions."
+            "response": "In the US Virgin Islands, a merchant may require a minimum transaction amount of US$10 for credit cards."
           },
-          "provider": "openai",
+          "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 4211.283,
-            "verify": 1903.918
+            "generate": 34.308,
+            "verify": 32.084
           },
           "verifier": {
             "issues": [],
@@ -72,7 +72,7 @@
     },
     "label_normalization": {
       "changed": true,
-      "input_product_area": "Visa",
+      "input_product_area": "Visa card",
       "output_product_area": "travel_support"
     },
     "retrieval": {
@@ -82,7 +82,7 @@
           "bm25_score": 1.0,
           "chunk_id": "visa_06145_bfb0bffdbb",
           "cross_encoder_rank": 1,
-          "cross_encoder_score": 0.9048693723254155,
+          "cross_encoder_score": 0.9876083923166106,
           "dense_rank": 1,
           "dense_score": 0.900311291217804,
           "domain": "visa",
@@ -96,7 +96,7 @@
           "bm25_score": 0.5414200956000574,
           "chunk_id": "visa_06144_e050264cb1",
           "cross_encoder_rank": 2,
-          "cross_encoder_score": 0.2946155829403403,
+          "cross_encoder_score": 0.001001286807555948,
           "dense_rank": 2,
           "dense_score": 0.8436287045478821,
           "domain": "visa",
@@ -110,7 +110,7 @@
           "bm25_score": 0.48021844311842216,
           "chunk_id": "visa_06130_e69bd4a674",
           "cross_encoder_rank": 3,
-          "cross_encoder_score": 0.5467254460710091,
+          "cross_encoder_score": 9.650703770850785e-05,
           "dense_rank": 9,
           "dense_score": 0.8244714736938477,
           "domain": "visa",
@@ -124,7 +124,7 @@
           "bm25_score": 0.33876196807411724,
           "chunk_id": "visa_06129_dfecc78adc",
           "cross_encoder_rank": 4,
-          "cross_encoder_score": 0.3351947111663019,
+          "cross_encoder_score": 3.7061733926637945e-05,
           "dense_rank": 5,
           "dense_score": 0.8305952548980713,
           "domain": "visa",
@@ -138,7 +138,7 @@
           "bm25_score": 0.2633327017322234,
           "chunk_id": "visa_06170_e0baaa4fce",
           "cross_encoder_rank": 5,
-          "cross_encoder_score": 0.33297000397288906,
+          "cross_encoder_score": 0.00019868143152969797,
           "dense_rank": 3,
           "dense_score": 0.8360960483551025,
           "domain": "visa",
@@ -179,18 +179,18 @@
   },
   "ticket_id": 29,
   "timings_ms": {
-    "confidence_gates": 0.03,
-    "generation": 6115.367,
-    "handler": 0.004,
-    "label_normalization": 0.128,
-    "retrieval": 68.49,
-    "sanitize": 7.032,
-    "semantic_cache": 54.692,
-    "semantic_cache_write": 0.144,
-    "source_receipt": 1.326,
-    "total": 6247.807,
-    "trap_classifier": 0.127
+    "confidence_gates": 0.052,
+    "generation": 66.521,
+    "handler": 0.007,
+    "label_normalization": 0.199,
+    "retrieval": 4894.697,
+    "sanitize": 39.435,
+    "semantic_cache": 554.582,
+    "semantic_cache_write": 0.18,
+    "source_receipt": 1.827,
+    "total": 5558.425,
+    "trap_classifier": 0.246
   },
-  "trace_file": "code\\traces\\production\\ticket_29_20260501T165313496722Z_0a9f4f55.json",
-  "trace_id": "29_20260501T165313496722Z_0a9f4f55"
+  "trace_file": "code\\traces\\production\\ticket_29_20260502T022450622133Z_20e2f0d5.json",
+  "trace_id": "29_20260502T022450622133Z_20e2f0d5"
 }

@@ -1,11 +1,11 @@
 {
-  "created_at": "2026-05-01T16:52:28.340447Z",
+  "created_at": "2026-05-02T02:24:30.635023Z",
   "final_decision": {
-    "exact_quote": "When you update your name, the change applies to all your certificates. After you update it, you cannot change it again.",
-    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass; product_area_snapped=Certifications->screen; exact_quote_source=deterministic_fallback",
+    "exact_quote": "Yes. You can update the name on your certificate only once per account.",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass; product_area_snapped=Certifications->screen",
     "product_area": "screen",
     "request_type": "product_issue",
-    "response": "Yes. You can update the name on your certificate only once per account. When you update your name, the change applies to all your certificates. After you update it, you cannot change it again.",
+    "response": "You can update the name on your certificate only once per account. To update the name on your certificate, open your certificate page, enter the name you want to display in the Full Name field, click Regenerate Certificate, and then click Update Name in the confirmation dialog.",
     "status": "replied"
   },
   "input": {
@@ -18,19 +18,19 @@
       "generation_confidence": 0.9,
       "generation_confidence_threshold": 0.25,
       "input": {
-        "exact_quote": "",
+        "exact_quote": "Yes. You can update the name on your certificate only once per account.",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass",
         "product_area": "Certifications",
         "request_type": "product_issue",
-        "response": "Yes. You can update the name on your certificate only once per account. When you update your name, the change applies to all your certificates. After you update it, you cannot change it again.",
+        "response": "You can update the name on your certificate only once per account. To update the name on your certificate, open your certificate page, enter the name you want to display in the Full Name field, click Regenerate Certificate, and then click Update Name in the confirmation dialog.",
         "status": "replied"
       },
       "output": {
-        "exact_quote": "",
+        "exact_quote": "Yes. You can update the name on your certificate only once per account.",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass",
         "product_area": "Certifications",
         "request_type": "product_issue",
-        "response": "Yes. You can update the name on your certificate only once per account. When you update your name, the change applies to all your certificates. After you update it, you cannot change it again.",
+        "response": "You can update the name on your certificate only once per account. To update the name on your certificate, open your certificate page, enter the name you want to display in the Full Name field, click Regenerate Certificate, and then click Update Name in the confirmation dialog.",
         "status": "replied"
       },
       "threshold": 0.35,
@@ -47,16 +47,16 @@
               "hackerrank_00705_cca8fdc532"
             ],
             "confidence": 0.9,
-            "exact_quote": "",
+            "exact_quote": "Yes. You can update the name on your certificate only once per account.",
             "product_area": "Certifications",
             "request_type": "product_issue",
-            "response": "Yes. You can update the name on your certificate only once per account. When you update your name, the change applies to all your certificates. After you update it, you cannot change it again."
+            "response": "You can update the name on your certificate only once per account. To update the name on your certificate, open your certificate page, enter the name you want to display in the Full Name field, click Regenerate Certificate, and then click Update Name in the confirmation dialog."
           },
-          "provider": "openai",
+          "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 4542.785,
-            "verify": 4880.628
+            "generate": 200.674,
+            "verify": 89.697
           },
           "verifier": {
             "issues": [],
@@ -82,7 +82,7 @@
           "bm25_score": 1.0,
           "chunk_id": "hackerrank_00705_cca8fdc532",
           "cross_encoder_rank": 1,
-          "cross_encoder_score": 0.8211857704233925,
+          "cross_encoder_score": 0.9956772559039777,
           "dense_rank": 1,
           "dense_score": 0.921734094619751,
           "domain": "hackerrank",
@@ -96,7 +96,7 @@
           "bm25_score": 0.6260418286712953,
           "chunk_id": "hackerrank_01465_dd5d0fc532",
           "cross_encoder_rank": 2,
-          "cross_encoder_score": 0.3739320967592691,
+          "cross_encoder_score": 0.005694461823018176,
           "dense_rank": 3,
           "dense_score": 0.84510338306427,
           "domain": "hackerrank",
@@ -110,7 +110,7 @@
           "bm25_score": 0.5394394757621271,
           "chunk_id": "hackerrank_02096_6636346cf1",
           "cross_encoder_rank": 3,
-          "cross_encoder_score": 0.6201824211547424,
+          "cross_encoder_score": 0.0025066039957529233,
           "dense_rank": 2,
           "dense_score": 0.8472189903259277,
           "domain": "hackerrank",
@@ -124,7 +124,7 @@
           "bm25_score": 0.5407574030435628,
           "chunk_id": "hackerrank_00706_b98c69da34",
           "cross_encoder_rank": 4,
-          "cross_encoder_score": 0.5320986517899183,
+          "cross_encoder_score": 0.004995416029046766,
           "dense_rank": 5,
           "dense_score": 0.8323498964309692,
           "domain": "hackerrank",
@@ -138,7 +138,7 @@
           "bm25_score": 0.5530128592148545,
           "chunk_id": "hackerrank_02527_57914c902b",
           "cross_encoder_rank": 5,
-          "cross_encoder_score": 0.33458944125318596,
+          "cross_encoder_score": 0.0011209959805406177,
           "dense_rank": 18,
           "dense_score": 0.8210299611091614,
           "domain": "hackerrank",
@@ -166,9 +166,9 @@
       "stored": true
     },
     "source_receipt": {
-      "had_exact_quote": false,
+      "had_exact_quote": true,
       "has_exact_quote": true,
-      "quote_source": "deterministic_fallback"
+      "quote_source": "model"
     },
     "trap_classifier": {
       "reasoning": "Deterministic default: legitimate support question likely answerable from docs.",
@@ -179,18 +179,18 @@
   },
   "ticket_id": 18,
   "timings_ms": {
-    "confidence_gates": 0.017,
-    "generation": 9423.481,
-    "handler": 0.004,
-    "label_normalization": 0.104,
-    "retrieval": 135.792,
-    "sanitize": 17.756,
-    "semantic_cache": 71.284,
-    "semantic_cache_write": 0.118,
-    "source_receipt": 2.71,
-    "total": 9651.936,
-    "trap_classifier": 0.284
+    "confidence_gates": 0.02,
+    "generation": 290.498,
+    "handler": 0.003,
+    "label_normalization": 0.264,
+    "retrieval": 12342.069,
+    "sanitize": 31.443,
+    "semantic_cache": 663.042,
+    "semantic_cache_write": 0.266,
+    "source_receipt": 0.006,
+    "total": 13328.542,
+    "trap_classifier": 0.381
   },
-  "trace_file": "code\\traces\\production\\ticket_18_20260501T165228339451Z_c252dfd3.json",
-  "trace_id": "18_20260501T165228339451Z_c252dfd3"
+  "trace_file": "code\\traces\\production\\ticket_18_20260502T022430635023Z_51d8ed25.json",
+  "trace_id": "18_20260502T022430635023Z_51d8ed25"
 }

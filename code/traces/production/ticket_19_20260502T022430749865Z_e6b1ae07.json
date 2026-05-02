@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-05-01T16:52:37.995024Z",
+  "created_at": "2026-05-02T02:24:30.749865Z",
   "final_decision": {
-    "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
+    "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass; product_area_snapped=Dispute Resolution->travel_support",
     "product_area": "travel_support",
     "request_type": "product_issue",
@@ -18,7 +18,7 @@
       "generation_confidence": 1.0,
       "generation_confidence_threshold": 0.25,
       "input": {
-        "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
+        "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card.",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass",
         "product_area": "Dispute Resolution",
         "request_type": "product_issue",
@@ -26,7 +26,7 @@
         "status": "replied"
       },
       "output": {
-        "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
+        "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card.",
         "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass",
         "product_area": "Dispute Resolution",
         "request_type": "product_issue",
@@ -46,8 +46,37 @@
             "citations": [
               "visa_06129_dfecc78adc"
             ],
+            "confidence": 0.9,
+            "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card.",
+            "product_area": "Visa Support",
+            "request_type": "product_issue",
+            "response": "To dispute a charge, please contact your issuer or bank using the freephone number located on the front or back of your Visa card."
+          },
+          "provider": "groq",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 61.797,
+            "verify": 44.259
+          },
+          "verifier": {
+            "issues": [
+              "The draft response omits the important detail that the freephone number is only free when dialling from within the USA."
+            ],
+            "recommended_action": "rewrite",
+            "safe": false
+          }
+        },
+        {
+          "attempt": 2,
+          "critique": [
+            "The draft response omits the important detail that the freephone number is only free when dialling from within the USA."
+          ],
+          "generation": {
+            "citations": [
+              "visa_06129_dfecc78adc"
+            ],
             "confidence": 1.0,
-            "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
+            "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card.",
             "product_area": "Dispute Resolution",
             "request_type": "product_issue",
             "response": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge."
@@ -55,8 +84,8 @@
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 4211.878,
-            "verify": 1889.608
+            "generate": 57.836,
+            "verify": 34.113
           },
           "verifier": {
             "issues": [],
@@ -82,7 +111,7 @@
           "bm25_score": 1.0,
           "chunk_id": "visa_06129_dfecc78adc",
           "cross_encoder_rank": 1,
-          "cross_encoder_score": 0.9770226300899744,
+          "cross_encoder_score": 0.9998834154260631,
           "dense_rank": 1,
           "dense_score": 0.9225971102714539,
           "domain": "visa",
@@ -96,7 +125,7 @@
           "bm25_score": 0.6500240706587123,
           "chunk_id": "visa_06223_e6cdb2e7d9",
           "cross_encoder_rank": 2,
-          "cross_encoder_score": 0.681542496029743,
+          "cross_encoder_score": 0.9782236388385719,
           "dense_rank": 2,
           "dense_score": 0.8888273239135742,
           "domain": "visa",
@@ -110,7 +139,7 @@
           "bm25_score": 0.38304143611833524,
           "chunk_id": "visa_06219_46b1be462c",
           "cross_encoder_rank": 3,
-          "cross_encoder_score": 0.4232309758150566,
+          "cross_encoder_score": 0.0017091556488582928,
           "dense_rank": 4,
           "dense_score": 0.8327469825744629,
           "domain": "visa",
@@ -124,7 +153,7 @@
           "bm25_score": 0.353734194188012,
           "chunk_id": "visa_06222_f900e3dd83",
           "cross_encoder_rank": 4,
-          "cross_encoder_score": 0.4520706970743688,
+          "cross_encoder_score": 0.0013416115866062154,
           "dense_rank": 6,
           "dense_score": 0.8269136548042297,
           "domain": "visa",
@@ -138,7 +167,7 @@
           "bm25_score": 0.34938728946568,
           "chunk_id": "visa_06226_65ed6355d0",
           "cross_encoder_rank": 5,
-          "cross_encoder_score": 0.4520706970743688,
+          "cross_encoder_score": 0.0005876090718109891,
           "dense_rank": 8,
           "dense_score": 0.8252114057540894,
           "domain": "visa",
@@ -179,18 +208,18 @@
   },
   "ticket_id": 19,
   "timings_ms": {
-    "confidence_gates": 0.017,
-    "generation": 6101.56,
-    "handler": 0.003,
-    "label_normalization": 0.449,
-    "retrieval": 51.819,
-    "sanitize": 39.972,
-    "semantic_cache": 52.821,
-    "semantic_cache_write": 0.09,
-    "source_receipt": 0.004,
-    "total": 6247.281,
-    "trap_classifier": 0.153
+    "confidence_gates": 0.041,
+    "generation": 198.622,
+    "handler": 0.008,
+    "label_normalization": 1.04,
+    "retrieval": 5417.013,
+    "sanitize": 76.89,
+    "semantic_cache": 527.701,
+    "semantic_cache_write": 0.189,
+    "source_receipt": 0.007,
+    "total": 6230.429,
+    "trap_classifier": 0.297
   },
-  "trace_file": "code\\traces\\production\\ticket_19_20260501T165237995024Z_1bd2f8c6.json",
-  "trace_id": "19_20260501T165237995024Z_1bd2f8c6"
+  "trace_file": "code\\traces\\production\\ticket_19_20260502T022430749865Z_e6b1ae07.json",
+  "trace_id": "19_20260502T022430749865Z_e6b1ae07"
 }
