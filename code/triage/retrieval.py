@@ -224,7 +224,14 @@ class HybridRetriever:
         fused: dict[int, float],
         k: int,
     ) -> tuple[list[int], dict[int, tuple[int, float]]]:
-        """Rerank RRF candidates with pairwise query/document sigmoid scores."""
+        """Rerank RRF candidates with a weighted blend of fused + cross-encoder scores.
+
+        The cross-encoder pair score is the strongest signal we have for true
+        query/document relevance, but RRF still anchors against very-low BM25/dense
+        outliers. We normalize fused into 0..1, then blend with the cross-encoder
+        sigmoid so the reranker actually changes ordering instead of only breaking
+        ties.
+        """
 
         if not self.cross_encoder_enabled or not candidate_indices:
             return candidate_indices[:k], {}
@@ -233,9 +240,17 @@ class HybridRetriever:
         if not scores:
             return candidate_indices[:k], {}
 
+        max_fused = max(fused.values()) if fused else 1.0
+        if max_fused <= 0.0:
+            max_fused = 1.0
+
+        def blended(index: int) -> float:
+            normalized_fused = fused[index] / max_fused
+            return 0.4 * normalized_fused + 0.6 * scores[index]
+
         ranked = sorted(
             candidate_indices,
-            key=lambda index: (-fused[index], -scores[index], index),
+            key=lambda index: (-blended(index), -scores[index], -fused[index], index),
         )
         rankings = {
             global_index: (rank, scores[global_index])

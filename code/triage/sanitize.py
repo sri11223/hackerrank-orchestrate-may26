@@ -9,6 +9,19 @@ from .schema import Ticket
 
 
 _EMAIL_RE = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.IGNORECASE)
+# Help-desk / support contact addresses we want retrieval to keep matching against.
+# These are documented, public addresses — not user PII.
+_PUBLIC_HELPDESK_EMAILS = {
+    "support@hackerrank.com",
+    "help@hackerrank.com",
+    "support@anthropic.com",
+    "support@claude.com",
+    "privacy@anthropic.com",
+    "usage@anthropic.com",
+    "legal@anthropic.com",
+    "ip-violations@anthropic.com",
+    "trust-and-safety@anthropic.com",
+}
 _CC_RE = re.compile(r"\b(?:\d[ -]*?){13,16}\b")
 _SSN_RE = re.compile(r"(?<!\d)\d{3}-\d{2}-\d{4}(?!\d)")
 _PHONE_RE = re.compile(
@@ -33,14 +46,25 @@ _ZERO_WIDTH_AND_BIDI = {
 
 
 def scrub_pii(text: str) -> str:
-    """Replace sensitive customer identifiers before any external LLM call."""
+    """Replace sensitive customer identifiers before any external LLM call.
+
+    Public help-desk addresses (e.g. support@hackerrank.com) are preserved so
+    retrieval and the model can keep matching documented contact paths.
+    """
 
     scrubbed = str(text or "")
-    scrubbed = _EMAIL_RE.sub("[EMAIL_REDACTED]", scrubbed)
+    scrubbed = _EMAIL_RE.sub(_redact_email, scrubbed)
     scrubbed = _CC_RE.sub("[CC_REDACTED]", scrubbed)
     scrubbed = _SSN_RE.sub("[SSN_REDACTED]", scrubbed)
     scrubbed = _PHONE_RE.sub("[PHONE_REDACTED]", scrubbed)
     return scrubbed
+
+
+def _redact_email(match: re.Match[str]) -> str:
+    address = match.group(0)
+    if address.casefold() in _PUBLIC_HELPDESK_EMAILS:
+        return address
+    return "[EMAIL_REDACTED]"
 
 
 def normalize_text(value: str | None) -> str:

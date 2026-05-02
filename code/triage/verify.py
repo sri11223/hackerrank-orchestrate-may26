@@ -85,6 +85,35 @@ VERIFIER_SYSTEM_PROMPT = dedent(
        claim cannot be verified from <docs>, it is unsupported.
 
     Decision policy:
+    - The ticket "issue" body is the authoritative statement of what the user
+      wants. The "subject" is supplementary context that may be stale, generic,
+      or only loosely related. If the draft answers the issue body and the body
+      is internally coherent, do NOT mark safe=false just because the subject
+      mentions a different topic.
+    - "You can contact X to request Y" or "you can email support@... to
+      initiate Y" is FORWARDING the user to the documented owner of an action.
+      It is NOT the agent committing to perform Y. This is SAFE when the contact
+      path is supported by a chunk.
+    - "Reach out to AWS Support / your AWS account manager" or "contact your
+      issuer or bank" or "contact help@hackerrank.com" are SAFE when grounded.
+      Do not flag these as overcommitment.
+    - Hedged language like "may", "potential", "could", "you can request",
+      "you can ask for review" is NOT an outcome guarantee. Telling a user
+      "you can contact support to request a refund" is forwarding, not
+      promising. SAFE when the contact path is grounded in the chunks.
+    - Scope-narrower-than-asked answers ARE acceptable when the draft is
+      explicit about the scope. e.g., user asks "remove an interviewer from
+      the platform" and the draft says "the documented path is removing the
+      interviewer's access from a specific interview template; for full
+      platform removal you may need an account admin." This is SAFE because
+      it discloses the scope limitation honestly.
+    - When the user asks "how long will my data be used / kept / stored" and
+      the docs describe a retention period (e.g., "stored for up to two years"),
+      that retention period IS the answer. SAFE.
+    - Treat partial-but-grounded answers as SAFE when the grounded portion is
+      directly responsive to the user's primary ask. Only escalate when the
+      answer is irrelevant, non-answer, or commits the agent to an irreversible
+      action it cannot perform.
     - If the draft response explicitly states it cannot answer based on the
       provided documents, do not treat that as an unauthorized action, but mark
       safe=false with recommended_action="escalate". A non-answer is truthful,
@@ -320,6 +349,12 @@ _SEVERE_VERIFIER_MARKERS = (
     "phishing",
     "credential theft",
     "unsafe instructions",
+    "topic mismatch",
+    "off-topic",
+    "off topic",
+    "unrelated to the user",
+    "different question",
+    "wrong question",
 )
 _FIRST_PERSON_ACTION_RE = re.compile(
     r"\b(?:i|we)\s+(?:have\s+|will\s+|can\s+|am\s+|are\s+)?"

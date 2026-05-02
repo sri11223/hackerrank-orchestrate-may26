@@ -1,0 +1,230 @@
+{
+  "created_at": "2026-05-02T04:42:28.741701Z",
+  "final_decision": {
+    "exact_quote": "",
+    "justification": "[ACTION_REQUEST] grounded generation; retrieval_score=0.90; verifier=fail; hard_override=verifier=fail; product_area_snapped=HackerRank->screen",
+    "product_area": "screen",
+    "request_type": "product_issue",
+    "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
+    "status": "escalated"
+  },
+  "input": {
+    "Company": "HackerRank",
+    "Issue": "Hello! I am trying to remove an interviewer from the platform. I am not seeing this as an option when I select the three dots next to their name. \nCan you let me know how to do this?",
+    "Subject": "How to Remove a User"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 0.9,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "",
+        "justification": "[ACTION_REQUEST] grounded generation; retrieval_score=0.90; verifier=fail",
+        "product_area": "HackerRank",
+        "request_type": "product_issue",
+        "response": "I cannot perform the action directly, but you can remove access for any user from an interview template by following these steps: 1. Go to Interviews > Templates. 2. Click the More options (⋮) menu next to the template and select Share. 3. In the Share Interview Template dialog box, select the user you want to remove. 4. Select Remove User from the drop-down menu. 5. Click Confirm in the confirmation dialog box.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "",
+        "justification": "[ACTION_REQUEST] grounded generation; retrieval_score=0.90; verifier=fail; hard_override=verifier=fail",
+        "product_area": "HackerRank",
+        "request_type": "product_issue",
+        "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
+        "status": "escalated"
+      },
+      "threshold": 0.32,
+      "top_score": 0.8961038961038961,
+      "verifier_safe": false
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "hackerrank_01628_6742c861b4"
+            ],
+            "confidence": 0.9,
+            "exact_quote": "",
+            "product_area": "HackerRank",
+            "request_type": "product_issue",
+            "response": "To remove access for an interviewer from an interview template, you can follow these steps:\n\n1. Go to Interviews > Templates.\n2. Click the More options (⋮) menu next to the template and select Share.\n3. In the Share Interview Template dialog box, select the user or team you want to remove.\n4. Select Remove User from the drop-down menu.\n5. Click Confirm in the confirmation dialog box."
+          },
+          "mode": "initial",
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 213.721,
+            "verify": 2219.896
+          },
+          "verifier": {
+            "issues": [
+              "The draft response does not address the user's request to remove an interviewer from the platform, but instead provides instructions for removing access from an interview template, which may not be the same action."
+            ],
+            "recommended_action": "escalate",
+            "safe": false
+          }
+        },
+        {
+          "attempt": 2,
+          "critique": [
+            "The draft response does not address the user's request to remove an interviewer from the platform, but instead provides instructions for removing access from an interview template, which may not be the same action."
+          ],
+          "generation": {
+            "citations": [
+              "hackerrank_01628_6742c861b4"
+            ],
+            "confidence": 0.9,
+            "exact_quote": "",
+            "product_area": "HackerRank",
+            "request_type": "product_issue",
+            "response": "I cannot perform the action directly, but you can remove access for any user from an interview template by following these steps: 1. Go to Interviews > Templates. 2. Click the More options (⋮) menu next to the template and select Share. 3. In the Share Interview Template dialog box, select the user you want to remove. 4. Select Remove User from the drop-down menu. 5. Click Confirm in the confirmation dialog box."
+          },
+          "mode": "self_healing_rewrite",
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 5195.268,
+            "verify": 2322.385
+          },
+          "verifier": {
+            "issues": [
+              "The draft response does not address the user's request to remove an interviewer from the platform, as it only provides steps to remove access from an interview template, which may not be the same action the user is seeking."
+            ],
+            "recommended_action": "escalate",
+            "safe": false
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "HackerRank",
+      "output_product_area": "screen"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 17,
+          "bm25_score": 0.7724018250074647,
+          "chunk_id": "hackerrank_01628_6742c861b4",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.9946920386512499,
+          "dense_rank": 1,
+          "dense_score": 0.8956478834152222,
+          "domain": "hackerrank",
+          "heading_path": "Interviews > Manage Interviews > Removing user access from an interview template",
+          "normalized_score": 0.8961038961038961,
+          "rrf_score": 0.02938045560996381,
+          "url_or_file": "https://support.hackerrank.com/articles/2837093779-standardizing-interviews-using-templates"
+        },
+        {
+          "bm25_rank": 13,
+          "bm25_score": 0.8187436709810578,
+          "chunk_id": "hackerrank_01866_e1c0a76929",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.8262347699087487,
+          "dense_rank": 12,
+          "dense_score": 0.8486390709877014,
+          "domain": "hackerrank",
+          "heading_path": "Library > Manage Question > Removing access from a question",
+          "normalized_score": 0.8414193302891932,
+          "rrf_score": 0.02758751902587519,
+          "url_or_file": "https://support.hackerrank.com/articles/6697457900-share-a-question"
+        },
+        {
+          "bm25_rank": 81,
+          "bm25_score": 0.6287985252909561,
+          "chunk_id": "hackerrank_01692_0e680bb502",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.7426294992027593,
+          "dense_rank": 6,
+          "dense_score": 0.8607386946678162,
+          "domain": "hackerrank",
+          "heading_path": "Interviews > Manage Interviews > Manage templates during an interview > Removing a question from a template",
+          "normalized_score": 0.6784332688588007,
+          "rrf_score": 0.022243713733075435,
+          "url_or_file": "https://support.hackerrank.com/articles/8016598860-using-templates-in-interviews"
+        },
+        {
+          "bm25_rank": null,
+          "bm25_score": null,
+          "chunk_id": "hackerrank_01658_4eaf1322e5",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.8277968878291477,
+          "dense_rank": 2,
+          "dense_score": 0.8718973696231842,
+          "domain": "hackerrank",
+          "heading_path": "Interviews > Manage Interviews > Deleting an Interview",
+          "normalized_score": 0.4919354838709677,
+          "rrf_score": 0.016129032258064516,
+          "url_or_file": "https://support.hackerrank.com/articles/6488043690-canceling-an-interview"
+        },
+        {
+          "bm25_rank": null,
+          "bm25_score": null,
+          "chunk_id": "hackerrank_01630_ed4065987a",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.6303356200878215,
+          "dense_rank": 3,
+          "dense_score": 0.8659111857414246,
+          "domain": "hackerrank",
+          "heading_path": "Interviews > Manage Interviews > Deleting an interview template",
+          "normalized_score": 0.4841269841269841,
+          "rrf_score": 0.015873015873015872,
+          "url_or_file": "https://support.hackerrank.com/articles/2837093779-standardizing-interviews-using-templates"
+        }
+      ],
+      "threshold": 0.32,
+      "top_score": 0.8961038961038961
+    },
+    "sanitize": {
+      "company": "HackerRank",
+      "issue": "Hello! I am trying to remove an interviewer from the platform. I am not seeing this as an option when I select the three dots next to their name. \nCan you let me know how to do this?",
+      "language": "en",
+      "pii_detected": false,
+      "subject": "How to Remove a User"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": false,
+      "has_exact_quote": false,
+      "quote_source": "none"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic high-confidence trap rule matched ticket wording.",
+      "tags": [
+        "ACTION_REQUEST",
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 13,
+  "timings_ms": {
+    "confidence_gates": 0.301,
+    "generation": 9951.799,
+    "handler": 0.007,
+    "label_normalization": 0.179,
+    "retrieval": 7738.858,
+    "sanitize": 16.094,
+    "semantic_cache": 107.541,
+    "semantic_cache_write": 0.082,
+    "source_receipt": 0.003,
+    "total": 17815.769,
+    "trap_classifier": 0.378
+  },
+  "trace_file": "code\\traces\\production\\ticket_13_20260502T044228740691Z_b55e14b3.json",
+  "trace_id": "13_20260502T044228740691Z_b55e14b3"
+}

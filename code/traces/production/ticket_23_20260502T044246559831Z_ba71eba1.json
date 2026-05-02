@@ -1,0 +1,197 @@
+{
+  "created_at": "2026-05-02T04:42:46.559831Z",
+  "final_decision": {
+    "exact_quote": "Your data will be stored securely for up to two years, and data used for model training will not be associated with other customer information.",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.96; verifier=pass; product_area_snapped=Claude->privacy",
+    "product_area": "privacy",
+    "request_type": "product_issue",
+    "response": "Your data will be stored securely for up to two years, and data used for model training will not be associated with other customer information.",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "Claude",
+    "Issue": "I am allowing Claude to use my data to improve the models, how long will the data be used for?",
+    "Subject": "Personal Data Use"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 0.9,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "Your data will be stored securely for up to two years, and data used for model training will not be associated with other customer information.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.96; verifier=pass",
+        "product_area": "Claude",
+        "request_type": "product_issue",
+        "response": "Your data will be stored securely for up to two years, and data used for model training will not be associated with other customer information.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "Your data will be stored securely for up to two years, and data used for model training will not be associated with other customer information.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.96; verifier=pass",
+        "product_area": "Claude",
+        "request_type": "product_issue",
+        "response": "Your data will be stored securely for up to two years, and data used for model training will not be associated with other customer information.",
+        "status": "replied"
+      },
+      "threshold": 0.32,
+      "top_score": 0.9552238805970148,
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "claude_03102_5e800c3a7b"
+            ],
+            "confidence": 0.9,
+            "exact_quote": "Your data will be stored securely for up to two years, and data used for model training will not be associated with other customer information.",
+            "product_area": "Claude",
+            "request_type": "product_issue",
+            "response": "Your data will be stored securely for up to two years, and data used for model training will not be associated with other customer information."
+          },
+          "mode": "initial",
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 154.576,
+            "verify": 1241.993
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Claude",
+      "output_product_area": "privacy"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "claude_04211_537d4708ca",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.9749913669910915,
+          "dense_rank": 7,
+          "dense_score": 0.8757816851139069,
+          "domain": "claude",
+          "heading_path": "Claude > Account management > I would like to input sensitive data into my chats with Claude. Who can view my conversations? > How We Protect Your Data When You Help Improve Claude > Privacy Protections We Provide",
+          "normalized_score": 0.9552238805970148,
+          "rrf_score": 0.03131881575727918,
+          "url_or_file": "https://support.claude.com/en/articles/8325621-i-would-like-to-input-sensitive-data-into-my-chats-with-claude-who-can-view-my-conversations"
+        },
+        {
+          "bm25_rank": 2,
+          "bm25_score": 0.891938630790553,
+          "chunk_id": "claude_03638_6d27d5592b",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.8592670679659569,
+          "dense_rank": 2,
+          "dense_score": 0.8827182054519653,
+          "domain": "claude",
+          "heading_path": "Claude for Education > FAQs on Using Claude for Education at Your University > Privacy",
+          "normalized_score": 0.9838709677419354,
+          "rrf_score": 0.03225806451612903,
+          "url_or_file": "https://support.claude.com/en/articles/11139144-faqs-on-using-claude-for-education-at-your-university"
+        },
+        {
+          "bm25_rank": 40,
+          "bm25_score": 0.6630863618137586,
+          "chunk_id": "claude_04479_363eddde17",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.9876122431950533,
+          "dense_rank": 3,
+          "dense_score": 0.8812586069107056,
+          "domain": "claude",
+          "heading_path": "Claude > Features and capabilities > Use Claude for Excel > Current limitations",
+          "normalized_score": 0.7891269841269841,
+          "rrf_score": 0.025873015873015874,
+          "url_or_file": "https://support.claude.com/en/articles/12650343-use-claude-for-excel"
+        },
+        {
+          "bm25_rank": 3,
+          "bm25_score": 0.8208496059479217,
+          "chunk_id": "claude_03102_5e800c3a7b",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.9763181701952515,
+          "dense_rank": 88,
+          "dense_score": 0.8440189063549042,
+          "domain": "claude",
+          "heading_path": "Claude API and Console > Using the Claude API and Console > About the Development Partner Program > What is the Development Partner Program? > Key Information",
+          "normalized_score": 0.6902080652080651,
+          "rrf_score": 0.02262977262977263,
+          "url_or_file": "https://support.claude.com/en/articles/11174108-about-the-development-partner-program"
+        },
+        {
+          "bm25_rank": 93,
+          "bm25_score": 0.6014502929234122,
+          "chunk_id": "claude_04565_ddcca360f1",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.9803871754863197,
+          "dense_rank": 10,
+          "dense_score": 0.8730623126029968,
+          "domain": "claude",
+          "heading_path": "Claude > Features and capabilities > Use Claude for PowerPoint > Current limitations",
+          "normalized_score": 0.6350606909430438,
+          "rrf_score": 0.020821661998132585,
+          "url_or_file": "https://support.claude.com/en/articles/13521390-use-claude-for-powerpoint"
+        }
+      ],
+      "threshold": 0.32,
+      "top_score": 0.9552238805970148
+    },
+    "sanitize": {
+      "company": "Claude",
+      "issue": "I am allowing Claude to use my data to improve the models, how long will the data be used for?",
+      "language": "en",
+      "pii_detected": false,
+      "subject": "Personal Data Use"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": true,
+      "has_exact_quote": true,
+      "quote_source": "model"
+    },
+    "trap_classifier": {
+      "reasoning": "LLM classifier unavailable (LLMResponseError); defaulting to NORMAL_FAQ.",
+      "tags": [
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 23,
+  "timings_ms": {
+    "confidence_gates": 0.165,
+    "generation": 1396.672,
+    "handler": 0.006,
+    "label_normalization": 0.114,
+    "retrieval": 9746.852,
+    "sanitize": 9.114,
+    "semantic_cache": 85.171,
+    "semantic_cache_write": 0.116,
+    "source_receipt": 0.004,
+    "total": 18378.884,
+    "trap_classifier": 7140.2
+  },
+  "trace_file": "code\\traces\\production\\ticket_23_20260502T044246559831Z_ba71eba1.json",
+  "trace_id": "23_20260502T044246559831Z_ba71eba1"
+}

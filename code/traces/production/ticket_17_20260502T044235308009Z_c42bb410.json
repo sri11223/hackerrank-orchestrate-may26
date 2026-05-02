@@ -1,0 +1,173 @@
+{
+  "created_at": "2026-05-02T04:42:35.309007Z",
+  "final_decision": {
+    "exact_quote": "",
+    "justification": "[SYSTEM_OUTAGE] Ticket reports site-wide outage or complete service inaccessibility.; top_chunk=hackerrank_00694_49de11b42f; product_area_snapped=Additional Resources->screen",
+    "product_area": "screen",
+    "request_type": "bug",
+    "response": "This sounds like a broad site, platform, or service outage rather than a normal self-service support request. I am escalating it immediately so the support team can investigate availability and access impact. Most relevant retrieved document: Additional Resources > Job Search and Applications > Create a Resume with Resume Builder > Creating a resume with Resume Builder > Creating a resume from an existing file.",
+    "status": "escalated"
+  },
+  "input": {
+    "Company": "HackerRank",
+    "Issue": "Resume Builder is Down",
+    "Subject": "Help in creating resume"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": null,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "",
+        "justification": "[SYSTEM_OUTAGE] Ticket reports site-wide outage or complete service inaccessibility.; top_chunk=hackerrank_00694_49de11b42f",
+        "product_area": "Additional Resources",
+        "request_type": "bug",
+        "response": "This sounds like a broad site, platform, or service outage rather than a normal self-service support request. I am escalating it immediately so the support team can investigate availability and access impact. Most relevant retrieved document: Additional Resources > Job Search and Applications > Create a Resume with Resume Builder > Creating a resume with Resume Builder > Creating a resume from an existing file.",
+        "status": "escalated"
+      },
+      "output": {
+        "exact_quote": "",
+        "justification": "[SYSTEM_OUTAGE] Ticket reports site-wide outage or complete service inaccessibility.; top_chunk=hackerrank_00694_49de11b42f",
+        "product_area": "Additional Resources",
+        "request_type": "bug",
+        "response": "This sounds like a broad site, platform, or service outage rather than a normal self-service support request. I am escalating it immediately so the support team can investigate availability and access impact. Most relevant retrieved document: Additional Resources > Job Search and Applications > Create a Resume with Resume Builder > Creating a resume with Resume Builder > Creating a resume from an existing file.",
+        "status": "escalated"
+      },
+      "threshold": 0.32,
+      "top_score": 0.9838709677419354,
+      "verifier_safe": null
+    },
+    "handler": {
+      "decision": {
+        "exact_quote": "",
+        "justification": "[SYSTEM_OUTAGE] Ticket reports site-wide outage or complete service inaccessibility.; top_chunk=hackerrank_00694_49de11b42f",
+        "product_area": "Additional Resources",
+        "request_type": "bug",
+        "response": "This sounds like a broad site, platform, or service outage rather than a normal self-service support request. I am escalating it immediately so the support team can investigate availability and access impact. Most relevant retrieved document: Additional Resources > Job Search and Applications > Create a Resume with Resume Builder > Creating a resume with Resume Builder > Creating a resume from an existing file.",
+        "status": "escalated"
+      },
+      "mode": "deterministic"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Additional Resources",
+      "output_product_area": "screen"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 2,
+          "bm25_score": 0.8903961609459827,
+          "chunk_id": "hackerrank_00694_49de11b42f",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.997130787622204,
+          "dense_rank": 2,
+          "dense_score": 0.8948125839233398,
+          "domain": "hackerrank",
+          "heading_path": "Additional Resources > Job Search and Applications > Create a Resume with Resume Builder > Creating a resume with Resume Builder > Creating a resume from an existing file",
+          "normalized_score": 0.9838709677419354,
+          "rrf_score": 0.03225806451612903,
+          "url_or_file": "https://help.hackerrank.com/articles/9106957203-create-a-resume-with-resume-builder"
+        },
+        {
+          "bm25_rank": 3,
+          "bm25_score": 0.8788689401278659,
+          "chunk_id": "hackerrank_00691_b48c309e50",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.9966555899195951,
+          "dense_rank": 1,
+          "dense_score": 0.9057402610778809,
+          "domain": "hackerrank",
+          "heading_path": "Additional Resources > Job Search and Applications > Create a Resume with Resume Builder",
+          "normalized_score": 0.9841269841269842,
+          "rrf_score": 0.032266458495966696,
+          "url_or_file": "https://help.hackerrank.com/articles/9106957203-create-a-resume-with-resume-builder"
+        },
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "hackerrank_00692_6c8890318a",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.9767588924748767,
+          "dense_rank": 3,
+          "dense_score": 0.8927331566810608,
+          "domain": "hackerrank",
+          "heading_path": "Additional Resources > Job Search and Applications > Create a Resume with Resume Builder > Creating a resume with Resume Builder",
+          "normalized_score": 0.9841269841269842,
+          "rrf_score": 0.032266458495966696,
+          "url_or_file": "https://help.hackerrank.com/articles/9106957203-create-a-resume-with-resume-builder"
+        },
+        {
+          "bm25_rank": 4,
+          "bm25_score": 0.8490268580314455,
+          "chunk_id": "hackerrank_00693_f25681684d",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.9963567091257426,
+          "dense_rank": 4,
+          "dense_score": 0.8918835818767548,
+          "domain": "hackerrank",
+          "heading_path": "Additional Resources > Job Search and Applications > Create a Resume with Resume Builder > Creating a resume with Resume Builder > Creating a resume from scratch",
+          "normalized_score": 0.953125,
+          "rrf_score": 0.03125,
+          "url_or_file": "https://help.hackerrank.com/articles/9106957203-create-a-resume-with-resume-builder"
+        },
+        {
+          "bm25_rank": 5,
+          "bm25_score": 0.7811219241919145,
+          "chunk_id": "hackerrank_00228_2e480ea946",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.9946759344988363,
+          "dense_rank": 6,
+          "dense_score": 0.883477509021759,
+          "domain": "hackerrank",
+          "heading_path": "General Help > Release Notes > October 2024 Release Notes > HackerRank Community > Resume Builder",
+          "normalized_score": 0.9313519813519814,
+          "rrf_score": 0.030536130536130537,
+          "url_or_file": "https://support.hackerrank.com/articles/1189675016-october-2024-release-notes"
+        }
+      ],
+      "threshold": 0.32,
+      "top_score": 0.9838709677419354
+    },
+    "sanitize": {
+      "company": "HackerRank",
+      "issue": "Resume Builder is Down",
+      "language": "en",
+      "pii_detected": false,
+      "subject": "Help in creating resume"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": false,
+      "has_exact_quote": false,
+      "quote_source": "none"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic outage rule matched site-wide inaccessibility.",
+      "tags": [
+        "SYSTEM_OUTAGE"
+      ]
+    }
+  },
+  "ticket_id": 17,
+  "timings_ms": {
+    "confidence_gates": 0.119,
+    "handler": 0.305,
+    "label_normalization": 1.022,
+    "retrieval": 5618.447,
+    "sanitize": 17.03,
+    "semantic_cache": 2318.571,
+    "semantic_cache_write": 0.142,
+    "source_receipt": 0.005,
+    "total": 7956.154,
+    "trap_classifier": 0.196
+  },
+  "trace_file": "code\\traces\\production\\ticket_17_20260502T044235308009Z_c42bb410.json",
+  "trace_id": "17_20260502T044235308009Z_c42bb410"
+}

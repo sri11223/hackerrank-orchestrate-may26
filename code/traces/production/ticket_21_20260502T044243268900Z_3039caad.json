@@ -1,0 +1,197 @@
+{
+  "created_at": "2026-05-02T04:42:43.268900Z",
+  "final_decision": {
+    "exact_quote": "To block a Bot from your entire website, add this to the robots.txt file in your top-level directory. Please do this for every subdomain that you wish to opt out from. An example of this is:",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.91; verifier=pass; product_area_snapped=Claude->privacy; exact_quote_source=deterministic_fallback",
+    "product_area": "privacy",
+    "request_type": "product_issue",
+    "response": "To block a Bot from your entire website, you need to add specific directives to your robots.txt file. For example, you can use the following: User-agent: ClaudeBot Disallow: /. This should be done for every subdomain that you wish to opt out from. Additionally, you can use the Crawl-delay extension to limit crawling activity, such as: User-agent: ClaudeBot Crawl-delay: 1. Please note that alternate methods like blocking IP addresses may not work correctly or persistently.",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "Claude",
+    "Issue": "I want Claude to stop crawling by website",
+    "Subject": "Website Data crawl"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 0.9,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.91; verifier=pass",
+        "product_area": "Claude",
+        "request_type": "product_issue",
+        "response": "To block a Bot from your entire website, you need to add specific directives to your robots.txt file. For example, you can use the following: User-agent: ClaudeBot Disallow: /. This should be done for every subdomain that you wish to opt out from. Additionally, you can use the Crawl-delay extension to limit crawling activity, such as: User-agent: ClaudeBot Crawl-delay: 1. Please note that alternate methods like blocking IP addresses may not work correctly or persistently.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.91; verifier=pass",
+        "product_area": "Claude",
+        "request_type": "product_issue",
+        "response": "To block a Bot from your entire website, you need to add specific directives to your robots.txt file. For example, you can use the following: User-agent: ClaudeBot Disallow: /. This should be done for every subdomain that you wish to opt out from. Additionally, you can use the Crawl-delay extension to limit crawling activity, such as: User-agent: ClaudeBot Crawl-delay: 1. Please note that alternate methods like blocking IP addresses may not work correctly or persistently.",
+        "status": "replied"
+      },
+      "threshold": 0.32,
+      "top_score": 0.9104477611940298,
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "claude_05387_3b9e7aa645"
+            ],
+            "confidence": 0.9,
+            "exact_quote": "",
+            "product_area": "Claude",
+            "request_type": "product_issue",
+            "response": "To block a Bot from your entire website, you need to add specific directives to your robots.txt file. For example, you can use the following: User-agent: ClaudeBot Disallow: /. This should be done for every subdomain that you wish to opt out from. Additionally, you can use the Crawl-delay extension to limit crawling activity, such as: User-agent: ClaudeBot Crawl-delay: 1. Please note that alternate methods like blocking IP addresses may not work correctly or persistently."
+          },
+          "mode": "initial",
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 44.651,
+            "verify": 1202.292
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Claude",
+      "output_product_area": "privacy"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 7,
+          "bm25_score": 0.7035604801283368,
+          "chunk_id": "claude_05368_76236f6ef1",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.9359949980767087,
+          "dense_rank": 7,
+          "dense_score": 0.878838062286377,
+          "domain": "claude",
+          "heading_path": "Privacy and legal > Can I use my Outputs to train an AI model? > Related Articles",
+          "normalized_score": 0.9104477611940298,
+          "rrf_score": 0.029850746268656716,
+          "url_or_file": "https://support.claude.com/en/articles/12326764-can-i-use-my-outputs-to-train-an-ai-model"
+        },
+        {
+          "bm25_rank": 29,
+          "bm25_score": 0.5802859132485676,
+          "chunk_id": "claude_05389_f89c192994",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.9637820164438937,
+          "dense_rank": 3,
+          "dense_score": 0.8871170282363892,
+          "domain": "claude",
+          "heading_path": "Privacy and legal > Does Anthropic crawl data from the web, and how can site owners block the crawler? > Related Articles",
+          "normalized_score": 0.8268236133404672,
+          "rrf_score": 0.027108970929195647,
+          "url_or_file": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler"
+        },
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "claude_05387_3b9e7aa645",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.9838746649087153,
+          "dense_rank": 58,
+          "dense_score": 0.841838002204895,
+          "domain": "claude",
+          "heading_path": "Privacy and legal > Does Anthropic crawl data from the web, and how can site owners block the crawler?",
+          "normalized_score": 0.7584745762711865,
+          "rrf_score": 0.024868018894137263,
+          "url_or_file": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler"
+        },
+        {
+          "bm25_rank": 52,
+          "bm25_score": 0.5071084379119739,
+          "chunk_id": "claude_05373_ed9c8f509f",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.9481021313638193,
+          "dense_rank": 5,
+          "dense_score": 0.8834157884120941,
+          "domain": "claude",
+          "heading_path": "Privacy and legal > Report a Concern: Australian DIS Standard compliance > Related Articles",
+          "normalized_score": 0.7415521978021977,
+          "rrf_score": 0.024313186813186814,
+          "url_or_file": "https://support.claude.com/en/articles/12335811-report-a-concern-australian-dis-standard-compliance"
+        },
+        {
+          "bm25_rank": 61,
+          "bm25_score": 0.4701891166173055,
+          "chunk_id": "claude_05354_00cab104d8",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.9339694126283764,
+          "dense_rank": 1,
+          "dense_score": 0.8910294771194458,
+          "domain": "claude",
+          "heading_path": "Privacy and legal > Reporting, Blocking, and Removing Content from Claude > Related Articles",
+          "normalized_score": 0.7520661157024794,
+          "rrf_score": 0.024657905432868176,
+          "url_or_file": "https://support.claude.com/en/articles/10684638-reporting-blocking-and-removing-content-from-claude"
+        }
+      ],
+      "threshold": 0.32,
+      "top_score": 0.9104477611940298
+    },
+    "sanitize": {
+      "company": "Claude",
+      "issue": "I want Claude to stop crawling by website",
+      "language": "en",
+      "pii_detected": false,
+      "subject": "Website Data crawl"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": false,
+      "has_exact_quote": true,
+      "quote_source": "deterministic_fallback"
+    },
+    "trap_classifier": {
+      "reasoning": "LLM classifier unavailable (LLMResponseError); defaulting to NORMAL_FAQ.",
+      "tags": [
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 21,
+  "timings_ms": {
+    "confidence_gates": 0.223,
+    "generation": 1247.048,
+    "handler": 0.005,
+    "label_normalization": 0.181,
+    "retrieval": 13288.914,
+    "sanitize": 9.689,
+    "semantic_cache": 134.358,
+    "semantic_cache_write": 0.123,
+    "source_receipt": 4.282,
+    "total": 21710.089,
+    "trap_classifier": 7024.696
+  },
+  "trace_file": "code\\traces\\production\\ticket_21_20260502T044243268900Z_3039caad.json",
+  "trace_id": "21_20260502T044243268900Z_3039caad"
+}

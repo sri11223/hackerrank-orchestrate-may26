@@ -1,0 +1,225 @@
+{
+  "created_at": "2026-05-02T04:41:48.599725Z",
+  "final_decision": {
+    "exact_quote": "",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=fail; hard_override=verifier=fail|doc_gap_response; product_area_snapped=HackerRank Interviews->screen",
+    "product_area": "screen",
+    "request_type": "product_issue",
+    "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
+    "status": "escalated"
+  },
+  "input": {
+    "Company": "HackerRank",
+    "Issue": "Can you please confirm the inactivity times currently set (and are they different for candidate/interviewer)? \nInterviewers have reported that they often ask candidates to screen share and then after 20 mins or so, the candidate is sent back to the HR lobby.\n\nThe assumption is that perhaps HR thinks the interviewers left since they are mostly watching the screen share and not active on their HR screen? \nIf that is the case, can we extend inactivity times so interviewers and candidates have a bit more time to partner together \nwithout being kicked out of the room?",
+    "Subject": "Candidate inactivity help"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 0.25,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=fail",
+        "product_area": "HackerRank Interviews",
+        "request_type": "product_issue",
+        "response": "I cannot answer your question about inactivity times for candidates and interviewers based on the provided documentation.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=fail; hard_override=verifier=fail|doc_gap_response",
+        "product_area": "HackerRank Interviews",
+        "request_type": "product_issue",
+        "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
+        "status": "escalated"
+      },
+      "threshold": 0.32,
+      "top_score": 0.9684979838709676,
+      "verifier_safe": false
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [],
+            "confidence": 0.25,
+            "exact_quote": "",
+            "product_area": "Interviews",
+            "request_type": "product_issue",
+            "response": "I cannot answer your question about inactivity times for candidates and interviewers based on the provided documentation."
+          },
+          "mode": "initial",
+          "provider": "openai",
+          "provider_fallback": "groq_failed",
+          "timings_ms": {
+            "generate": 23565.645,
+            "verify": 1830.343
+          },
+          "verifier": {
+            "issues": [
+              "Draft is a document-gap non-answer and should be escalated."
+            ],
+            "recommended_action": "escalate",
+            "safe": false
+          }
+        },
+        {
+          "attempt": 2,
+          "critique": [
+            "Draft is a document-gap non-answer and should be escalated."
+          ],
+          "generation": {
+            "citations": [],
+            "confidence": 0.25,
+            "exact_quote": "",
+            "product_area": "HackerRank Interviews",
+            "request_type": "product_issue",
+            "response": "I cannot answer your question about inactivity times for candidates and interviewers based on the provided documentation."
+          },
+          "mode": "self_healing_rewrite",
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 29.459,
+            "verify": 1671.643
+          },
+          "verifier": {
+            "issues": [
+              "Draft is a document-gap non-answer and should be escalated."
+            ],
+            "recommended_action": "escalate",
+            "safe": false
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "HackerRank Interviews",
+      "output_product_area": "screen"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 4,
+          "bm25_score": 0.946007196326387,
+          "chunk_id": "hackerrank_01586_3d44820505",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.30339829880390357,
+          "dense_rank": 2,
+          "dense_score": 0.8725100159645081,
+          "domain": "hackerrank",
+          "heading_path": "Interviews > Interview Settings > Using Virtual Lobby in HackerRank Interviews > Candidate Lobby",
+          "normalized_score": 0.9684979838709676,
+          "rrf_score": 0.031754032258064516,
+          "url_or_file": "https://support.hackerrank.com/articles/1151935613-using-virtual-lobby-in-hackerrank-interviews"
+        },
+        {
+          "bm25_rank": 27,
+          "bm25_score": 0.8358331937099058,
+          "chunk_id": "hackerrank_01532_7f9d13ca2d",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.28251051139636113,
+          "dense_rank": 1,
+          "dense_score": 0.8812755048274994,
+          "domain": "hackerrank",
+          "heading_path": "Interviews > Getting Started > Screen sharing during interviews",
+          "normalized_score": 0.8505747126436781,
+          "rrf_score": 0.02788769549651404,
+          "url_or_file": "https://support.hackerrank.com/articles/6271433412-audio-and-video-calls-in-interviews-powered-by-zoom"
+        },
+        {
+          "bm25_rank": 5,
+          "bm25_score": 0.9420719568462611,
+          "chunk_id": "hackerrank_00133_3854f63b7b",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.329890504188093,
+          "dense_rank": 82,
+          "dense_score": 0.8387281894683838,
+          "domain": "hackerrank",
+          "heading_path": "General Help > Evaluation Guides > Professional Hire > Phase 2: Screen",
+          "normalized_score": 0.6840195016251355,
+          "rrf_score": 0.022426868905742147,
+          "url_or_file": "https://support.hackerrank.com/articles/2625349560-professional-hire"
+        },
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "hackerrank_02081_d3d0be86f8",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.09282581640781841,
+          "dense_rank": 13,
+          "dense_score": 0.8590494394302368,
+          "domain": "hackerrank",
+          "heading_path": "Screen > Best Practice Guides > Mitigating Candidate Drop-Off > Overview",
+          "normalized_score": 0.9178082191780822,
+          "rrf_score": 0.03009207275993712,
+          "url_or_file": "https://support.hackerrank.com/articles/5269412517-mitigating-candidate-drop-off"
+        },
+        {
+          "bm25_rank": 32,
+          "bm25_score": 0.8235509895974195,
+          "chunk_id": "hackerrank_01588_003ff4b7ff",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.17386919392658762,
+          "dense_rank": 7,
+          "dense_score": 0.8616785109043121,
+          "domain": "hackerrank",
+          "heading_path": "Interviews > Interview Settings > Using Virtual Lobby in HackerRank Interviews > Leave / End Interview",
+          "normalized_score": 0.7867456197274497,
+          "rrf_score": 0.025794938351719664,
+          "url_or_file": "https://support.hackerrank.com/articles/1151935613-using-virtual-lobby-in-hackerrank-interviews"
+        }
+      ],
+      "threshold": 0.32,
+      "top_score": 0.9684979838709676
+    },
+    "sanitize": {
+      "company": "HackerRank",
+      "issue": "Can you please confirm the inactivity times currently set (and are they different for candidate/interviewer)? \nInterviewers have reported that they often ask candidates to screen share and then after 20 mins or so, the candidate is sent back to the HR lobby.\n\nThe assumption is that perhaps HR thinks the interviewers left since they are mostly watching the screen share and not active on their HR screen? \nIf that is the case, can we extend inactivity times so interviewers and candidates have a bit more time to partner together \nwithout being kicked out of the room?",
+      "language": "en",
+      "pii_detected": false,
+      "subject": "Candidate inactivity help"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": false,
+      "has_exact_quote": false,
+      "quote_source": "none"
+    },
+    "trap_classifier": {
+      "reasoning": "LLM classifier unavailable (LLMResponseError); defaulting to NORMAL_FAQ.",
+      "tags": [
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 11,
+  "timings_ms": {
+    "confidence_gates": 0.311,
+    "generation": 27097.564,
+    "handler": 0.005,
+    "label_normalization": 0.146,
+    "retrieval": 10409.823,
+    "sanitize": 30.173,
+    "semantic_cache": 2236.568,
+    "semantic_cache_write": 0.133,
+    "source_receipt": 0.005,
+    "total": 46705.853,
+    "trap_classifier": 6930.659
+  },
+  "trace_file": "code\\traces\\production\\ticket_11_20260502T044148599725Z_c081dd7f.json",
+  "trace_id": "11_20260502T044148599725Z_c081dd7f"
+}

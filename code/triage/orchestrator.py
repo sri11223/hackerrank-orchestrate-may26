@@ -154,6 +154,7 @@ async def process_ticket(
         top_score=top_score,
         verifier=verifier,
         generation_confidence=generation_confidence,
+        ticket=ticket,
     )
     _record_stage(trace, "confidence_gates", stage_started, {
         "input": pre_gate_decision.model_dump(),
@@ -247,6 +248,7 @@ def _apply_confidence_gates(
     top_score: float,
     verifier: VerificationResult | None,
     generation_confidence: float | None,
+    ticket: Ticket | None = None,
 ) -> TriageDecision:
     reasons: list[str] = []
     if top_score < RETRIEVAL_CONFIDENCE_THRESHOLD:
@@ -255,6 +257,22 @@ def _apply_confidence_gates(
         reasons.append("verifier=fail")
     if _decision_gave_up(decision):
         reasons.append("doc_gap_response")
+    if (
+        decision.status == "replied"
+        and ticket is not None
+        and not _is_safety_canned_reply(decision)
+        and _looks_like_topic_mismatch(ticket, decision)
+    ):
+        reasons.append("topic_mismatch")
+    if (
+        decision.status == "replied"
+        and generation_confidence is not None
+        and generation_confidence < GENERATION_CONFIDENCE_THRESHOLD
+        and not _is_safety_canned_reply(decision)
+    ):
+        reasons.append(
+            f"generation_confidence={generation_confidence:.2f}<{GENERATION_CONFIDENCE_THRESHOLD}"
+        )
 
     if not reasons:
         return decision
@@ -279,24 +297,153 @@ def _decision_gave_up(decision: TriageDecision) -> bool:
     give_up_markers = (
         "i cannot answer",
         "i can't answer",
-        "cannot answer your issue",
+        "cannot answer your",
+        "cannot answer it",
         "cannot answer this",
+        "cannot answer your issue",
+        "cannot answer based on",
+        "cannot be answered based on",
+        "i cannot confirm",
+        "i can't confirm",
+        "cannot confirm if",
+        "cannot confirm whether",
         "i do not know",
         "i don't know",
         "not mentioned in the documents",
         "not mentioned in the docs",
         "not in the documents",
         "not in the docs",
+        "not detailed in the retrieved documents",
+        "not detailed in the docs",
         "provided documents do not",
         "provided docs do not",
         "documents do not specify",
         "docs do not specify",
+        "documentation does not specify",
         "documents do not mention",
         "docs do not mention",
-        "cannot be answered based on",
-        "cannot answer based on",
+        "documents do not provide",
+        "docs do not provide",
+        "documents do not include",
+        "docs do not include",
+        "i do not have enough information",
+        "i don't have enough information",
+        "specific steps to",
     )
-    return decision.status == "replied" and any(marker in text for marker in give_up_markers)
+    text_no_punct = text.rstrip(".!? ")
+    if any(marker in text for marker in give_up_markers):
+        return decision.status == "replied"
+    # Catch the canonical "I cannot <verb> ... based on the docs" pattern.
+    if (
+        text_no_punct.startswith("i cannot ")
+        and ("based on the doc" in text or "based on the provided document" in text)
+    ):
+        return decision.status == "replied"
+    return False
+
+
+def _is_safety_canned_reply(decision: TriageDecision) -> bool:
+    """Allow deliberate safety/courtesy refusals to remain replied."""
+
+    just = (decision.justification or "").upper()
+    safety_tags = (
+        "[SYSTEM_HARM]",
+        "[PROMPT_INJECTION]",
+        "[OUT_OF_SCOPE]",
+        "[COURTESY]",
+        "[SECURITY_DISCLOSURE]",
+    )
+    if any(tag in just for tag in safety_tags):
+        return True
+    return decision.product_area in {"safety", "general support"}
+
+
+def _looks_like_topic_mismatch(ticket: Ticket, decision: TriageDecision) -> bool:
+    """Catch grounded-but-off-topic answers.
+
+    Two signal families:
+      1. Low issue/response term overlap AND user named a specific object that is
+         missing from the response.
+      2. User asked to remove a single person but the response only describes
+         deleting the entire team they belong to (destructive overreach).
+    """
+
+    if _person_to_team_overreach(ticket.text, decision.response):
+        return True
+
+    issue_terms = _content_terms(ticket.text)
+    response_terms = _content_terms(decision.response)
+    if not issue_terms or not response_terms:
+        return False
+    overlap = len(issue_terms & response_terms)
+    if overlap >= 3:
+        return False
+    return _action_object_mismatch(ticket.text, decision.response)
+
+
+def _content_terms(text: str) -> set[str]:
+    stopwords = {
+        "about", "after", "again", "also", "another", "based", "because", "before",
+        "click", "could", "documents", "docs", "from", "have", "help", "into",
+        "much", "need", "please", "should", "some", "such", "than", "that", "their",
+        "them", "there", "these", "they", "this", "those", "very", "what", "when",
+        "where", "which", "with", "would", "your", "want", "wanted", "asks", "asking",
+        "follow", "following", "steps", "step", "guide", "instructions", "section",
+        "settings", "tab", "menu", "button", "icon", "page",
+    }
+    return {
+        token
+        for token in re.findall(r"[a-z][a-z]{4,}", (text or "").casefold())
+        if token not in stopwords
+    }
+
+
+def _action_object_mismatch(issue: str, response: str) -> bool:
+    """True when a specific object the user named is absent from the response.
+
+    Example: user asks to remove an *employee* but the response talks only about
+    deleting a *team* without mentioning *employee/member/user*.
+    """
+
+    issue_lower = (issue or "").casefold()
+    response_lower = (response or "").casefold()
+    object_signals = (
+        "employee", "interviewer", "candidate", "member", "colleague",
+        "user", "professor", "student", "subscription", "invite", "invitation",
+    )
+    issue_objects = [obj for obj in object_signals if obj in issue_lower]
+    if not issue_objects:
+        return False
+    return not any(obj in response_lower for obj in issue_objects)
+
+
+def _person_to_team_overreach(issue: str, response: str) -> bool:
+    """Catch 'remove ONE person' tickets answered with 'delete the entire team' steps.
+
+    The user wants per-person removal; the response only describes a destructive,
+    team-wide operation. That is grounded in docs but solves the wrong problem
+    and would actually destroy other members' access too.
+    """
+
+    issue_lower = (issue or "").casefold()
+    response_lower = (response or "").casefold()
+    asks_remove_person = any(
+        verb in issue_lower for verb in ("remove", "delete", "offboard", "deactivate")
+    ) and any(
+        person in issue_lower
+        for person in (
+            "employee", "interviewer", "candidate", "member", "user",
+            "colleague", "person", "seat", "team member",
+        )
+    )
+    if not asks_remove_person:
+        return False
+    response_describes_team_delete = (
+        ("delete the team" in response_lower or "delete team" in response_lower)
+        or ("delete a team" in response_lower)
+        or ("teams management" in response_lower and "delete" in response_lower)
+    )
+    return response_describes_team_delete
 
 
 def _snap_decision_product_area(
@@ -427,11 +574,22 @@ def snap_product_area(
         return raw
 
     heading_text = " ".join(chunk.heading_path for chunk in chunks[:3]).casefold()
+    company = (ticket.company or "").strip().casefold()
+    ticket_text_lower = ticket.text.casefold()
+    # When the user explicitly frames the request around privacy concerns,
+    # prefer "privacy" over the doc's structural heading.
+    if (
+        company == "claude"
+        and any(
+            marker in ticket_text_lower
+            for marker in ("private", "privacy", "sensitive", "confidential", "personal info")
+        )
+    ):
+        return "privacy"
     if "community" in heading_text:
         return "community"
     if "privacy" in heading_text or "sensitive data" in heading_text:
         return "privacy"
-    company = (ticket.company or "").strip().casefold()
     if (
         company == "hackerrank"
         and "account settings" in heading_text
@@ -500,19 +658,36 @@ def _augment_self_service_chunks(
     """Append exact self-service chunks when RRF lands on an article index.
 
     Some help centers split article indexes and action steps into separate small
-    chunks. For action requests, a high-ranked index title is useful, but the
-    generator needs the neighboring step chunk to answer without hand-waving.
+    chunks. The generator needs the neighboring step chunk to answer without
+    hand-waving. We trigger on either:
+
+      1. Explicit ACTION_REQUEST routing (delete/rename a conversation).
+      2. NORMAL_FAQ tickets that mention private/sensitive info in a Claude
+         conversation/chat — the user is asking how to scrub privacy without
+         using the verb "delete".
     """
 
-    if TrapTag.ACTION_REQUEST not in trap_result.tags:
-        return chunks
-
     text = ticket.text.casefold()
+    company = (ticket.company or "").strip().casefold()
     wanted_heading: str | None = None
+
     if (
-        (ticket.company or "").strip().casefold() == "claude"
-        and "delete" in text
+        TrapTag.ACTION_REQUEST in trap_result.tags
+        and company == "claude"
+        and ("delete" in text or "remove" in text or "rename" in text)
         and ("conversation" in text or "chat" in text)
+    ):
+        wanted_heading = "how can i delete or rename a conversation"
+    elif (
+        company == "claude"
+        and ("conversation" in text or "chat" in text)
+        and any(
+            marker in text
+            for marker in (
+                "private", "privacy", "sensitive", "personal info",
+                "confidential", "scrub", "wipe",
+            )
+        )
     ):
         wanted_heading = "how can i delete or rename a conversation"
 
@@ -523,7 +698,7 @@ def _augment_self_service_chunks(
     augmented = list(chunks)
     for chunk in _augmentation_chunks():
         heading = chunk.heading_path.casefold()
-        if chunk.domain != (ticket.company or "").strip().casefold():
+        if chunk.domain != company:
             continue
         if wanted_heading not in heading:
             continue

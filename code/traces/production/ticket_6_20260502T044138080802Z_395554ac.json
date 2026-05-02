@@ -1,0 +1,227 @@
+{
+  "created_at": "2026-05-02T04:41:38.080802Z",
+  "final_decision": {
+    "exact_quote": "",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.91; verifier=fail; hard_override=verifier=fail; product_area_snapped=HackerRank QuickApply->screen",
+    "product_area": "screen",
+    "request_type": "product_issue",
+    "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
+    "status": "escalated"
+  },
+  "input": {
+    "Company": "HackerRank",
+    "Issue": "I am planning to start using HackerRank for hiring, can you help us with the infosec \nprocess of my company by filling in the forms",
+    "Subject": "Using HackerRank for hiring"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 0.85,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "HackerRank QuickApply is a free browser extension that simplifies the job application process by automatically filling application forms using information from your HackerRank profile.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.91; verifier=fail",
+        "product_area": "HackerRank QuickApply",
+        "request_type": "product_issue",
+        "response": "HackerRank QuickApply is a free browser extension that simplifies the job application process by automatically filling application forms using information from your HackerRank profile. You can set up QuickApply using the Chrome extension or from the HackerRank Community site.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.91; verifier=fail; hard_override=verifier=fail",
+        "product_area": "HackerRank QuickApply",
+        "request_type": "product_issue",
+        "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
+        "status": "escalated"
+      },
+      "threshold": 0.32,
+      "top_score": 0.9061399647887324,
+      "verifier_safe": false
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [],
+            "confidence": 0.0,
+            "exact_quote": "",
+            "product_area": "HackerRank",
+            "request_type": "invalid",
+            "response": "I cannot answer it based on the docs."
+          },
+          "mode": "initial",
+          "provider": "openai",
+          "provider_fallback": "groq_failed",
+          "timings_ms": {
+            "generate": 24512.806,
+            "verify": 3855.229
+          },
+          "verifier": {
+            "issues": [
+              "Draft is a document-gap non-answer and should be escalated."
+            ],
+            "recommended_action": "escalate",
+            "safe": false
+          }
+        },
+        {
+          "attempt": 2,
+          "critique": [
+            "Draft is a document-gap non-answer and should be escalated."
+          ],
+          "generation": {
+            "citations": [
+              "hackerrank_00688_9f0aee3255"
+            ],
+            "confidence": 0.85,
+            "exact_quote": "HackerRank QuickApply is a free browser extension that simplifies the job application process by automatically filling application forms using information from your HackerRank profile.",
+            "product_area": "HackerRank QuickApply",
+            "request_type": "product_issue",
+            "response": "HackerRank QuickApply is a free browser extension that simplifies the job application process by automatically filling application forms using information from your HackerRank profile. You can set up QuickApply using the Chrome extension or from the HackerRank Community site."
+          },
+          "mode": "self_healing_rewrite",
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 43.752,
+            "verify": 2205.151
+          },
+          "verifier": {
+            "issues": [
+              "The draft response does not address the user's request for help with the infosec process and instead focuses on the QuickApply feature, which is unrelated to the user's issue."
+            ],
+            "recommended_action": "escalate",
+            "safe": false
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "HackerRank QuickApply",
+      "output_product_area": "screen"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 4,
+          "bm25_score": 0.9394554282355919,
+          "chunk_id": "hackerrank_02981_7ff0b813ce",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.9973062267151142,
+          "dense_rank": 11,
+          "dense_score": 0.8861446976661682,
+          "domain": "hackerrank",
+          "heading_path": "Uncategorized > Onboarding Candidates",
+          "normalized_score": 0.9061399647887324,
+          "rrf_score": 0.029709507042253523,
+          "url_or_file": "https://support.hackerrank.com/articles/9695299159-onboarding-candidates"
+        },
+        {
+          "bm25_rank": 11,
+          "bm25_score": 0.812116076460429,
+          "chunk_id": "hackerrank_02156_19e3134d20",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.9784713771707626,
+          "dense_rank": 7,
+          "dense_score": 0.8883955478668213,
+          "domain": "hackerrank",
+          "heading_path": "Screen > Getting Started > Quick Start Guide for Recruiters > HackerRank Library",
+          "normalized_score": 0.8848013453857473,
+          "rrf_score": 0.02900988017658188,
+          "url_or_file": "https://support.hackerrank.com/articles/9248897371-quick-start-guide-for-recruiters"
+        },
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "hackerrank_00688_9f0aee3255",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.9700841773709473,
+          "dense_rank": 24,
+          "dense_score": 0.8822385668754578,
+          "domain": "hackerrank",
+          "heading_path": "Additional Resources > Job Search and Applications > Set Up HackerRank QuickApply",
+          "normalized_score": 0.863095238095238,
+          "rrf_score": 0.028298204527712725,
+          "url_or_file": "https://help.hackerrank.com/articles/7358354033-set-up-quick-apply"
+        },
+        {
+          "bm25_rank": 32,
+          "bm25_score": 0.7070532469671108,
+          "chunk_id": "hackerrank_02155_10061cfff5",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.9885218685650654,
+          "dense_rank": 4,
+          "dense_score": 0.8898227214813232,
+          "domain": "hackerrank",
+          "heading_path": "Screen > Getting Started > Quick Start Guide for Recruiters",
+          "normalized_score": 0.8080842391304347,
+          "rrf_score": 0.026494565217391304,
+          "url_or_file": "https://support.hackerrank.com/articles/9248897371-quick-start-guide-for-recruiters"
+        },
+        {
+          "bm25_rank": 5,
+          "bm25_score": 0.9091953388206871,
+          "chunk_id": "hackerrank_01405_12edd9de65",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.986064052852009,
+          "dense_rank": 33,
+          "dense_score": 0.8806087374687195,
+          "domain": "hackerrank",
+          "heading_path": "Integrations > Scheduling > Using HackerRank Interviews in InterviewPlanner",
+          "normalized_score": 0.7971877584780811,
+          "rrf_score": 0.026137303556658397,
+          "url_or_file": "https://support.hackerrank.com/articles/3675175160-using-hackerrank-interviews-in-interviewplanner"
+        }
+      ],
+      "threshold": 0.32,
+      "top_score": 0.9061399647887324
+    },
+    "sanitize": {
+      "company": "HackerRank",
+      "issue": "I am planning to start using HackerRank for hiring, can you help us with the infosec \nprocess of my company by filling in the forms",
+      "language": "en",
+      "pii_detected": false,
+      "subject": "Using HackerRank for hiring"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": false,
+      "has_exact_quote": false,
+      "quote_source": "none"
+    },
+    "trap_classifier": {
+      "reasoning": "LLM classifier unavailable (LLMResponseError); defaulting to NORMAL_FAQ.",
+      "tags": [
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 6,
+  "timings_ms": {
+    "confidence_gates": 0.283,
+    "generation": 30617.386,
+    "handler": 0.005,
+    "label_normalization": 0.111,
+    "retrieval": 13552.794,
+    "sanitize": 5.621,
+    "semantic_cache": 128.753,
+    "semantic_cache_write": 0.12,
+    "source_receipt": 0.005,
+    "total": 52659.911,
+    "trap_classifier": 8354.394
+  },
+  "trace_file": "code\\traces\\production\\ticket_6_20260502T044138080802Z_395554ac.json",
+  "trace_id": "6_20260502T044138080802Z_395554ac"
+}

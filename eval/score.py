@@ -33,26 +33,42 @@ def main() -> None:
     print(f"pred={args.pred}")
     print(f"expected_rows={len(expected)} pred_rows={len(predictions)}")
     print(f"known_product_areas={extract_product_areas(args.expected)}")
-    if len(expected) != len(predictions):
-        print("WARNING: row-count mismatch; missing/extra prediction rows are counted as incorrect.")
+
+    expected_issue_col = find_column(expected, "issue")
+    pred_issue_col = find_column(predictions, "issue")
+    pred_index_by_issue = {
+        normalize_issue(predictions.iloc[index][pred_issue_col]): index
+        for index in range(len(predictions))
+    }
 
     denominator = len(expected)
+    matched_pairs: list[tuple[int, int | None, str]] = []
+    for index in range(denominator):
+        issue_key = normalize_issue(expected.iloc[index][expected_issue_col])
+        matched_pairs.append((index, pred_index_by_issue.get(issue_key), issue_key))
+
+    unmatched = [index + 1 for index, pred_index, _ in matched_pairs if pred_index is None]
+    if unmatched:
+        print(f"WARNING: {len(unmatched)} expected rows have no matching prediction by issue text "
+              f"(rows: {unmatched[:5]}{'...' if len(unmatched) > 5 else ''}). "
+              "These count as incorrect.")
+
     for metric, normalizer in metrics:
         correct = 0
         mismatches: list[str] = []
         expected_col = find_column(expected, metric)
         pred_col = find_column(predictions, metric)
 
-        for index in range(denominator):
-            expected_value = normalizer(expected.iloc[index][expected_col])
+        for expected_index, pred_index, _ in matched_pairs:
+            expected_value = normalizer(expected.iloc[expected_index][expected_col])
             pred_value = ""
-            if index < len(predictions):
-                pred_value = normalizer(predictions.iloc[index][pred_col])
+            if pred_index is not None:
+                pred_value = normalizer(predictions.iloc[pred_index][pred_col])
             if expected_value == pred_value:
                 correct += 1
             else:
                 mismatches.append(
-                    f"row {index + 1}: expected={expected_value!r} predicted={pred_value!r}"
+                    f"row {expected_index + 1}: expected={expected_value!r} predicted={pred_value!r}"
                 )
 
         pct = (correct / denominator * 100.0) if denominator else 0.0
@@ -60,7 +76,39 @@ def main() -> None:
         if mismatches:
             print(f"  first mismatches: {'; '.join(mismatches[:5])}")
 
-    print_status_debug(expected, predictions)
+    print_status_debug_aligned(expected, predictions, matched_pairs)
+
+
+def normalize_issue(value: object) -> str:
+    return " ".join(str(value or "").strip().casefold().split())
+
+
+def print_status_debug_aligned(
+    expected: pd.DataFrame,
+    predictions: pd.DataFrame,
+    matched_pairs: list[tuple[int, int | None, str]],
+) -> None:
+    expected_status_col = find_column(expected, "status")
+    pred_status_col = find_column(predictions, "status")
+    justification_col = find_column(predictions, "justification")
+
+    print("status_mismatch_debug:")
+    found = False
+    for expected_index, pred_index, _ in matched_pairs:
+        expected_status = normalize_status(expected.iloc[expected_index][expected_status_col])
+        predicted_status = ""
+        justification = ""
+        if pred_index is not None:
+            predicted_status = normalize_status(predictions.iloc[pred_index][pred_status_col])
+            justification = str(predictions.iloc[pred_index][justification_col])
+        if expected_status != predicted_status:
+            found = True
+            print(
+                f"Row {expected_index + 1} - Expected: {expected_status}, Got: {predicted_status} "
+                f"| Justification: {justification}"
+            )
+    if not found:
+        print("  none")
 
 
 def extract_product_areas(expected_csv: Path = DEFAULT_EXPECTED) -> list[str]:

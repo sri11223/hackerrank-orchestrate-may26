@@ -1,0 +1,197 @@
+{
+  "created_at": "2026-05-02T04:42:39.897632Z",
+  "final_decision": {
+    "exact_quote": "You can update the name on your certificate only once per account.",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass; product_area_snapped=Certifications->screen",
+    "product_area": "screen",
+    "request_type": "product_issue",
+    "response": "Yes. You can update the name on your certificate only once per account. To update the name on your certificate, follow these steps: 1. Open your certificate page. 2. In the Full Name field, enter the name you want to display. 3. Click Regenerate Certificate. 4. In the confirmation dialog, click Update Name. The platform updates your certificate with the new name.",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "HackerRank",
+    "Issue": "Hello, I have completed an assessment, but my name is incorrect on the certificate. Can you please update it",
+    "Subject": "Certificate name update"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 0.9,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "You can update the name on your certificate only once per account.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass",
+        "product_area": "Certifications",
+        "request_type": "product_issue",
+        "response": "Yes. You can update the name on your certificate only once per account. To update the name on your certificate, follow these steps: 1. Open your certificate page. 2. In the Full Name field, enter the name you want to display. 3. Click Regenerate Certificate. 4. In the confirmation dialog, click Update Name. The platform updates your certificate with the new name.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "You can update the name on your certificate only once per account.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass",
+        "product_area": "Certifications",
+        "request_type": "product_issue",
+        "response": "Yes. You can update the name on your certificate only once per account. To update the name on your certificate, follow these steps: 1. Open your certificate page. 2. In the Full Name field, enter the name you want to display. 3. Click Regenerate Certificate. 4. In the confirmation dialog, click Update Name. The platform updates your certificate with the new name.",
+        "status": "replied"
+      },
+      "threshold": 0.32,
+      "top_score": 1.0,
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "hackerrank_00705_cca8fdc532"
+            ],
+            "confidence": 0.9,
+            "exact_quote": "You can update the name on your certificate only once per account.",
+            "product_area": "Certifications",
+            "request_type": "product_issue",
+            "response": "Yes. You can update the name on your certificate only once per account. To update the name on your certificate, follow these steps: 1. Open your certificate page. 2. In the Full Name field, enter the name you want to display. 3. Click Regenerate Certificate. 4. In the confirmation dialog, click Update Name. The platform updates your certificate with the new name."
+          },
+          "mode": "initial",
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 287.311,
+            "verify": 2016.297
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Certifications",
+      "output_product_area": "screen"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "hackerrank_00705_cca8fdc532",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.9956772559039777,
+          "dense_rank": 1,
+          "dense_score": 0.921734094619751,
+          "domain": "hackerrank",
+          "heading_path": "Certifications > Certifications FAQs",
+          "normalized_score": 1.0,
+          "rrf_score": 0.03278688524590164,
+          "url_or_file": "https://help.hackerrank.com/articles/8941367927-certifications-faqs"
+        },
+        {
+          "bm25_rank": 2,
+          "bm25_score": 0.6260418286712953,
+          "chunk_id": "hackerrank_01465_dd5d0fc532",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.005694461823018176,
+          "dense_rank": 3,
+          "dense_score": 0.84510338306427,
+          "domain": "hackerrank",
+          "heading_path": "Integrations > Single Sign-On (SSO) > Updating certificates",
+          "normalized_score": 0.9760624679979518,
+          "rrf_score": 0.03200204813108039,
+          "url_or_file": "https://support.hackerrank.com/articles/4264962721-getting-started-with-single-sign-on"
+        },
+        {
+          "bm25_rank": 18,
+          "bm25_score": 0.4988609453675749,
+          "chunk_id": "hackerrank_00662_7f6a6415cb",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.21045700999815206,
+          "dense_rank": 51,
+          "dense_score": 0.8044424653053284,
+          "domain": "hackerrank",
+          "heading_path": "Account Settings > Profile and Preferences > Update Personal Details > Updating personal details",
+          "normalized_score": 0.6658004158004158,
+          "rrf_score": 0.02182952182952183,
+          "url_or_file": "https://help.hackerrank.com/articles/2857822759-update-personal-details"
+        },
+        {
+          "bm25_rank": 11,
+          "bm25_score": 0.5394394757621271,
+          "chunk_id": "hackerrank_02096_6636346cf1",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.0025066039957529233,
+          "dense_rank": 2,
+          "dense_score": 0.8472189903259277,
+          "domain": "hackerrank",
+          "heading_path": "Screen > Frequently Asked Questions > How to Rename a Test",
+          "normalized_score": 0.9215129486597001,
+          "rrf_score": 0.03021353930031804,
+          "url_or_file": "https://support.hackerrank.com/articles/2426927743-how-to-rename-a-test"
+        },
+        {
+          "bm25_rank": 10,
+          "bm25_score": 0.5407574030435628,
+          "chunk_id": "hackerrank_00706_b98c69da34",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.004995416029046766,
+          "dense_rank": 5,
+          "dense_score": 0.8323498964309692,
+          "domain": "hackerrank",
+          "heading_path": "Certifications > Certifications FAQs",
+          "normalized_score": 0.9049450549450548,
+          "rrf_score": 0.02967032967032967,
+          "url_or_file": "https://help.hackerrank.com/articles/8941367927-certifications-faqs"
+        }
+      ],
+      "threshold": 0.32,
+      "top_score": 1.0
+    },
+    "sanitize": {
+      "company": "HackerRank",
+      "issue": "Hello, I have completed an assessment, but my name is incorrect on the certificate. Can you please update it",
+      "language": "en",
+      "pii_detected": false,
+      "subject": "Certificate name update"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": true,
+      "has_exact_quote": true,
+      "quote_source": "model"
+    },
+    "trap_classifier": {
+      "reasoning": "LLM classifier unavailable (LLMResponseError); defaulting to NORMAL_FAQ.",
+      "tags": [
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 18,
+  "timings_ms": {
+    "confidence_gates": 0.246,
+    "generation": 2303.721,
+    "handler": 0.005,
+    "label_normalization": 1.396,
+    "retrieval": 11343.306,
+    "sanitize": 19.919,
+    "semantic_cache": 373.429,
+    "semantic_cache_write": 0.134,
+    "source_receipt": 0.006,
+    "total": 21983.54,
+    "trap_classifier": 7940.867
+  },
+  "trace_file": "code\\traces\\production\\ticket_18_20260502T044239897632Z_04359297.json",
+  "trace_id": "18_20260502T044239897632Z_04359297"
+}

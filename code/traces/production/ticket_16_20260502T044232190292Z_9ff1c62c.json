@@ -1,0 +1,173 @@
+{
+  "created_at": "2026-05-02T04:42:32.191289Z",
+  "final_decision": {
+    "exact_quote": "My identity has been stolen – what should I do?",
+    "justification": "[IDENTITY_FRAUD] Identity/fraud ticket matched documented emergency contact guidance.; top_chunk=visa_06135_34f406e4e3; product_area_snapped=Get support->travel_support",
+    "product_area": "travel_support",
+    "request_type": "product_issue",
+    "response": "This looks like a lost-card, stolen-card, or fraud-related identity issue. Use the emergency contact guidance from the retrieved Visa documentation. Relevant phone numbers found in the docs: +1 800 847 2911. I cannot block a card, open a dispute, or contact an issuer for you, but you should use the documented emergency contact path immediately. Most relevant retrieved document: Get support > FAQ > My identity has been stolen – what should I do?.",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "Visa",
+    "Issue": "My identity has been stolen, wat should I do",
+    "Subject": "Identity Theft"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": null,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "My identity has been stolen – what should I do?",
+        "justification": "[IDENTITY_FRAUD] Identity/fraud ticket matched documented emergency contact guidance.; top_chunk=visa_06135_34f406e4e3",
+        "product_area": "Get support",
+        "request_type": "product_issue",
+        "response": "This looks like a lost-card, stolen-card, or fraud-related identity issue. Use the emergency contact guidance from the retrieved Visa documentation. Relevant phone numbers found in the docs: +1 800 847 2911. I cannot block a card, open a dispute, or contact an issuer for you, but you should use the documented emergency contact path immediately. Most relevant retrieved document: Get support > FAQ > My identity has been stolen – what should I do?.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "My identity has been stolen – what should I do?",
+        "justification": "[IDENTITY_FRAUD] Identity/fraud ticket matched documented emergency contact guidance.; top_chunk=visa_06135_34f406e4e3",
+        "product_area": "Get support",
+        "request_type": "product_issue",
+        "response": "This looks like a lost-card, stolen-card, or fraud-related identity issue. Use the emergency contact guidance from the retrieved Visa documentation. Relevant phone numbers found in the docs: +1 800 847 2911. I cannot block a card, open a dispute, or contact an issuer for you, but you should use the documented emergency contact path immediately. Most relevant retrieved document: Get support > FAQ > My identity has been stolen – what should I do?.",
+        "status": "replied"
+      },
+      "threshold": 0.32,
+      "top_score": 1.0,
+      "verifier_safe": null
+    },
+    "handler": {
+      "decision": {
+        "exact_quote": "My identity has been stolen – what should I do?",
+        "justification": "[IDENTITY_FRAUD] Identity/fraud ticket matched documented emergency contact guidance.; top_chunk=visa_06135_34f406e4e3",
+        "product_area": "Get support",
+        "request_type": "product_issue",
+        "response": "This looks like a lost-card, stolen-card, or fraud-related identity issue. Use the emergency contact guidance from the retrieved Visa documentation. Relevant phone numbers found in the docs: +1 800 847 2911. I cannot block a card, open a dispute, or contact an issuer for you, but you should use the documented emergency contact path immediately. Most relevant retrieved document: Get support > FAQ > My identity has been stolen – what should I do?.",
+        "status": "replied"
+      },
+      "mode": "deterministic"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Get support",
+      "output_product_area": "travel_support"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "visa_06135_34f406e4e3",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.9993468735681081,
+          "dense_rank": 1,
+          "dense_score": 0.9184466004371643,
+          "domain": "visa",
+          "heading_path": "Get support > FAQ > My identity has been stolen – what should I do?",
+          "normalized_score": 1.0,
+          "rrf_score": 0.03278688524590164,
+          "url_or_file": "https://www.visa.co.in/support.html"
+        },
+        {
+          "bm25_rank": 2,
+          "bm25_score": 0.5211116290606169,
+          "chunk_id": "visa_06131_e63b873fa7",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.4845519632961848,
+          "dense_rank": 2,
+          "dense_score": 0.8603909015655518,
+          "domain": "visa",
+          "heading_path": "Get support > FAQ > What should I do if my Visa card has been lost or stolen?",
+          "normalized_score": 0.9838709677419354,
+          "rrf_score": 0.03225806451612903,
+          "url_or_file": "https://www.visa.co.in/support.html"
+        },
+        {
+          "bm25_rank": 8,
+          "bm25_score": 0.1785532845892999,
+          "chunk_id": "visa_06218_942f0e49fd",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 3.173438585076142e-05,
+          "dense_rank": 3,
+          "dense_score": 0.8442139029502869,
+          "domain": "visa",
+          "heading_path": "Support > Small Business > Suspect you’ve been compromised? > Has your data been compromised?",
+          "normalized_score": 0.9326563958916899,
+          "rrf_score": 0.03057889822595705,
+          "url_or_file": "https://www.visa.co.in/support/small-business/data-security.html"
+        },
+        {
+          "bm25_rank": 4,
+          "bm25_score": 0.32575419170427555,
+          "chunk_id": "visa_06138_d13823e9f3",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.002634891237284495,
+          "dense_rank": 14,
+          "dense_score": 0.8154569864273071,
+          "domain": "visa",
+          "heading_path": "Get support > FAQ > I’m travelling and my card has been damaged.",
+          "normalized_score": 0.8887246621621622,
+          "rrf_score": 0.029138513513513514,
+          "url_or_file": "https://www.visa.co.in/support.html"
+        },
+        {
+          "bm25_rank": 14,
+          "bm25_score": 0.10730488598969844,
+          "chunk_id": "visa_06185_f0e5c0120f",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 9.334421557188212e-05,
+          "dense_rank": 5,
+          "dense_score": 0.8329281806945801,
+          "domain": "visa",
+          "heading_path": "Support > Consumer > Visa Traveller's Cheques > Report a lost cheque",
+          "normalized_score": 0.8813929313929314,
+          "rrf_score": 0.0288981288981289,
+          "url_or_file": "https://www.visa.co.in/support/consumer/travelers-cheques.html"
+        }
+      ],
+      "threshold": 0.32,
+      "top_score": 1.0
+    },
+    "sanitize": {
+      "company": "Visa",
+      "issue": "My identity has been stolen, wat should I do",
+      "language": "en",
+      "pii_detected": false,
+      "subject": "Identity Theft"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": true,
+      "has_exact_quote": true,
+      "quote_source": "model"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic high-confidence trap rule matched ticket wording.",
+      "tags": [
+        "IDENTITY_FRAUD"
+      ]
+    }
+  },
+  "ticket_id": 16,
+  "timings_ms": {
+    "confidence_gates": 0.474,
+    "handler": 0.895,
+    "label_normalization": 0.363,
+    "retrieval": 7203.91,
+    "sanitize": 22.309,
+    "semantic_cache": 470.349,
+    "semantic_cache_write": 0.315,
+    "source_receipt": 0.005,
+    "total": 7700.669,
+    "trap_classifier": 0.323
+  },
+  "trace_file": "code\\traces\\production\\ticket_16_20260502T044232190292Z_9ff1c62c.json",
+  "trace_id": "16_20260502T044232190292Z_9ff1c62c"
+}

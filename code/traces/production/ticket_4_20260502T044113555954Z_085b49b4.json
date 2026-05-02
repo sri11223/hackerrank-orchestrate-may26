@@ -1,0 +1,230 @@
+{
+  "created_at": "2026-05-02T04:41:13.555954Z",
+  "final_decision": {
+    "exact_quote": "",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=fail; hard_override=verifier=fail; product_area_snapped=Mock Interviews->screen",
+    "product_area": "screen",
+    "request_type": "product_issue",
+    "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
+    "status": "escalated"
+  },
+  "input": {
+    "Company": "HackerRank",
+    "Issue": "My mock interviews stopped in between, please give me the refund asap",
+    "Subject": "Why are my mock interviews not working"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 0.9,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "If you accidentally make a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=fail",
+        "product_area": "Mock Interviews",
+        "request_type": "product_issue",
+        "response": "If your mock interviews have stopped unexpectedly, you can contact HackerRank support for assistance. Please reach out to help@hackerrank.com to request a review of your situation and any potential refund if applicable.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=fail; hard_override=verifier=fail",
+        "product_area": "Mock Interviews",
+        "request_type": "product_issue",
+        "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
+        "status": "escalated"
+      },
+      "threshold": 0.32,
+      "top_score": 0.9919354838709679,
+      "verifier_safe": false
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "hackerrank_00798_7abe213a16"
+            ],
+            "confidence": 0.9,
+            "exact_quote": "If you accidentally make a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request.",
+            "product_area": "HackerRank",
+            "request_type": "product_issue",
+            "response": "If you are not satisfied with your mock interview, you can contact help@hackerrank.com for a review of your refund request."
+          },
+          "mode": "initial",
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 23.519,
+            "verify": 3435.503
+          },
+          "verifier": {
+            "issues": [
+              "The draft response does not address the user's specific issue of mock interviews stopping in between; it only mentions dissatisfaction with the mock interview."
+            ],
+            "recommended_action": "escalate",
+            "safe": false
+          }
+        },
+        {
+          "attempt": 2,
+          "critique": [
+            "The draft response does not address the user's specific issue of mock interviews stopping in between; it only mentions dissatisfaction with the mock interview."
+          ],
+          "generation": {
+            "citations": [
+              "hackerrank_00798_7abe213a16"
+            ],
+            "confidence": 0.9,
+            "exact_quote": "If you accidentally make a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request.",
+            "product_area": "Mock Interviews",
+            "request_type": "product_issue",
+            "response": "If your mock interviews have stopped unexpectedly, you can contact HackerRank support for assistance. Please reach out to help@hackerrank.com to request a review of your situation and any potential refund if applicable."
+          },
+          "mode": "self_healing_rewrite",
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 14.219,
+            "verify": 1734.542
+          },
+          "verifier": {
+            "issues": [
+              "The draft response commits to a potential refund without clear backing from the provided documents."
+            ],
+            "recommended_action": "escalate",
+            "safe": false
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Mock Interviews",
+      "output_product_area": "screen"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 2,
+          "bm25_score": 0.9163311134669873,
+          "chunk_id": "hackerrank_00798_7abe213a16",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.9659192090168749,
+          "dense_rank": 1,
+          "dense_score": 0.8898617923259735,
+          "domain": "hackerrank",
+          "heading_path": "Subscriptions, Payments, and Billing > Purchase Mock Interview Credits > Refund policy",
+          "normalized_score": 0.9919354838709679,
+          "rrf_score": 0.03252247488101534,
+          "url_or_file": "https://help.hackerrank.com/articles/3282259518-purchase-mock-interviews"
+        },
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "hackerrank_00814_0665960741",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.9557801647062836,
+          "dense_rank": 2,
+          "dense_score": 0.8847455978393555,
+          "domain": "hackerrank",
+          "heading_path": "Subscriptions, Payments, and Billing > Mock interviews",
+          "normalized_score": 0.9919354838709679,
+          "rrf_score": 0.03252247488101534,
+          "url_or_file": "https://help.hackerrank.com/articles/9157064719-payments-and-billing-faqs"
+        },
+        {
+          "bm25_rank": 48,
+          "bm25_score": 0.6207549464283361,
+          "chunk_id": "hackerrank_00735_fbfa1e0d2a",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.22946815813986735,
+          "dense_rank": 8,
+          "dense_score": 0.852479100227356,
+          "domain": "hackerrank",
+          "heading_path": "Mock Interviews > Ending an interview",
+          "normalized_score": 0.7309368191721133,
+          "rrf_score": 0.023965141612200435,
+          "url_or_file": "https://help.hackerrank.com/articles/3796809491-ai-fluency-mock-interview"
+        },
+        {
+          "bm25_rank": 46,
+          "bm25_score": 0.6207549464283361,
+          "chunk_id": "hackerrank_00780_3e200566f0",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.22946815813986735,
+          "dense_rank": 9,
+          "dense_score": 0.852479100227356,
+          "domain": "hackerrank",
+          "heading_path": "Mock Interviews > Ending an Interview",
+          "normalized_score": 0.7297648345638501,
+          "rrf_score": 0.02392671588733935,
+          "url_or_file": "https://help.hackerrank.com/articles/8813699799-take-a-system-design-mock-interview"
+        },
+        {
+          "bm25_rank": 45,
+          "bm25_score": 0.6207549464283361,
+          "chunk_id": "hackerrank_00754_9b03bee11f",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.22946815813986735,
+          "dense_rank": 10,
+          "dense_score": 0.852479100227356,
+          "domain": "hackerrank",
+          "heading_path": "Mock Interviews > Ending an Interview",
+          "normalized_score": 0.7261904761904762,
+          "rrf_score": 0.023809523809523808,
+          "url_or_file": "https://help.hackerrank.com/articles/5671120169-technical-screen-mock-interview"
+        }
+      ],
+      "threshold": 0.32,
+      "top_score": 0.9919354838709679
+    },
+    "sanitize": {
+      "company": "HackerRank",
+      "issue": "My mock interviews stopped in between, please give me the refund asap",
+      "language": "en",
+      "pii_detected": false,
+      "subject": "Why are my mock interviews not working"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": false,
+      "has_exact_quote": false,
+      "quote_source": "none"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic high-confidence trap rule matched ticket wording.",
+      "tags": [
+        "PAYMENT_DISPUTE",
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 4,
+  "timings_ms": {
+    "confidence_gates": 0.359,
+    "generation": 5208.255,
+    "handler": 0.006,
+    "label_normalization": 0.646,
+    "retrieval": 13710.919,
+    "sanitize": 2.264,
+    "semantic_cache": 10751.216,
+    "semantic_cache_write": 0.17,
+    "source_receipt": 0.006,
+    "total": 29674.31,
+    "trap_classifier": 0.122
+  },
+  "trace_file": "code\\traces\\production\\ticket_4_20260502T044113555954Z_085b49b4.json",
+  "trace_id": "4_20260502T044113555954Z_085b49b4"
+}

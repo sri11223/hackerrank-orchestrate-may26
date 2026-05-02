@@ -1,0 +1,197 @@
+{
+  "created_at": "2026-05-02T04:43:01.884973Z",
+  "final_decision": {
+    "exact_quote": "Contact AWS Support for Claude in Amazon Bedrock support inquiries or reach out to your AWS account manager. For community-based support, visit AWS re:Post.",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.77; verifier=pass; product_area_snapped=Claude->general_support",
+    "product_area": "general_support",
+    "request_type": "product_issue",
+    "response": "If you are facing issues with requests to Claude through AWS Bedrock, it is recommended to contact AWS Support for assistance. You can also reach out to your AWS account manager for support. For community-based support, visit AWS re:Post.",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "Claude",
+    "Issue": "I am facing multiple issues in my project. all requests to claude with aws bedrock is failing",
+    "Subject": "Issues in Project"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 0.9,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "Contact AWS Support for Claude in Amazon Bedrock support inquiries or reach out to your AWS account manager. For community-based support, visit AWS re:Post.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.77; verifier=pass",
+        "product_area": "Claude",
+        "request_type": "product_issue",
+        "response": "If you are facing issues with requests to Claude through AWS Bedrock, it is recommended to contact AWS Support for assistance. You can also reach out to your AWS account manager for support. For community-based support, visit AWS re:Post.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "Contact AWS Support for Claude in Amazon Bedrock support inquiries or reach out to your AWS account manager. For community-based support, visit AWS re:Post.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.77; verifier=pass",
+        "product_area": "Claude",
+        "request_type": "product_issue",
+        "response": "If you are facing issues with requests to Claude through AWS Bedrock, it is recommended to contact AWS Support for assistance. You can also reach out to your AWS account manager for support. For community-based support, visit AWS re:Post.",
+        "status": "replied"
+      },
+      "threshold": 0.32,
+      "top_score": 0.7664970706136293,
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "claude_02999_cca416edba"
+            ],
+            "confidence": 0.9,
+            "exact_quote": "Contact AWS Support for Claude in Amazon Bedrock support inquiries or reach out to your AWS account manager. For community-based support, visit AWS re:Post.",
+            "product_area": "Claude",
+            "request_type": "product_issue",
+            "response": "If you are facing issues with requests to Claude through AWS Bedrock, it is recommended to contact AWS Support for assistance. You can also reach out to your AWS account manager for support. For community-based support, visit AWS re:Post."
+          },
+          "mode": "initial",
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 103.84,
+            "verify": 862.386
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Claude",
+      "output_product_area": "general_support"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 9,
+          "bm25_score": 0.8231092907323099,
+          "chunk_id": "claude_05927_35fe977f6d",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.33431905936949863,
+          "dense_rank": 34,
+          "dense_score": 0.8522112965583801,
+          "domain": "claude",
+          "heading_path": "Team and Enterprise plans > Capabilities > Use enterprise search > Troubleshooting > The search project isn't appearing in my sidebar > Claude is responding slowly in my search project – what should I do?",
+          "normalized_score": 0.7664970706136293,
+          "rrf_score": 0.02513105149552883,
+          "url_or_file": "https://support.claude.com/en/articles/12489464-use-enterprise-search"
+        },
+        {
+          "bm25_rank": 41,
+          "bm25_score": 0.6027790852130311,
+          "chunk_id": "claude_05160_1510f81fe7",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.33429742449756994,
+          "dense_rank": 20,
+          "dense_score": 0.8645167946815491,
+          "domain": "claude",
+          "heading_path": "Connectors > Pre-Built Connectors > Using Claude in Slack > Troubleshooting > \"Usage limit reached\" > \"I'm unable to generate a response at this time\"",
+          "normalized_score": 0.6832301980198019,
+          "rrf_score": 0.0224009900990099,
+          "url_or_file": "https://support.claude.com/en/articles/12461605-using-claude-in-slack"
+        },
+        {
+          "bm25_rank": 21,
+          "bm25_score": 0.7060871489544935,
+          "chunk_id": "claude_02999_cca416edba",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.16241078072730583,
+          "dense_rank": 1,
+          "dense_score": 0.901956170797348,
+          "domain": "claude",
+          "heading_path": "Amazon Bedrock > I use Claude in Amazon Bedrock. Who do I contact for customer support inquiries?",
+          "normalized_score": 0.8765432098765432,
+          "rrf_score": 0.0287391216352965,
+          "url_or_file": "https://support.claude.com/en/articles/7996921-i-use-claude-in-amazon-bedrock-who-do-i-contact-for-customer-support-inquiries"
+        },
+        {
+          "bm25_rank": 12,
+          "bm25_score": 0.8098176290051862,
+          "chunk_id": "claude_04978_b2dc5a14ce",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.24475243029242788,
+          "dense_rank": 48,
+          "dense_score": 0.8460996448993683,
+          "domain": "claude",
+          "heading_path": "Claude > Troubleshooting > Troubleshoot Claude error messages > Capacity constraints",
+          "normalized_score": 0.7060185185185185,
+          "rrf_score": 0.023148148148148147,
+          "url_or_file": "https://support.claude.com/en/articles/12466728-troubleshoot-claude-error-messages"
+        },
+        {
+          "bm25_rank": 45,
+          "bm25_score": 0.593575353534368,
+          "chunk_id": "claude_03000_8b9c73a50f",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.17938829787687316,
+          "dense_rank": 5,
+          "dense_score": 0.8800224661827087,
+          "domain": "claude",
+          "heading_path": "Amazon Bedrock > I use Claude in Amazon Bedrock. Who do I contact for customer support inquiries? > How can I get a refund for my usage through Amazon Bedrock?",
+          "normalized_score": 0.7597069597069597,
+          "rrf_score": 0.02490842490842491,
+          "url_or_file": "https://support.claude.com/en/articles/7996921-i-use-claude-in-amazon-bedrock-who-do-i-contact-for-customer-support-inquiries"
+        }
+      ],
+      "threshold": 0.32,
+      "top_score": 0.7664970706136293
+    },
+    "sanitize": {
+      "company": "Claude",
+      "issue": "I am facing multiple issues in my project. all requests to claude with aws bedrock is failing",
+      "language": "en",
+      "pii_detected": false,
+      "subject": "Issues in Project"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": true,
+      "has_exact_quote": true,
+      "quote_source": "model"
+    },
+    "trap_classifier": {
+      "reasoning": "LLM classifier unavailable (LLMResponseError); defaulting to NORMAL_FAQ.",
+      "tags": [
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 26,
+  "timings_ms": {
+    "confidence_gates": 0.315,
+    "generation": 966.351,
+    "handler": 0.007,
+    "label_normalization": 0.385,
+    "retrieval": 4452.536,
+    "sanitize": 17.704,
+    "semantic_cache": 868.463,
+    "semantic_cache_write": 0.131,
+    "source_receipt": 0.005,
+    "total": 13066.05,
+    "trap_classifier": 6759.506
+  },
+  "trace_file": "code\\traces\\production\\ticket_26_20260502T044301884973Z_18822014.json",
+  "trace_id": "26_20260502T044301884973Z_18822014"
+}

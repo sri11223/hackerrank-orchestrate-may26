@@ -1,0 +1,174 @@
+{
+  "created_at": "2026-05-02T04:41:13.549367Z",
+  "final_decision": {
+    "exact_quote": "",
+    "justification": "[SCORE_DISPUTE] Score disputes are sensitive and require human review.; top_chunk=hackerrank_01171_096c482ce4; product_area_snapped=Integrations->screen",
+    "product_area": "screen",
+    "request_type": "product_issue",
+    "response": "This involves a score, grading, integrity result, or assessment outcome dispute. I cannot change or override results, so I am escalating it for human review. The retrieved documentation can help explain where assessment or report details are shown.",
+    "status": "escalated"
+  },
+  "input": {
+    "Company": "HackerRank",
+    "Issue": "I completed a HackerRank test, but the recruiter rejected me. Please review my answers, i\nncrease my score, and tell the company to move me to the next round because \nthe platform must have graded me unfairly.",
+    "Subject": "Test Score Dispute"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": null,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "",
+        "justification": "[SCORE_DISPUTE] Score disputes are sensitive and require human review.; top_chunk=hackerrank_01171_096c482ce4",
+        "product_area": "Integrations",
+        "request_type": "product_issue",
+        "response": "This involves a score, grading, integrity result, or assessment outcome dispute. I cannot change or override results, so I am escalating it for human review. The retrieved documentation can help explain where assessment or report details are shown.",
+        "status": "escalated"
+      },
+      "output": {
+        "exact_quote": "",
+        "justification": "[SCORE_DISPUTE] Score disputes are sensitive and require human review.; top_chunk=hackerrank_01171_096c482ce4",
+        "product_area": "Integrations",
+        "request_type": "product_issue",
+        "response": "This involves a score, grading, integrity result, or assessment outcome dispute. I cannot change or override results, so I am escalating it for human review. The retrieved documentation can help explain where assessment or report details are shown.",
+        "status": "escalated"
+      },
+      "threshold": 0.32,
+      "top_score": 0.867588141025641,
+      "verifier_safe": null
+    },
+    "handler": {
+      "decision": {
+        "exact_quote": "",
+        "justification": "[SCORE_DISPUTE] Score disputes are sensitive and require human review.; top_chunk=hackerrank_01171_096c482ce4",
+        "product_area": "Integrations",
+        "request_type": "product_issue",
+        "response": "This involves a score, grading, integrity result, or assessment outcome dispute. I cannot change or override results, so I am escalating it for human review. The retrieved documentation can help explain where assessment or report details are shown.",
+        "status": "escalated"
+      },
+      "mode": "deterministic"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Integrations",
+      "output_product_area": "screen"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 18,
+          "bm25_score": 0.7971551276564771,
+          "chunk_id": "hackerrank_01171_096c482ce4",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.9390550222043929,
+          "dense_rank": 4,
+          "dense_score": 0.8808158934116364,
+          "domain": "hackerrank",
+          "heading_path": "Integrations > Applicant Tracking Systems > Oracle Recruiting Cloud > Oracle Recruiting Cloud and HackerRank Integration User Guide > Reviewing Results and Evaluation > HackerRank Tests",
+          "normalized_score": 0.867588141025641,
+          "rrf_score": 0.02844551282051282,
+          "url_or_file": "https://support.hackerrank.com/articles/3350882088-oracle-recruiting-cloud-and-hackerrank-integration-user-guide"
+        },
+        {
+          "bm25_rank": 4,
+          "bm25_score": 0.9029301700226955,
+          "chunk_id": "hackerrank_00923_f782a5cfb9",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.9147791610358875,
+          "dense_rank": 13,
+          "dense_score": 0.8736070990562439,
+          "domain": "hackerrank",
+          "heading_path": "Integrations > Applicant Tracking Systems > Ashby > Ashby - HackerRank Integration User Guide > Review Candidate's Test Scores in Ashby",
+          "normalized_score": 0.8943707191780821,
+          "rrf_score": 0.0293236301369863,
+          "url_or_file": "https://support.hackerrank.com/articles/5999209869-ashby---hackerrank-integration-user-guide"
+        },
+        {
+          "bm25_rank": 10,
+          "bm25_score": 0.8458366582806718,
+          "chunk_id": "hackerrank_00994_35dbd01309",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.8697520856519604,
+          "dense_rank": 23,
+          "dense_score": 0.8689598739147186,
+          "domain": "hackerrank",
+          "heading_path": "Integrations > Applicant Tracking Systems > Greenhouse > Tests and Interviews",
+          "normalized_score": 0.803184165232358,
+          "rrf_score": 0.026333907056798625,
+          "url_or_file": "https://support.hackerrank.com/articles/3678461564-greenhouse-hackerrank-integration-faqs"
+        },
+        {
+          "bm25_rank": 14,
+          "bm25_score": 0.8341887209703038,
+          "chunk_id": "hackerrank_01274_5d7c73e354",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.9137455672772179,
+          "dense_rank": 32,
+          "dense_score": 0.8661593198776245,
+          "domain": "hackerrank",
+          "heading_path": "Integrations > Applicant Tracking Systems > Workday > Workday - HackerRank Tests User Guide > Publish Assessment Results from HackerRank Test to Workday",
+          "normalized_score": 0.7436839012925969,
+          "rrf_score": 0.02438307873090482,
+          "url_or_file": "https://support.hackerrank.com/articles/1999755553-workday---hackerrank-tests-user-guide"
+        },
+        {
+          "bm25_rank": 45,
+          "bm25_score": 0.751300329433797,
+          "chunk_id": "hackerrank_01050_aff3a06712",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.9155144199067203,
+          "dense_rank": 14,
+          "dense_score": 0.8729257583618164,
+          "domain": "hackerrank",
+          "heading_path": "Integrations > Applicant Tracking Systems > iCIMS > iCIMS Prime Assessment - HackerRank Integration User Guide > Review Candidate's Test Scores in iCIMS > Assessing the Status Values for Assessments > Different HackerRank Status in iCIMS",
+          "normalized_score": 0.7026383526383526,
+          "rrf_score": 0.02303732303732304,
+          "url_or_file": "https://support.hackerrank.com/articles/1495212030-icims-prime-assessment---hackerrank-integration-user-guide"
+        }
+      ],
+      "threshold": 0.32,
+      "top_score": 0.867588141025641
+    },
+    "sanitize": {
+      "company": "HackerRank",
+      "issue": "I completed a HackerRank test, but the recruiter rejected me. Please review my answers, i\nncrease my score, and tell the company to move me to the next round because \nthe platform must have graded me unfairly.",
+      "language": "en",
+      "pii_detected": false,
+      "subject": "Test Score Dispute"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": false,
+      "has_exact_quote": false,
+      "quote_source": "none"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic high-confidence trap rule matched ticket wording.",
+      "tags": [
+        "SCORE_DISPUTE",
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 2,
+  "timings_ms": {
+    "confidence_gates": 0.044,
+    "handler": 0.163,
+    "label_normalization": 2.608,
+    "retrieval": 13760.736,
+    "sanitize": 2.573,
+    "semantic_cache": 10737.729,
+    "semantic_cache_write": 0.083,
+    "source_receipt": 0.005,
+    "total": 24504.259,
+    "trap_classifier": 0.189
+  },
+  "trace_file": "code\\traces\\production\\ticket_2_20260502T044113549367Z_0475238c.json",
+  "trace_id": "2_20260502T044113549367Z_0475238c"
+}

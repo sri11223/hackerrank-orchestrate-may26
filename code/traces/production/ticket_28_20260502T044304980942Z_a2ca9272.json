@@ -1,0 +1,199 @@
+{
+  "created_at": "2026-05-02T04:43:04.980942Z",
+  "final_decision": {
+    "exact_quote": "1. In Canvas, sign in as an administrator and navigate to Admin -> Developer Keys.\n2. Click \"+ Developer Key\" then \"+ LTI Key.\"\n3. Enter the following:\n1. Key Name: Claude LTI\n2. Description: Enter a short description for the Canva LTI 1.3 app\n3. Redirect URIs: https://claude.ai/lti/launch\n4. Title: Claude LTI\n5. Target Link URI: https://claude.ai/lti/launch\n6. OpenID Connect Initiation Url: https://claude.ai/api/lti/login\n7. JWK method: https://claude.ai/api/lti/keys\n4. Under Additional Settings, toggle Privacy Level to Public.\n5. Under Placements, we recommend removing the defaults and adding \"Course Navigation\" and \"Assignment Edit\" as the options.\n6. Click \"Save.\"\n7. Toggle the state to On.",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass; product_area_snapped=Claude for Education->general_support",
+    "product_area": "general_support",
+    "request_type": "product_issue",
+    "response": "To set up a Claude LTI key for your students, you need to follow these steps as an administrator in Canvas:\n\n1. Sign in to Canvas and navigate to Admin -> Developer Keys.\n2. Click \"+ Developer Key\" then \"+ LTI Key.\"\n3. Enter the required information, including Key Name, Description, Redirect URIs, Title, Target Link URI, OpenID Connect Initiation Url, and JWK method.\n4. Under Additional Settings, toggle Privacy Level to Public.\n5. Under Placements, we recommend removing the defaults and adding \"Course Navigation\" and \"Assignment Edit\" as the options.\n6. Click \"Save.\"\n7. Toggle the state to On.\n\nAfter creating the LTI key, you will also need to install the Claude LTI as an app in Canvas. For that, go to Admin -> Settings -> Apps, click \"View App Configurations\" then select \"+ App,\" and follow the prompts to input the Client ID generated for your developer key and click \"Install.\"",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "Claude",
+    "Issue": "i am a professor in a college and wanted to setup a claude lti key for my students",
+    "Subject": "Claude for students"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 0.9,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "1. In Canvas, sign in as an administrator and navigate to Admin -> Developer Keys.\n2. Click \"+ Developer Key\" then \"+ LTI Key.\"\n3. Enter the following:\n1. Key Name: Claude LTI\n2. Description: Enter a short description for the Canva LTI 1.3 app\n3. Redirect URIs: https://claude.ai/lti/launch\n4. Title: Claude LTI\n5. Target Link URI: https://claude.ai/lti/launch\n6. OpenID Connect Initiation Url: https://claude.ai/api/lti/login\n7. JWK method: https://claude.ai/api/lti/keys\n4. Under Additional Settings, toggle Privacy Level to Public.\n5. Under Placements, we recommend removing the defaults and adding \"Course Navigation\" and \"Assignment Edit\" as the options.\n6. Click \"Save.\"\n7. Toggle the state to On.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass",
+        "product_area": "Claude for Education",
+        "request_type": "product_issue",
+        "response": "To set up a Claude LTI key for your students, you need to follow these steps as an administrator in Canvas:\n\n1. Sign in to Canvas and navigate to Admin -> Developer Keys.\n2. Click \"+ Developer Key\" then \"+ LTI Key.\"\n3. Enter the required information, including Key Name, Description, Redirect URIs, Title, Target Link URI, OpenID Connect Initiation Url, and JWK method.\n4. Under Additional Settings, toggle Privacy Level to Public.\n5. Under Placements, we recommend removing the defaults and adding \"Course Navigation\" and \"Assignment Edit\" as the options.\n6. Click \"Save.\"\n7. Toggle the state to On.\n\nAfter creating the LTI key, you will also need to install the Claude LTI as an app in Canvas. For that, go to Admin -> Settings -> Apps, click \"View App Configurations\" then select \"+ App,\" and follow the prompts to input the Client ID generated for your developer key and click \"Install.\"",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "1. In Canvas, sign in as an administrator and navigate to Admin -> Developer Keys.\n2. Click \"+ Developer Key\" then \"+ LTI Key.\"\n3. Enter the following:\n1. Key Name: Claude LTI\n2. Description: Enter a short description for the Canva LTI 1.3 app\n3. Redirect URIs: https://claude.ai/lti/launch\n4. Title: Claude LTI\n5. Target Link URI: https://claude.ai/lti/launch\n6. OpenID Connect Initiation Url: https://claude.ai/api/lti/login\n7. JWK method: https://claude.ai/api/lti/keys\n4. Under Additional Settings, toggle Privacy Level to Public.\n5. Under Placements, we recommend removing the defaults and adding \"Course Navigation\" and \"Assignment Edit\" as the options.\n6. Click \"Save.\"\n7. Toggle the state to On.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass",
+        "product_area": "Claude for Education",
+        "request_type": "product_issue",
+        "response": "To set up a Claude LTI key for your students, you need to follow these steps as an administrator in Canvas:\n\n1. Sign in to Canvas and navigate to Admin -> Developer Keys.\n2. Click \"+ Developer Key\" then \"+ LTI Key.\"\n3. Enter the required information, including Key Name, Description, Redirect URIs, Title, Target Link URI, OpenID Connect Initiation Url, and JWK method.\n4. Under Additional Settings, toggle Privacy Level to Public.\n5. Under Placements, we recommend removing the defaults and adding \"Course Navigation\" and \"Assignment Edit\" as the options.\n6. Click \"Save.\"\n7. Toggle the state to On.\n\nAfter creating the LTI key, you will also need to install the Claude LTI as an app in Canvas. For that, go to Admin -> Settings -> Apps, click \"View App Configurations\" then select \"+ App,\" and follow the prompts to input the Client ID generated for your developer key and click \"Install.\"",
+        "status": "replied"
+      },
+      "threshold": 0.32,
+      "top_score": 0.9838709677419354,
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "claude_03641_b7207920f4",
+              "claude_03642_c2ddfbda0c"
+            ],
+            "confidence": 0.9,
+            "exact_quote": "1. In Canvas, sign in as an administrator and navigate to Admin -> Developer Keys.\n2. Click \"+ Developer Key\" then \"+ LTI Key.\"\n3. Enter the following:\n1. Key Name: Claude LTI\n2. Description: Enter a short description for the Canva LTI 1.3 app\n3. Redirect URIs: https://claude.ai/lti/launch\n4. Title: Claude LTI\n5. Target Link URI: https://claude.ai/lti/launch\n6. OpenID Connect Initiation Url: https://claude.ai/api/lti/login\n7. JWK method: https://claude.ai/api/lti/keys\n4. Under Additional Settings, toggle Privacy Level to Public.\n5. Under Placements, we recommend removing the defaults and adding \"Course Navigation\" and \"Assignment Edit\" as the options.\n6. Click \"Save.\"\n7. Toggle the state to On.",
+            "product_area": "Claude for Education",
+            "request_type": "product_issue",
+            "response": "To set up a Claude LTI key for your students, you need to follow these steps as an administrator in Canvas:\n\n1. Sign in to Canvas and navigate to Admin -> Developer Keys.\n2. Click \"+ Developer Key\" then \"+ LTI Key.\"\n3. Enter the required information, including Key Name, Description, Redirect URIs, Title, Target Link URI, OpenID Connect Initiation Url, and JWK method.\n4. Under Additional Settings, toggle Privacy Level to Public.\n5. Under Placements, we recommend removing the defaults and adding \"Course Navigation\" and \"Assignment Edit\" as the options.\n6. Click \"Save.\"\n7. Toggle the state to On.\n\nAfter creating the LTI key, you will also need to install the Claude LTI as an app in Canvas. For that, go to Admin -> Settings -> Apps, click \"View App Configurations\" then select \"+ App,\" and follow the prompts to input the Client ID generated for your developer key and click \"Install.\""
+          },
+          "mode": "initial",
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 59.865,
+            "verify": 3093.87
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Claude for Education",
+      "output_product_area": "general_support"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 2,
+          "bm25_score": 0.892713840298237,
+          "chunk_id": "claude_03641_b7207920f4",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.9695566227298618,
+          "dense_rank": 2,
+          "dense_score": 0.9045612215995789,
+          "domain": "claude",
+          "heading_path": "Claude for Education > Set up the Claude LTI in Canvas by Instructure > Creating Claude LTI Developer Key in Canvas",
+          "normalized_score": 0.9838709677419354,
+          "rrf_score": 0.03225806451612903,
+          "url_or_file": "https://support.claude.com/en/articles/11725453-set-up-the-claude-lti-in-canvas-by-instructure"
+        },
+        {
+          "bm25_rank": 4,
+          "bm25_score": 0.8467056787986466,
+          "chunk_id": "claude_03642_c2ddfbda0c",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.9739074472642416,
+          "dense_rank": 5,
+          "dense_score": 0.8926283717155457,
+          "domain": "claude",
+          "heading_path": "Claude for Education > Set up the Claude LTI in Canvas by Instructure > Installing Claude LTI as an App",
+          "normalized_score": 0.9457932692307692,
+          "rrf_score": 0.031009615384615385,
+          "url_or_file": "https://support.claude.com/en/articles/11725453-set-up-the-claude-lti-in-canvas-by-instructure"
+        },
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "claude_03627_d307901097",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.956216381977381,
+          "dense_rank": 6,
+          "dense_score": 0.8839036524295807,
+          "domain": "claude",
+          "heading_path": "Claude for Education > FAQs on Using Claude for Education at Your University > What Can I Use Claude for as a Student?",
+          "normalized_score": 0.9621212121212123,
+          "rrf_score": 0.031544957774465976,
+          "url_or_file": "https://support.claude.com/en/articles/11139144-faqs-on-using-claude-for-education-at-your-university"
+        },
+        {
+          "bm25_rank": 6,
+          "bm25_score": 0.7493874352886778,
+          "chunk_id": "claude_03643_8e515effb9",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.9644425393474663,
+          "dense_rank": 7,
+          "dense_score": 0.8820765614509583,
+          "domain": "claude",
+          "heading_path": "Claude for Education > Set up the Claude LTI in Canvas by Instructure > Turn on the Claude LTI Integration in Claude for Education organization settings",
+          "normalized_score": 0.9173450927182271,
+          "rrf_score": 0.03007688828584351,
+          "url_or_file": "https://support.claude.com/en/articles/11725453-set-up-the-claude-lti-in-canvas-by-instructure"
+        },
+        {
+          "bm25_rank": 11,
+          "bm25_score": 0.6941326903761931,
+          "chunk_id": "claude_03644_42d3688e30",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.9622828293304161,
+          "dense_rank": 3,
+          "dense_score": 0.8995249271392822,
+          "domain": "claude",
+          "heading_path": "Claude for Education > Set up the Claude LTI in Canvas by Instructure > Questions",
+          "normalized_score": 0.9137044489157166,
+          "rrf_score": 0.029957522915269395,
+          "url_or_file": "https://support.claude.com/en/articles/11725453-set-up-the-claude-lti-in-canvas-by-instructure"
+        }
+      ],
+      "threshold": 0.32,
+      "top_score": 0.9838709677419354
+    },
+    "sanitize": {
+      "company": "Claude",
+      "issue": "i am a professor in a college and wanted to setup a claude lti key for my students",
+      "language": "en",
+      "pii_detected": false,
+      "subject": "Claude for students"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": true,
+      "has_exact_quote": true,
+      "quote_source": "model"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic high-confidence trap rule matched ticket wording.",
+      "tags": [
+        "ADMIN_ACTION",
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 28,
+  "timings_ms": {
+    "confidence_gates": 0.466,
+    "generation": 3153.88,
+    "handler": 0.008,
+    "label_normalization": 1.173,
+    "retrieval": 5706.775,
+    "sanitize": 28.906,
+    "semantic_cache": 887.931,
+    "semantic_cache_write": 0.151,
+    "source_receipt": 0.006,
+    "total": 9780.389,
+    "trap_classifier": 0.363
+  },
+  "trace_file": "code\\traces\\production\\ticket_28_20260502T044304980942Z_a2ca9272.json",
+  "trace_id": "28_20260502T044304980942Z_a2ca9272"
+}

@@ -1,0 +1,198 @@
+{
+  "created_at": "2026-05-02T04:43:04.940815Z",
+  "final_decision": {
+    "exact_quote": "",
+    "justification": "[ACTION_REQUEST] grounded generation; retrieval_score=0.68; verifier=pass; hard_override=topic_mismatch; product_area_snapped=HackerRank for Work->community",
+    "product_area": "community",
+    "request_type": "product_issue",
+    "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
+    "status": "escalated"
+  },
+  "input": {
+    "Company": "HackerRank",
+    "Issue": "one of my employee has left. I want to remove them from our hackerrank hiring account",
+    "Subject": "Employee leaving the company"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 0.9,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "",
+        "justification": "[ACTION_REQUEST] grounded generation; retrieval_score=0.68; verifier=pass",
+        "product_area": "HackerRank for Work",
+        "request_type": "product_issue",
+        "response": "To remove an employee from your HackerRank for Work account, you need to delete the team they are part of or remove them as a user. Here are the steps to delete a team:\n\n1. Log in to your HackerRank for Work account using your credentials.\n2. Select your profile icon in the upper-right corner.\n3. Select Teams Management from the drop-down menu.\n4. Go to the Teams tab.\n5. Select the team you want to delete.\n6. Click the delete icon.\n7. In the confirmation dialog, click Delete Team. A success message appears.\n\nNote: You must remove all users from the team before deleting it. For more information, see Removing a team member.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "",
+        "justification": "[ACTION_REQUEST] grounded generation; retrieval_score=0.68; verifier=pass; hard_override=topic_mismatch",
+        "product_area": "HackerRank for Work",
+        "request_type": "product_issue",
+        "response": "I am escalating this ticket because I could not verify a sufficiently grounded, safe automated response from the provided documentation.",
+        "status": "escalated"
+      },
+      "threshold": 0.32,
+      "top_score": 0.6839393939393938,
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "hackerrank_02707_ed5f32d627"
+            ],
+            "confidence": 0.9,
+            "exact_quote": "",
+            "product_area": "HackerRank for Work",
+            "request_type": "product_issue",
+            "response": "To remove an employee from your HackerRank for Work account, you need to delete the team they are part of or remove them as a user. Here are the steps to delete a team:\n\n1. Log in to your HackerRank for Work account using your credentials.\n2. Select your profile icon in the upper-right corner.\n3. Select Teams Management from the drop-down menu.\n4. Go to the Teams tab.\n5. Select the team you want to delete.\n6. Click the delete icon.\n7. In the confirmation dialog, click Delete Team. A success message appears.\n\nNote: You must remove all users from the team before deleting it. For more information, see Removing a team member."
+          },
+          "mode": "initial",
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 36.843,
+            "verify": 5156.975
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "HackerRank for Work",
+      "output_product_area": "community"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 50,
+          "bm25_score": 0.7431167324554607,
+          "chunk_id": "hackerrank_02185_9f4ce6047b",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.6237568158960265,
+          "dense_rank": 15,
+          "dense_score": 0.862835705280304,
+          "domain": "hackerrank",
+          "heading_path": "Screen > Invite Candidates > Cancel a Test Invite > Canceling a test invitation",
+          "normalized_score": 0.6839393939393938,
+          "rrf_score": 0.022424242424242423,
+          "url_or_file": "https://support.hackerrank.com/articles/6257623198-cancelling-a-test-invite"
+        },
+        {
+          "bm25_rank": 3,
+          "bm25_score": 0.9818205980875369,
+          "chunk_id": "hackerrank_00655_1a385d8517",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.4100843536754571,
+          "dense_rank": 13,
+          "dense_score": 0.8633904457092285,
+          "domain": "hackerrank",
+          "heading_path": "Account Settings > Manage Account > Delete an Account > Deleting an account",
+          "normalized_score": 0.9019352033050663,
+          "rrf_score": 0.029571646010002173,
+          "url_or_file": "https://help.hackerrank.com/articles/5618101592-delete-an-account"
+        },
+        {
+          "bm25_rank": 98,
+          "bm25_score": 0.6752085531285911,
+          "chunk_id": "hackerrank_02707_ed5f32d627",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.2781210697381638,
+          "dense_rank": 6,
+          "dense_score": 0.8719768226146698,
+          "domain": "hackerrank",
+          "heading_path": "Settings > Teams Management > Deleting a team",
+          "normalized_score": 0.6551591868047564,
+          "rrf_score": 0.021480629075565784,
+          "url_or_file": "https://support.hackerrank.com/articles/2181136239-deleting-a-team"
+        },
+        {
+          "bm25_rank": 69,
+          "bm25_score": 0.7192170990193671,
+          "chunk_id": "hackerrank_02574_1f0a1d8040",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.24506150229822013,
+          "dense_rank": 16,
+          "dense_score": 0.8591670095920563,
+          "domain": "hackerrank",
+          "heading_path": "Settings > GDPR and NYC AI Laws > GDPR FAQs for HackerRank for Work > GDPR FAQs",
+          "normalized_score": 0.6377498980008159,
+          "rrf_score": 0.02090983272133823,
+          "url_or_file": "https://support.hackerrank.com/articles/2634495557-gdpr-faqs-for-hackerrank-for-work"
+        },
+        {
+          "bm25_rank": null,
+          "bm25_score": null,
+          "chunk_id": "hackerrank_02559_daf97c7d97",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.29373396950171465,
+          "dense_rank": 2,
+          "dense_score": 0.8774441480636597,
+          "domain": "hackerrank",
+          "heading_path": "Settings > Company Level Admin Settings > Enhancing your Account Security on Hackerrank for Work > Best Practices for Securing Your HackerRank for Work Account > Key Practices for Keeping Your Account Secure > 4. Close Your Account After Use",
+          "normalized_score": 0.4919354838709677,
+          "rrf_score": 0.016129032258064516,
+          "url_or_file": "https://support.hackerrank.com/articles/7425207053-enhancing-your-account-security-on-hackerrank-for-work"
+        }
+      ],
+      "threshold": 0.32,
+      "top_score": 0.6839393939393938
+    },
+    "sanitize": {
+      "company": "HackerRank",
+      "issue": "one of my employee has left. I want to remove them from our hackerrank hiring account",
+      "language": "en",
+      "pii_detected": false,
+      "subject": "Employee leaving the company"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": false,
+      "has_exact_quote": false,
+      "quote_source": "none"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic high-confidence trap rule matched ticket wording.",
+      "tags": [
+        "ACTION_REQUEST",
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 27,
+  "timings_ms": {
+    "confidence_gates": 0.191,
+    "generation": 5193.915,
+    "handler": 0.006,
+    "label_normalization": 0.083,
+    "retrieval": 7698.833,
+    "sanitize": 8.128,
+    "semantic_cache": 908.185,
+    "semantic_cache_write": 0.181,
+    "source_receipt": 0.004,
+    "total": 13810.473,
+    "trap_classifier": 0.397
+  },
+  "trace_file": "code\\traces\\production\\ticket_27_20260502T044304940815Z_f560a924.json",
+  "trace_id": "27_20260502T044304940815Z_f560a924"
+}

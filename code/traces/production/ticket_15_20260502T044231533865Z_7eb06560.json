@@ -1,0 +1,173 @@
+{
+  "created_at": "2026-05-02T04:42:31.533865Z",
+  "final_decision": {
+    "exact_quote": "",
+    "justification": "[SYSTEM_OUTAGE] Ticket reports site-wide outage or complete service inaccessibility.; top_chunk=claude_04046_98ba3639df; product_area_snapped=Claude Mobile apps->general_support",
+    "product_area": "general_support",
+    "request_type": "bug",
+    "response": "This sounds like a broad site, platform, or service outage rather than a normal self-service support request. I am escalating it immediately so the support team can investigate availability and access impact. Most relevant retrieved document: Claude Mobile apps > General > Using voice mode > Troubleshooting > Claude isn't recognizing my voice correctly > Claude stops responding in voice mode.",
+    "status": "escalated"
+  },
+  "input": {
+    "Company": "Claude",
+    "Issue": "Claude has stopped working completely, all requests are failing",
+    "Subject": "Claude not responding"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": null,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "",
+        "justification": "[SYSTEM_OUTAGE] Ticket reports site-wide outage or complete service inaccessibility.; top_chunk=claude_04046_98ba3639df",
+        "product_area": "Claude Mobile apps",
+        "request_type": "bug",
+        "response": "This sounds like a broad site, platform, or service outage rather than a normal self-service support request. I am escalating it immediately so the support team can investigate availability and access impact. Most relevant retrieved document: Claude Mobile apps > General > Using voice mode > Troubleshooting > Claude isn't recognizing my voice correctly > Claude stops responding in voice mode.",
+        "status": "escalated"
+      },
+      "output": {
+        "exact_quote": "",
+        "justification": "[SYSTEM_OUTAGE] Ticket reports site-wide outage or complete service inaccessibility.; top_chunk=claude_04046_98ba3639df",
+        "product_area": "Claude Mobile apps",
+        "request_type": "bug",
+        "response": "This sounds like a broad site, platform, or service outage rather than a normal self-service support request. I am escalating it immediately so the support team can investigate availability and access impact. Most relevant retrieved document: Claude Mobile apps > General > Using voice mode > Troubleshooting > Claude isn't recognizing my voice correctly > Claude stops responding in voice mode.",
+        "status": "escalated"
+      },
+      "threshold": 0.32,
+      "top_score": 0.8972528661042612,
+      "verifier_safe": null
+    },
+    "handler": {
+      "decision": {
+        "exact_quote": "",
+        "justification": "[SYSTEM_OUTAGE] Ticket reports site-wide outage or complete service inaccessibility.; top_chunk=claude_04046_98ba3639df",
+        "product_area": "Claude Mobile apps",
+        "request_type": "bug",
+        "response": "This sounds like a broad site, platform, or service outage rather than a normal self-service support request. I am escalating it immediately so the support team can investigate availability and access impact. Most relevant retrieved document: Claude Mobile apps > General > Using voice mode > Troubleshooting > Claude isn't recognizing my voice correctly > Claude stops responding in voice mode.",
+        "status": "escalated"
+      },
+      "mode": "deterministic"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Claude Mobile apps",
+      "output_product_area": "general_support"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 9,
+          "bm25_score": 0.7246213711083271,
+          "chunk_id": "claude_04046_98ba3639df",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.964319939751976,
+          "dense_rank": 7,
+          "dense_score": 0.8813620805740356,
+          "domain": "claude",
+          "heading_path": "Claude Mobile apps > General > Using voice mode > Troubleshooting > Claude isn't recognizing my voice correctly > Claude stops responding in voice mode",
+          "normalized_score": 0.8972528661042612,
+          "rrf_score": 0.029418126757516764,
+          "url_or_file": "https://support.claude.com/en/articles/11101966-using-voice-mode"
+        },
+        {
+          "bm25_rank": 17,
+          "bm25_score": 0.655353844106695,
+          "chunk_id": "claude_05231_178ab123ae",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.9560618039221489,
+          "dense_rank": 8,
+          "dense_score": 0.8798826932907104,
+          "domain": "claude",
+          "heading_path": "Connectors > Pre-Built Connectors > Use interactive connectors in Claude > Troubleshooting > The interface isn't appearing > The connector isn't responding to interactions",
+          "normalized_score": 0.8446333078686019,
+          "rrf_score": 0.027692895339954164,
+          "url_or_file": "https://support.claude.com/en/articles/13454812-use-interactive-connectors-in-claude"
+        },
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "claude_04528_cb7172f939",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.9286716945318524,
+          "dense_rank": 53,
+          "dense_score": 0.8544559478759766,
+          "domain": "claude",
+          "heading_path": "Claude > Features and capabilities > Get started with Claude Cowork > Troubleshooting > I'm seeing \"Setting up Claude's workspace\" when I start Cowork; what does this mean? > Claude stopped working on my task",
+          "normalized_score": 0.7699115044247787,
+          "rrf_score": 0.025243000145074714,
+          "url_or_file": "https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork"
+        },
+        {
+          "bm25_rank": 8,
+          "bm25_score": 0.7247800525818657,
+          "chunk_id": "claude_05128_7fe636e699",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.9273569496751325,
+          "dense_rank": 75,
+          "dense_score": 0.8487396836280823,
+          "domain": "claude",
+          "heading_path": "Connectors > Pre-Built Connectors > Getting started with Claude in Slack > Frequently asked questions > I’m trying to add Claude in Slack but it’s not working – help!",
+          "normalized_score": 0.6744553376906318,
+          "rrf_score": 0.022113289760348584,
+          "url_or_file": "https://support.claude.com/en/articles/11506255-getting-started-with-claude-in-slack"
+        },
+        {
+          "bm25_rank": 38,
+          "bm25_score": 0.5686963449920504,
+          "chunk_id": "claude_04985_14c229365b",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.7742425738143182,
+          "dense_rank": 2,
+          "dense_score": 0.8959119617938995,
+          "domain": "claude",
+          "heading_path": "Claude > Troubleshooting > Claude is producing links that don’t work and falsely claiming that it has sent emails or produced external documents. What’s going on?",
+          "normalized_score": 0.803159973666886,
+          "rrf_score": 0.026333113890717574,
+          "url_or_file": "https://support.claude.com/en/articles/8241188-claude-is-producing-links-that-don-t-work-and-falsely-claiming-that-it-has-sent-emails-or-produced-external-documents-what-s-going-on"
+        }
+      ],
+      "threshold": 0.32,
+      "top_score": 0.8972528661042612
+    },
+    "sanitize": {
+      "company": "Claude",
+      "issue": "Claude has stopped working completely, all requests are failing",
+      "language": "en",
+      "pii_detected": false,
+      "subject": "Claude not responding"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": false,
+      "has_exact_quote": false,
+      "quote_source": "none"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic outage rule matched site-wide inaccessibility.",
+      "tags": [
+        "SYSTEM_OUTAGE"
+      ]
+    }
+  },
+  "ticket_id": 15,
+  "timings_ms": {
+    "confidence_gates": 0.046,
+    "handler": 0.148,
+    "label_normalization": 0.333,
+    "retrieval": 8480.777,
+    "sanitize": 32.81,
+    "semantic_cache": 389.008,
+    "semantic_cache_write": 0.065,
+    "source_receipt": 0.002,
+    "total": 8903.894,
+    "trap_classifier": 0.444
+  },
+  "trace_file": "code\\traces\\production\\ticket_15_20260502T044231533865Z_7eb06560.json",
+  "trace_id": "15_20260502T044231533865Z_7eb06560"
+}

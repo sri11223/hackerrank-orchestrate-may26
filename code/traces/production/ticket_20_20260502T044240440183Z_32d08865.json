@@ -1,0 +1,174 @@
+{
+  "created_at": "2026-05-02T04:42:40.440183Z",
+  "final_decision": {
+    "exact_quote": "Both the /security-review command and GitHub action check for common vulnerability patterns:",
+    "justification": "[SECURITY_DISCLOSURE] Security disclosure is handled by documented security-reporting guidance.; top_chunk=claude_05330_f6f2663db7; product_area_snapped=Claude Help Center->general_support; exact_quote_source=deterministic_fallback",
+    "product_area": "general_support",
+    "request_type": "bug",
+    "response": "This appears to be a security disclosure or vulnerability report. Please follow the security-reporting guidance in the retrieved documentation and avoid sharing exploit details in ordinary support channels.",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "Claude",
+    "Issue": "I have found a major security vulnerability in Claude, what are the next steps",
+    "Subject": "Bug bounty"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": null,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "",
+        "justification": "[SECURITY_DISCLOSURE] Security disclosure is handled by documented security-reporting guidance.; top_chunk=claude_05330_f6f2663db7",
+        "product_area": "Claude Help Center",
+        "request_type": "bug",
+        "response": "This appears to be a security disclosure or vulnerability report. Please follow the security-reporting guidance in the retrieved documentation and avoid sharing exploit details in ordinary support channels.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "",
+        "justification": "[SECURITY_DISCLOSURE] Security disclosure is handled by documented security-reporting guidance.; top_chunk=claude_05330_f6f2663db7",
+        "product_area": "Claude Help Center",
+        "request_type": "bug",
+        "response": "This appears to be a security disclosure or vulnerability report. Please follow the security-reporting guidance in the retrieved documentation and avoid sharing exploit details in ordinary support channels.",
+        "status": "replied"
+      },
+      "threshold": 0.32,
+      "top_score": 0.9198412698412697,
+      "verifier_safe": null
+    },
+    "handler": {
+      "decision": {
+        "exact_quote": "",
+        "justification": "[SECURITY_DISCLOSURE] Security disclosure is handled by documented security-reporting guidance.; top_chunk=claude_05330_f6f2663db7",
+        "product_area": "Claude Help Center",
+        "request_type": "bug",
+        "response": "This appears to be a security disclosure or vulnerability report. Please follow the security-reporting guidance in the retrieved documentation and avoid sharing exploit details in ordinary support channels.",
+        "status": "replied"
+      },
+      "mode": "deterministic"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Claude Help Center",
+      "output_product_area": "general_support"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 10,
+          "bm25_score": 0.7275849888496972,
+          "chunk_id": "claude_05330_f6f2663db7",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.7945484520685288,
+          "dense_rank": 3,
+          "dense_score": 0.8743600845336914,
+          "domain": "claude",
+          "heading_path": "Claude Help Center > Safeguards",
+          "normalized_score": 0.9198412698412697,
+          "rrf_score": 0.030158730158730156,
+          "url_or_file": "index.md"
+        },
+        {
+          "bm25_rank": 2,
+          "bm25_score": 0.9846547622202539,
+          "chunk_id": "claude_05554_616d399184",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.7791566344826586,
+          "dense_rank": 9,
+          "dense_score": 0.8667570948600769,
+          "domain": "claude",
+          "heading_path": "Safeguards > Model Safety Bug Bounty Program > Related Articles",
+          "normalized_score": 0.9339644693782141,
+          "rrf_score": 0.030621785881252923,
+          "url_or_file": "https://support.claude.com/en/articles/12119250-model-safety-bug-bounty-program"
+        },
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "claude_05603_7fcd24d501",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.8353662495375477,
+          "dense_rank": 28,
+          "dense_score": 0.8568782806396484,
+          "domain": "claude",
+          "heading_path": "Safeguards > Our Approach to User Safety > Related Articles",
+          "normalized_score": 0.8465909090909091,
+          "rrf_score": 0.027757078986587184,
+          "url_or_file": "https://support.claude.com/en/articles/8106465-our-approach-to-user-safety"
+        },
+        {
+          "bm25_rank": 5,
+          "bm25_score": 0.85911121285127,
+          "chunk_id": "claude_05538_f78497fefb",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.7302069536449505,
+          "dense_rank": 19,
+          "dense_score": 0.8622657358646393,
+          "domain": "claude",
+          "heading_path": "Safeguards > Public Vulnerability Reporting > Related Articles",
+          "normalized_score": 0.8553067185978578,
+          "rrf_score": 0.02804284323271665,
+          "url_or_file": "https://support.claude.com/en/articles/11427875-public-vulnerability-reporting"
+        },
+        {
+          "bm25_rank": 24,
+          "bm25_score": 0.6573263935401026,
+          "chunk_id": "claude_03228_b2f876d616",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.39399510176520336,
+          "dense_rank": 4,
+          "dense_score": 0.8718529641628265,
+          "domain": "claude",
+          "heading_path": "Claude Code > Automated Security Reviews in Claude Code > What security issues can be detected?",
+          "normalized_score": 0.839657738095238,
+          "rrf_score": 0.027529761904761904,
+          "url_or_file": "https://support.claude.com/en/articles/11932705-automated-security-reviews-in-claude-code"
+        }
+      ],
+      "threshold": 0.32,
+      "top_score": 0.9198412698412697
+    },
+    "sanitize": {
+      "company": "Claude",
+      "issue": "I have found a major security vulnerability in Claude, what are the next steps",
+      "language": "en",
+      "pii_detected": false,
+      "subject": "Bug bounty"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": false,
+      "has_exact_quote": true,
+      "quote_source": "deterministic_fallback"
+    },
+    "trap_classifier": {
+      "reasoning": "Deterministic high-confidence trap rule matched ticket wording.",
+      "tags": [
+        "SECURITY_DISCLOSURE",
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 20,
+  "timings_ms": {
+    "confidence_gates": 0.1,
+    "handler": 0.189,
+    "label_normalization": 0.391,
+    "retrieval": 3136.961,
+    "sanitize": 5.796,
+    "semantic_cache": 322.07,
+    "semantic_cache_write": 0.108,
+    "source_receipt": 1.272,
+    "total": 3467.436,
+    "trap_classifier": 0.345
+  },
+  "trace_file": "code\\traces\\production\\ticket_20_20260502T044240440183Z_32d08865.json",
+  "trace_id": "20_20260502T044240440183Z_32d08865"
+}

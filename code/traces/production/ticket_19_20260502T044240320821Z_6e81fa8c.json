@@ -1,0 +1,197 @@
+{
+  "created_at": "2026-05-02T04:42:40.322193Z",
+  "final_decision": {
+    "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
+    "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass; product_area_snapped=Visa->travel_support",
+    "product_area": "travel_support",
+    "request_type": "product_issue",
+    "response": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
+    "status": "replied"
+  },
+  "input": {
+    "Company": "Visa",
+    "Issue": "How do I dispute a charge",
+    "Subject": "Dispute charge"
+  },
+  "stages": {
+    "confidence_gates": {
+      "generation_confidence": 1.0,
+      "generation_confidence_threshold": 0.25,
+      "input": {
+        "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass",
+        "product_area": "Visa",
+        "request_type": "product_issue",
+        "response": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
+        "status": "replied"
+      },
+      "output": {
+        "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
+        "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass",
+        "product_area": "Visa",
+        "request_type": "product_issue",
+        "response": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
+        "status": "replied"
+      },
+      "threshold": 0.32,
+      "top_score": 1.0,
+      "verifier_safe": true
+    },
+    "generation": {
+      "drafts": [
+        {
+          "attempt": 1,
+          "critique": [],
+          "generation": {
+            "citations": [
+              "visa_06129_dfecc78adc"
+            ],
+            "confidence": 1.0,
+            "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
+            "product_area": "Visa",
+            "request_type": "product_issue",
+            "response": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge."
+          },
+          "mode": "initial",
+          "provider": "openai",
+          "provider_fallback": null,
+          "timings_ms": {
+            "generate": 86.079,
+            "verify": 1165.97
+          },
+          "verifier": {
+            "issues": [],
+            "recommended_action": "approve",
+            "safe": true
+          }
+        }
+      ],
+      "mode": "actor_critic"
+    },
+    "handler": {
+      "mode": "generation"
+    },
+    "label_normalization": {
+      "changed": true,
+      "input_product_area": "Visa",
+      "output_product_area": "travel_support"
+    },
+    "retrieval": {
+      "chunks": [
+        {
+          "bm25_rank": 1,
+          "bm25_score": 1.0,
+          "chunk_id": "visa_06129_dfecc78adc",
+          "cross_encoder_rank": 1,
+          "cross_encoder_score": 0.9998834154260631,
+          "dense_rank": 1,
+          "dense_score": 0.9225971102714539,
+          "domain": "visa",
+          "heading_path": "Get support > FAQ > How do I dispute a charge?",
+          "normalized_score": 1.0,
+          "rrf_score": 0.03278688524590164,
+          "url_or_file": "https://www.visa.co.in/support.html"
+        },
+        {
+          "bm25_rank": 2,
+          "bm25_score": 0.6500240706587123,
+          "chunk_id": "visa_06223_e6cdb2e7d9",
+          "cross_encoder_rank": 2,
+          "cross_encoder_score": 0.9782236388385719,
+          "dense_rank": 2,
+          "dense_score": 0.8888273239135742,
+          "domain": "visa",
+          "heading_path": "Support > Small Business > Dispute Resolution > Responding to a dispute > Step 1: A cardholder disputes a transaction",
+          "normalized_score": 0.9838709677419354,
+          "rrf_score": 0.03225806451612903,
+          "url_or_file": "https://www.visa.co.in/support/small-business/dispute-resolution.html"
+        },
+        {
+          "bm25_rank": 21,
+          "bm25_score": 0.239319315309414,
+          "chunk_id": "visa_06221_9222f8b455",
+          "cross_encoder_rank": 3,
+          "cross_encoder_score": 0.857555531771015,
+          "dense_rank": 7,
+          "dense_score": 0.8254886865615845,
+          "domain": "visa",
+          "heading_path": "Support > Small Business > Dispute Resolution > Protect your business > Safeguard your business with the right information",
+          "normalized_score": 0.8317670904735581,
+          "rrf_score": 0.027271052146674038,
+          "url_or_file": "https://www.visa.co.in/support/small-business/dispute-resolution.html"
+        },
+        {
+          "bm25_rank": 3,
+          "bm25_score": 0.38304143611833524,
+          "chunk_id": "visa_06219_46b1be462c",
+          "cross_encoder_rank": 4,
+          "cross_encoder_score": 0.0017091556488582928,
+          "dense_rank": 4,
+          "dense_score": 0.8327469825744629,
+          "domain": "visa",
+          "heading_path": "Support > Small Business > Dispute Resolution",
+          "normalized_score": 0.9606894841269841,
+          "rrf_score": 0.03149801587301587,
+          "url_or_file": "https://www.visa.co.in/support/small-business/dispute-resolution.html"
+        },
+        {
+          "bm25_rank": 12,
+          "bm25_score": 0.2799268204603687,
+          "chunk_id": "visa_06224_537ad12f22",
+          "cross_encoder_rank": 5,
+          "cross_encoder_score": 0.02911267751824713,
+          "dense_rank": 3,
+          "dense_score": 0.8390328288078308,
+          "domain": "visa",
+          "heading_path": "Support > Small Business > Dispute Resolution > Responding to a dispute > Step 2: Find the transaction receipt",
+          "normalized_score": 0.9077380952380951,
+          "rrf_score": 0.02976190476190476,
+          "url_or_file": "https://www.visa.co.in/support/small-business/dispute-resolution.html"
+        }
+      ],
+      "threshold": 0.32,
+      "top_score": 1.0
+    },
+    "sanitize": {
+      "company": "Visa",
+      "issue": "How do I dispute a charge",
+      "language": "en",
+      "pii_detected": false,
+      "subject": "Dispute charge"
+    },
+    "semantic_cache": {
+      "hit": false,
+      "threshold": 0.95
+    },
+    "semantic_cache_write": {
+      "stored": true
+    },
+    "source_receipt": {
+      "had_exact_quote": true,
+      "has_exact_quote": true,
+      "quote_source": "model"
+    },
+    "trap_classifier": {
+      "reasoning": "LLM classifier unavailable (LLMResponseError); defaulting to NORMAL_FAQ.",
+      "tags": [
+        "NORMAL_FAQ"
+      ]
+    }
+  },
+  "ticket_id": 19,
+  "timings_ms": {
+    "confidence_gates": 0.245,
+    "generation": 1252.252,
+    "handler": 0.008,
+    "label_normalization": 0.317,
+    "retrieval": 2757.791,
+    "sanitize": 79.755,
+    "semantic_cache": 345.797,
+    "semantic_cache_write": 0.126,
+    "source_receipt": 0.004,
+    "total": 11899.298,
+    "trap_classifier": 7456.759
+  },
+  "trace_file": "code\\traces\\production\\ticket_19_20260502T044240320821Z_6e81fa8c.json",
+  "trace_id": "19_20260502T044240320821Z_6e81fa8c"
+}
