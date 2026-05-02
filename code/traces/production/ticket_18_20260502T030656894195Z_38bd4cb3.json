@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:37:04.649069Z",
+  "created_at": "2026-05-02T03:06:56.894195Z",
   "final_decision": {
     "exact_quote": "Yes. You can update the name on your certificate only once per account.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass; product_area_snapped=Certifications->screen",
@@ -56,8 +56,8 @@
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 4.26,
-            "verify": 13.613
+            "generate": 9.377,
+            "verify": 10.945
           },
           "verifier": {
             "issues": [],
@@ -180,18 +180,18 @@
   },
   "ticket_id": 18,
   "timings_ms": {
-    "confidence_gates": 0.035,
-    "generation": 18.004,
-    "handler": 0.005,
-    "label_normalization": 1.994,
-    "retrieval": 11228.863,
-    "sanitize": 33.432,
-    "semantic_cache": 689.954,
-    "semantic_cache_write": 0.105,
-    "source_receipt": 0.003,
-    "total": 11973.407,
-    "trap_classifier": 0.428
+    "confidence_gates": 0.039,
+    "generation": 20.82,
+    "handler": 0.007,
+    "label_normalization": 0.328,
+    "retrieval": 12960.439,
+    "sanitize": 38.896,
+    "semantic_cache": 2051.254,
+    "semantic_cache_write": 0.177,
+    "source_receipt": 0.007,
+    "total": 15073.231,
+    "trap_classifier": 0.531
   },
-  "trace_file": "code\\traces\\production\\ticket_18_20260502T023704649069Z_ec7e7390.json",
-  "trace_id": "18_20260502T023704649069Z_ec7e7390"
+  "trace_file": "code\\traces\\production\\ticket_18_20260502T030656894195Z_38bd4cb3.json",
+  "trace_id": "18_20260502T030656894195Z_38bd4cb3"
 }

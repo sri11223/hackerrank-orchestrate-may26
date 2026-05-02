@@ -45,6 +45,8 @@ def should_exclude(path: Path) -> bool:
     parts = set(relative.parts)
     if parts & EXCLUDED_DIR_NAMES:
         return True
+    if any(part.endswith(".egg-info") for part in relative.parts):
+        return True
     if path.name in EXCLUDED_FILE_NAMES:
         return True
     if path.suffix in EXCLUDED_SUFFIXES:

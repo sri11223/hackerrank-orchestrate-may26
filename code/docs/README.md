@@ -206,8 +206,8 @@ Latest cleaned production run:
 - Replied: `27`
 - Escalated: `2`
 - Concurrency limit: `5`
-- Total elapsed: `103.26s`
-- Time per ticket: `3.56s`
+- Total elapsed: `99.47s`
+- Time per ticket: `3.43s`
 - Fresh production traces: `29`
 
 ## Proof Layout

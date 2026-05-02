@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:37:16.639685Z",
+  "created_at": "2026-05-02T03:07:11.972028Z",
   "final_decision": {
     "exact_quote": "Contact us about traveller’s cheques\n\n- Report a lost cheque\n- Request a refund\n- Keep cheques safe",
     "justification": "[IDENTITY_FRAUD] Identity/fraud ticket matched documented emergency contact guidance.; top_chunk=visa_06184_008d6800ee; product_area_snapped=Support->travel_support",
@@ -158,17 +158,17 @@
   },
   "ticket_id": 25,
   "timings_ms": {
-    "confidence_gates": 0.03,
-    "handler": 1.451,
-    "label_normalization": 0.775,
-    "retrieval": 8079.068,
-    "sanitize": 47.958,
-    "semantic_cache": 1513.322,
-    "semantic_cache_write": 0.168,
+    "confidence_gates": 0.035,
+    "handler": 1.732,
+    "label_normalization": 0.368,
+    "retrieval": 9965.365,
+    "sanitize": 16.647,
+    "semantic_cache": 4872.78,
+    "semantic_cache_write": 0.171,
     "source_receipt": 0.007,
-    "total": 9643.656,
-    "trap_classifier": 0.582
+    "total": 14858.232,
+    "trap_classifier": 0.698
   },
-  "trace_file": "code\\traces\\production\\ticket_25_20260502T023716639685Z_036f80f4.json",
-  "trace_id": "25_20260502T023716639685Z_036f80f4"
+  "trace_file": "code\\traces\\production\\ticket_25_20260502T030711972028Z_40a9a457.json",
+  "trace_id": "25_20260502T030711972028Z_40a9a457"
 }

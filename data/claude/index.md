@@ -140,7 +140,7 @@ Exported 321 articles.
 - [How can I access the Claude API?](claude-api-and-console/using-the-claude-api-and-console/8114521-how-can-i-access-the-claude-api.md)
 - [How do I use the Workbench?](claude-api-and-console/using-the-claude-api-and-console/8606378-how-do-i-use-the-workbench.md)
 - [I created a Claude Console organization - how do I start using the Claude API?](claude-api-and-console/using-the-claude-api-and-console/8114531-i-created-a-claude-console-organization-how-do-i-start-using-the-claude-api.md)
-- [I have a paid Claude subscription (Pro, Max, Team, or Enterprise plans). Why do I have to pay separately to use the Claude API and Console?](claude-api-and-console/using-the-claude-api-and-console/9876003-i-have-a-paid-claude-subscription-pro-max-team-or-enterprise-plans-why-do-i-have-to-pay-separately-to-use-the-claude-api-and-console.md)
+- [I have a paid Claude subscription (Pro, Max, Team, or Enterprise plans). Why do I have to pay separately to use the Claude API and Console?](claude-api-and-console/using-the-claude-api-and-console/claude_paid_vs_api_faq.md)
 - [Inviting members to the Claude Console](claude-api-and-console/using-the-claude-api-and-console/13443764-inviting-members-to-the-claude-console.md)
 - [Logging in to your Console account](claude-api-and-console/using-the-claude-api-and-console/13371040-logging-in-to-your-console-account.md)
 - [Manage user feedback settings on Claude Console](claude-api-and-console/using-the-claude-api-and-console/10504853-manage-user-feedback-settings-on-claude-console.md)

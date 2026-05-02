@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:36:51.100312Z",
+  "created_at": "2026-05-02T03:06:19.979299Z",
   "final_decision": {
     "exact_quote": "- If your organization isn't disqualifying candidates based on their scores (which is sometimes the case for senior candidates), have the recruiter highlight this in their messaging/positioning. For example, the messaging could include: \"Please note that your performance on this assessment isn't dictated by your percentage score, but rather by your overall thought process (how you approach the question, ability to problem solve, etc.)\"",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass; product_area_snapped=Interviews->screen; exact_quote_source=deterministic_fallback",
@@ -54,7 +54,7 @@
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 20.078,
+            "generate": 9.856,
             "verify": 0.0
           },
           "verifier": null
@@ -76,8 +76,8 @@
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 2757.616,
-            "verify": 41.535
+            "generate": 9.049,
+            "verify": 8.287
           },
           "verifier": {
             "issues": [],
@@ -200,18 +200,18 @@
   },
   "ticket_id": 11,
   "timings_ms": {
-    "confidence_gates": 0.036,
-    "generation": 2819.413,
-    "handler": 0.004,
-    "label_normalization": 0.101,
-    "retrieval": 13487.043,
-    "sanitize": 5.56,
-    "semantic_cache": 2060.107,
-    "semantic_cache_write": 0.075,
-    "source_receipt": 14.257,
-    "total": 18387.287,
-    "trap_classifier": 0.326
+    "confidence_gates": 0.039,
+    "generation": 27.43,
+    "handler": 0.008,
+    "label_normalization": 0.165,
+    "retrieval": 15924.751,
+    "sanitize": 5.996,
+    "semantic_cache": 14089.686,
+    "semantic_cache_write": 0.189,
+    "source_receipt": 4.24,
+    "total": 30053.352,
+    "trap_classifier": 0.427
   },
-  "trace_file": "code\\traces\\production\\ticket_11_20260502T023651100312Z_554b60d8.json",
-  "trace_id": "11_20260502T023651100312Z_554b60d8"
+  "trace_file": "code\\traces\\production\\ticket_11_20260502T030619978793Z_4e5e5f59.json",
+  "trace_id": "11_20260502T030619978793Z_4e5e5f59"
 }

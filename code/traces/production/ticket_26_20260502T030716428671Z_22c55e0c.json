@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:37:18.105995Z",
+  "created_at": "2026-05-02T03:07:16.428671Z",
   "final_decision": {
     "exact_quote": "Contact AWS Support for Claude in Amazon Bedrock support inquiries or reach out to your AWS account manager. For community-based support, visit AWS re:Post.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.88; verifier=pass; product_area_snapped=Claude in Amazon Bedrock->general_support",
@@ -56,8 +56,8 @@
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 14.0,
-            "verify": 20.134
+            "generate": 7.538,
+            "verify": 5.147
           },
           "verifier": {
             "issues": [],
@@ -180,18 +180,18 @@
   },
   "ticket_id": 26,
   "timings_ms": {
-    "confidence_gates": 0.015,
-    "generation": 34.248,
-    "handler": 0.006,
-    "label_normalization": 0.913,
-    "retrieval": 4238.189,
-    "sanitize": 66.094,
-    "semantic_cache": 710.334,
-    "semantic_cache_write": 0.069,
-    "source_receipt": 0.003,
-    "total": 5050.473,
-    "trap_classifier": 0.163
+    "confidence_gates": 0.033,
+    "generation": 12.837,
+    "handler": 0.007,
+    "label_normalization": 0.789,
+    "retrieval": 5517.479,
+    "sanitize": 35.78,
+    "semantic_cache": 2287.383,
+    "semantic_cache_write": 0.157,
+    "source_receipt": 0.007,
+    "total": 7855.43,
+    "trap_classifier": 0.516
   },
-  "trace_file": "code\\traces\\production\\ticket_26_20260502T023718104986Z_6c7bf28b.json",
-  "trace_id": "26_20260502T023718104986Z_6c7bf28b"
+  "trace_file": "code\\traces\\production\\ticket_26_20260502T030716428671Z_22c55e0c.json",
+  "trace_id": "26_20260502T030716428671Z_22c55e0c"
 }

@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:37:21.386263Z",
+  "created_at": "2026-05-02T03:07:17.173702Z",
   "final_decision": {
     "exact_quote": "7. In the confirmation dialog, click Delete Team. A success message appears.",
     "justification": "[ACTION_REQUEST] grounded generation; retrieval_score=0.90; verifier=pass; product_area_snapped=HackerRank for Work->community; exact_quote_source=deterministic_fallback",
@@ -56,8 +56,8 @@
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 8.197,
-            "verify": 5.373
+            "generate": 5.409,
+            "verify": 7.855
           },
           "verifier": {
             "issues": [],
@@ -181,18 +181,18 @@
   },
   "ticket_id": 27,
   "timings_ms": {
-    "confidence_gates": 0.016,
-    "generation": 13.726,
-    "handler": 0.008,
-    "label_normalization": 0.117,
-    "retrieval": 8584.384,
-    "sanitize": 27.368,
-    "semantic_cache": 982.447,
-    "semantic_cache_write": 0.077,
-    "source_receipt": 4.691,
-    "total": 9613.555,
-    "trap_classifier": 0.241
+    "confidence_gates": 0.012,
+    "generation": 13.335,
+    "handler": 0.004,
+    "label_normalization": 0.164,
+    "retrieval": 11104.027,
+    "sanitize": 42.389,
+    "semantic_cache": 1951.915,
+    "semantic_cache_write": 0.168,
+    "source_receipt": 2.179,
+    "total": 13114.921,
+    "trap_classifier": 0.385
   },
-  "trace_file": "code\\traces\\production\\ticket_27_20260502T023721386263Z_77342be4.json",
-  "trace_id": "27_20260502T023721386263Z_77342be4"
+  "trace_file": "code\\traces\\production\\ticket_27_20260502T030717173702Z_e043cc20.json",
+  "trace_id": "27_20260502T030717173702Z_e043cc20"
 }

@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:37:01.395647Z",
+  "created_at": "2026-05-02T03:06:47.587462Z",
   "final_decision": {
     "exact_quote": "Visit our Lost or Stolen card page – if the identity theft involves your Visa card – to learn how to cancel your card or get an emergency replacement card.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass; product_area_snapped=Identity Theft Support->travel_support; exact_quote_source=deterministic_fallback",
@@ -56,8 +56,8 @@
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 3.806,
-            "verify": 34.507
+            "generate": 8.392,
+            "verify": 6.143
           },
           "verifier": {
             "issues": [],
@@ -180,18 +180,18 @@
   },
   "ticket_id": 16,
   "timings_ms": {
-    "confidence_gates": 0.022,
-    "generation": 38.504,
-    "handler": 0.003,
-    "label_normalization": 0.1,
-    "retrieval": 4145.723,
-    "sanitize": 43.481,
-    "semantic_cache": 720.321,
-    "semantic_cache_write": 0.083,
-    "source_receipt": 5.517,
-    "total": 4958.577,
-    "trap_classifier": 0.346
+    "confidence_gates": 0.037,
+    "generation": 14.959,
+    "handler": 0.006,
+    "label_normalization": 0.208,
+    "retrieval": 8655.723,
+    "sanitize": 72.197,
+    "semantic_cache": 4331.074,
+    "semantic_cache_write": 0.17,
+    "source_receipt": 1.474,
+    "total": 13076.833,
+    "trap_classifier": 0.416
   },
-  "trace_file": "code\\traces\\production\\ticket_16_20260502T023701395647Z_8c2638ff.json",
-  "trace_id": "16_20260502T023701395647Z_8c2638ff"
+  "trace_file": "code\\traces\\production\\ticket_16_20260502T030647587462Z_66fe34f0.json",
+  "trace_id": "16_20260502T030647587462Z_66fe34f0"
 }

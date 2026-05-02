@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:37:10.217182Z",
+  "created_at": "2026-05-02T03:07:05.396268Z",
   "final_decision": {
     "exact_quote": "Look out for ATMs with Visa PLUS mark anywhere to withdraw local currency with ease. Visa cards that bear the PLUS logo can be used for cash withdrawals, using the same PIN at ATMs worldwide. Click here to locate ATMs.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass; product_area_snapped=Visa->travel_support",
@@ -57,8 +57,8 @@
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 8.067,
-            "verify": 12.254
+            "generate": 7.412,
+            "verify": 7.433
           },
           "verifier": {
             "issues": [
@@ -87,8 +87,8 @@
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 16.783,
-            "verify": 14.105
+            "generate": 7.532,
+            "verify": 6.491
           },
           "verifier": {
             "issues": [],
@@ -211,18 +211,18 @@
   },
   "ticket_id": 22,
   "timings_ms": {
-    "confidence_gates": 0.016,
-    "generation": 51.903,
-    "handler": 0.007,
-    "label_normalization": 0.098,
-    "retrieval": 7005.912,
-    "sanitize": 46.593,
-    "semantic_cache": 777.514,
-    "semantic_cache_write": 0.152,
+    "confidence_gates": 0.012,
+    "generation": 29.471,
+    "handler": 0.008,
+    "label_normalization": 0.076,
+    "retrieval": 6902.305,
+    "sanitize": 5.172,
+    "semantic_cache": 4091.217,
+    "semantic_cache_write": 0.067,
     "source_receipt": 0.003,
-    "total": 7882.839,
-    "trap_classifier": 0.175
+    "total": 11028.941,
+    "trap_classifier": 0.37
   },
-  "trace_file": "code\\traces\\production\\ticket_22_20260502T023710217182Z_d1444212.json",
-  "trace_id": "22_20260502T023710217182Z_d1444212"
+  "trace_file": "code\\traces\\production\\ticket_22_20260502T030705396268Z_d0d87d0f.json",
+  "trace_id": "22_20260502T030705396268Z_d0d87d0f"
 }

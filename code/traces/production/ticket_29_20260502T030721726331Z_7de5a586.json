@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:37:23.172289Z",
+  "created_at": "2026-05-02T03:07:21.726331Z",
   "final_decision": {
     "exact_quote": "In those locations, and only for credit cards, a merchant may require a minimum transaction amount of US\\$10.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass; product_area_snapped=Visa card->travel_support; exact_quote_source=deterministic_fallback",
@@ -56,8 +56,8 @@
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 4.595,
-            "verify": 5.72
+            "generate": 6.834,
+            "verify": 8.439
           },
           "verifier": {
             "issues": [],
@@ -180,18 +180,18 @@
   },
   "ticket_id": 29,
   "timings_ms": {
-    "confidence_gates": 0.039,
-    "generation": 10.456,
-    "handler": 0.004,
-    "label_normalization": 0.166,
-    "retrieval": 5304.216,
-    "sanitize": 51.613,
-    "semantic_cache": 1029.937,
-    "semantic_cache_write": 0.167,
-    "source_receipt": 1.791,
-    "total": 6399.067,
-    "trap_classifier": 0.195
+    "confidence_gates": 0.019,
+    "generation": 15.411,
+    "handler": 0.003,
+    "label_normalization": 0.074,
+    "retrieval": 7138.271,
+    "sanitize": 21.58,
+    "semantic_cache": 2286.221,
+    "semantic_cache_write": 0.079,
+    "source_receipt": 0.895,
+    "total": 9463.607,
+    "trap_classifier": 0.476
   },
-  "trace_file": "code\\traces\\production\\ticket_29_20260502T023723172289Z_72c45866.json",
-  "trace_id": "29_20260502T023723172289Z_72c45866"
+  "trace_file": "code\\traces\\production\\ticket_29_20260502T030721726331Z_7de5a586.json",
+  "trace_id": "29_20260502T030721726331Z_7de5a586"
 }

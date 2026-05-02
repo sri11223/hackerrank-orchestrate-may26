@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:36:51.337094Z",
+  "created_at": "2026-05-02T03:06:27.969319Z",
   "final_decision": {
     "exact_quote": "If you are using a company Slack instance and are not assigned to an Admin role, a Slack Admin must approve the Claude app on behalf of your organization before you’re able to download it.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.71; verifier=pass; product_area_snapped=Claude->general_support",
@@ -56,8 +56,8 @@
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 14.464,
-            "verify": 11.575
+            "generate": 5.616,
+            "verify": 7.728
           },
           "verifier": {
             "issues": [],
@@ -180,18 +180,18 @@
   },
   "ticket_id": 12,
   "timings_ms": {
-    "confidence_gates": 0.037,
-    "generation": 26.17,
-    "handler": 0.004,
-    "label_normalization": 4.5,
-    "retrieval": 5703.578,
-    "sanitize": 21.805,
-    "semantic_cache": 1178.104,
-    "semantic_cache_write": 0.172,
+    "confidence_gates": 0.041,
+    "generation": 13.603,
+    "handler": 0.007,
+    "label_normalization": 0.392,
+    "retrieval": 12262.978,
+    "sanitize": 363.714,
+    "semantic_cache": 6973.196,
+    "semantic_cache_write": 0.274,
     "source_receipt": 0.007,
-    "total": 6934.965,
-    "trap_classifier": 0.135
+    "total": 19616.482,
+    "trap_classifier": 0.511
   },
-  "trace_file": "code\\traces\\production\\ticket_12_20260502T023651337094Z_c205a84b.json",
-  "trace_id": "12_20260502T023651337094Z_c205a84b"
+  "trace_file": "code\\traces\\production\\ticket_12_20260502T030627967790Z_612e4afa.json",
+  "trace_id": "12_20260502T030627967790Z_612e4afa"
 }

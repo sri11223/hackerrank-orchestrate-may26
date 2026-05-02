@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:36:51.042403Z",
+  "created_at": "2026-05-02T03:06:18.067500Z",
   "final_decision": {
     "exact_quote": "2. As an interviewer, access the interview link and log in to the session with your HackerRank for Work company admin user account. For more information on conducting coding interviews, refer to📄 Introduction to HackerRank Interviews",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.78; verifier=pass; product_area_snapped=HackerRank Interviews->screen; exact_quote_source=deterministic_fallback",
@@ -56,8 +56,8 @@
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 17.866,
-            "verify": 29.247
+            "generate": 10.05,
+            "verify": 7.23
           },
           "verifier": {
             "issues": [],
@@ -180,18 +180,18 @@
   },
   "ticket_id": 10,
   "timings_ms": {
-    "confidence_gates": 0.03,
-    "generation": 47.288,
+    "confidence_gates": 0.034,
+    "generation": 17.454,
     "handler": 0.007,
-    "label_normalization": 0.217,
-    "retrieval": 8733.373,
-    "sanitize": 16.589,
-    "semantic_cache": 1529.608,
-    "semantic_cache_write": 0.126,
-    "source_receipt": 13.487,
-    "total": 10341.522,
-    "trap_classifier": 0.232
+    "label_normalization": 0.258,
+    "retrieval": 23452.831,
+    "sanitize": 5.482,
+    "semantic_cache": 398.853,
+    "semantic_cache_write": 0.08,
+    "source_receipt": 4.708,
+    "total": 23880.855,
+    "trap_classifier": 0.715
   },
-  "trace_file": "code\\traces\\production\\ticket_10_20260502T023651042403Z_a8c84af3.json",
-  "trace_id": "10_20260502T023651042403Z_a8c84af3"
+  "trace_file": "code\\traces\\production\\ticket_10_20260502T030618067500Z_8f048760.json",
+  "trace_id": "10_20260502T030618067500Z_8f048760"
 }

@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:36:53.116720Z",
+  "created_at": "2026-05-02T03:06:39.725395Z",
   "final_decision": {
     "exact_quote": "- Click the Cancel Plan button. The UI will display a prompt about the new Pause Subscription feature.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass; product_area_snapped=Subscription Settings->screen; exact_quote_source=deterministic_fallback",
@@ -56,8 +56,8 @@
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 19.811,
-            "verify": 17.381
+            "generate": 8.941,
+            "verify": 6.89
           },
           "verifier": {
             "issues": [],
@@ -180,18 +180,18 @@
   },
   "ticket_id": 14,
   "timings_ms": {
-    "confidence_gates": 0.033,
-    "generation": 37.354,
+    "confidence_gates": 0.152,
+    "generation": 16.002,
     "handler": 0.007,
-    "label_normalization": 7.175,
-    "retrieval": 9591.708,
-    "sanitize": 6.916,
-    "semantic_cache": 444.782,
-    "semantic_cache_write": 0.087,
-    "source_receipt": 0.929,
-    "total": 10089.566,
-    "trap_classifier": 0.157
+    "label_normalization": 0.651,
+    "retrieval": 15578.033,
+    "sanitize": 74.31,
+    "semantic_cache": 2534.577,
+    "semantic_cache_write": 0.175,
+    "source_receipt": 2.118,
+    "total": 18207.083,
+    "trap_classifier": 0.35
   },
-  "trace_file": "code\\traces\\production\\ticket_14_20260502T023653116720Z_a85ca8d8.json",
-  "trace_id": "14_20260502T023653116720Z_a85ca8d8"
+  "trace_file": "code\\traces\\production\\ticket_14_20260502T030639725395Z_8d7b7a40.json",
+  "trace_id": "14_20260502T030639725395Z_8d7b7a40"
 }

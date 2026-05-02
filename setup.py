@@ -47,6 +47,7 @@ setup(
     entry_points={
         "console_scripts": [
             "orchestrate=triage.cli:main",
+            "triage=triage.cli:main",
             "triage-ai=triage.cli:main",
         ],
     },

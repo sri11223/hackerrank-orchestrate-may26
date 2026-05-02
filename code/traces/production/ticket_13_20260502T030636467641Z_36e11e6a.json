@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:36:52.989304Z",
+  "created_at": "2026-05-02T03:06:36.467641Z",
   "final_decision": {
     "exact_quote": "",
     "justification": "[ACTION_REQUEST] grounded generation; retrieval_score=0.90; verifier=fail; hard_override=verifier=fail; product_area_snapped=Interviews->screen",
@@ -56,8 +56,8 @@
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 7.245,
-            "verify": 7.484
+            "generate": 6.737,
+            "verify": 8.924
           },
           "verifier": {
             "issues": [
@@ -86,8 +86,8 @@
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 16.335,
-            "verify": 14.335
+            "generate": 5.487,
+            "verify": 9.921
           },
           "verifier": {
             "issues": [
@@ -213,18 +213,18 @@
   },
   "ticket_id": 13,
   "timings_ms": {
-    "confidence_gates": 0.047,
-    "generation": 51.253,
-    "handler": 0.004,
-    "label_normalization": 0.24,
-    "retrieval": 11228.501,
-    "sanitize": 5.401,
-    "semantic_cache": 369.044,
-    "semantic_cache_write": 0.068,
-    "source_receipt": 0.003,
-    "total": 11655.136,
-    "trap_classifier": 0.224
+    "confidence_gates": 0.142,
+    "generation": 31.84,
+    "handler": 0.009,
+    "label_normalization": 0.589,
+    "retrieval": 17037.111,
+    "sanitize": 39.772,
+    "semantic_cache": 3293.064,
+    "semantic_cache_write": 0.167,
+    "source_receipt": 0.006,
+    "total": 20403.874,
+    "trap_classifier": 0.476
   },
-  "trace_file": "code\\traces\\production\\ticket_13_20260502T023652989304Z_2551a4de.json",
-  "trace_id": "13_20260502T023652989304Z_2551a4de"
+  "trace_file": "code\\traces\\production\\ticket_13_20260502T030636467641Z_36e11e6a.json",
+  "trace_id": "13_20260502T030636467641Z_36e11e6a"
 }

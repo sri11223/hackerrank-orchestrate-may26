@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:37:06.354427Z",
+  "created_at": "2026-05-02T03:06:57.937194Z",
   "final_decision": {
     "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=1.00; verifier=pass; product_area_snapped=Dispute Resolution->travel_support",
@@ -56,8 +56,8 @@
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 13.511,
-            "verify": 10.715
+            "generate": 183.862,
+            "verify": 7.98
           },
           "verifier": {
             "issues": [
@@ -86,8 +86,8 @@
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 18.633,
-            "verify": 15.506
+            "generate": 25.705,
+            "verify": 8.726
           },
           "verifier": {
             "issues": [],
@@ -210,18 +210,18 @@
   },
   "ticket_id": 19,
   "timings_ms": {
-    "confidence_gates": 0.037,
-    "generation": 58.924,
-    "handler": 0.006,
-    "label_normalization": 2.2,
-    "retrieval": 4770.564,
-    "sanitize": 141.43,
-    "semantic_cache": 814.827,
-    "semantic_cache_write": 0.143,
+    "confidence_gates": 0.091,
+    "generation": 227.056,
+    "handler": 0.007,
+    "label_normalization": 1.005,
+    "retrieval": 8715.45,
+    "sanitize": 100.923,
+    "semantic_cache": 1406.517,
+    "semantic_cache_write": 0.093,
     "source_receipt": 0.003,
-    "total": 5789.101,
-    "trap_classifier": 0.474
+    "total": 10452.427,
+    "trap_classifier": 0.418
   },
-  "trace_file": "code\\traces\\production\\ticket_19_20260502T023706354427Z_868eaa51.json",
-  "trace_id": "19_20260502T023706354427Z_868eaa51"
+  "trace_file": "code\\traces\\production\\ticket_19_20260502T030657937194Z_a2acee70.json",
+  "trace_id": "19_20260502T030657937194Z_a2acee70"
 }

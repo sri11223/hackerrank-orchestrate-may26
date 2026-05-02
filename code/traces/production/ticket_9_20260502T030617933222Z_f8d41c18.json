@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:36:48.924082Z",
+  "created_at": "2026-05-02T03:06:17.933222Z",
   "final_decision": {
     "exact_quote": "The HackerRank Test Status is set to error status when an invite cannot be sent or another such error exists. These are the possible error statuses and the resolutions:",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.89; verifier=pass; product_area_snapped=HackerRank->screen; exact_quote_source=deterministic_fallback",
@@ -56,8 +56,8 @@
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 3.575,
-            "verify": 3.709
+            "generate": 10.479,
+            "verify": 9.579
           },
           "verifier": {
             "issues": [
@@ -84,8 +84,8 @@
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 4.06,
-            "verify": 3.911
+            "generate": 8.606,
+            "verify": 33.079
           },
           "verifier": {
             "issues": [],
@@ -208,18 +208,18 @@
   },
   "ticket_id": 9,
   "timings_ms": {
-    "confidence_gates": 0.012,
-    "generation": 15.663,
-    "handler": 0.003,
-    "label_normalization": 0.055,
-    "retrieval": 3691.825,
-    "sanitize": 15.849,
-    "semantic_cache": 338.424,
-    "semantic_cache_write": 0.067,
-    "source_receipt": 1.332,
-    "total": 4063.744,
-    "trap_classifier": 0.218
+    "confidence_gates": 0.031,
+    "generation": 62.479,
+    "handler": 0.007,
+    "label_normalization": 0.141,
+    "retrieval": 21391.513,
+    "sanitize": 5.38,
+    "semantic_cache": 324.594,
+    "semantic_cache_write": 0.244,
+    "source_receipt": 4.542,
+    "total": 21789.56,
+    "trap_classifier": 0.215
   },
-  "trace_file": "code\\traces\\production\\ticket_9_20260502T023648923061Z_caeb5081.json",
-  "trace_id": "9_20260502T023648923061Z_caeb5081"
+  "trace_file": "code\\traces\\production\\ticket_9_20260502T030617933222Z_f8d41c18.json",
+  "trace_id": "9_20260502T030617933222Z_f8d41c18"
 }

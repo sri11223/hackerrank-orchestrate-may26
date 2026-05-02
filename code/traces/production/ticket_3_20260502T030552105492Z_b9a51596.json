@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:35:53.333243Z",
+  "created_at": "2026-05-02T03:05:52.105492Z",
   "final_decision": {
     "exact_quote": "To dispute a charge, please contact your issuer or bank using the freephone number (only free when dialling from within the USA) located on the front or back of your Visa card. In many cases, your issuer or bank will require detailed information regarding the transaction before resolving the disputed charge.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.97; verifier=pass; product_area_snapped=billing->travel_support",
@@ -56,8 +56,8 @@
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 6449.029,
-            "verify": 2517.874
+            "generate": 2.966,
+            "verify": 2.882
           },
           "verifier": {
             "issues": [],
@@ -181,18 +181,18 @@
   },
   "ticket_id": 3,
   "timings_ms": {
-    "confidence_gates": 0.014,
-    "generation": 8966.984,
-    "handler": 0.006,
-    "label_normalization": 0.085,
-    "retrieval": 16396.126,
-    "sanitize": 3.572,
-    "semantic_cache": 32634.725,
-    "semantic_cache_write": 0.072,
+    "confidence_gates": 0.013,
+    "generation": 5.909,
+    "handler": 0.003,
+    "label_normalization": 0.075,
+    "retrieval": 6823.691,
+    "sanitize": 2.995,
+    "semantic_cache": 18668.456,
+    "semantic_cache_write": 0.076,
     "source_receipt": 0.002,
-    "total": 58002.217,
-    "trap_classifier": 0.406
+    "total": 25501.529,
+    "trap_classifier": 0.116
   },
-  "trace_file": "code\\traces\\production\\ticket_3_20260502T023553333243Z_bb4faa3d.json",
-  "trace_id": "3_20260502T023553333243Z_bb4faa3d"
+  "trace_file": "code\\traces\\production\\ticket_3_20260502T030552105492Z_b9a51596.json",
+  "trace_id": "3_20260502T030552105492Z_b9a51596"
 }

@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:35:53.337270Z",
+  "created_at": "2026-05-02T03:05:52.109042Z",
   "final_decision": {
     "exact_quote": "If you accidentally make a purchase or are not satisfied with your mock interview, contact help@hackerrank.com. The support team will promptly review your request.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass; product_area_snapped=Refund Policy->screen",
@@ -56,8 +56,8 @@
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 5381.0,
-            "verify": 1177.854
+            "generate": 3.244,
+            "verify": 2.287
           },
           "verifier": {
             "issues": [],
@@ -181,18 +181,18 @@
   },
   "ticket_id": 4,
   "timings_ms": {
-    "confidence_gates": 0.034,
-    "generation": 6559.004,
-    "handler": 0.009,
-    "label_normalization": 0.677,
-    "retrieval": 16374.506,
-    "sanitize": 4.259,
-    "semantic_cache": 32641.73,
-    "semantic_cache_write": 0.215,
-    "source_receipt": 0.003,
-    "total": 55581.163,
-    "trap_classifier": 0.384
+    "confidence_gates": 0.012,
+    "generation": 5.589,
+    "handler": 0.004,
+    "label_normalization": 1.871,
+    "retrieval": 2343.459,
+    "sanitize": 4.358,
+    "semantic_cache": 18484.008,
+    "semantic_cache_write": 0.068,
+    "source_receipt": 0.004,
+    "total": 20839.68,
+    "trap_classifier": 0.138
   },
-  "trace_file": "code\\traces\\production\\ticket_4_20260502T023553337270Z_9428b357.json",
-  "trace_id": "4_20260502T023553337270Z_9428b357"
+  "trace_file": "code\\traces\\production\\ticket_4_20260502T030552109042Z_a6f5a604.json",
+  "trace_id": "4_20260502T030552109042Z_a6f5a604"
 }

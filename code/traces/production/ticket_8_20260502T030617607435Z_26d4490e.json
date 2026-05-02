@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:36:48.656787Z",
+  "created_at": "2026-05-02T03:06:17.608942Z",
   "final_decision": {
     "exact_quote": "Technical Support - If you experience issues accessing or completing the code challenges, please refer to their FAQ or contact HackerRank support at support@hackerrank.com.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.99; verifier=pass; product_area_snapped=HackerRank Challenges->screen; exact_quote_source=deterministic_fallback",
@@ -56,8 +56,8 @@
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 3.964,
-            "verify": 2.664
+            "generate": 7.995,
+            "verify": 5.542
           },
           "verifier": {
             "issues": [],
@@ -180,18 +180,18 @@
   },
   "ticket_id": 8,
   "timings_ms": {
-    "confidence_gates": 0.013,
-    "generation": 6.698,
-    "handler": 0.003,
-    "label_normalization": 0.08,
-    "retrieval": 3974.939,
-    "sanitize": 26.09,
-    "semantic_cache": 446.764,
-    "semantic_cache_write": 0.081,
-    "source_receipt": 2.186,
-    "total": 4457.32,
-    "trap_classifier": 0.149
+    "confidence_gates": 0.017,
+    "generation": 13.648,
+    "handler": 0.008,
+    "label_normalization": 0.106,
+    "retrieval": 18259.933,
+    "sanitize": 5.768,
+    "semantic_cache": 569.845,
+    "semantic_cache_write": 0.165,
+    "source_receipt": 4.846,
+    "total": 18854.853,
+    "trap_classifier": 0.144
   },
-  "trace_file": "code\\traces\\production\\ticket_8_20260502T023648656787Z_33239b4f.json",
-  "trace_id": "8_20260502T023648656787Z_33239b4f"
+  "trace_file": "code\\traces\\production\\ticket_8_20260502T030617607435Z_26d4490e.json",
+  "trace_id": "8_20260502T030617607435Z_26d4490e"
 }

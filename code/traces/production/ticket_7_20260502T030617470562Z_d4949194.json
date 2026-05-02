@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:36:42.417129Z",
+  "created_at": "2026-05-02T03:06:17.470562Z",
   "final_decision": {
     "exact_quote": "Job listings feature has been removed following the deprecation of the Apply tab.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.84; verifier=pass; product_area_snapped=HackerRank->screen",
@@ -56,8 +56,8 @@
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 8.417,
-            "verify": 8.095
+            "generate": 8.681,
+            "verify": 8.164
           },
           "verifier": {
             "issues": [
@@ -86,8 +86,8 @@
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 7.979,
-            "verify": 8.249
+            "generate": 8.265,
+            "verify": 63.047
           },
           "verifier": {
             "issues": [],
@@ -210,18 +210,18 @@
   },
   "ticket_id": 7,
   "timings_ms": {
-    "confidence_gates": 0.035,
-    "generation": 33.502,
+    "confidence_gates": 0.178,
+    "generation": 90.076,
     "handler": 0.007,
-    "label_normalization": 0.202,
-    "retrieval": 5928.588,
-    "sanitize": 10.387,
-    "semantic_cache": 260.932,
-    "semantic_cache_write": 0.158,
-    "source_receipt": 0.009,
-    "total": 6234.723,
-    "trap_classifier": 0.365
+    "label_normalization": 0.225,
+    "retrieval": 9724.994,
+    "sanitize": 4.756,
+    "semantic_cache": 671.671,
+    "semantic_cache_write": 0.163,
+    "source_receipt": 0.006,
+    "total": 10492.699,
+    "trap_classifier": 0.216
   },
-  "trace_file": "code\\traces\\production\\ticket_7_20260502T023642417129Z_d77933d9.json",
-  "trace_id": "7_20260502T023642417129Z_d77933d9"
+  "trace_file": "code\\traces\\production\\ticket_7_20260502T030617470562Z_d4949194.json",
+  "trace_id": "7_20260502T030617470562Z_d4949194"
 }

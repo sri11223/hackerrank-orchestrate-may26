@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:35:53.328727Z",
+  "created_at": "2026-05-02T03:05:52.099467Z",
   "final_decision": {
     "exact_quote": "",
     "justification": "[SCORE_DISPUTE] Score disputes are sensitive and require human review.; top_chunk=hackerrank_00923_f782a5cfb9; product_area_snapped=Integrations->screen",
@@ -158,17 +158,17 @@
   },
   "ticket_id": 2,
   "timings_ms": {
-    "confidence_gates": 0.012,
-    "handler": 0.103,
-    "label_normalization": 0.204,
-    "retrieval": 16432.756,
-    "sanitize": 3.782,
-    "semantic_cache": 32635.82,
-    "semantic_cache_write": 0.145,
-    "source_receipt": 0.009,
-    "total": 49074.547,
-    "trap_classifier": 1.501
+    "confidence_gates": 0.015,
+    "handler": 0.234,
+    "label_normalization": 0.102,
+    "retrieval": 7153.661,
+    "sanitize": 4.898,
+    "semantic_cache": 18672.019,
+    "semantic_cache_write": 0.105,
+    "source_receipt": 0.004,
+    "total": 25831.399,
+    "trap_classifier": 0.192
   },
-  "trace_file": "code\\traces\\production\\ticket_2_20260502T023553328727Z_ba9ded7f.json",
-  "trace_id": "2_20260502T023553328727Z_ba9ded7f"
+  "trace_file": "code\\traces\\production\\ticket_2_20260502T030552099467Z_5c566245.json",
+  "trace_id": "2_20260502T030552099467Z_5c566245"
 }

@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:37:15.850468Z",
+  "created_at": "2026-05-02T03:07:10.258818Z",
   "final_decision": {
     "exact_quote": "The projectfilesinstructions.md file is no longer included in the project questions in the library. This file previously provided instructions about read-only files and appeared when the question loaded. This change simplifies the workspace and reduces unnecessary distractions during the assessment.",
     "justification": "[SYSTEM_HARM] Harmful system request is out of support scope.; top_chunk=hackerrank_00381_23dd01fd6b; product_area_snapped=safety->screen; exact_quote_source=deterministic_fallback",
@@ -157,17 +157,17 @@
   },
   "ticket_id": 24,
   "timings_ms": {
-    "confidence_gates": 0.03,
-    "handler": 0.257,
-    "label_normalization": 0.226,
-    "retrieval": 9665.346,
-    "sanitize": 87.834,
-    "semantic_cache": 888.143,
-    "semantic_cache_write": 0.204,
-    "source_receipt": 1.343,
-    "total": 10644.394,
-    "trap_classifier": 0.592
+    "confidence_gates": 0.034,
+    "handler": 0.286,
+    "label_normalization": 0.238,
+    "retrieval": 9983.376,
+    "sanitize": 27.779,
+    "semantic_cache": 1449.1,
+    "semantic_cache_write": 0.17,
+    "source_receipt": 1.665,
+    "total": 11463.916,
+    "trap_classifier": 0.987
   },
-  "trace_file": "code\\traces\\production\\ticket_24_20260502T023715850468Z_6391923b.json",
-  "trace_id": "24_20260502T023715850468Z_6391923b"
+  "trace_file": "code\\traces\\production\\ticket_24_20260502T030710258818Z_adc0111d.json",
+  "trace_id": "24_20260502T030710258818Z_adc0111d"
 }

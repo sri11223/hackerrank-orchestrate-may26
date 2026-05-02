@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:35:52.970685Z",
+  "created_at": "2026-05-02T03:05:51.759075Z",
   "final_decision": {
     "exact_quote": "1. In your IdP, assign yourself to a group with the correct prefix that maps to an Admin or Owner role.",
     "justification": "[ACTION_REQUEST] grounded generation; retrieval_score=0.90; verifier=pass; product_area_snapped=Claude->general_support; exact_quote_source=deterministic_fallback",
@@ -56,8 +56,8 @@
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 16719.549,
-            "verify": 2379.261
+            "generate": 3.906,
+            "verify": 3.377
           },
           "verifier": {
             "issues": [],
@@ -182,18 +182,18 @@
   },
   "ticket_id": 1,
   "timings_ms": {
-    "confidence_gates": 0.013,
-    "generation": 19098.909,
-    "handler": 0.009,
-    "label_normalization": 0.18,
-    "retrieval": 6013.851,
-    "sanitize": 356.354,
-    "semantic_cache": 32655.06,
-    "semantic_cache_write": 0.071,
-    "source_receipt": 1.878,
-    "total": 58127.332,
-    "trap_classifier": 0.623
+    "confidence_gates": 0.017,
+    "generation": 7.357,
+    "handler": 0.005,
+    "label_normalization": 0.209,
+    "retrieval": 6860.645,
+    "sanitize": 337.511,
+    "semantic_cache": 18500.266,
+    "semantic_cache_write": 0.083,
+    "source_receipt": 2.499,
+    "total": 25709.483,
+    "trap_classifier": 0.518
   },
-  "trace_file": "code\\traces\\production\\ticket_1_20260502T023552970685Z_ad4acc54.json",
-  "trace_id": "1_20260502T023552970685Z_ad4acc54"
+  "trace_file": "code\\traces\\production\\ticket_1_20260502T030551759075Z_10d6b882.json",
+  "trace_id": "1_20260502T030551759075Z_10d6b882"
 }

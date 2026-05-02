@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:37:23.001165Z",
+  "created_at": "2026-05-02T03:07:19.289723Z",
   "final_decision": {
     "exact_quote": "These steps are intended for Claude for Education administrators and Learning Management Systems (LMS) administrators.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass; product_area_snapped=Claude for Education->general_support",
@@ -57,8 +57,8 @@
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 4250.247,
-            "verify": 2398.568
+            "generate": 7.683,
+            "verify": 8.337
           },
           "verifier": {
             "issues": [],
@@ -182,18 +182,18 @@
   },
   "ticket_id": 28,
   "timings_ms": {
-    "confidence_gates": 0.014,
-    "generation": 6648.901,
+    "confidence_gates": 0.033,
+    "generation": 16.255,
     "handler": 0.008,
-    "label_normalization": 0.667,
-    "retrieval": 5533.156,
-    "sanitize": 98.958,
-    "semantic_cache": 902.581,
-    "semantic_cache_write": 0.123,
-    "source_receipt": 0.005,
-    "total": 13186.374,
-    "trap_classifier": 0.397
+    "label_normalization": 0.979,
+    "retrieval": 9319.062,
+    "sanitize": 31.669,
+    "semantic_cache": 943.116,
+    "semantic_cache_write": 0.211,
+    "source_receipt": 0.007,
+    "total": 10312.626,
+    "trap_classifier": 0.487
   },
-  "trace_file": "code\\traces\\production\\ticket_28_20260502T023723000152Z_9ac02471.json",
-  "trace_id": "28_20260502T023723000152Z_9ac02471"
+  "trace_file": "code\\traces\\production\\ticket_28_20260502T030719289723Z_27600489.json",
+  "trace_id": "28_20260502T030719289723Z_27600489"
 }

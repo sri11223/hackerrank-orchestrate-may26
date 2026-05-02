@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-05-02T02:37:03.215253Z",
+  "created_at": "2026-05-02T03:06:50.072569Z",
   "final_decision": {
     "exact_quote": "HackerRank’s Resume Builder allows developers to revamp their professional resumes instantly. Import your existing resume (in PDF format) into the tool, and the AI-powered resume reviewer provides instant, detailed feedback in key areas such as grammar, formatting, and overall presentation. This feature is active for 2% of the Community and will soon be expanded to additional users.",
     "justification": "[NORMAL_FAQ] grounded generation; retrieval_score=0.98; verifier=pass; product_area_snapped=Resume Builder->screen; exact_quote_source=deterministic_fallback",
@@ -57,8 +57,8 @@
           "provider": "groq",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 4.557,
-            "verify": 17.079
+            "generate": 4.31,
+            "verify": 2.947
           },
           "verifier": {
             "issues": [
@@ -85,8 +85,8 @@
           "provider": "openai",
           "provider_fallback": null,
           "timings_ms": {
-            "generate": 12.88,
-            "verify": 16.381
+            "generate": 5.834,
+            "verify": 2.887
           },
           "verifier": {
             "issues": [],
@@ -209,18 +209,18 @@
   },
   "ticket_id": 17,
   "timings_ms": {
-    "confidence_gates": 0.014,
-    "generation": 52.619,
-    "handler": 0.004,
-    "label_normalization": 0.281,
-    "retrieval": 6193.882,
-    "sanitize": 49.894,
-    "semantic_cache": 683.561,
-    "semantic_cache_write": 0.161,
-    "source_receipt": 6.709,
-    "total": 6987.834,
-    "trap_classifier": 0.303
+    "confidence_gates": 0.013,
+    "generation": 16.265,
+    "handler": 0.003,
+    "label_normalization": 0.188,
+    "retrieval": 10598.038,
+    "sanitize": 67.653,
+    "semantic_cache": 4637.809,
+    "semantic_cache_write": 0.068,
+    "source_receipt": 0.918,
+    "total": 15321.659,
+    "trap_classifier": 0.445
   },
-  "trace_file": "code\\traces\\production\\ticket_17_20260502T023703215253Z_7950c86b.json",
-  "trace_id": "17_20260502T023703215253Z_7950c86b"
+  "trace_file": "code\\traces\\production\\ticket_17_20260502T030650072569Z_36c396fc.json",
+  "trace_id": "17_20260502T030650072569Z_36c396fc"
 }
