@@ -42,6 +42,7 @@ This is the point-by-point map from architecture claim to implementation:
 | Async parallel batch runtime | `triage/cli.py` processes CSV rows with `asyncio.as_completed` behind an `asyncio.Semaphore(5)`, while `triage/llm.py` uses `AsyncOpenAI` and `AsyncGroq` for awaited model calls. |
 | Per-stage timing instrumentation | `triage/orchestrator.py` records `timings_ms` for each stage and total runtime. |
 | Decision trace JSON sidecars | `triage/orchestrator.py` writes unique `ticket_<id>_<timestamp>_<uuid>.json` traces for batch, crucible, interactive, and error paths. |
+| Instant decision explainer | `triage/cli.py explain <ticket_id>` locates a trace sidecar and renders the sanitize, trap, retrieval, verifier, and self-healing path as a Rich audit tree. |
 | Claude-Code-style REPL | `triage/cli.py` implements the Rich interactive shell with banner, slash commands, mode switching, spinner, Markdown rendering, colored decision panel, and source receipt display. |
 
 ## The Story
@@ -76,7 +77,7 @@ too low, or the verifier is unsafe, Python overrides the answer to
 `escalated`. Every result gets a JSON sidecar so the judge can inspect the full
 decision tree.
 
-## The 15 Judge Pillars
+## The 16 Judge Pillars
 
 1. **Trap Taxonomy as Architecture**: `TrapTag` and handler dispatch are Python
    control flow, not model suggestions. Safety tags can bypass generation.
@@ -108,7 +109,10 @@ decision tree.
     milliseconds in `timings_ms`.
 14. **Decision Trace JSON Sidecars**: each batch, crucible, interactive, or
     error path writes a unique JSON trace.
-15. **Claude-Code-Style REPL**: the Rich terminal UI includes slash commands,
+15. **Instant Decision Explainer**: `python -m triage.cli explain <ticket_id>`
+    turns any sidecar into a human-readable audit tree with top chunks,
+    BM25/dense scores, verifier critiques, and the grounding confidence line.
+16. **Claude-Code-Style REPL**: the Rich terminal UI includes slash commands,
     mode switching, spinner, Markdown rendering, and source receipts.
 
 ## Enterprise Privacy Shield
@@ -246,6 +250,12 @@ Recompute the scorecard:
 
 ```bash
 PYTHONPATH=code python code/scorecard.py
+```
+
+Explain a production decision:
+
+```bash
+PYTHONPATH=code python -m triage.cli explain 13 --traces code/traces/production
 ```
 
 Package:

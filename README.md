@@ -208,6 +208,16 @@ Validate the output:
 PYTHONPATH=code python eval/validate_submission.py --output support_tickets/output.csv
 ```
 
+Explain one decision from its JSON sidecar:
+
+```bash
+PYTHONPATH=code python -m triage.cli explain 13 --traces code/traces/production
+```
+
+The explainer renders the sanitize result, trap tags, top retrieval evidence,
+verifier/self-healing path, and the exact grounding source/confidence line for
+live audit demos.
+
 Package the code zip:
 
 ```bash

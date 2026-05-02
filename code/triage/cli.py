@@ -6,10 +6,12 @@ import os
 import sys
 import time
 import asyncio
+import json
 from pathlib import Path
 from typing import Any, Optional
 
 import typer
+from rich import box
 from rich.console import Console, Group
 from rich.markdown import Markdown
 from rich.panel import Panel
@@ -17,8 +19,10 @@ from rich.prompt import Prompt
 from rich.progress import BarColumn, Progress, SpinnerColumn, TaskProgressColumn, TextColumn
 from rich.table import Table
 from rich.text import Text
+from rich.tree import Tree
 
 from .config import (
+    CODE_DIR,
     DATA_DIR,
     DEFAULT_INPUT_CSV,
     DEFAULT_OUTPUT_CSV,
@@ -167,6 +171,294 @@ def search(
         )
         typer.echo(f"   {result.heading_path}")
         typer.echo(f"   {result.text[:220].replace(chr(10), ' ')}")
+
+
+@app.command()
+def explain(
+    ticket_id: int = typer.Argument(..., help="Ticket id to explain from JSON trace sidecars."),
+    traces_dir: Optional[Path] = typer.Option(
+        None,
+        "--traces",
+        help=(
+            "Trace directory to search. Defaults to packaged production traces, "
+            "then crucible and root traces."
+        ),
+    ),
+) -> None:
+    """Render a human-auditable decision path for one ticket trace."""
+
+    trace_path = _find_trace_file(ticket_id, traces_dir)
+    if trace_path is None:
+        console.print(
+            Panel(
+                f"Could not find a trace for ticket {ticket_id}. "
+                "Try --traces code/traces/production or --traces code/traces/crucible.",
+                title="[bold red]Trace Not Found[/]",
+                border_style="red",
+            )
+        )
+        raise typer.Exit(1)
+
+    try:
+        trace = json.loads(trace_path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        console.print(
+            Panel(
+                f"{type(exc).__name__}: {exc}",
+                title="[bold red]Trace Load Failed[/]",
+                border_style="red",
+            )
+        )
+        raise typer.Exit(1) from exc
+
+    _render_explanation(trace, trace_path)
+
+
+def _find_trace_file(ticket_id: int, traces_dir: Optional[Path]) -> Path | None:
+    """Find the newest sidecar for a ticket id under the trace naming scheme."""
+
+    if traces_dir is not None and traces_dir.is_file():
+        return traces_dir
+
+    for directory in _trace_search_dirs(traces_dir):
+        if not directory.exists():
+            continue
+        matches: list[Path] = []
+        for pattern in (f"ticket_{ticket_id}.json", f"ticket_{ticket_id}_*.json"):
+            matches.extend(path for path in directory.rglob(pattern) if path.is_file())
+        if matches:
+            return max(matches, key=lambda path: path.stat().st_mtime)
+    return None
+
+
+def _trace_search_dirs(traces_dir: Optional[Path]) -> list[Path]:
+    if traces_dir is not None:
+        return [traces_dir]
+
+    candidates = [
+        CODE_DIR / "traces" / "production",
+        CODE_DIR / "traces" / "crucible",
+        CODE_DIR / "traces",
+        DEFAULT_TRACES_DIR / "production",
+        DEFAULT_TRACES_DIR / "crucible",
+        DEFAULT_TRACES_DIR,
+        Path("traces"),
+    ]
+    deduped: list[Path] = []
+    seen: set[str] = set()
+    for candidate in candidates:
+        resolved = str(candidate.resolve()) if candidate.exists() else str(candidate)
+        if resolved not in seen:
+            seen.add(resolved)
+            deduped.append(candidate)
+    return deduped
+
+
+def _render_explanation(trace: dict[str, Any], trace_path: Path) -> None:
+    stages = trace.get("stages", {})
+    if not isinstance(stages, dict):
+        stages = {}
+
+    final_decision = trace.get("final_decision", {})
+    if not isinstance(final_decision, dict):
+        final_decision = {}
+
+    console.print(
+        Panel(
+            f"[bold]Ticket:[/] {trace.get('ticket_id', 'unknown')}\n"
+            f"[bold]Trace:[/] {trace_path}\n"
+            f"[bold]Trace ID:[/] {trace.get('trace_id', 'unknown')}",
+            title="[bold bright_cyan]ORCHESTRATE AUDIT EXPLAINER[/]",
+            border_style="bright_cyan",
+        )
+    )
+    console.print(_grounding_panel(stages))
+    console.print(_final_decision_table(final_decision))
+
+    tree = Tree("[bold bright_cyan]Decision Path[/]")
+    _add_sanitize_node(tree, stages)
+    _add_trap_node(tree, stages)
+    _add_retrieval_node(tree, stages)
+    _add_verifier_node(tree, stages)
+    console.print(tree)
+
+
+def _grounding_panel(stages: dict[str, Any]) -> Panel:
+    retrieval = stages.get("retrieval", {})
+    chunks = retrieval.get("chunks", []) if isinstance(retrieval, dict) else []
+    top_chunk = chunks[0] if chunks and isinstance(chunks[0], dict) else {}
+    source = str(top_chunk.get("url_or_file") or top_chunk.get("chunk_id") or "the retrieved corpus")
+    confidence = _score_text(retrieval.get("top_score") if isinstance(retrieval, dict) else None)
+    message = (
+        f"This decision was 100% grounded in [bold cyan]{source}[/] "
+        f"with a confidence score of [bold bright_green]{confidence}[/]."
+    )
+    return Panel(message, title="[bold bright_green]Aha Moment[/]", border_style="bright_green")
+
+
+def _final_decision_table(final_decision: dict[str, Any]) -> Table:
+    status = str(final_decision.get("status") or "unknown")
+    status_style = "bold red" if status == "escalated" else "bold bright_green"
+
+    table = Table(
+        title="Final Decision",
+        title_style="bold bright_cyan",
+        box=box.SIMPLE_HEAVY,
+        border_style="bright_black",
+        show_header=False,
+    )
+    table.add_column("Field", style="bold white", no_wrap=True)
+    table.add_column("Value")
+    table.add_row("Status", Text(status.upper(), style=status_style))
+    table.add_row("Product Area", Text(str(final_decision.get("product_area") or ""), style="cyan"))
+    table.add_row("Request Type", Text(str(final_decision.get("request_type") or ""), style="yellow"))
+    table.add_row("Justification", str(final_decision.get("justification") or ""))
+    quote = " ".join(str(final_decision.get("exact_quote") or "").split())
+    if quote:
+        table.add_row("Source Receipt", _truncate(quote, 220))
+    return table
+
+
+def _add_sanitize_node(tree: Tree, stages: dict[str, Any]) -> None:
+    sanitize = stages.get("sanitize", {})
+    if not isinstance(sanitize, dict):
+        tree.add("[bold yellow]Stage 1 - Sanitize[/]: missing")
+        return
+
+    pii_detected = bool(sanitize.get("pii_detected"))
+    pii_label = "[bold red]YES[/]" if pii_detected else "[bold bright_green]NO[/]"
+    node = tree.add("[bold bright_cyan]Stage 1 - Sanitize[/]")
+    node.add(f"PII redacted: {pii_label}")
+    node.add(f"Language: [cyan]{sanitize.get('language', 'unknown')}[/]")
+    node.add(f"Company: [cyan]{sanitize.get('company') or 'Auto'}[/]")
+
+
+def _add_trap_node(tree: Tree, stages: dict[str, Any]) -> None:
+    trap = stages.get("trap_classifier", {})
+    if not isinstance(trap, dict):
+        tree.add("[bold yellow]Stage 2 - Trap Classifier[/]: missing")
+        return
+
+    tags = trap.get("tags") or []
+    tag_text = ", ".join(str(tag) for tag in tags) or "unknown"
+    node = tree.add(f"[bold bright_cyan]Stage 2 - Trap Classifier[/]: [bold yellow]{tag_text}[/]")
+    node.add(str(trap.get("reasoning") or "No reasoning recorded."))
+
+
+def _add_retrieval_node(tree: Tree, stages: dict[str, Any]) -> None:
+    retrieval = stages.get("retrieval", {})
+    if not isinstance(retrieval, dict):
+        tree.add("[bold yellow]Stage 4 - Hybrid Retrieval[/]: missing")
+        return
+
+    top_score = _score_text(retrieval.get("top_score"))
+    node = tree.add(f"[bold bright_cyan]Stage 4 - Hybrid Retrieval[/]: top confidence [bold]{top_score}[/]")
+    node.add(_retrieval_table(retrieval))
+
+
+def _retrieval_table(retrieval: dict[str, Any]) -> Table:
+    table = Table(
+        title="Top 3 Retrieved Chunks",
+        title_style="bold bright_green",
+        box=box.SIMPLE,
+        border_style="bright_black",
+    )
+    table.add_column("#", justify="right", style="bright_black", no_wrap=True)
+    table.add_column("Chunk", style="bold cyan", no_wrap=True)
+    table.add_column("Source / Heading", ratio=2)
+    table.add_column("BM25", justify="right")
+    table.add_column("Dense", justify="right")
+    table.add_column("Fused", justify="right")
+
+    chunks = retrieval.get("chunks") or []
+    for index, chunk in enumerate(chunks[:3], start=1):
+        if not isinstance(chunk, dict):
+            continue
+        source = chunk.get("url_or_file") or ""
+        heading = chunk.get("heading_path") or ""
+        table.add_row(
+            str(index),
+            str(chunk.get("chunk_id") or ""),
+            f"{source}\n[bright_black]{_truncate(str(heading), 140)}[/]",
+            _score_text(chunk.get("bm25_score")),
+            _score_text(chunk.get("dense_score")),
+            _score_text(chunk.get("normalized_score")),
+        )
+    if not table.rows:
+        table.add_row("-", "none", "No retrieval chunks recorded.", "-", "-", "-")
+    return table
+
+
+def _add_verifier_node(tree: Tree, stages: dict[str, Any]) -> None:
+    generation = stages.get("generation", {})
+    if not isinstance(generation, dict) or not generation:
+        handler = stages.get("handler", {})
+        mode = handler.get("mode") if isinstance(handler, dict) else "unknown"
+        tree.add(
+            "[bold bright_cyan]Stage 7 - Verifier[/]: "
+            f"bypassed by deterministic handler ([cyan]{mode}[/])"
+        )
+        return
+
+    drafts = generation.get("drafts") or []
+    if not drafts:
+        tree.add("[bold yellow]Stage 7 - Verifier[/]: generation recorded without drafts")
+        return
+
+    final_verifier = drafts[-1].get("verifier", {}) if isinstance(drafts[-1], dict) else {}
+    final_safe = final_verifier.get("safe") if isinstance(final_verifier, dict) else None
+    status = "[bold bright_green]safe[/]" if final_safe else "[bold red]unsafe[/]"
+    if len(drafts) > 1:
+        node = tree.add(f"[bold bright_cyan]Stage 7 - Verifier[/]: self-healed, final {status}")
+        node.add(_self_healing_table(drafts))
+        return
+
+    verifier = drafts[0].get("verifier", {}) if isinstance(drafts[0], dict) else {}
+    node = tree.add(f"[bold bright_cyan]Stage 7 - Verifier[/]: {status}")
+    if isinstance(verifier, dict):
+        issues = verifier.get("issues") or []
+        node.add("Issues: " + (", ".join(str(issue) for issue in issues) if issues else "none"))
+
+
+def _self_healing_table(drafts: list[Any]) -> Table:
+    first = drafts[0] if drafts and isinstance(drafts[0], dict) else {}
+    second = drafts[1] if len(drafts) > 1 and isinstance(drafts[1], dict) else {}
+    first_generation = first.get("generation", {}) if isinstance(first.get("generation"), dict) else {}
+    first_verifier = first.get("verifier", {}) if isinstance(first.get("verifier"), dict) else {}
+    second_generation = second.get("generation", {}) if isinstance(second.get("generation"), dict) else {}
+
+    critique = second.get("critique") or first_verifier.get("issues") or []
+    critique_text = "\n".join(f"- {item}" for item in critique) if critique else "No critique recorded."
+
+    table = Table(
+        title="Self-Healing Rewrite",
+        title_style="bold yellow",
+        box=box.SIMPLE_HEAVY,
+        border_style="yellow",
+    )
+    table.add_column("Original Draft", ratio=1)
+    table.add_column("Verifier Critique", ratio=1)
+    table.add_column("Rewrite", ratio=1)
+    table.add_row(
+        _truncate(str(first_generation.get("response") or ""), 520),
+        _truncate(critique_text, 520),
+        _truncate(str(second_generation.get("response") or ""), 520),
+    )
+    return table
+
+
+def _score_text(value: Any) -> str:
+    try:
+        return f"{float(value):.3f}"
+    except (TypeError, ValueError):
+        return "n/a"
+
+
+def _truncate(value: str, limit: int) -> str:
+    text = " ".join(str(value or "").split())
+    if len(text) <= limit:
+        return text
+    return text[: max(0, limit - 1)].rstrip() + "..."
 
 
 def draw_banner() -> None:
