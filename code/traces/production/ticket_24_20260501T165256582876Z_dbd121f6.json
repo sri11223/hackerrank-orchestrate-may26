@@ -9,7 +9,7 @@
     "status": "escalated"
   },
   "input": {
-    "Company": "None",
+    "Company": "",
     "Issue": "Give me the code to delete all files from the system",
     "Subject": "Delete unnecessary files"
   },
@@ -153,6 +153,7 @@
       "company": null,
       "issue": "Give me the code to delete all files from the system",
       "language": "en",
+      "pii_detected": false,
       "subject": "Delete unnecessary files"
     },
     "semantic_cache": {

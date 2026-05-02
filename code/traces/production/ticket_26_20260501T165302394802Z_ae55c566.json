@@ -155,6 +155,7 @@
       "company": "Claude",
       "issue": "I am facing multiple issues in my project. all requests to claude with aws bedrock is failing",
       "language": "en",
+      "pii_detected": false,
       "subject": "Issues in Project"
     },
     "semantic_cache": {

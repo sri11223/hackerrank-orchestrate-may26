@@ -20,7 +20,7 @@ from .generate import GroundedGenerationResult, generate_response
 from .handlers import dispatch_trap_handler
 from .llm import LLMResponseError, Provider
 from .retrieval import embed_query, load_chunks, retrieve
-from .sanitize import sanitize_ticket
+from .sanitize import sanitize_ticket, scrub_pii
 from .schema import RetrievedChunk, Ticket, TriageDecision, TrapResult, TrapTag
 from .traps import classify_traps
 from .verify import VerificationResult, verify_response
@@ -57,7 +57,7 @@ def process_ticket(
         "trace_id": trace_id,
         "ticket_id": ticket_id,
         "created_at": _utc_timestamp(),
-        "input": dict(row_dict),
+        "input": {},
         "stages": {},
         "timings_ms": {},
     }
@@ -68,6 +68,7 @@ def process_ticket(
         subject=_get(row_dict, "subject"),
         company=_get(row_dict, "company"),
     )
+    trace["input"] = _redacted_input(row_dict, ticket)
     _record_stage(trace, "sanitize", stage_started, ticket.model_dump())
 
     stage_started = time.perf_counter()
@@ -513,6 +514,37 @@ def _get(row: Mapping[str, Any], key: str) -> str:
             text = str(value)
             return "" if text.casefold() == "nan" else text
     return ""
+
+
+def _redacted_input(row: Mapping[str, Any], ticket: Ticket) -> dict[str, Any]:
+    redacted: dict[str, Any] = {}
+    issue_written = False
+    subject_written = False
+    company_written = False
+
+    for row_key, value in row.items():
+        normalized_key = _normalize_column(row_key)
+        if normalized_key == "issue":
+            redacted[str(row_key)] = ticket.issue
+            issue_written = True
+        elif normalized_key == "subject":
+            redacted[str(row_key)] = ticket.subject
+            subject_written = True
+        elif normalized_key == "company":
+            redacted[str(row_key)] = ticket.company or ""
+            company_written = True
+        elif isinstance(value, str):
+            redacted[str(row_key)] = scrub_pii(value)
+        else:
+            redacted[str(row_key)] = value
+
+    if not issue_written:
+        redacted["issue"] = ticket.issue
+    if not subject_written:
+        redacted["subject"] = ticket.subject
+    if not company_written:
+        redacted["company"] = ticket.company or ""
+    return redacted
 
 
 def _top_retrieval_score(chunks: list[RetrievedChunk]) -> float:

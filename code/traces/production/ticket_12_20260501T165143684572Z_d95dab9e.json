@@ -9,7 +9,7 @@
     "status": "replied"
   },
   "input": {
-    "Company": "None",
+    "Company": "",
     "Issue": "it’s not working, help",
     "Subject": "Help needed"
   },
@@ -155,6 +155,7 @@
       "company": null,
       "issue": "it’s not working, help",
       "language": "af",
+      "pii_detected": false,
       "subject": "Help needed"
     },
     "semantic_cache": {

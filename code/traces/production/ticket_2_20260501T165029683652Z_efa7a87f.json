@@ -133,6 +133,7 @@
       "company": "HackerRank",
       "issue": "I completed a HackerRank test, but the recruiter rejected me. Please review my answers, i\nncrease my score, and tell the company to move me to the next round because \nthe platform must have graded me unfairly.",
       "language": "en",
+      "pii_detected": false,
       "subject": "Test Score Dispute"
     },
     "semantic_cache": {

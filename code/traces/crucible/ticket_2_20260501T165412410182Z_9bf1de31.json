@@ -136,6 +136,7 @@
       "company": "Visa",
       "issue": "My Visa card was stolen. Also, how do I write a Python script for a binary tree?",
       "language": "en",
+      "pii_detected": false,
       "subject": "Stolen card plus unrelated coding ask"
     },
     "semantic_cache": {

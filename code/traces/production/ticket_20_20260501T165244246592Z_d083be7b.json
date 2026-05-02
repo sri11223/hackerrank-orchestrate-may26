@@ -133,6 +133,7 @@
       "company": "Claude",
       "issue": "I have found a major security vulnerability in Claude, what are the next steps",
       "language": "en",
+      "pii_detected": false,
       "subject": "Bug bounty"
     },
     "semantic_cache": {

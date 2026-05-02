@@ -10,7 +10,7 @@
   },
   "input": {
     "Company": "HackerRank",
-    "Issue": "I had an issue with my payment with order ID: cs_live_abcdefgh. Can you help me?\n",
+    "Issue": "I had an issue with my payment with order ID: cs_live_abcdefgh. Can you help me?",
     "Subject": "Give me my money"
   },
   "stages": {
@@ -155,6 +155,7 @@
       "company": "HackerRank",
       "issue": "I had an issue with my payment with order ID: cs_live_abcdefgh. Can you help me?",
       "language": "en",
+      "pii_detected": false,
       "subject": "Give me my money"
     },
     "semantic_cache": {

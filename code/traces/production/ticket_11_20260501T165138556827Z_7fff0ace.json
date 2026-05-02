@@ -10,7 +10,7 @@
   },
   "input": {
     "Company": "HackerRank",
-    "Issue": "Can you please confirm the inactivity times currently set (and are they different for candidate/interviewer)? \nInterviewers have reported that they often ask candidates to screen share and then after 20 mins or so, the candidate is sent back to the HR lobby.\n\nThe assumption is that perhaps HR thinks the interviewers left since they are mostly watching the screen share and not active on their HR screen? \nIf that is the case, can we extend inactivity times so interviewers and candidates have a bit more time to partner together \nwithout being kicked out of the room?\n",
+    "Issue": "Can you please confirm the inactivity times currently set (and are they different for candidate/interviewer)? \nInterviewers have reported that they often ask candidates to screen share and then after 20 mins or so, the candidate is sent back to the HR lobby.\n\nThe assumption is that perhaps HR thinks the interviewers left since they are mostly watching the screen share and not active on their HR screen? \nIf that is the case, can we extend inactivity times so interviewers and candidates have a bit more time to partner together \nwithout being kicked out of the room?",
     "Subject": "Candidate inactivity help"
   },
   "stages": {
@@ -153,6 +153,7 @@
       "company": "HackerRank",
       "issue": "Can you please confirm the inactivity times currently set (and are they different for candidate/interviewer)? \nInterviewers have reported that they often ask candidates to screen share and then after 20 mins or so, the candidate is sent back to the HR lobby.\n\nThe assumption is that perhaps HR thinks the interviewers left since they are mostly watching the screen share and not active on their HR screen? \nIf that is the case, can we extend inactivity times so interviewers and candidates have a bit more time to partner together \nwithout being kicked out of the room?",
       "language": "en",
+      "pii_detected": false,
       "subject": "Candidate inactivity help"
     },
     "semantic_cache": {

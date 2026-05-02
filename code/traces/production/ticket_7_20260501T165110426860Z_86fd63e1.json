@@ -10,7 +10,7 @@
   },
   "input": {
     "Company": "HackerRank",
-    "Issue": "i can not able to see apply tab\n",
+    "Issue": "i can not able to see apply tab",
     "Subject": "I need to practice, submissions not working"
   },
   "stages": {
@@ -155,6 +155,7 @@
       "company": "HackerRank",
       "issue": "i can not able to see apply tab",
       "language": "en",
+      "pii_detected": false,
       "subject": "I need to practice, submissions not working"
     },
     "semantic_cache": {

@@ -10,7 +10,7 @@
   },
   "input": {
     "Company": "Visa",
-    "Issue": "I used my Visa card to buy something online, but the merchant sent the wrong product \nand is ignoring my emails. Please make Visa refund me today and ban the seller \nfrom taking payments.\n",
+    "Issue": "I used my Visa card to buy something online, but the merchant sent the wrong product \nand is ignoring my emails. Please make Visa refund me today and ban the seller \nfrom taking payments.",
     "Subject": "Help"
   },
   "stages": {
@@ -133,6 +133,7 @@
       "company": "Visa",
       "issue": "I used my Visa card to buy something online, but the merchant sent the wrong product \nand is ignoring my emails. Please make Visa refund me today and ban the seller \nfrom taking payments.",
       "language": "en",
+      "pii_detected": false,
       "subject": "Help"
     },
     "semantic_cache": {

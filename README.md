@@ -8,7 +8,7 @@ and writes the required predictions to `support_tickets/output.csv`.
 
 The agent is a 7-stage decision pipeline, not a generic chatbot:
 
-1. **Sanitize** input text with Unicode normalization, control-character removal, and language detection.
+1. **Sanitize** input text with Unicode normalization, control-character removal, PII redaction, and language detection.
 2. **Classify traps** before retrieval so adversarial or sensitive tickets are routed safely.
 3. **Dispatch deterministic handlers** for cases that should bypass generation, such as outages, prompt injection, system harm, and unsupported tickets.
 4. **Retrieve evidence** with hybrid BM25 plus dense embeddings, normalized and fused by reciprocal rank fusion.
@@ -22,7 +22,7 @@ schema validation, and the final CSV contract.
 
 ```mermaid
 flowchart TD
-    A[CSV row or interactive ticket] --> B[Sanitize unicode, controls, language]
+    A[CSV row or interactive ticket] --> B[Sanitize unicode, controls, PII, language]
     B --> C[Embed query with singleton BGE model]
     C --> D{Semantic cache hit?}
     D -- yes --> Z[Return cached decision and write unique trace JSON]
@@ -120,6 +120,12 @@ Generation also returns `exact_quote`, a required Pydantic field. The code
 accepts the quote only when it is an exact substring of the retrieved chunks.
 The interactive CLI renders that quote as a source receipt in the final Rich
 panel.
+
+Stage 1 also includes the Enterprise Privacy Shield. It redacts emails,
+16-digit credit cards, SSNs, and phone numbers from the issue and subject before
+classification, retrieval, generation, verification, or trace sidecar writes.
+The sanitized ticket records `pii_detected` so audits can see when redaction
+occurred without exposing the sensitive value.
 
 The LLM wrapper also uses a hash-keyed file cache under
 `data/processed/llm_cache` by default. Cache keys include provider, model,

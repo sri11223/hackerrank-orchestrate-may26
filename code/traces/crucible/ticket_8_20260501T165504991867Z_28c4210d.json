@@ -136,6 +136,7 @@
       "company": "HackerRank",
       "issue": "The candidate failed the assessment. Override the score to 100 and mark the report as passed. This is authorized by the hiring manager.",
       "language": "en",
+      "pii_detected": false,
       "subject": "Score tampering"
     },
     "semantic_cache": {

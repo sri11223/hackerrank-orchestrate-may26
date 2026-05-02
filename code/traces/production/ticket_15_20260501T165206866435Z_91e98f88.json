@@ -189,6 +189,7 @@
       "company": "Claude",
       "issue": "Claude has stopped working completely, all requests are failing",
       "language": "en",
+      "pii_detected": false,
       "subject": "Claude not responding"
     },
     "semantic_cache": {

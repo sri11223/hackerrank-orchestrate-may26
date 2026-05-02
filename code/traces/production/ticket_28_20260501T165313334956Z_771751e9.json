@@ -133,6 +133,7 @@
       "company": "Claude",
       "issue": "i am a professor in a college and wanted to setup a claude lti key for my students",
       "language": "en",
+      "pii_detected": false,
       "subject": "Claude for students"
     },
     "semantic_cache": {

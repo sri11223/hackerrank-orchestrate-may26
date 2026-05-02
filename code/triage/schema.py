@@ -108,6 +108,10 @@ class Ticket(BaseModel):
     subject: str = Field(default="", description="Unicode-normalized ticket subject.")
     company: str | None = Field(default=None, description="Stated company/domain, if provided.")
     language: str = Field(default="unknown", description="Detected ISO-639 language code.")
+    pii_detected: bool = Field(
+        default=False,
+        description="True when Stage 1 redacted PII from issue or subject.",
+    )
 
     @property
     def text(self) -> str:

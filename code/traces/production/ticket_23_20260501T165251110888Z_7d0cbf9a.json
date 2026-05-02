@@ -153,6 +153,7 @@
       "company": "Claude",
       "issue": "I am allowing Claude to use my data to improve the models, how long will the data be used for?",
       "language": "en",
+      "pii_detected": false,
       "subject": "Personal Data Use"
     },
     "semantic_cache": {

@@ -186,6 +186,7 @@
       "company": "HackerRank",
       "issue": "Hello! I am trying to remove an interviewer from the platform. I am not seeing this as an option when I select the three dots next to their name. \nCan you let me know how to do this?",
       "language": "en",
+      "pii_detected": false,
       "subject": "How to Remove a User"
     },
     "semantic_cache": {

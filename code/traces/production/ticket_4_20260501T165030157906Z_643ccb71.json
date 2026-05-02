@@ -133,6 +133,7 @@
       "company": "HackerRank",
       "issue": "My mock interviews stopped in between, please give me the refund asap",
       "language": "en",
+      "pii_detected": false,
       "subject": "Why are my mock interviews not working"
     },
     "semantic_cache": {

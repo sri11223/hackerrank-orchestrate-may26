@@ -155,6 +155,7 @@
       "company": "Visa",
       "issue": "i am in US Virgin Islands and the merchant is saying i have to spend minimum 10$ on my VISA card, why so?",
       "language": "en",
+      "pii_detected": false,
       "subject": "Visa card minimum spend"
     },
     "semantic_cache": {

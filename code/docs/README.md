@@ -36,7 +36,8 @@ This is the point-by-point map from architecture claim to implementation:
 | Cross-encoder rerank with sigmoid scoring | `triage/retrieval.py` reranks RRF candidates with a CrossEncoder when available and sigmoid-normalizes the pairwise scores; if the model cannot load offline, it uses a deterministic sigmoid fallback so traces still contain a calibrated rerank signal. |
 | Citation enforcement and validation | `triage/generate.py` validates cited chunk IDs against supplied chunks and drops non-verbatim `exact_quote` values. `triage/orchestrator.py` adds a deterministic verbatim receipt fallback for replied decisions. |
 | Canonical product-area mapping | `triage/orchestrator.py` snaps model labels into known product areas using the sample labels, heading heuristics, and `difflib` close matches. |
-| Multilingual without translation | `triage/sanitize.py` detects the language and stores it on the `Ticket`; prompts carry the language metadata without translating or altering the user issue. |
+| Enterprise Privacy Shield | `triage/sanitize.py` scrubs emails, 16-digit credit cards, SSNs, and phone numbers before classifier, retrieval, generator, verifier, or trace sidecar writes can see the text. |
+| Multilingual without translation | `triage/sanitize.py` detects the language and stores it on the `Ticket`; prompts carry the language metadata without translating or altering the redacted user issue. |
 | File-based LLM cache | `triage/llm.py` hashes provider, model, messages, temperature, max tokens, and strict JSON mode; successful responses are cached as JSON files under `data/processed/llm_cache` by default. |
 | Per-stage timing instrumentation | `triage/orchestrator.py` records `timings_ms` for each stage and total runtime. |
 | Decision trace JSON sidecars | `triage/orchestrator.py` writes unique `ticket_<id>_<timestamp>_<uuid>.json` traces for batch, crucible, interactive, and error paths. |
@@ -74,35 +75,52 @@ too low, or the verifier is unsafe, Python overrides the answer to
 `escalated`. Every result gets a JSON sidecar so the judge can inspect the full
 decision tree.
 
-## The 13 Judge Pillars
+## The 14 Judge Pillars
 
 1. **Trap Taxonomy as Architecture**: `TrapTag` and handler dispatch are Python
    control flow, not model suggestions. Safety tags can bypass generation.
-2. **Three-Signal Escalation Gate**: retrieval confidence, verifier safety, and
+2. **Enterprise Privacy Shield**: Stage 1 redacts emails, 16-digit credit
+   cards, SSNs, and phone numbers, then records `pii_detected` in the trace.
+3. **Three-Signal Escalation Gate**: retrieval confidence, verifier safety, and
    generation confidence are checked before any generated answer is allowed.
-3. **Adversarial Verifier**: a separate critic audits prompt injection,
+4. **Adversarial Verifier**: a separate critic audits prompt injection,
    unsupported facts, hidden-rule leakage, and unauthorized action claims.
-4. **Cost-Routed Dual Provider LLM**: normal FAQs try Groq/Llama first;
+5. **Cost-Routed Dual Provider LLM**: normal FAQs try Groq/Llama first;
    sensitive paths and rewrites route to OpenAI, with fallback on provider
    failure.
-5. **Hybrid Retrieval**: BM25 exact search, BGE dense search, score
+6. **Hybrid Retrieval**: BM25 exact search, BGE dense search, score
    normalization, and RRF fusion run before generation.
-6. **Cross-Encoder Rerank**: RRF candidates receive sigmoid-normalized
+7. **Cross-Encoder Rerank**: RRF candidates receive sigmoid-normalized
    query/document pair scores from a CrossEncoder or deterministic fallback.
-7. **Citation Enforcement**: generated citations must reference supplied chunk
+8. **Citation Enforcement**: generated citations must reference supplied chunk
    IDs, and `exact_quote` must be an exact source substring.
-8. **Canonical Product-Area Mapping**: arbitrary model labels snap to known
+9. **Canonical Product-Area Mapping**: arbitrary model labels snap to known
    product-area values through deterministic mapping.
-9. **Multilingual Without Translation**: language is detected and carried as
+10. **Multilingual Without Translation**: language is detected and carried as
    metadata while the original issue remains unchanged.
-10. **File-Based LLM Cache**: LLM calls are cached by SHA-256 hash key under
+11. **File-Based LLM Cache**: LLM calls are cached by SHA-256 hash key under
     `data/processed/llm_cache`.
-11. **Per-Stage Timing Instrumentation**: every stage records elapsed
+12. **Per-Stage Timing Instrumentation**: every stage records elapsed
     milliseconds in `timings_ms`.
-12. **Decision Trace JSON Sidecars**: each batch, crucible, interactive, or
+13. **Decision Trace JSON Sidecars**: each batch, crucible, interactive, or
     error path writes a unique JSON trace.
-13. **Claude-Code-Style REPL**: the Rich terminal UI includes slash commands,
+14. **Claude-Code-Style REPL**: the Rich terminal UI includes slash commands,
     mode switching, spinner, Markdown rendering, and source receipts.
+
+## Enterprise Privacy Shield
+
+Before any external LLM call, the Stage 1 sanitizer runs `scrub_pii()` over the
+ticket `Issue` and `Subject`. It replaces sensitive values with stable
+placeholders:
+
+- emails -> `[EMAIL_REDACTED]`
+- 16-digit credit cards -> `[CC_REDACTED]`
+- SSNs in `XXX-XX-XXXX` form -> `[SSN_REDACTED]`
+- phone numbers -> `[PHONE_REDACTED]`
+
+The resulting `Ticket` carries `pii_detected: true|false`. The orchestrator
+writes only the redacted issue and subject into trace sidecars, so proof
+artifacts can be shared without leaking customer identifiers.
 
 ## Final Integrity Score
 

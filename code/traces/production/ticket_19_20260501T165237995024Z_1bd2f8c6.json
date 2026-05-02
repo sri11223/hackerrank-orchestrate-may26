@@ -155,6 +155,7 @@
       "company": "Visa",
       "issue": "How do I dispute a charge",
       "language": "en",
+      "pii_detected": false,
       "subject": "Dispute charge"
     },
     "semantic_cache": {

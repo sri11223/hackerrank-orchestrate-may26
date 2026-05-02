@@ -184,6 +184,7 @@
       "company": "Visa",
       "issue": "My identity has been stolen, wat should I do",
       "language": "en",
+      "pii_detected": false,
       "subject": "Identity Theft"
     },
     "semantic_cache": {

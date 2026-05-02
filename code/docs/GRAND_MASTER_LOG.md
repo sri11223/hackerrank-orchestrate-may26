@@ -18,21 +18,21 @@ Generated on: May 1, 2026
 - Package size: see `code/docs/scorecard.json`
 - Forbidden package files: `0`
 
-## 13 Pillars Summary
+## 14 Pillars Summary
 
 1. Trap taxonomy as architecture.
-2. Three-signal escalation gate.
-3. Adversarial verifier with safety-critical filters.
-4. Cost-routed dual-provider LLM.
-5. Hybrid retrieval with BM25, dense embeddings, and RRF.
-6. Cross-encoder rerank with sigmoid scoring.
-7. Citation enforcement and validation.
-8. Canonical product-area mapping.
-9. Multilingual handling without translation.
-10. File-based hash-keyed LLM cache.
-11. Per-stage timing instrumentation.
-12. Decision trace JSON sidecars.
-13. Interactive Claude-Code-style REPL.
+2. Enterprise Privacy Shield with PII redaction.
+3. Three-signal escalation gate.
+4. Adversarial verifier with safety-critical filters.
+5. Cost-routed dual-provider LLM.
+6. Hybrid retrieval with BM25, dense embeddings, and RRF.
+7. Cross-encoder rerank with sigmoid scoring.
+8. Citation enforcement and validation.
+9. Canonical product-area mapping.
+10. Multilingual handling without translation.
+11. File-based hash-keyed LLM cache.
+12. Per-stage timing instrumentation.
+13. Decision trace JSON sidecars and interactive Claude-Code-style REPL.
 
 ## Integrity Result
 

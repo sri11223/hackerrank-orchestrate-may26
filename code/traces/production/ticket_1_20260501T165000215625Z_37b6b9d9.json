@@ -10,7 +10,7 @@
   },
   "input": {
     "Company": "Claude",
-    "Issue": "I lost access to my Claude team workspace after our IT admin removed my seat. \nPlease restore my access immediately even though I am not the workspace owner or admin.\n",
+    "Issue": "I lost access to my Claude team workspace after our IT admin removed my seat. \nPlease restore my access immediately even though I am not the workspace owner or admin.",
     "Subject": "Claude access lost"
   },
   "stages": {
@@ -133,6 +133,7 @@
       "company": "Claude",
       "issue": "I lost access to my Claude team workspace after our IT admin removed my seat. \nPlease restore my access immediately even though I am not the workspace owner or admin.",
       "language": "en",
+      "pii_detected": false,
       "subject": "Claude access lost"
     },
     "semantic_cache": {

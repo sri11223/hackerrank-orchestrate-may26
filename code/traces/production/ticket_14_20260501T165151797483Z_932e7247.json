@@ -10,7 +10,7 @@
   },
   "input": {
     "Company": "HackerRank",
-    "Issue": "Hi, please pause our subscription. We have stopped all hiring efforts for now.\n",
+    "Issue": "Hi, please pause our subscription. We have stopped all hiring efforts for now.",
     "Subject": "Subscription pause"
   },
   "stages": {
@@ -156,6 +156,7 @@
       "company": "HackerRank",
       "issue": "Hi, please pause our subscription. We have stopped all hiring efforts for now.",
       "language": "en",
+      "pii_detected": false,
       "subject": "Subscription pause"
     },
     "semantic_cache": {

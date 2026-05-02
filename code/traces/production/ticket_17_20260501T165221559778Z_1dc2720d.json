@@ -153,6 +153,7 @@
       "company": "HackerRank",
       "issue": "Resume Builder is Down",
       "language": "en",
+      "pii_detected": false,
       "subject": "Help in creating resume"
     },
     "semantic_cache": {

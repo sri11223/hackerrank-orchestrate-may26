@@ -10,7 +10,7 @@
   },
   "input": {
     "Company": "HackerRank",
-    "Issue": "Hello, I have completed an assessment, but my name is incorrect on the certificate. Can you please update it\n",
+    "Issue": "Hello, I have completed an assessment, but my name is incorrect on the certificate. Can you please update it",
     "Subject": "Certificate name update"
   },
   "stages": {
@@ -155,6 +155,7 @@
       "company": "HackerRank",
       "issue": "Hello, I have completed an assessment, but my name is incorrect on the certificate. Can you please update it",
       "language": "en",
+      "pii_detected": false,
       "subject": "Certificate name update"
     },
     "semantic_cache": {

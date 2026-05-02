@@ -155,6 +155,7 @@
       "company": "HackerRank",
       "issue": "none of the submissions across any challenges are working on your website",
       "language": "en",
+      "pii_detected": false,
       "subject": "Issue while taking the test"
     },
     "semantic_cache": {

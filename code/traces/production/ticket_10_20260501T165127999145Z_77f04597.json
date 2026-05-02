@@ -10,7 +10,7 @@
   },
   "input": {
     "Company": "HackerRank",
-    "Issue": "I would like to request a rescheduling of my  company \"Company Name\" HackerRank assessment due to unforeseen circumstances \nthat prevented me from attending the test at the scheduled time.\nI am very interested in this opportunity and would be grateful if you could \nprovide me with an alternative date and time to complete the assessment.\nThank you for your understanding and support.",
+    "Issue": "I would like to request a rescheduling of my company \"Company Name\" HackerRank assessment due to unforeseen circumstances \nthat prevented me from attending the test at the scheduled time.\nI am very interested in this opportunity and would be grateful if you could \nprovide me with an alternative date and time to complete the assessment.\nThank you for your understanding and support.",
     "Subject": ""
   },
   "stages": {
@@ -155,6 +155,7 @@
       "company": "HackerRank",
       "issue": "I would like to request a rescheduling of my company \"Company Name\" HackerRank assessment due to unforeseen circumstances \nthat prevented me from attending the test at the scheduled time.\nI am very interested in this opportunity and would be grateful if you could \nprovide me with an alternative date and time to complete the assessment.\nThank you for your understanding and support.",
       "language": "en",
+      "pii_detected": false,
       "subject": ""
     },
     "semantic_cache": {

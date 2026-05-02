@@ -155,6 +155,7 @@
       "company": "Visa",
       "issue": "I need urgent cash but don't have any right now & only the VISA card",
       "language": "en",
+      "pii_detected": false,
       "subject": "Urgent need for cash"
     },
     "semantic_cache": {

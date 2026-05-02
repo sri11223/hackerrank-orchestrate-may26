@@ -156,6 +156,7 @@
       "company": "Claude",
       "issue": "I want Claude to stop crawling by website",
       "language": "en",
+      "pii_detected": false,
       "subject": "Website Data crawl"
     },
     "semantic_cache": {

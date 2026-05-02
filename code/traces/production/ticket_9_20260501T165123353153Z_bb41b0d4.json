@@ -153,6 +153,7 @@
       "company": "HackerRank",
       "issue": "I am facing an blocker while doing compatible check all the criterias are matching other than zoom \nconnectivity. Due to which i am unable to take the test. I have done all through my way by \nchanging the settings and system configurations but still showing error",
       "language": "en",
+      "pii_detected": false,
       "subject": "I am facing an blocker while doing compatible check"
     },
     "semantic_cache": {
